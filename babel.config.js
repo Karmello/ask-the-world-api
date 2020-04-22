@@ -10,7 +10,7 @@ module.exports = function (api) {
       {
         alias: {
           '^src(.+)': './src/\\1',
-          '^(controllers)(.+)': './src/\\1/\\2',
+          '^(controllers|utils|models)(.+)': './src/\\1/\\2',
         },
       },
     ],
