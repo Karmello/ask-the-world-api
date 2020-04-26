@@ -4,7 +4,7 @@ const getRandNum = (min, max) => Math.random() * (max - min) + min
 
 const questionMocks = []
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 10000; i++) {
   //
   const numOfAnswers = getRandNum(2, 5)
 
