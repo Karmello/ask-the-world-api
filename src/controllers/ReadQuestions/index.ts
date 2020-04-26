@@ -11,7 +11,7 @@ export default (app: Application) =>
 
     if (pageNo) offset = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
 
-    QuestionModel.count((err: Error, count: number) => {
+    QuestionModel.countDocuments((err: Error, count: number) => {
       //
       if (err) res.status(400).send(err)
 

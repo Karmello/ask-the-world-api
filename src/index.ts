@@ -6,7 +6,7 @@ import registerControllers from 'controllers/index'
 
 require('dotenv').config()
 
-const { NODE_ENV, PORT, MONGODB_URI } = process.env
+const { NODE_ENV, PORT, MONGODB_URI, REACT_APP_ENV } = process.env
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
