@@ -2,33 +2,29 @@ import mongoose from 'mongoose'
 
 import { ModelName } from 'utils/index'
 
-export default mongoose.model(
+const { model, Schema } = mongoose
+
+export default model(
   ModelName.Question,
-  new mongoose.Schema(
+  new Schema(
     {
-      question: {
+      text: {
         type: String,
         required: true,
       },
-      answers: {
-        answer1: {
-          type: String,
-          required: true,
+      answers: [
+        {
+          text: {
+            type: String,
+            required: true,
+          },
+          votes: {
+            type: [String],
+            required: true,
+            default: [],
+          },
         },
-        answer2: {
-          type: String,
-          required: true,
-        },
-        answer3: {
-          type: String,
-        },
-        answer4: {
-          type: String,
-        },
-        answer5: {
-          type: String,
-        },
-      },
+      ],
       options: {
         multipleChoice: {
           type: Boolean,
