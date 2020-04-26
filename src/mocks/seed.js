@@ -1,4 +1,4 @@
-const questionMocks = require('./src/mocks/questions')
+const questionMocks = require('./questions')
 
 async function resetDB(client) {
   const questionsCollection = await client.db().collection('questions')

@@ -7,6 +7,8 @@ import UpdateQuestion from './UpdateQuestion/index'
 
 const registerControllers = (app: Application) => {
   //
+  app.get('/', (req, res) => res.status(200).send('OK'))
+
   CreateQuestion(app)
   ReadQuestions(app)
   ReadQuestion(app)
