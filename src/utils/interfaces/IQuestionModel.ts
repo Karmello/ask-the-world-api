@@ -1,7 +1,8 @@
 import { Document } from 'mongoose'
 
-interface IQuestionSchema extends Document {
+interface IQuestionModel extends Document {
+  no: number
   answers: Array<any>
 }
 
-export default IQuestionSchema
+export default IQuestionModel

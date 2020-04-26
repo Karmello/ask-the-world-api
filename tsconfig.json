@@ -11,7 +11,8 @@
     "paths": {
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
-      "models/*": ["src/models/*"]
+      "models/*": ["src/models/*"],
+      "mocks/*": ["src/mocks/*"]
     }
   },
   "include": ["src/**/*"],

@@ -27,15 +27,20 @@ app.use((req, res, next) => {
 registerControllers(app)
 
 if (NODE_ENV !== 'test') {
-  mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(
-    () => {
-      app.listen(PORT, (err?) => {
-        if (err) return console.log(err)
-        console.log(`API listening on port ${PORT}`, { NODE_ENV }, '\n')
-      })
-    },
-    err => console.log(err)
-  )
+  mongoose
+    .connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(
+      () => {
+        app.listen(PORT, (err?) => {
+          if (err) return console.log(err)
+          console.log(`API listening on port ${PORT}`, { NODE_ENV }, '\n')
+        })
+      },
+      err => console.log(err)
+    )
 }
 
 export default app

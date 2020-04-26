@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=production node build/index.js",
     "start-local": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true nodemon --watch src src/bootstrap.ts",
     "prettier": "prettier --check src/**/*.ts",
-    "test": "cross-env"
+    "test": "cross-env",
+    "seed": "node < ./src/mocks/insert.js"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -23,6 +24,7 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "mongoose": "^5.9.10",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.4",

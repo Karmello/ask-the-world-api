@@ -2,8 +2,8 @@
 setlocal ENABLEDELAYEDEXPANSION
 
 if %1 == local (
-  cmd /c "mongod" -new_console:t:"mongod"
-  cmd /c "yarn start-local" -new_console:t:"api"
+  cmd /k "mongod" -new_console:t:"mongod"
+  cmd /k "yarn start-local" -new_console:t:"api"
   goto:end
 )
 
