@@ -9,7 +9,8 @@
     "prettier": "prettier --check src/**/*.ts",
     "test": "cross-env",
     "seed": "ts-node ./src/mocks/seed.ts",
-    "pull-shared": "git submodule update --recursive --remote"
+    "pull-shared": "git submodule update --recursive --remote",
+    "reset-shared": "git submodule update -f --recursive"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",

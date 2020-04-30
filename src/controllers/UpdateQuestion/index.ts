@@ -1,14 +1,15 @@
 import { Application, Request, Response } from 'express'
 
-import { EndpointPath, IQuestionModel } from 'utils/index'
+import { ApiUrlPath } from 'shared/utils/index'
+import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(EndpointPath.UpdateQuestion, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateQuestion, (req: Request, res: Response) => {
     //
     const { userId, questionId } = req.query
 
-    QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestionModel) => {
+    QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestion) => {
       //
       if (err) res.status(400).send(err)
 

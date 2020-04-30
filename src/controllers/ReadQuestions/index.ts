@@ -1,11 +1,11 @@
 import { Application, Request, Response } from 'express'
 
-import { READ_QUESTIONS_MAX } from 'shared/utils/index'
-import { EndpointPath, IQuestionModel } from 'utils/index'
+import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
+import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.get(EndpointPath.ReadQuestions, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.ReadQuestions, (req: Request, res: Response) => {
     //
     let offset = 0
     const { pageNo } = req.query
@@ -19,7 +19,7 @@ export default (app: Application) =>
       QuestionModel.find({})
         .limit(READ_QUESTIONS_MAX)
         .skip(offset)
-        .exec((err, docs: Array<IQuestionModel>) => {
+        .exec((err, docs: Array<IQuestion>) => {
           //
           if (err) res.status(400).send(err)
           res.status(200).send({
