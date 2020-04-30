@@ -855,10 +855,20 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/faker@^4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.11.tgz#07911f1a39aeeaeec71d8efa0f93ef0eeafd3462"
+  integrity sha512-iL7khABWgMH53FDfQNYtbFDJXjM3G97KswtyVMUP9XBSt9c+33L1TsXI+mx+EgnoOcuSp12qZae6hLCxGcq7yg==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/lodash@^4.14.150":
+  version "4.14.150"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.150.tgz#649fe44684c3f1fcb6164d943c5a61977e8cf0bd"
+  integrity sha512-kMNLM5JBcasgYscD9x/Gvr6lTAv2NVgsKtet/hm93qMyf/D1pt+7jeEZklKJKxMVmXjxbRVQQGfqDSfipYCO6w==
 
 "@types/mime@*":
   version "2.0.1"
@@ -3129,7 +3139,7 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash@^4.17.13:
+lodash@^4.17.13, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==

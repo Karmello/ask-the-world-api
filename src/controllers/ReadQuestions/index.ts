@@ -1,6 +1,7 @@
 import { Application, Request, Response } from 'express'
 
-import { EndpointPath, IQuestionModel, READ_QUESTIONS_MAX } from 'utils/index'
+import { READ_QUESTIONS_MAX } from 'shared/utils/index'
+import { EndpointPath, IQuestionModel } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>

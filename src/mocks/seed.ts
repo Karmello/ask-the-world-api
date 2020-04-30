@@ -1,15 +1,15 @@
-const questionMocks = require('./questions')
+import { MongoClient } from 'mongodb'
+import questionMocks from './questions'
 
-async function resetDB(client) {
+const uri = 'mongodb://localhost:27017/ask-the-world-local'
+
+const resetDB = async (client: MongoClient) => {
   const questionsCollection = await client.db().collection('questions')
   await questionsCollection.deleteMany({})
   await questionsCollection.insertMany(questionMocks)
 }
 
-const { MongoClient } = require('mongodb')
-
-async function main() {
-  const uri = 'mongodb://localhost:27017/ask-the-world-local'
+const main = async () => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
   try {

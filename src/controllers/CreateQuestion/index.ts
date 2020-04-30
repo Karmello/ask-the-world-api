@@ -1,10 +1,10 @@
 import { Application, Request, Response } from 'express'
 
-import { EndpointPath } from 'utils/index'
+import { ApiUrlPath } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.post(EndpointPath.CreateQuestion, async (req: Request, res: Response) => {
+  app.post(ApiUrlPath.CreateQuestion, async (req: Request, res: Response) => {
     //
     const newQuestion = new QuestionModel(req.body)
 

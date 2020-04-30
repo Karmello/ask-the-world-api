@@ -9,6 +9,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
+      "shared/*": ["src/lib/ask-the-world-shared/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import { ModelName, IQuestionModel } from 'utils/index'
-import { QuestionModel } from '..'
 
 const { model, Schema } = mongoose
 

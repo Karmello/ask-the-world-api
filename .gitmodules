@@ -1,0 +1,3 @@
+[submodule "src/lib/ask-the-world-shared"]
+	path = src/lib/ask-the-world-shared
+	url = https://github.com/Karmello/ask-the-world-shared.git

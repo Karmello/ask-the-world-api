@@ -1,9 +1,11 @@
 {
   "folders": [
     {
+      "name": "ask-the-world-api",
       "path": "."
     },
     {
+      "name": "src",
       "path": "src"
     }
   ],
