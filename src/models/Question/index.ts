@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { ModelName, IQuestion } from 'utils/index'
-import { IAnswer } from 'shared/utils/index'
+import { IAnswer, IVote } from 'shared/utils/index'
 
 const { model, Schema } = mongoose
 
@@ -42,7 +42,7 @@ const questionSchema = new Schema(
           (item: IAnswer) =>
             (item.votes = {
               length: item.votes.length,
-              didVote: (item.votes as Array<string>).includes('123412341234123412341234'),
+              didVote: (item.votes as string[]).includes('123412341234123412341234'),
             })
         )
       },
