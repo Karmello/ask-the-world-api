@@ -42,7 +42,7 @@ const questionSchema = new Schema(
           (item: IAnswer) =>
             (item.votes = {
               length: item.votes.length,
-              didVote: item.votes.includes('123412341234123412341234'),
+              didVote: (item.votes as Array<string>).includes('123412341234123412341234'),
             })
         )
       },
