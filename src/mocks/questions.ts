@@ -1,8 +1,7 @@
 import faker from 'faker'
 import times from 'lodash/times'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from 'shared/utils/index'
-
-const getRandNum = (min: number, max: number) => min + Math.floor((max - min) * Math.random())
+import { getRandNum } from 'shared/helpers/index'
 
 const questionMocks = [] as Array<{}>
 

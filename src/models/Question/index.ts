@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { ModelName, IQuestionModel } from 'utils/index'
+import { ModelName, IQuestion } from 'utils/index'
 
 const { model, Schema } = mongoose
 
@@ -33,16 +33,25 @@ const questionSchema = new Schema(
       },
     },
   },
-  { versionKey: false }
+  {
+    versionKey: false,
+    toJSON: {
+      transform: function (doc: IQuestion, ret: IQuestion) {
+        ret.answers.forEach(
+          (item: { votes: { length: number } }) => (item.votes = { length: item.votes.length })
+        )
+      },
+    },
+  }
 )
 
 questionSchema.pre('save', function (next) {
-  const doc = this as IQuestionModel
+  const doc = this as IQuestion
   if (doc.isNew) {
     doc
       .model(ModelName.Question)
       .countDocuments()
-      .then(count => {
+      .then((count: number) => {
         doc.no = count += 1
         next()
       })
