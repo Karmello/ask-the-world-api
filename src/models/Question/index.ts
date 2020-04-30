@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { ModelName, IQuestion } from 'utils/index'
-import { IAnswer, IVote } from 'shared/utils/index'
+import { IAnswer } from 'shared/utils/index'
 
 const { model, Schema } = mongoose
 
