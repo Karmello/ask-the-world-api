@@ -6,7 +6,7 @@ import ReadQuestions from './ReadQuestions/index'
 import ReadQuestion from './ReadQuestion/index'
 import UpdateQuestion from './UpdateQuestion/index'
 
-import swaggerDocument from './../../config/swagger.json'
+import swaggerDocument from './../swagger.json'
 
 const registerControllers = (app: Application) => {
   //
