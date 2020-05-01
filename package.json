@@ -9,8 +9,7 @@
     "prettier": "prettier --check src/**/*.ts",
     "test": "cross-env",
     "seed": "ts-node ./src/mocks/seed.ts",
-    "pull-shared": "git submodule update --recursive --remote",
-    "reset-shared": "git submodule update -f --recursive"
+    "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://github.com/Karmello/ask-the-world-shared.git master --squash"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
