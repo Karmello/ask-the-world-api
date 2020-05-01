@@ -8,7 +8,8 @@
     "start-local": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true nodemon --watch src src/bootstrap.ts",
     "prettier": "prettier --check src/**/*.ts",
     "test": "cross-env",
-    "seed": "ts-node ./src/mocks/seed.ts",
+    "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
+    "seed-staging": "ts-node ./src/mocks/seed.ts mongodb://heroku_kfmm9zz8:iv9vvsm77jpl9ha1u30e7ambta@ds259361.mlab.com:59361/heroku_kfmm9zz8",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://github.com/Karmello/ask-the-world-shared.git master --squash"
   },
   "dependencies": {
