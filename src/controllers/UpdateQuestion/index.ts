@@ -13,7 +13,7 @@ export default (app: Application) =>
       //
       if (err) res.status(400).send(err)
 
-      req.body.forEach((i: number) => doc.answers[i].votes.push(userId))
+      req.body.forEach((i: number) => doc.answers[i].votes.push(String(userId)))
 
       doc
         .save()
