@@ -1,5 +1,6 @@
 import faker from 'faker'
 import times from 'lodash/times'
+
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from 'shared/utils/index'
 import { getRandNum } from 'shared/helpers/index'
 
