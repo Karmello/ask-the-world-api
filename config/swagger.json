@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ask-the-world-api",
+    "contact": {
+      "email": "nogakamil@gmail.com"
+    },
+    "license": {
+      "name": "Repo",
+      "url": "https://github.com/Karmello/ask-the-world-api"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "[questions]",
+      "description": "read-write collection",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/read-questions": {
+      "get": {
+        "tags": ["[questions]"],
+        "summary": "gets questions",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/questions"
+          }
+        }
+      }
+    },
+    "/read-question": {
+      "get": {
+        "tags": ["[questions]"],
+        "summary": "gets a single question",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/question"
+          }
+        }
+      }
+    }
+  },
+  "definitions": [{ "$ref": "#/schemas/Question" }],
+  "schemas": {
+    "Questions": {
+      "title": "Questions",
+      "required": ["_id"],
+      "properties": {
+        "_id": {
+          "$ref": "#/schemas/questionId"
+        }
+      }
+    },
+    "questionId": {
+      "type": "string",
+      "format": "byte",
+      "unique": true
+    }
+  },
+  "parameters": {},
+  "requestBody": {},
+  "responses": {
+    "questions": {
+      "description": "an array of question objects",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/schemas/Question"
+        }
+      }
+    },
+    "question": {
+      "description": "a question objects",
+      "schema": {
+        "type": "object",
+        "items": {
+          "$ref": "#/schemas/Question"
+        }
+      }
+    }
+  }
+}
