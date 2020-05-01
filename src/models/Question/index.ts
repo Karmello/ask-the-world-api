@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import { ModelName, IQuestion } from 'utils/index'
-import { IAnswer } from 'shared/utils/index'
 
 const { model, Schema } = mongoose
 
@@ -38,13 +37,13 @@ const questionSchema = new Schema(
     versionKey: false,
     toJSON: {
       transform: function (doc: IQuestion, ret: IQuestion) {
-        ret.answers.forEach(
-          (item: IAnswer) =>
-            (item.votes = {
-              length: item.votes.length,
-              didVote: (item.votes as string[]).includes('123412341234123412341234'),
-            })
-        )
+        ret.answers.forEach(item => {
+          item.votesInfo = {
+            length: item.votes.length,
+            didVote: item.votes.includes('123412341234123412341234'),
+          }
+          delete item.votes
+        })
       },
     },
   }
