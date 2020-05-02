@@ -17,6 +17,7 @@ export default (app: Application) =>
       if (err) res.status(400).send(err)
 
       QuestionModel.find({})
+        .sort('-timestamp')
         .limit(READ_QUESTIONS_MAX)
         .skip(offset)
         .exec((err, docs: Array<IQuestion>) => {
