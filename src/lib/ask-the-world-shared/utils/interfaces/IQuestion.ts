@@ -6,6 +6,7 @@ interface IQuestion {
   timestamp: number;
   text: string;
   answers: Array<IAnswer>;
+  totalVotes: number;
   options: {
     multipleChoice: boolean;
   };
