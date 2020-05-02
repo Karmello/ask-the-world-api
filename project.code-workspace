@@ -7,6 +7,9 @@
     {
       "name": "src",
       "path": "src"
+    },
+    {
+      "path": "src\\mocks"
     }
   ],
   "settings": {

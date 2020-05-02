@@ -9,6 +9,10 @@ const questionSchema = new Schema(
       type: Number,
       default: 0,
     },
+    timestamp: {
+      type: Number,
+      default: Date.now(),
+    },
     text: {
       type: String,
       required: true,
