@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express'
 
 import CreateQuestion from './CreateQuestion/index'
 import ReadQuestions from './ReadQuestions/index'
+import ReadTopQuestions from './ReadTopQuestions/index'
 import ReadQuestion from './ReadQuestion/index'
 import UpdateQuestion from './UpdateQuestion/index'
 
@@ -23,6 +24,7 @@ const registerControllers = (app: Application) => {
 
   CreateQuestion(app)
   ReadQuestions(app)
+  ReadTopQuestions(app)
   ReadQuestion(app)
   UpdateQuestion(app)
 }
