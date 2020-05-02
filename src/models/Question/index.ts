@@ -39,17 +39,6 @@ const questionSchema = new Schema(
   },
   {
     versionKey: false,
-    toJSON: {
-      transform: function (doc: IQuestion, ret: IQuestion) {
-        ret.answers.forEach(item => {
-          item.votesInfo = {
-            length: item.votes.length,
-            didVote: item.votes.includes('123412341234123412341234'),
-          }
-          delete item.votes
-        })
-      },
-    },
   }
 )
 

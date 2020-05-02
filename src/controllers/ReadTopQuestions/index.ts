@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
+import { NUM_OF_TOP_QUESTIONS, ApiUrlPath } from 'shared/utils/index'
 import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
@@ -40,7 +40,7 @@ export default (app: Application) =>
         },
       },
       {
-        $limit: READ_QUESTIONS_MAX,
+        $limit: NUM_OF_TOP_QUESTIONS,
       },
       //
     ]).exec((err, docs: Array<IQuestion>) => {
@@ -49,7 +49,7 @@ export default (app: Application) =>
 
       res.status(200).send({
         data: docs,
-        count: READ_QUESTIONS_MAX,
+        count: NUM_OF_TOP_QUESTIONS,
       })
     })
   })
