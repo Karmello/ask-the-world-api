@@ -34,7 +34,7 @@ export default (app: Application) =>
       },
       {
         $sort: {
-          totalVotes: -1,
+          answeredTimes: -1,
         },
       },
       {
