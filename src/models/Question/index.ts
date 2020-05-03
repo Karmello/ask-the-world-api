@@ -5,6 +5,10 @@ const { model, Schema } = mongoose
 
 const questionSchema = new Schema(
   {
+    usedId: {
+      type: String,
+      required: true,
+    },
     no: {
       type: Number,
       default: 0,

@@ -9,6 +9,7 @@ export default (app: Application) =>
     //
     const newQuestion = new QuestionModel({
       ...req.body,
+      userId: '123412341234123412341234',
       timestamp: moment().unix() * 1000,
     })
 

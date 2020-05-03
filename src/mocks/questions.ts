@@ -11,6 +11,7 @@ times(100, i => {
   let answeredTimes = 0
 
   questionMocks.push({
+    userId: faker.random.uuid(),
     no: i + 1,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem.sentence(),

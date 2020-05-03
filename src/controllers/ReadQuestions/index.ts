@@ -21,6 +21,7 @@ export default (app: Application) =>
         {
           $group: {
             _id: '$_id',
+            userId: { $first: '$userId' },
             no: { $first: '$no' },
             timestamp: { $first: '$timestamp' },
             text: { $first: '$text' },
