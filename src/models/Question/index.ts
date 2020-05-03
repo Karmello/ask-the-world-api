@@ -30,6 +30,11 @@ const questionSchema = new Schema(
         },
       },
     ],
+    answeredTimes: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     options: {
       multipleChoice: {
         type: Boolean,
@@ -41,16 +46,13 @@ const questionSchema = new Schema(
     versionKey: false,
     toJSON: {
       transform: function (doc: IQuestion, ret: IQuestion) {
-        let totalVotes = 0
         ret.answers.forEach(item => {
-          totalVotes += item.votes.length
           item.votesInfo = {
             length: item.votes.length,
             didVote: item.votes.includes('123412341234123412341234'),
           }
           delete item.votes
         })
-        ret.totalVotes = totalVotes
       },
     },
   }
@@ -67,6 +69,7 @@ questionSchema.pre('save', function (next) {
         next()
       })
   } else {
+    doc.answeredTimes += 1
     next()
   }
 })

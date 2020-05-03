@@ -28,9 +28,7 @@ export default (app: Application) =>
               },
             },
           },
-          totalVotes: {
-            $sum: { $size: '$answers.votes' },
-          },
+          answeredTimes: { $first: '$answeredTimes' },
           options: { $first: '$options' },
         },
       },
