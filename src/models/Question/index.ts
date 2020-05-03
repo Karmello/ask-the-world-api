@@ -11,7 +11,7 @@ const questionSchema = new Schema(
     },
     timestamp: {
       type: Number,
-      default: Date.now(),
+      required: true,
     },
     text: {
       type: String,
