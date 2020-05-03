@@ -3,6 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath } from 'shared/utils/index'
 import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
+import Question from 'models/Question'
 
 export default (app: Application) =>
   app.put(ApiUrlPath.UpdateQuestion, (req: Request, res: Response) => {

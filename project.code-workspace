@@ -7,6 +7,12 @@
     {
       "name": "src",
       "path": "src"
+    },
+    {
+      "path": "src\\mocks"
+    },
+    {
+      "path": "src\\controllers"
     }
   ],
   "settings": {
