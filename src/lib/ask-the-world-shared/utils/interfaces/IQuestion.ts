@@ -10,9 +10,6 @@ interface IQuestion {
     multipleChoice: boolean;
   };
   answeredTimes: number;
-  meta?: {
-    totalVotes: number;
-  };
 }
 
 export default IQuestion;
