@@ -1,4 +1,5 @@
 export { default as CreateQuestion } from './CreateQuestion/index'
+export { default as ReadOwnAnsweredQuestions } from './ReadOwnAnsweredQuestions/index'
 export { default as ReadQuestions } from './ReadQuestions/index'
 export { default as ReadTopQuestions } from './ReadTopQuestions/index'
 export { default as ReadOwnQuestions } from './ReadOwnQuestions/index'
