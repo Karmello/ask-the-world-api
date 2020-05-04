@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
-import { ModelName, IQuestion } from 'utils/index'
+import { ModelName } from 'utils/index'
 
 const { model, Schema } = mongoose
 
-const questionSchema = new Schema(
+const userSchema = new Schema(
   {
     username: {
       type: String,
@@ -18,20 +18,8 @@ const questionSchema = new Schema(
   }
 )
 
-questionSchema.pre('save', function (next) {
-  const doc = this as IQuestion
-  if (doc.isNew) {
-    doc
-      .model(ModelName.Question)
-      .countDocuments()
-      .then((count: number) => {
-        doc.no = count += 1
-        next()
-      })
-  } else {
-    doc.answeredTimes += 1
-    next()
-  }
-})
+// userSchema.pre('save', function (next) {
+//   const doc = this as IUser
+// })
 
-export default model(ModelName.Question, questionSchema)
+export default model(ModelName.User, userSchema)

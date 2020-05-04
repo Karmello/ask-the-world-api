@@ -19,6 +19,9 @@
     {
       "name": "controllers",
       "path": "src\\controllers"
+    },
+    {
+      "path": "src\\utils"
     }
   ],
   "settings": {
