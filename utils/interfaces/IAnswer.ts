@@ -1,9 +1,9 @@
-import IVote from "./IVote";
+import IVote from './IVote'
 
 interface IAnswer {
-  text: string;
-  votes: string[];
-  votesInfo: IVote;
+  text: string
+  votes: string[]
+  votesInfo: IVote
 }
 
-export default IAnswer;
+export default IAnswer

@@ -1,6 +1,6 @@
 interface IVote {
-  length: number;
-  didVote: boolean;
+  length: number
+  didVote: boolean
 }
 
-export default IVote;
+export default IVote
