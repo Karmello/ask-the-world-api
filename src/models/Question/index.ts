@@ -5,7 +5,7 @@ const { model, Schema } = mongoose
 
 const questionSchema = new Schema(
   {
-    usedId: {
+    userId: {
       type: String,
       required: true,
     },
