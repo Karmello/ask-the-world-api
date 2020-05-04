@@ -9,6 +9,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    timestamp: {
+      type: Number,
+      required: true,
+    },
   },
   {
     versionKey: false,

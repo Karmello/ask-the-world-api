@@ -16,8 +16,5 @@ export default (app: Application) =>
     await newQuestion
       .save()
       .then(doc => res.status(201).send(doc))
-      .catch(err => {
-        console.log(err)
-        res.status(400).send(err)
-      })
+      .catch(err => res.status(400).send(err))
   })
