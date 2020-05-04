@@ -5,6 +5,7 @@ enum ApiUrlPath {
   ReadQuestions = '/read-questions',
   ReadTopQuestions = '/read-top-questions',
   ReadOwnQuestions = '/read-own-questions',
+  ReadOwnAnsweredQuestions = '/read-own-answered-questions',
   ReadQuestion = '/read-question',
   UpdateQuestion = '/update-question',
 }
