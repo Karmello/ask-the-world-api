@@ -1,5 +1,6 @@
 enum ApiUrlPath {
-  AuthenticateUser = '/authentication',
+  LoginUser = '/authentication',
+  RegisterUser = '/registration',
   CreateQuestion = '/create-question',
   ReadQuestions = '/read-questions',
   ReadTopQuestions = '/read-top-questions',
