@@ -1,10 +1,10 @@
 enum ApiUrlPath {
-  CreateQuestion = "/create-question",
-  ReadQuestions = "/read-questions",
-  ReadTopQuestions = "/read-top-questions",
-  ReadOwnQuestions = "/read-own-questions",
-  ReadQuestion = "/read-question",
-  UpdateQuestion = "/update-question",
+  CreateQuestion = '/create-question',
+  ReadQuestions = '/read-questions',
+  ReadTopQuestions = '/read-top-questions',
+  ReadOwnQuestions = '/read-own-questions',
+  ReadQuestion = '/read-question',
+  UpdateQuestion = '/update-question',
 }
 
-export default ApiUrlPath;
+export default ApiUrlPath
