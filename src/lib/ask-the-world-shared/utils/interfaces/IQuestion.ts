@@ -1,15 +1,16 @@
-import IAnswer from "./IAnswer";
+import IAnswer from './IAnswer'
 
 interface IQuestion {
-  _id: any;
-  no: number;
-  timestamp: number;
-  text: string;
-  answers: Array<IAnswer>;
-  totalVotes: number;
+  _id: any
+  userId: any
+  no: number
+  timestamp: number
+  text: string
+  answers: IAnswer[]
   options: {
-    multipleChoice: boolean;
-  };
+    multipleChoice: boolean
+  }
+  answeredTimes: number
 }
 
-export default IQuestion;
+export default IQuestion

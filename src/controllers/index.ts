@@ -1,11 +1,17 @@
 import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
-import CreateQuestion from './CreateQuestion/index'
-import ReadQuestions from './ReadQuestions/index'
-import ReadTopQuestions from './ReadTopQuestions/index'
-import ReadQuestion from './ReadQuestion/index'
-import UpdateQuestion from './UpdateQuestion/index'
+import { AuthenticateUser, RegisterUser } from './user/index'
+
+import {
+  CreateQuestion,
+  ReadQuestions,
+  ReadTopQuestions,
+  ReadOwnQuestions,
+  ReadOwnAnsweredQuestions,
+  ReadQuestion,
+  UpdateQuestion,
+} from './question/index'
 
 import swaggerDocument from './../swagger.json'
 
@@ -22,9 +28,13 @@ const registerControllers = (app: Application) => {
     })
   }
 
+  AuthenticateUser(app)
+  RegisterUser(app)
   CreateQuestion(app)
   ReadQuestions(app)
   ReadTopQuestions(app)
+  ReadOwnQuestions(app)
+  ReadOwnAnsweredQuestions(app)
   ReadQuestion(app)
   UpdateQuestion(app)
 }

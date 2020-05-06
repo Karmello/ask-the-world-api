@@ -9,10 +9,19 @@
       "path": "src"
     },
     {
+      "name": "mocks",
       "path": "src\\mocks"
     },
     {
+      "name": "models",
+      "path": "src\\models"
+    },
+    {
+      "name": "controllers",
       "path": "src\\controllers"
+    },
+    {
+      "path": "src\\utils"
     }
   ],
   "settings": {

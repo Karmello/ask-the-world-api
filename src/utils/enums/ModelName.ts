@@ -1,4 +1,5 @@
 enum ModelName {
+  User = 'User',
   Question = 'Question',
 }
 

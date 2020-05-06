@@ -1,4 +1,5 @@
 import { Application, Request, Response } from 'express'
+import moment from 'moment/moment'
 
 import { ApiUrlPath } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
@@ -6,7 +7,11 @@ import { QuestionModel } from 'models/index'
 export default (app: Application) =>
   app.post(ApiUrlPath.CreateQuestion, async (req: Request, res: Response) => {
     //
-    const newQuestion = new QuestionModel(req.body)
+    const newQuestion = new QuestionModel({
+      ...req.body,
+      userId: '123412341234123412341234',
+      timestamp: moment().unix() * 1000,
+    })
 
     await newQuestion
       .save()
