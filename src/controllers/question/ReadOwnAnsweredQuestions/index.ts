@@ -1,7 +1,6 @@
 import { Application, Request, Response } from 'express'
 
 import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
-import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
@@ -20,19 +19,15 @@ export default (app: Application) =>
       },
     }
 
-    QuestionModel.countDocuments(query, (err, count) => {
-      //
-      if (err) res.status(400).send(err)
-
-      QuestionModel.find(query)
-        .skip(offset)
-        .limit(READ_QUESTIONS_MAX)
-        .then(data => {
-          res.status(200).send({
-            data,
-            count,
-          })
-        })
-        .catch(err => res.status(400).send(err))
-    })
+    Promise.all([
+      QuestionModel.countDocuments(query),
+      QuestionModel.find(query).sort({ timestamp: -1 }).skip(offset).limit(READ_QUESTIONS_MAX),
+    ]).then(
+      results =>
+        res.status(200).send({
+          count: results[0],
+          data: results[1],
+        }),
+      err => res.status(400).send(err)
+    )
   })
