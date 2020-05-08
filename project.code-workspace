@@ -17,11 +17,12 @@
       "path": "src\\models"
     },
     {
-      "name": "controllers",
-      "path": "src\\controllers"
+      "name": "utils",
+      "path": "src\\utils"
     },
     {
-      "path": "src\\utils"
+      "name": "controllers",
+      "path": "src\\controllers"
     }
   ],
   "settings": {
