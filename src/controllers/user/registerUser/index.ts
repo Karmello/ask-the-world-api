@@ -7,6 +7,8 @@ import { ApiUrlPath } from 'shared/utils/index'
 export default (app: Application) =>
   app.post(ApiUrlPath.RegisterUser, async (req: Request, res: Response) => {
     //
+    console.log(req.body)
+
     const newUser = new UserModel({
       ...req.body,
       timestamp: moment().unix() * 1000,
