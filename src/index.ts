@@ -4,11 +4,13 @@ import bodyParser from 'body-parser'
 
 import registerControllers from 'controllers/index'
 
+const morgan = require('morgan')
 require('dotenv').config()
 
 const { NODE_ENV, PORT, MONGODB_URI } = process.env
 const app = express()
 
+app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
