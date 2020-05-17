@@ -6,6 +6,7 @@ import {
   isBeforeMaxDate,
 } from 'shared/validation/index'
 
+import { COUNTRIES } from 'shared/utils/index'
 import dict from 'shared/validation/dictionary'
 
 export const checkMinLength = (min: number) => ({
@@ -36,4 +37,10 @@ export const checkPastDate = (maxDate: string) => ({
   type: 'checkPastDate',
   message: dict.incorrectMsg,
   validator: (value: string) => isBeforeMaxDate(value, maxDate),
+})
+
+export const checkCountry = () => ({
+  type: 'checkCountry',
+  message: dict.incorrectMsg,
+  validator: (value: string) => COUNTRIES.some(item => item.value === value),
 })

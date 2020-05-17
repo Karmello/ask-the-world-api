@@ -15,6 +15,7 @@ import {
   checkMinLength,
   checkMaxLength,
   checkPastDate,
+  checkCountry,
 } from 'validation/index'
 
 import { USER_MIN_AGE, DOB_FORMAT_PATTERN } from 'shared/utils/index'
@@ -58,6 +59,11 @@ const userSchema = new Schema(
       type: String,
       required: [true, dict.requiredMsg],
       validate: [checkPastDate(moment().add(-USER_MIN_AGE, 'years').format(DOB_FORMAT_PATTERN))],
+    },
+    country: {
+      type: String,
+      required: [true, dict.requiredMsg],
+      validate: [checkCountry()],
     },
   },
   {
