@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import moment from 'moment/moment'
+import { NextFunction } from 'express'
 
 import {
   USERNAME_MIN_LENGTH,
@@ -20,7 +21,7 @@ import {
 
 import { USER_MIN_AGE, DOB_FORMAT_PATTERN } from 'shared/utils/index'
 import dict from 'shared/validation/dictionary'
-import { ModelName, SALT_ROUNDS } from 'utils/index'
+import { IUser, ModelName, SALT_ROUNDS } from 'utils/index'
 
 const { model, Schema } = mongoose
 
@@ -73,12 +74,12 @@ const userSchema = new Schema(
 
 userSchema.methods = {
   toJSON: function () {
-    let user = this.toObject()
+    const user = this.toObject() as IUser
     delete user.password
     return user
   },
-  hashPassword: function (next: () => void) {
-    let doc = this
+  hashPassword: function (next: NextFunction) {
+    const doc = this as IUser
     if (!doc.isModified('password')) {
       next()
     } else {
@@ -89,5 +90,10 @@ userSchema.methods = {
     }
   },
 }
+
+userSchema.pre('save', function (next: NextFunction) {
+  const doc = this as IUser
+  doc.hashPassword(next)
+})
 
 export default model(ModelName.User, userSchema)
