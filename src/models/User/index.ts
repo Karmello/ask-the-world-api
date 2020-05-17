@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
+import moment from 'moment/moment'
 
 import {
   USERNAME_MIN_LENGTH,
@@ -8,8 +9,15 @@ import {
   PASSWORD_MAX_LENGTH,
 } from 'shared/utils/index'
 
+import {
+  checkEmail,
+  checkAlphaChars,
+  checkMinLength,
+  checkMaxLength,
+  checkPastDate,
+} from 'validation/index'
+
 import dict from 'shared/validation/dictionary'
-import { checkAlphaChars, checkMinLength, checkMaxLength } from 'validation/index'
 import { ModelName, SALT_ROUNDS } from 'utils/index'
 
 const { model, Schema } = mongoose
@@ -19,6 +27,12 @@ const userSchema = new Schema(
     timestamp: {
       type: Number,
       required: true,
+    },
+    email: {
+      type: String,
+      required: [true, dict.requiredMsg],
+      unique: true,
+      validate: [checkEmail()],
     },
     username: {
       type: String,
@@ -38,6 +52,11 @@ const userSchema = new Schema(
         checkMinLength(PASSWORD_MIN_LENGTH),
         checkMaxLength(PASSWORD_MAX_LENGTH),
       ],
+    },
+    dateOfBirth: {
+      type: String,
+      required: [true, dict.requiredMsg],
+      validate: [checkPastDate(moment().add(-USER_MIN_AGE, 'years').format(DATE_FORMAT_PATTERN))],
     },
   },
   {
