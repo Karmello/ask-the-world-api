@@ -6,8 +6,6 @@ import { ApiUrlPath } from 'shared/utils/index'
 export default (app: Application) =>
   app.post(ApiUrlPath.AuthenticateUser, async (req: Request, res: Response) => {
     //
-    console.log(req.body)
-
     UserModel.findOne({
       username: req.body.username,
     })
