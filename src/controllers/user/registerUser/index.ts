@@ -6,6 +6,7 @@ import { UserModel } from 'models/index'
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
 
 export default (app: Application) =>
+  //
   app.post(ApiUrlPath.RegisterUser, async (req: Request, res: Response) => {
     //
     const newUser = new UserModel({

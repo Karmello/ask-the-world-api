@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Error } from 'mongoose'
 import bcrypt from 'bcrypt'
 import moment from 'moment/moment'
 import { NextFunction } from 'express'
@@ -88,6 +88,9 @@ userSchema.methods = {
         next()
       })
     }
+  },
+  comparePasswords: function (current: string, cb: (err?: Error, isMatch?: boolean) => void) {
+    bcrypt.compare(current, this.password, (err: Error, isMatch) => cb(err, isMatch))
   },
 }
 
