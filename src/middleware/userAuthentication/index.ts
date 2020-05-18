@@ -13,7 +13,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       req.decoded = decoded
       next()
     })
-  } else if (req.route.path === ApiUrlPath) {
+  } else if (req.route.path === ApiUrlPath.AuthenticateUser) {
     next()
   } else {
     res.status(401).send()

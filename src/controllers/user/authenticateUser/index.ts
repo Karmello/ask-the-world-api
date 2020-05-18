@@ -30,7 +30,7 @@ export default (app: Application) =>
             res.status(201).send(doc)
           }
         } else {
-          res.status(400).send()
+          res.status(400).send('hehe')
         }
       })
       .catch(err => res.status(400).send(err))
