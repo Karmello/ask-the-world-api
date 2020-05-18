@@ -16,7 +16,8 @@
       "models/*": ["src/models/*"],
       "mocks/*": ["src/mocks/*"],
       "validation/*": ["src/validation/*"],
-      "middleware/*": ["src/middleware/*"]
+      "middleware/*": ["src/middleware/*"],
+      "helpers/*": ["src/helpers/*"]
     }
   },
   "include": ["src/**/*"],

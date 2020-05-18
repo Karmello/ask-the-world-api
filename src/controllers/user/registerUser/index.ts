@@ -1,9 +1,9 @@
 import { Application, Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
 import moment from 'moment/moment'
 
-import { UserModel } from 'models/index'
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { getFreshAuthToken } from 'helpers/index'
+import { UserModel } from 'models/index'
 
 export default (app: Application) =>
   //
@@ -17,8 +17,7 @@ export default (app: Application) =>
     await newUser
       .save()
       .then(doc => {
-        const token = jwt.sign({ _id: doc._id }, process.env.AUTH_SECRET, { expiresIn: 86400 })
-        res.setHeader(X_AUTH_TOKEN, token)
+        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
         res.status(201).send(doc)
       })
       .catch(err => res.status(400).send(err))

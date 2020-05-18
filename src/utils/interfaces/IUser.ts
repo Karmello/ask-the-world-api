@@ -4,6 +4,7 @@ import { IUser } from 'shared/utils/index'
 
 interface IUserExtended extends IUser, Document {
   hashPassword: (next: NextFunction) => void
+  comparePasswords: (current: string, cb: (err?: Error, isMatch?: boolean) => void)
 }
 
 export default IUserExtended

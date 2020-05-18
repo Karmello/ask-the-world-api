@@ -11,7 +11,7 @@ module.exports = function (api) {
         alias: {
           '^shared(.+)': './src/lib/ask-the-world-shared/\\1',
           '^src(.+)': './src/\\1',
-          '^(controllers|utils|models|mocks|validation|middleware)(.+)': './src/\\1/\\2',
+          '^(controllers|utils|models|mocks|validation|middleware|helpers)(.+)': './src/\\1/\\2',
         },
       },
     ],
