@@ -1,7 +1,7 @@
 import mongoose, { Error } from 'mongoose'
-import bcrypt from 'bcrypt'
 import moment from 'moment/moment'
 import { NextFunction } from 'express'
+import bcrypt from 'bcryptjs'
 
 import {
   USERNAME_MIN_LENGTH,
