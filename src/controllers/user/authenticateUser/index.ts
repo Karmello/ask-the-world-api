@@ -1,16 +1,56 @@
 import { Application, Request, Response } from 'express'
 
+import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import validationDict from 'shared/validation/dictionary'
+import { getFreshAuthToken } from 'helpers/index'
+import { userAuthMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { ApiUrlPath } from 'shared/utils/index'
+import { IUser } from 'utils/index'
+
+type TQuery = {
+  _id?: string
+  username?: string
+}
+
+const respondWithIncorrectCredentials = (res: Response) =>
+  res.status(400).send(validationDict.incorrectCredentials)
+
+const respondWithFreshToken = (res: Response, doc: IUser) => {
+  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
+  res.status(201).send(doc)
+}
 
 export default (app: Application) =>
-  app.post(ApiUrlPath.AuthenticateUser, async (req: Request, res: Response) => {
+  //
+  app.post(ApiUrlPath.AuthenticateUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    console.log(req.body)
+    const query = {} as TQuery
+    const {
+      decoded,
+      body: { username, password },
+    } = req
 
-    UserModel.findOne({
-      username: req.body.username,
-    })
-      .then(doc => res.status(200).send(doc))
+    if (decoded) query._id = decoded._id
+    if (username) query.username = username
+
+    UserModel.findOne(query)
+      .then((doc: IUser) => {
+        //
+        if (doc) {
+          if (!decoded) {
+            doc.comparePasswords(password, (err, isMatch) => {
+              if (err || !isMatch) {
+                respondWithIncorrectCredentials(res)
+              } else {
+                respondWithFreshToken(res, doc)
+              }
+            })
+          } else {
+            respondWithFreshToken(res, doc)
+          }
+        } else {
+          respondWithIncorrectCredentials(res)
+        }
+      })
       .catch(err => res.status(400).send(err))
   })

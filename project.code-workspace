@@ -17,6 +17,10 @@
       "path": "src\\models"
     },
     {
+      "name": "validation",
+      "path": "src\\validation"
+    },
+    {
       "name": "utils",
       "path": "src\\utils"
     },

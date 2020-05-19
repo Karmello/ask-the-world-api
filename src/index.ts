@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 
+import { X_AUTH_TOKEN } from 'shared/utils/constants'
 import registerControllers from 'controllers/index'
 
 const morgan = require('morgan')
@@ -20,8 +21,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH, OPTIONS')
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, x-access-token'
+    `Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, ${X_AUTH_TOKEN}`
   )
+  res.setHeader('Access-Control-Expose-Headers', X_AUTH_TOKEN)
   res.setHeader('Cache-Control', 'no-cache')
   next()
 })
@@ -33,6 +35,7 @@ if (NODE_ENV !== 'test') {
     .connect(MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     })
     .then(
       () => {

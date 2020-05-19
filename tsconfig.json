@@ -14,7 +14,10 @@
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
-      "mocks/*": ["src/mocks/*"]
+      "mocks/*": ["src/mocks/*"],
+      "validation/*": ["src/validation/*"],
+      "middleware/*": ["src/middleware/*"],
+      "helpers/*": ["src/helpers/*"]
     }
   },
   "include": ["src/**/*"],
