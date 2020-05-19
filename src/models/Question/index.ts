@@ -1,5 +1,13 @@
 import mongoose from 'mongoose'
+
+import {
+  QUESTION_INPUT_MIN_LENGTH,
+  QUESTION_INPUT_MAX_LENGTH,
+  ANSWER_INPUT_MAX_LENGTH,
+} from 'shared/utils/index'
+
 import { ModelName, IQuestion } from 'utils/index'
+import { checkMinLength, checkMaxLength } from 'validation/index'
 
 const { model, Schema } = mongoose
 
@@ -8,6 +16,7 @@ const questionSchema = new Schema(
     userId: {
       type: String,
       required: true,
+      ref: ModelName.User,
     },
     no: {
       type: Number,
@@ -20,12 +29,17 @@ const questionSchema = new Schema(
     text: {
       type: String,
       required: true,
+      validate: [
+        checkMinLength(QUESTION_INPUT_MIN_LENGTH),
+        checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
+      ],
     },
     answers: [
       {
         text: {
           type: String,
           required: true,
+          validate: [checkMaxLength(ANSWER_INPUT_MAX_LENGTH)],
         },
         votes: {
           type: [String],

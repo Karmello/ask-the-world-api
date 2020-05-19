@@ -1,36 +1,55 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import validationDict from 'shared/validation/dictionary'
 import { getFreshAuthToken } from 'helpers/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUser } from 'utils/index'
 
+type TQuery = {
+  _id?: string
+  username?: string
+}
+
+const respondWithIncorrectCredentials = (res: Response) =>
+  res.status(400).send(validationDict.incorrectCredentials)
+
+const respondWithFreshToken = (res: Response, doc: IUser) => {
+  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
+  res.status(201).send(doc)
+}
+
 export default (app: Application) =>
   //
   app.post(ApiUrlPath.AuthenticateUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    UserModel.findOne({
-      _id: req.decoded?._id,
-      username: req.body?.username,
-    })
+    const query = {} as TQuery
+    const {
+      decoded,
+      body: { username, password },
+    } = req
+
+    if (decoded) query._id = decoded._id
+    if (username) query.username = username
+
+    UserModel.findOne(query)
       .then((doc: IUser) => {
+        //
         if (doc) {
-          if (!req.decoded) {
-            doc.comparePasswords(req.body.password, (err, isMatch) => {
+          if (!decoded) {
+            doc.comparePasswords(password, (err, isMatch) => {
               if (err || !isMatch) {
-                res.status(400).send(err)
+                respondWithIncorrectCredentials(res)
               } else {
-                res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-                res.status(201).send(doc)
+                respondWithFreshToken(res, doc)
               }
             })
           } else {
-            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-            res.status(201).send(doc)
+            respondWithFreshToken(res, doc)
           }
         } else {
-          res.status(400).send('hehe')
+          respondWithIncorrectCredentials(res)
         }
       })
       .catch(err => res.status(400).send(err))
