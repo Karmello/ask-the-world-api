@@ -1,0 +1,22 @@
+{
+  "name": "ask-the-world-shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karmello/ask-the-world-shared.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karmello/ask-the-world-shared/issues"
+  },
+  "homepage": "https://github.com/Karmello/ask-the-world-shared#readme",
+  "dependencies": {
+    "moment": "^2.26.0"
+  }
+}
