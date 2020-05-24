@@ -3,7 +3,7 @@ import {
   isNotTooLong,
   doesNotContainAlphaChars,
   isValidEmail,
-  isBeforeMaxDate,
+  isSameOrBefore,
 } from 'shared/validation/index'
 
 import { COUNTRIES } from 'shared/utils/index'
@@ -33,10 +33,10 @@ export const checkEmail = () => ({
   validator: (value: string) => isValidEmail(value),
 })
 
-export const checkPastDate = (maxDate: string) => ({
-  type: 'checkPastDate',
+export const checkDate = (maxDate: string) => ({
+  type: 'checkDate',
   message: dict.incorrectMsg,
-  validator: (value: string) => isBeforeMaxDate(value, maxDate),
+  validator: (value: string) => isSameOrBefore(value, maxDate),
 })
 
 export const checkCountry = () => ({
