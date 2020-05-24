@@ -1,4 +1,5 @@
 import mongoose, { Error } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 import moment from 'moment/moment'
 import { NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
@@ -33,13 +34,13 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: [true, dict.requiredMsg],
+      required: true,
       unique: true,
       validate: [checkEmail()],
     },
     username: {
       type: String,
-      required: [true, dict.requiredMsg],
+      required: true,
       unique: true,
       validate: [
         checkAlphaChars(),
@@ -49,7 +50,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, dict.requiredMsg],
+      required: true,
       validate: [
         checkAlphaChars(true),
         checkMinLength(PASSWORD_MIN_LENGTH),
@@ -58,12 +59,12 @@ const userSchema = new Schema(
     },
     dateOfBirth: {
       type: String,
-      required: [true, dict.requiredMsg],
+      required: true,
       validate: [checkPastDate(moment().add(-USER_MIN_AGE, 'years').format(DOB_FORMAT_PATTERN))],
     },
     country: {
       type: String,
-      required: [true, dict.requiredMsg],
+      required: true,
       validate: [checkCountry()],
     },
   },
@@ -71,6 +72,8 @@ const userSchema = new Schema(
     versionKey: false,
   }
 )
+
+userSchema.plugin(uniqueValidator, { message: dict.alreadyTakenMsg })
 
 userSchema.methods = {
   toJSON: function () {
