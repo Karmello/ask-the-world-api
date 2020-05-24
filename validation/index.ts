@@ -1,3 +1,5 @@
+import moment from 'moment/moment'
+
 export const isDefined = (value?: string): boolean => Boolean(value)
 
 export const isNotTooShort = (value: string, min: number): boolean => value && value.length >= min
@@ -12,4 +14,4 @@ export const isValidEmail = (value: string): boolean =>
   new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/).test(value)
 
 export const isBeforeMaxDate = (value: string, maxDate: string): boolean =>
-  new Date(value) < new Date(maxDate)
+  moment(value).isBefore(maxDate)
