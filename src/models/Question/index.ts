@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { NextFunction } from 'express'
 
 import {
   QUESTION_INPUT_MIN_LENGTH,
@@ -76,7 +77,7 @@ const questionSchema = new Schema(
   }
 )
 
-questionSchema.pre('save', function (next) {
+questionSchema.pre('save', function (next: NextFunction) {
   const doc = this as IQuestion
   if (doc.isNew) {
     doc

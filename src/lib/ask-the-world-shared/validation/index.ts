@@ -11,5 +11,5 @@ export const doesNotContainAlphaChars = (value: string, isPassword?: boolean): b
 export const isValidEmail = (value: string): boolean =>
   new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/).test(value)
 
-export const isBeforeMaxDate = (value: string, maxDate: string): boolean =>
-  new Date(value) < new Date(maxDate)
+export const isSameOrBefore = (value: string, maxDate: string): boolean =>
+  new Date(value) <= new Date(maxDate)

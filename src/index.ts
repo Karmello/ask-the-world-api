@@ -8,7 +8,7 @@ import registerControllers from 'controllers/index'
 const morgan = require('morgan')
 require('dotenv').config()
 
-const { NODE_ENV, PORT, MONGODB_URI } = process.env
+const { NODE_ENV, PORT, MONGO_URI } = process.env
 const app = express()
 
 app.use(morgan('tiny'))
@@ -32,7 +32,7 @@ registerControllers(app)
 
 if (NODE_ENV !== 'test') {
   mongoose
-    .connect(MONGODB_URI, {
+    .connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
