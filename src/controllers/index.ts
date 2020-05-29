@@ -9,7 +9,6 @@ import {
   ReadTopQuestions,
   ReadOwnQuestions,
   ReadOwnAnsweredQuestions,
-  ReadQuestion,
   UpdateQuestion,
 } from './question/index'
 
@@ -35,7 +34,6 @@ const registerControllers = (app: Application) => {
   ReadTopQuestions(app)
   ReadOwnQuestions(app)
   ReadOwnAnsweredQuestions(app)
-  ReadQuestion(app)
   UpdateQuestion(app)
 }
 

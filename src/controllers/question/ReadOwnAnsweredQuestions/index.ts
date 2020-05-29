@@ -25,12 +25,16 @@ export default (app: Application) =>
 
       Promise.all([
         QuestionModel.countDocuments(query),
-        QuestionModel.find(query).sort({ timestamp: -1 }).skip(offset).limit(READ_QUESTIONS_MAX),
+        QuestionModel.find(query)
+          .sort({ timestamp: -1 })
+          .skip(offset)
+          .limit(READ_QUESTIONS_MAX)
+          .lean(true),
       ]).then(
         results =>
           res.status(200).send({
             count: results[0],
-            data: results[1],
+            data: QuestionModel.transformBeforeSend(results[1], req.decoded._id),
           }),
         err => res.status(400).send(err)
       )
