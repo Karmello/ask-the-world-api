@@ -68,7 +68,6 @@ const questionSchema = new Schema(
         ret.answers.forEach(item => {
           item.votesInfo = {
             length: item.votes.length,
-            didVote: item.votes.includes('123412341234123412341234'),
           }
           delete item.votes
         })
