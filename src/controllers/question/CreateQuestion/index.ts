@@ -16,6 +16,6 @@ export default (app: Application) =>
 
     await newQuestion
       .save()
-      .then(doc => res.status(201).send(doc))
+      .then(doc => res.status(201).send(QuestionModel.transformBeforeSend(doc.toObject())))
       .catch(err => res.status(400).send(err))
   })

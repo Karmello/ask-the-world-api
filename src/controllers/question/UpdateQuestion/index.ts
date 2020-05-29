@@ -18,7 +18,7 @@ export default (app: Application) =>
 
       doc
         .save()
-        .then(doc => res.status(200).send(doc))
+        .then(doc => res.status(200).send(QuestionModel.transformBeforeSend(doc.toObject())))
         .catch(err => res.status(400).send(err))
     })
   })

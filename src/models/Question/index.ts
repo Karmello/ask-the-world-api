@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { NextFunction } from 'express'
+import isArray from 'lodash/isArray'
 
 import {
   QUESTION_INPUT_MIN_LENGTH,
@@ -82,8 +83,12 @@ questionSchema.pre('save', function (next: NextFunction) {
   }
 })
 
-questionSchema.statics.transformBeforeSend = (data: IQuestionDoc[], userId?: string) => {
-  data.forEach(question => {
+questionSchema.statics.transformBeforeSend = (
+  data: IQuestionDoc[] | IQuestionDoc,
+  userId?: string
+) => {
+  //
+  const transform = (question: IQuestionDoc) => {
     question.answers.forEach(answer => {
       answer.votesInfo = {
         length: answer.votes.length,
@@ -91,7 +96,8 @@ questionSchema.statics.transformBeforeSend = (data: IQuestionDoc[], userId?: str
       }
       delete answer.votes
     })
-  })
+  }
+  isArray(data) ? data.forEach(question => transform(question)) : transform(data)
   return data
 }
 
