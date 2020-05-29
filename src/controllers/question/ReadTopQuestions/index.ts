@@ -11,11 +11,12 @@ export default (app: Application) =>
     QuestionModel.find(query)
       .sort({ answeredTimes: -1 })
       .limit(NUM_OF_TOP_QUESTIONS)
+      .lean(true)
       .then(
         data =>
           res.status(200).send({
             count: NUM_OF_TOP_QUESTIONS,
-            data,
+            data: QuestionModel.transformBeforeSend(data),
           }),
         err => res.status(400).send(err)
       )

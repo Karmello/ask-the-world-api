@@ -7,7 +7,7 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
 } from 'shared/utils/index'
 
-import { ModelName, IQuestion } from 'utils/index'
+import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
 import { checkMinLength, checkMaxLength } from 'validation/index'
 
 const { model, Schema } = mongoose
@@ -63,21 +63,11 @@ const questionSchema = new Schema(
   },
   {
     versionKey: false,
-    toJSON: {
-      transform: function (doc: IQuestion, ret: IQuestion) {
-        ret.answers.forEach(item => {
-          item.votesInfo = {
-            length: item.votes.length,
-          }
-          delete item.votes
-        })
-      },
-    },
   }
 )
 
 questionSchema.pre('save', function (next: NextFunction) {
-  const doc = this as IQuestion
+  const doc = this as IQuestionDoc
   if (doc.isNew) {
     doc
       .model(ModelName.Question)
@@ -92,4 +82,17 @@ questionSchema.pre('save', function (next: NextFunction) {
   }
 })
 
-export default model(ModelName.Question, questionSchema)
+questionSchema.statics.transformBeforeSend = (data: IQuestionDoc[], userId?: string) => {
+  data.forEach(question => {
+    question.answers.forEach(answer => {
+      answer.votesInfo = {
+        length: answer.votes.length,
+        didVote: userId ? answer.votes.includes(userId) : false,
+      }
+      delete answer.votes
+    })
+  })
+  return data
+}
+
+export default model<IQuestionDoc, IQuestionModel>(ModelName.Question, questionSchema)
