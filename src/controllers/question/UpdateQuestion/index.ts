@@ -1,11 +1,12 @@
 import { Application, Request, Response } from 'express'
 
+import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
 import { IQuestion } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.UpdateQuestion, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { userId, questionId } = req.query
 

@@ -1,10 +1,11 @@
 import { Application, Request, Response } from 'express'
 
+import { userAuthMiddleware } from 'middleware/index'
 import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadOwnQuestions, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.ReadOwnQuestions, userAuthMiddleware, (req: Request, res: Response) => {
     //
     let offset = 0
     const { pageNo } = req.query
@@ -12,7 +13,7 @@ export default (app: Application) =>
     if (pageNo) offset = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
 
     const query = {
-      userId: '123412341234123412341234',
+      userId: req.decoded._id,
     }
 
     Promise.all([

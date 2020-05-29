@@ -4,13 +4,21 @@ import times from 'lodash/times'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../lib/ask-the-world-shared/utils'
 import { getRandNum } from './../lib/ask-the-world-shared/helpers'
 
-const questionMocks = [] as Array<{}>
+import {
+  QUESTION_INPUT_MIN_LENGTH,
+  QUESTION_INPUT_MAX_LENGTH,
+  ANSWER_INPUT_MAX_LENGTH,
+  IQuestion,
+  IAnswer,
+} from './../lib/ask-the-world-shared/utils'
 
-times(100, i => {
+const questionMocks = [] as IQuestion[]
+
+times(1000, i => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   let answeredTimes = 0
 
-  questionMocks.push({
+  const data = {
     userId: faker.random.uuid(),
     no: i + 1,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
@@ -35,7 +43,16 @@ times(100, i => {
     options: {
       multipleChoice: faker.random.boolean(),
     },
-  })
+  }
+
+  if (
+    data.text.length >= QUESTION_INPUT_MIN_LENGTH &&
+    data.text.length <= QUESTION_INPUT_MAX_LENGTH
+  ) {
+    if (!data.answers.some((item: IAnswer) => item.text.length > ANSWER_INPUT_MAX_LENGTH)) {
+      questionMocks.push(data as IQuestion)
+    }
+  }
 })
 
 export default questionMocks
