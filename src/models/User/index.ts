@@ -22,7 +22,7 @@ import {
 
 import { USER_MIN_AGE, DOB_FORMAT_PATTERN } from 'shared/utils/index'
 import dict from 'shared/validation/dictionary'
-import { IUser, ModelName, SALT_ROUNDS } from 'utils/index'
+import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
 
 const { model, Schema } = mongoose
 
@@ -77,12 +77,12 @@ userSchema.plugin(uniqueValidator, { message: dict.alreadyTakenMsg })
 
 userSchema.methods = {
   toJSON: function () {
-    const user = this.toObject() as IUser
+    const user = this.toObject() as IUserDoc
     delete user.password
     return user
   },
   hashPassword: function (next: NextFunction) {
-    const doc = this as IUser
+    const doc = this as IUserDoc
     if (!doc.isModified('password')) {
       next()
     } else {
@@ -98,7 +98,7 @@ userSchema.methods = {
 }
 
 userSchema.pre('save', function (next: NextFunction) {
-  const doc = this as IUser
+  const doc = this as IUserDoc
   doc.hashPassword(next)
 })
 
