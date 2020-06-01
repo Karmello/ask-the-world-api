@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
 import { X_AUTH_TOKEN, ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlConfig } from 'utils/index'
 
 export default (req: Request, res: Response, next: NextFunction) => {
   //
@@ -13,7 +14,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       req.decoded = decoded
       next()
     })
-  } else if (req.route.path === ApiUrlPath.AuthenticateUser) {
+  } else if (ApiUrlConfig[req.route.path as ApiUrlPath].allowWithNoToken) {
     next()
   } else {
     res.status(401).send()

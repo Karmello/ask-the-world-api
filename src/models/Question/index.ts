@@ -43,11 +43,13 @@ const questionSchema = new Schema(
           required: true,
           validate: [checkMaxLength(ANSWER_INPUT_MAX_LENGTH)],
         },
-        votes: {
-          type: [String],
-          required: true,
-          default: [],
-        },
+        votes: [
+          {
+            type: String,
+            unique: true,
+            ref: ModelName.User,
+          },
+        ],
       },
     ],
     answeredTimes: {

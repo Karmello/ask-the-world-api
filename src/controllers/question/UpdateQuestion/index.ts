@@ -8,17 +8,19 @@ import { QuestionModel } from 'models/index'
 export default (app: Application) =>
   app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const { userId, questionId } = req.query
+    const { questionId } = req.query
 
     QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestionDoc) => {
       //
       if (err) res.status(400).send(err)
 
-      req.body.forEach((i: number) => doc.answers[i].votes.push(String(userId)))
+      req.body.forEach((i: number) => doc.answers[i].votes.push(String(req.decoded._id)))
 
       doc
         .save()
-        .then(doc => res.status(200).send(QuestionModel.transformBeforeSend(doc.toObject())))
+        .then(doc =>
+          res.status(200).send(QuestionModel.transformBeforeSend(doc.toObject(), req.decoded._id))
+        )
         .catch(err => res.status(400).send(err))
     })
   })

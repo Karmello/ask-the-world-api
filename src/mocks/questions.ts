@@ -20,7 +20,7 @@ times(1000, i => {
 
   const data = {
     userId: faker.random.uuid(),
-    no: i + 1,
+    no: questionMocks.length + 1,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem.sentence(),
     answers: (() => {
