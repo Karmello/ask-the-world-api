@@ -16,7 +16,13 @@ export default (app: Application) =>
       if (err) res.status(400).send(err)
 
       if (isArray(req.body)) {
-        req.body.forEach((i: number) => doc.answers[i].votes.push(String(req.decoded._id)))
+        req.body.forEach((i: number) => {
+          if (!doc.answers[i].votes.includes(req.decoded._id)) {
+            doc.answers[i].votes.push(req.decoded._id)
+          } else {
+            return res.status(403).send()
+          }
+        })
       }
 
       doc

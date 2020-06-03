@@ -16,9 +16,9 @@ const { model, Schema, Types } = mongoose
 const questionSchema = new Schema(
   {
     userId: {
+      ref: ModelName.User,
       type: Types.ObjectId,
       required: true,
-      ref: ModelName.User,
     },
     no: {
       type: Number,
@@ -45,9 +45,8 @@ const questionSchema = new Schema(
         },
         votes: [
           {
-            type: Types.ObjectId,
-            unique: true,
             ref: ModelName.User,
+            type: Types.ObjectId,
           },
         ],
       },
@@ -94,7 +93,7 @@ questionSchema.statics.transformBeforeSend = (
     question.answers.forEach(answer => {
       answer.votesInfo = {
         length: answer.votes.length,
-        didVote: userId ? answer.votes.includes(userId) : false,
+        didVote: userId ? answer.votes.some(id => id.equals(userId)) : false,
       }
       delete answer.votes
     })
