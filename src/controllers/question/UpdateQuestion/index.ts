@@ -1,4 +1,5 @@
 import { Application, Request, Response } from 'express'
+import isArray from 'lodash/isArray'
 
 import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
@@ -14,7 +15,9 @@ export default (app: Application) =>
       //
       if (err) res.status(400).send(err)
 
-      req.body.forEach((i: number) => doc.answers[i].votes.push(String(req.decoded._id)))
+      if (isArray(req.body)) {
+        req.body.forEach((i: number) => doc.answers[i].votes.push(String(req.decoded._id)))
+      }
 
       doc
         .save()
