@@ -2,7 +2,7 @@ import IVote from './IVote'
 
 interface IAnswer {
   text: string
-  votes: string[]
+  votes: any[]
   votesInfo: IVote
 }
 
