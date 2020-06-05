@@ -9,6 +9,7 @@ interface IQuestion {
   answers: IAnswer[]
   options: {
     multipleChoice: boolean
+    maxSelectable: string
   }
   answeredTimes: number
 }
