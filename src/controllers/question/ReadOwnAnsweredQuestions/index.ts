@@ -18,7 +18,9 @@ export default (app: Application) =>
       const query = {
         answers: {
           $elemMatch: {
-            votes: new RegExp(`/.*${req.decoded._id}.*/i`),
+            votes: {
+              $in: req.decoded._id,
+            },
           },
         },
       }

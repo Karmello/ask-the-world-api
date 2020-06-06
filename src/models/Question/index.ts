@@ -61,6 +61,11 @@ const questionSchema = new Schema(
         type: Boolean,
         required: true,
       },
+      maxSelectable: {
+        type: Number,
+        required: true,
+        default: 1,
+      },
     },
   },
   {
