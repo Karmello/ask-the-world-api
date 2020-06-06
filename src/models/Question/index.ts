@@ -9,7 +9,7 @@ import {
 } from 'shared/utils/index'
 
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
-import { checkMinLength, checkMaxLength } from 'validation/index'
+import { checkMinLength, checkMaxLength, checkMaxSelectableAnswers } from 'validation/index'
 
 const { model, Schema, Types } = mongoose
 
@@ -65,6 +65,7 @@ const questionSchema = new Schema(
         type: Number,
         required: true,
         default: 1,
+        validate: [checkMaxSelectableAnswers],
       },
     },
   },

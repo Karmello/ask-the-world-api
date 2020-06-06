@@ -16,7 +16,7 @@ import {
   checkAlphaChars,
   checkMinLength,
   checkMaxLength,
-  checkDate,
+  checkDateOfBirth,
   checkCountry,
 } from 'validation/index'
 
@@ -36,7 +36,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: [checkEmail()],
+      validate: [checkEmail],
     },
     username: {
       type: String,
@@ -60,12 +60,12 @@ const userSchema = new Schema(
     dateOfBirth: {
       type: String,
       required: true,
-      validate: [checkDate(moment().add(-USER_MIN_AGE, 'years').format(DOB_FORMAT_PATTERN))],
+      validate: [checkDateOfBirth(moment().add(-USER_MIN_AGE, 'years').format(DOB_FORMAT_PATTERN))],
     },
     country: {
       type: String,
       required: true,
-      validate: [checkCountry()],
+      validate: [checkCountry],
     },
   },
   {
