@@ -41,9 +41,15 @@ times(1000, i => {
       }
     })(),
     answeredTimes,
-    options: {
-      multipleChoice: faker.random.boolean(),
-    },
+    options: (() => {
+      const multipleChoice = faker.random.boolean()
+      let maxSelectable = 1
+      if (multipleChoice) maxSelectable = getRandNum(2, numOfAnswers)
+      return {
+        multipleChoice,
+        maxSelectable,
+      }
+    })(),
   }
 
   if (
