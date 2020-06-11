@@ -5,7 +5,7 @@ import validationDict from 'shared/validation/dictionary'
 import { getFreshAuthToken } from 'helpers/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { IUser } from 'utils/index'
+import { IUserDoc } from 'utils/index'
 
 type TQuery = {
   _id?: string
@@ -13,9 +13,9 @@ type TQuery = {
 }
 
 const respondWithIncorrectCredentials = (res: Response) =>
-  res.status(400).send(validationDict.incorrectCredentialsMsg)
+  res.status(401).send(validationDict.incorrectCredentialsMsg)
 
-const respondWithFreshToken = (res: Response, doc: IUser) => {
+const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
   res.status(201).send(doc)
 }
@@ -34,7 +34,7 @@ export default (app: Application) =>
     if (username) query.username = username
 
     UserModel.findOne(query)
-      .then((doc: IUser) => {
+      .then((doc: IUserDoc) => {
         //
         if (doc) {
           if (!decoded) {

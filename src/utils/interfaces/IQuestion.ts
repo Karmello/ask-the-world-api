@@ -1,6 +1,8 @@
-import { Document } from 'mongoose'
+import { Document, Model } from 'mongoose'
 import { IQuestion } from 'shared/utils/index'
 
-interface IQuestionExtended extends IQuestion, Document {}
+export interface IQuestionDoc extends IQuestion, Document {}
 
-export default IQuestionExtended
+export interface IQuestionModel extends Model<IQuestionDoc> {
+  transformBeforeSend(data: IQuestion[] | IQuestion, userId?: string): IQuestion[]
+}

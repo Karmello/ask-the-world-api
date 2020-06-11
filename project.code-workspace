@@ -13,12 +13,20 @@
       "path": "src\\mocks"
     },
     {
+      "name": "validation",
+      "path": "src\\validation"
+    },
+    {
+      "name": "helpers",
+      "path": "src\\helpers"
+    },
+    {
       "name": "models",
       "path": "src\\models"
     },
     {
-      "name": "validation",
-      "path": "src\\validation"
+      "name": "middleware",
+      "path": "src\\middleware"
     },
     {
       "name": "utils",

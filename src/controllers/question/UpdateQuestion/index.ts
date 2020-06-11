@@ -1,23 +1,35 @@
 import { Application, Request, Response } from 'express'
+import isArray from 'lodash/isArray'
 
+import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
-import { IQuestion } from 'utils/index'
+import { IQuestionDoc } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.UpdateQuestion, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const { userId, questionId } = req.query
+    const { questionId } = req.query
 
-    QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestion) => {
+    QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestionDoc) => {
       //
       if (err) res.status(400).send(err)
 
-      req.body.forEach((i: number) => doc.answers[i].votes.push(String(userId)))
+      if (isArray(req.body)) {
+        req.body.forEach((i: number) => {
+          if (!doc.answers[i].votes.includes(req.decoded._id)) {
+            doc.answers[i].votes.push(req.decoded._id)
+          } else {
+            return res.status(403).send()
+          }
+        })
+      }
 
       doc
         .save()
-        .then(doc => res.status(200).send(doc))
+        .then(doc =>
+          res.status(200).send(QuestionModel.transformBeforeSend(doc.toObject(), req.decoded._id))
+        )
         .catch(err => res.status(400).send(err))
     })
   })
