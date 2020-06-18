@@ -7,6 +7,9 @@ export default {
   [ApiUrlPath.RegisterUser]: {
     allowWithNoToken: false,
   },
+  [ApiUrlPath.ReadUser]: {
+    allowWithNoToken: false,
+  },
   [ApiUrlPath.CreateQuestion]: {
     allowWithNoToken: false,
   },
