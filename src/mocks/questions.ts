@@ -2,6 +2,7 @@ import faker from 'faker'
 import times from 'lodash/times'
 import mongoose from 'mongoose'
 
+import userMocks from './users'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../lib/ask-the-world-shared/utils'
 import { getRandNum } from './../lib/ask-the-world-shared/helpers'
 
@@ -20,7 +21,7 @@ times(1000, i => {
   let answeredTimes = 0
 
   const data = {
-    userId: mongoose.Types.ObjectId(),
+    userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
     no: questionMocks.length + 1,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem.sentence(),

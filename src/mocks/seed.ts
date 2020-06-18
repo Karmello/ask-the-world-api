@@ -1,9 +1,14 @@
 import { MongoClient } from 'mongodb'
+
+import userMocks from './users'
 import questionMocks from './questions'
 
 const uri = process.argv[2]
 
 const resetDB = async (client: MongoClient) => {
+  const usersCollection = await client.db().collection('users')
+  await usersCollection.deleteMany({})
+  await usersCollection.insertMany(userMocks)
   const questionsCollection = await client.db().collection('questions')
   await questionsCollection.deleteMany({})
   await questionsCollection.insertMany(questionMocks)
