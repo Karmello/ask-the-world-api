@@ -2,7 +2,7 @@ import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
-import { AuthenticateUser, RegisterUser, ReadUser } from './user/index'
+import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser } from './user/index'
 
 import {
   CreateQuestion,
@@ -31,6 +31,7 @@ const registerControllers = (app: Application) => {
   AuthenticateUser(app)
   RegisterUser(app)
   ReadUser(app)
+  UpdateUser(app)
 
   CreateQuestion(app)
   ReadQuestions(app)
