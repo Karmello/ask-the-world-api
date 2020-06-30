@@ -36,7 +36,7 @@ if (NODE_ENV !== 'test') {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
     })
     .then(
       () => {
