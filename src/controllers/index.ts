@@ -1,7 +1,8 @@
 import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
-import { AuthenticateUser, RegisterUser } from './user/index'
+import { Env } from 'shared/utils/index'
+import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser } from './user/index'
 
 import {
   CreateQuestion,
@@ -16,7 +17,7 @@ import swaggerDocument from './../swagger.json'
 
 const registerControllers = (app: Application) => {
   //
-  if (process.env.REACT_APP_ENV !== 'remote-prod') {
+  if (process.env.REACT_APP_ENV !== Env.RemoteProd) {
     app.get('/', (req, res) => {
       res.json({ status: 'OK', docs: 'http://' + req.get('host') + req.originalUrl + 'swagger' })
     })
@@ -29,6 +30,9 @@ const registerControllers = (app: Application) => {
 
   AuthenticateUser(app)
   RegisterUser(app)
+  ReadUser(app)
+  UpdateUser(app)
+
   CreateQuestion(app)
   ReadQuestions(app)
   ReadTopQuestions(app)

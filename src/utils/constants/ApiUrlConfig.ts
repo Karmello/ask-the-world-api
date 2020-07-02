@@ -1,10 +1,22 @@
 import { ApiUrlPath } from 'shared/utils/index'
 
-export default {
+type Config = {
+  [key: string]: {
+    allowWithNoToken: boolean
+  }
+}
+
+const config = {
   [ApiUrlPath.AuthenticateUser]: {
     allowWithNoToken: true,
   },
   [ApiUrlPath.RegisterUser]: {
+    allowWithNoToken: false,
+  },
+  [ApiUrlPath.ReadUser]: {
+    allowWithNoToken: false,
+  },
+  [ApiUrlPath.UpdateUser]: {
     allowWithNoToken: false,
   },
   [ApiUrlPath.CreateQuestion]: {
@@ -25,4 +37,6 @@ export default {
   [ApiUrlPath.UpdateQuestion]: {
     allowWithNoToken: false,
   },
-}
+} as Config
+
+export default config

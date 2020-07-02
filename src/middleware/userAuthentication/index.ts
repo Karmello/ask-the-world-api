@@ -14,7 +14,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       req.decoded = decoded
       next()
     })
-  } else if (ApiUrlConfig[req.route.path as ApiUrlPath].allowWithNoToken) {
+  } else if (ApiUrlConfig[req.route.path].allowWithNoToken) {
     next()
   } else {
     res.status(401).send()
