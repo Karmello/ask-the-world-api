@@ -11,13 +11,13 @@ import {
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
 import { checkMinLength, checkMaxLength, checkMaxSelectableAnswers } from 'validation/index'
 
-const { model, Schema, Types } = mongoose
+const { model, Schema } = mongoose
 
 const questionSchema = new Schema(
   {
     userId: {
       ref: ModelName.User,
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
     },
     no: {
@@ -46,7 +46,7 @@ const questionSchema = new Schema(
         votes: [
           {
             ref: ModelName.User,
-            type: Types.ObjectId,
+            type: Schema.Types.ObjectId,
           },
         ],
       },
