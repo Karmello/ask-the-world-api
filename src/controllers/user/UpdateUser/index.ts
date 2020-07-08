@@ -8,11 +8,11 @@ import { IUserDoc } from 'utils/index'
 
 export default (app: Application) =>
   //
-  app.put(ApiUrlPath.UpdateUser, userAuthMiddleware, async (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { email, username, dateOfBirth, country } = req.body
 
-    await UserModel.findOne({ _id: req.body._id })
+    UserModel.findOne({ _id: req.body._id })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {

@@ -7,14 +7,14 @@ import { UserModel } from 'models/index'
 
 export default (app: Application) =>
   //
-  app.post(ApiUrlPath.RegisterUser, async (req: Request, res: Response) => {
+  app.post(ApiUrlPath.RegisterUser, (req: Request, res: Response) => {
     //
     const newUser = new UserModel({
       ...req.body,
       timestamp: moment().unix() * 1000,
     })
 
-    await newUser
+    newUser
       .save()
       .then(doc => {
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))

@@ -6,7 +6,7 @@ import { ApiUrlPath } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.post(ApiUrlPath.CreateQuestion, userAuthMiddleware, async (req: Request, res: Response) => {
+  app.post(ApiUrlPath.CreateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const newQuestion = new QuestionModel({
       ...req.body,
@@ -14,7 +14,7 @@ export default (app: Application) =>
       timestamp: moment().unix() * 1000,
     })
 
-    await newQuestion
+    newQuestion
       .save()
       .then(doc =>
         res.status(201).send(QuestionModel.transformBeforeSend(doc.toObject(), req.decoded._id))
