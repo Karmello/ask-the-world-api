@@ -37,6 +37,9 @@ const config = {
   [ApiUrlPath.UpdateQuestion]: {
     allowWithNoToken: false,
   },
+  [ApiUrlPath.UpdateQuestion]: {
+    allowWithNoToken: false,
+  },
 } as Config
 
 export default config
