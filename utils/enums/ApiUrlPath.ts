@@ -1,14 +1,15 @@
 enum ApiUrlPath {
   AuthenticateUser = '/authentication',
-  RegisterUser = '/registration',
-  ReadUser = '/read-user',
-  UpdateUser = '/update-user',
   CreateQuestion = '/create-question',
+  ReadOwnAnsweredQuestions = '/read-own-answered-questions',
+  ReadOwnQuestions = '/read-own-questions',
   ReadQuestions = '/read-questions',
   ReadTopQuestions = '/read-top-questions',
-  ReadOwnQuestions = '/read-own-questions',
-  ReadOwnAnsweredQuestions = '/read-own-answered-questions',
+  ReadUser = '/read-user',
+  RegisterUser = '/registration',
+  UpdatePassword = '/update-password',
   UpdateQuestion = '/update-question',
+  UpdateUser = '/update-user',
 }
 
 export default ApiUrlPath
