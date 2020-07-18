@@ -1,17 +1,17 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import morgan from 'morgan'
 
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
 import registerControllers from 'controllers/index'
 
-const morgan = require('morgan')
 require('dotenv').config()
 
 const { NODE_ENV, PORT, MONGO_URI } = process.env
 const app = express()
 
-app.use(morgan('tiny'))
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 

@@ -1,14 +1,17 @@
 {
+  "ts-node": {
+    "transpileOnly": true
+  },
   "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "noImplicitAny": true,
     "moduleResolution": "node",
+    "target": "es6",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
     "paths": {
       "shared/*": ["src/lib/ask-the-world-shared/*"],
       "controllers/*": ["src/controllers/*"],
