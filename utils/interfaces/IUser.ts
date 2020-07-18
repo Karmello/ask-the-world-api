@@ -5,6 +5,7 @@ interface IUser {
   password: string
   dateOfBirth: string
   country: string
+  timestamp: number
 }
 
 export default IUser
