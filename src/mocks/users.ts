@@ -46,4 +46,13 @@ export default [
     country: 'CA',
     timestamp: 1592498554000.0,
   },
+  {
+    _id: mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
+    email: 'batman@gotham.com',
+    username: 'Batman',
+    password: '$2a$10$hNLS8fu.EPqBaXlaR6oigO.tAhN00XUxMyBB7sHLA5J3uI.x.Z92u',
+    dateOfBirth: '1963-02-19',
+    country: 'US',
+    timestamp: 1595089886000.0,
+  },
 ]
