@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.config",
     "start": "cross-env NODE_ENV=production node build/index.js",
-    "start-local": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true nodemon --watch src src/bootstrap.ts",
+    "start-local": "cross-env NODE_ENV=development nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "test": "cross-env",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
@@ -48,6 +48,7 @@
     "swagger-ui-express": "^4.1.4",
     "ts-loader": "^7.0.1",
     "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.52",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.7",
     "webpack": "^4.42.1",
