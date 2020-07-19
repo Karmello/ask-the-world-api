@@ -10,6 +10,7 @@
     "test": "cross-env",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "seed-staging": "ts-node ./src/mocks/seed.ts mongodb://heroku_kfmm9zz8:iv9vvsm77jpl9ha1u30e7ambta@ds259361.mlab.com:59361/heroku_kfmm9zz8",
+    "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://github.com/Karmello/ask-the-world-shared.git master --squash"
   },
   "dependencies": {

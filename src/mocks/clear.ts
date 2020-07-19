@@ -1,17 +1,12 @@
 import { MongoClient } from 'mongodb'
 
-import userMocks from './data/users'
-import questionMocks from './data/questions'
-
 const uri = process.argv[2]
 
-const clearAndSeedDb = async (client: MongoClient) => {
+const clearDb = async (client: MongoClient) => {
   const usersCollection = await client.db().collection('users')
   const questionsCollection = await client.db().collection('questions')
   await usersCollection.deleteMany({})
-  await usersCollection.insertMany(userMocks)
   await questionsCollection.deleteMany({})
-  await questionsCollection.insertMany(questionMocks)
 }
 
 const main = async () => {
@@ -19,7 +14,7 @@ const main = async () => {
 
   try {
     await client.connect()
-    await clearAndSeedDb(client)
+    await clearDb(client)
   } catch (e) {
     console.error(e)
   } finally {
