@@ -17,6 +17,13 @@ export default (app: Application) =>
     const parsedQuery = JSON.parse(String(query))
     const parsedSort = JSON.parse(String(sort))
 
+    console.log({
+      query: parsedQuery,
+      skip: Number(skip),
+      limit: Number(limit),
+      sort: parsedSort,
+    })
+
     Promise.all([
       QuestionModel.countDocuments(parsedQuery),
       QuestionModel.find(parsedQuery)
