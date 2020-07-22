@@ -1,8 +1,8 @@
 export const isDefined = (value?: string): boolean => Boolean(value)
 
-export const isStringNotTooShort = (value: string, min: number): boolean => value.length >= min
+export const isStringNotTooShort = (value: string = '', min: number): boolean => value.length >= min
 
-export const isStringNotTooLong = (value: string, max: number): boolean => value.length <= max
+export const isStringNotTooLong = (value: string = '', max: number): boolean => value.length <= max
 
 export const doesStringNotContainAlphaChars = (value: string, isPassword?: boolean): boolean =>
   (isPassword && new RegExp(/^([a-zA-Z0-9_!@#$%-+=?]+)$/).test(value)) ||
