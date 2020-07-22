@@ -1,26 +1,17 @@
 import { Application, Request, Response } from 'express'
 
 import { userAuthMiddleware } from 'middleware/index'
-import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   app.get(ApiUrlPath.ReadQuestions, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    let offset = 0
-    const { pageNo } = req.query
-
-    if (pageNo) offset = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
-
-    const query = {}
+    const { query, skip, limit, sort } = req.query
 
     Promise.all([
       QuestionModel.countDocuments(query),
-      QuestionModel.find(query)
-        .sort({ timestamp: -1 })
-        .skip(offset)
-        .limit(READ_QUESTIONS_MAX)
-        .lean(true),
+      QuestionModel.find(query).sort(sort).skip(skip).limit(limit).lean(true),
     ]).then(
       results =>
         res.status(200).send({
