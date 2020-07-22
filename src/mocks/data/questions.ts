@@ -16,7 +16,7 @@ import {
 
 const questionMocks = [] as IQuestion[]
 
-times(1000, i => {
+times(25000, i => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   let answeredTimes = 0
 
