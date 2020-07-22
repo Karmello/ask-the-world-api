@@ -8,29 +8,23 @@ export default (app: Application) =>
   app.get(ApiUrlPath.ReadQuestions, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const {
-      query = '{}',
-      skip = '0',
-      limit = '0',
-      sort = '{}',
+      userId,
+      skip = 0,
+      limit = 0,
+      timestamp,
+      answeredTimes,
     } = (req.query as unknown) as IRequestQuery
 
-    const parsedQuery = JSON.parse(String(query))
-    const parsedSort = JSON.parse(String(sort))
+    const query = {} as any
+    const sort = {} as any
 
-    console.log({
-      query: parsedQuery,
-      skip: Number(skip),
-      limit: Number(limit),
-      sort: parsedSort,
-    })
+    if (userId) query.userId = userId
+    if (timestamp) sort.timestamp = timestamp
+    if (answeredTimes) sort.answeredTimes = answeredTimes
 
     Promise.all([
-      QuestionModel.countDocuments(parsedQuery),
-      QuestionModel.find(parsedQuery)
-        .sort(parsedSort)
-        .skip(Number(skip))
-        .limit(Number(limit))
-        .lean(true),
+      QuestionModel.countDocuments(query),
+      QuestionModel.find(query).sort(sort).skip(Number(skip)).limit(Number(limit)).lean(true),
     ]).then(
       results =>
         res.status(200).send({
