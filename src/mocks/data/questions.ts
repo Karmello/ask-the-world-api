@@ -3,8 +3,8 @@ import times from 'lodash/times'
 import mongoose from 'mongoose'
 
 import userMocks from './users'
-import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../lib/ask-the-world-shared/utils'
-import { getRandNum } from './../lib/ask-the-world-shared/helpers'
+import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
+import { getRandNum } from './../../lib/ask-the-world-shared/helpers'
 
 import {
   QUESTION_INPUT_MIN_LENGTH,
@@ -12,11 +12,11 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
   IQuestion,
   IAnswer,
-} from './../lib/ask-the-world-shared/utils'
+} from './../../lib/ask-the-world-shared/utils'
 
 const questionMocks = [] as IQuestion[]
 
-times(1000, i => {
+times(25000, i => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   let answeredTimes = 0
 

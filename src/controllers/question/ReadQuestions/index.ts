@@ -1,26 +1,32 @@
 import { Application, Request, Response } from 'express'
 
 import { userAuthMiddleware } from 'middleware/index'
-import { READ_QUESTIONS_MAX, ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, IRequestQuery } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   app.get(ApiUrlPath.ReadQuestions, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    let offset = 0
-    const { pageNo } = req.query
+    const {
+      userId,
+      skip = 0,
+      limit = 0,
+      timestamp,
+      answeredTimes,
+    } = (req.query as unknown) as IRequestQuery
 
-    if (pageNo) offset = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
+    const query = {} as any
+    const sort = {} as any
 
-    const query = {}
+    if (userId) query.userId = userId
+    if (timestamp) sort.timestamp = Number(timestamp)
+    if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
+
+    console.log(sort)
 
     Promise.all([
       QuestionModel.countDocuments(query),
-      QuestionModel.find(query)
-        .sort({ timestamp: -1 })
-        .skip(offset)
-        .limit(READ_QUESTIONS_MAX)
-        .lean(true),
+      QuestionModel.find(query).sort(sort).skip(Number(skip)).limit(Number(limit)).lean(true),
     ]).then(
       results =>
         res.status(200).send({
@@ -30,3 +36,14 @@ export default (app: Application) =>
       err => res.status(400).send(err)
     )
   })
+
+// own
+// const query = {
+//   answers: {
+//     $elemMatch: {
+//       votes: {
+//         $in: req.decoded._id,
+//       },
+//     },
+//   },
+// }
