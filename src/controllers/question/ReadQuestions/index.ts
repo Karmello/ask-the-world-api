@@ -19,8 +19,10 @@ export default (app: Application) =>
     const sort = {} as any
 
     if (userId) query.userId = userId
-    if (timestamp) sort.timestamp = timestamp
-    if (answeredTimes) sort.answeredTimes = answeredTimes
+    if (timestamp) sort.timestamp = Number(timestamp)
+    if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
+
+    console.log(sort)
 
     Promise.all([
       QuestionModel.countDocuments(query),
