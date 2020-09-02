@@ -4,6 +4,7 @@ interface IRequestQuery {
   limit?: number
   timestamp?: number
   answeredTimes?: number
+  selfAnswered?: boolean
 }
 
 export default IRequestQuery
