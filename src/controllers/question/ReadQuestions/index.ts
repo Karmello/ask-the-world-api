@@ -22,8 +22,6 @@ export default (app: Application) =>
     if (timestamp) sort.timestamp = Number(timestamp)
     if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
 
-    console.log(sort)
-
     Promise.all([
       QuestionModel.countDocuments(query),
       QuestionModel.find(query).sort(sort).skip(Number(skip)).limit(Number(limit)).lean(true),
