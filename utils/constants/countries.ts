@@ -31,10 +31,10 @@ export default [
     label: 'Anguilla',
     value: 'AI',
   },
-  {
-    label: 'Antarctica',
-    value: 'AQ',
-  },
+  // {
+  //   label: 'Antarctica',
+  //   value: 'AQ',
+  // },
   {
     label: 'Antigua and Barbuda',
     value: 'AG',
@@ -107,10 +107,10 @@ export default [
     label: 'Bolivia (Plurinational State of)',
     value: 'BO',
   },
-  {
-    label: 'Bonaire, Sint Eustatius and Saba',
-    value: 'BQ',
-  },
+  // {
+  //   label: 'Bonaire, Sint Eustatius and Saba',
+  //   value: 'BQ',
+  // },
   {
     label: 'Bosnia and Herzegovina',
     value: 'BA',
@@ -223,10 +223,10 @@ export default [
     label: 'Cuba',
     value: 'CU',
   },
-  {
-    label: 'Curaçao',
-    value: 'CW',
-  },
+  // {
+  //   label: 'Curaçao',
+  //   value: 'CW',
+  // },
   {
     label: 'Cyprus',
     value: 'CY',
@@ -363,10 +363,10 @@ export default [
     label: 'Guatemala',
     value: 'GT',
   },
-  {
-    label: 'Guernsey',
-    value: 'GG',
-  },
+  // {
+  //   label: 'Guernsey',
+  //   value: 'GG',
+  // },
   {
     label: 'Guinea',
     value: 'GN',
@@ -427,10 +427,10 @@ export default [
     label: 'Ireland',
     value: 'IE',
   },
-  {
-    label: 'Isle of Man',
-    value: 'IM',
-  },
+  // {
+  //   label: 'Isle of Man',
+  //   value: 'IM',
+  // },
   {
     label: 'Israel',
     value: 'IL',
@@ -447,10 +447,10 @@ export default [
     label: 'Japan',
     value: 'JP',
   },
-  {
-    label: 'Jersey',
-    value: 'JE',
-  },
+  // {
+  //   label: 'Jersey',
+  //   value: 'JE',
+  // },
   {
     label: 'Jordan',
     value: 'JO',
@@ -719,10 +719,10 @@ export default [
     label: 'Qatar',
     value: 'QA',
   },
-  {
-    label: 'Republic of Kosovo',
-    value: 'XK',
-  },
+  // {
+  //   label: 'Republic of Kosovo',
+  //   value: 'XK',
+  // },
   {
     label: 'Romania',
     value: 'RO',
@@ -739,10 +739,10 @@ export default [
     label: 'Réunion',
     value: 'RE',
   },
-  {
-    label: 'Saint Barthélemy',
-    value: 'BL',
-  },
+  // {
+  //   label: 'Saint Barthélemy',
+  //   value: 'BL',
+  // },
   {
     label: 'Saint Helena, Ascension and Tristan da Cunha',
     value: 'SH',
@@ -755,10 +755,10 @@ export default [
     label: 'Saint Lucia',
     value: 'LC',
   },
-  {
-    label: 'Saint Martin (French part)',
-    value: 'MF',
-  },
+  // {
+  //   label: 'Saint Martin (French part)',
+  //   value: 'MF',
+  // },
   {
     label: 'Saint Pierre and Miquelon',
     value: 'PM',
@@ -803,10 +803,10 @@ export default [
     label: 'Singapore',
     value: 'SG',
   },
-  {
-    label: 'Sint Maarten (Dutch part)',
-    value: 'SX',
-  },
+  // {
+  //   label: 'Sint Maarten (Dutch part)',
+  //   value: 'SX',
+  // },
   {
     label: 'Slovakia',
     value: 'SK',
@@ -831,10 +831,10 @@ export default [
     label: 'South Georgia and the South Sandwich Islands',
     value: 'GS',
   },
-  {
-    label: 'South Sudan',
-    value: 'SS',
-  },
+  // {
+  //   label: 'South Sudan',
+  //   value: 'SS',
+  // },
   {
     label: 'Spain',
     value: 'ES',
