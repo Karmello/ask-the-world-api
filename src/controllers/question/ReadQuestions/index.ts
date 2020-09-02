@@ -13,6 +13,7 @@ export default (app: Application) =>
       limit = 0,
       timestamp,
       answeredTimes,
+      selfAnswered,
     } = (req.query as unknown) as IRequestQuery
 
     const query = {} as any
@@ -21,6 +22,18 @@ export default (app: Application) =>
     if (userId) query.userId = userId
     if (timestamp) sort.timestamp = Number(timestamp)
     if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
+
+    console.log(Number(selfAnswered))
+
+    if (Boolean(selfAnswered)) {
+      query.answers = {
+        $elemMatch: {
+          votes: {
+            $in: req.decoded._id,
+          },
+        },
+      }
+    }
 
     Promise.all([
       QuestionModel.countDocuments(query),
@@ -34,14 +47,3 @@ export default (app: Application) =>
       err => res.status(400).send(err)
     )
   })
-
-// own
-// const query = {
-//   answers: {
-//     $elemMatch: {
-//       votes: {
-//         $in: req.decoded._id,
-//       },
-//     },
-//   },
-// }
