@@ -23,9 +23,7 @@ export default (app: Application) =>
     if (timestamp) sort.timestamp = Number(timestamp)
     if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
 
-    console.log(Number(selfAnswered))
-
-    if (Boolean(selfAnswered)) {
+    if (Number(selfAnswered)) {
       query.answers = {
         $elemMatch: {
           votes: {
