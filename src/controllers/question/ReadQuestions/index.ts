@@ -14,6 +14,7 @@ export default (app: Application) =>
       timestamp,
       answeredTimes,
       selfAnswered,
+      keywords,
     } = (req.query as unknown) as IRequestQuery
 
     const query = {} as any
@@ -30,6 +31,16 @@ export default (app: Application) =>
             $in: req.decoded._id,
           },
         },
+      }
+    }
+
+    if (keywords) {
+      // query.text = {
+      //   $regex: keywords.split(' ').join('|'),
+      //   $options: 'i',
+      // }
+      query.text = {
+        $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
       }
     }
 
