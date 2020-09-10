@@ -15,6 +15,7 @@ export default (app: Application) =>
       answeredTimes,
       selfAnswered,
       keywords,
+      keywordsMode,
     } = (req.query as unknown) as IRequestQuery
 
     const query = {} as any
@@ -34,15 +35,15 @@ export default (app: Application) =>
       }
     }
 
-    if (keywords) {
-      // query.text = {
-      //   $regex: keywords.split(' ').join('|'),
-      //   $options: 'i',
-      // }
-      query.text = {
-        $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
-      }
-    }
+    // if (keywords) {
+    //   query.text = {
+    //     $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
+    //   }
+    //   query.text = {
+    //     $regex: keywords.split(' ').join('|'),
+    //     $options: 'i',
+    //   }
+    // }
 
     Promise.all([
       QuestionModel.countDocuments(query),
