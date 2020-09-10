@@ -2,6 +2,7 @@ export * from './constants/index'
 
 export { default as ApiUrlPath } from './enums/ApiUrlPath'
 export { default as Env } from './enums/Env'
+export { default as Filter } from './enums/Filter'
 export { default as HttpMethod } from './enums/HttpMethod'
 
 export { default as IAnswer } from './interfaces/IAnswer'
