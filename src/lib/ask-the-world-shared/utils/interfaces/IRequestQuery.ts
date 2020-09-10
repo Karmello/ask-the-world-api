@@ -6,6 +6,7 @@ interface IRequestQuery {
   answeredTimes?: number
   selfAnswered?: number
   keywords?: string
+  keywordsMode?: string
 }
 
 export default IRequestQuery
