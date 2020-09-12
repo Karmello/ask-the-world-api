@@ -2,6 +2,7 @@ import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
+import { ReadStats } from './common/index'
 import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 import { CreateQuestion, ReadQuestions, UpdateQuestion } from './question/index'
 
@@ -19,6 +20,8 @@ const registerControllers = (app: Application) => {
       res.status(200).send('OK')
     })
   }
+
+  ReadStats(app)
 
   AuthenticateUser(app)
   RegisterUser(app)
