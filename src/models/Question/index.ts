@@ -20,10 +20,6 @@ const questionSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    no: {
-      type: Number,
-      default: 0,
-    },
     timestamp: {
       type: Number,
       required: true,
@@ -76,18 +72,8 @@ const questionSchema = new Schema(
 
 questionSchema.pre('save', function (next: NextFunction) {
   const doc = this as IQuestionDoc
-  if (doc.isNew) {
-    doc
-      .model(ModelName.Question)
-      .countDocuments()
-      .then((count: number) => {
-        doc.no = count += 1
-        next()
-      })
-  } else {
-    doc.answeredTimes += 1
-    next()
-  }
+  if (!doc.isNew) doc.answeredTimes += 1
+  next()
 })
 
 questionSchema.statics.transformBeforeSend = (

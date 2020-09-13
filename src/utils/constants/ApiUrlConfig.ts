@@ -8,34 +8,42 @@ type Config = {
 
 const {
   AuthenticateUser,
-  RegisterUser,
-  ReadUser,
-  UpdateUser,
   CreateQuestion,
+  DeleteQuestion,
   ReadQuestions,
+  ReadStats,
+  ReadUser,
+  RegisterUser,
   UpdateQuestion,
+  UpdateUser,
 } = ApiUrlPath
 
 const config = {
   [AuthenticateUser]: {
     allowWithNoToken: true,
   },
-  [RegisterUser]: {
-    allowWithNoToken: false,
-  },
-  [ReadUser]: {
-    allowWithNoToken: false,
-  },
-  [UpdateUser]: {
-    allowWithNoToken: false,
-  },
   [CreateQuestion]: {
+    allowWithNoToken: false,
+  },
+  [DeleteQuestion]: {
     allowWithNoToken: false,
   },
   [ReadQuestions]: {
     allowWithNoToken: true,
   },
+  [ReadStats]: {
+    allowWithNoToken: true,
+  },
+  [ReadUser]: {
+    allowWithNoToken: false,
+  },
+  [RegisterUser]: {
+    allowWithNoToken: false,
+  },
   [UpdateQuestion]: {
+    allowWithNoToken: false,
+  },
+  [UpdateUser]: {
     allowWithNoToken: false,
   },
 } as Config
