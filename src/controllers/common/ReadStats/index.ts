@@ -8,14 +8,31 @@ import { UserModel, QuestionModel } from 'models/index'
 export default (app: Application) =>
   app.get(ApiUrlPath.ReadStats, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    Promise.all([UserModel.countDocuments(), QuestionModel.countDocuments()]).then(
+    Promise.all([
+      UserModel.countDocuments(),
+      QuestionModel.countDocuments(),
+      QuestionModel.aggregate([
+        {
+          $group: {
+            _id: null,
+            votes: {
+              $sum: '$answeredTimes',
+            },
+          },
+        },
+      ]),
+    ]).then(
       results =>
         res.status(200).send({
           count: {
             users: results[0],
             questions: results[1],
+            votes: results[2][0].votes,
           },
         }),
-      err => res.status(400).send(err)
+      err => {
+        console.log(err)
+        res.status(400).send(err)
+      }
     )
   })
