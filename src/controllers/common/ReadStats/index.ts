@@ -1,5 +1,4 @@
 import { Application, Request, Response } from 'express'
-import moment from 'moment/moment'
 
 import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
@@ -30,9 +29,6 @@ export default (app: Application) =>
             answers: results[2][0].answers,
           },
         }),
-      err => {
-        console.log(err)
-        res.status(400).send(err)
-      }
+      err => res.status(400).send(err)
     )
   })
