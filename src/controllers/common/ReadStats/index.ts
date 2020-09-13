@@ -15,7 +15,7 @@ export default (app: Application) =>
         {
           $group: {
             _id: null,
-            votes: {
+            answers: {
               $sum: '$answeredTimes',
             },
           },
@@ -27,7 +27,7 @@ export default (app: Application) =>
           count: {
             users: results[0],
             questions: results[1],
-            votes: results[2][0].votes,
+            answers: results[2][0].answers,
           },
         }),
       err => {
