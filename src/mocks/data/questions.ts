@@ -16,7 +16,7 @@ import {
 
 const questionMocks = [] as IQuestion[]
 
-times(25000, i => {
+times(10000, i => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   let answeredTimes = 0
 
@@ -31,7 +31,7 @@ times(25000, i => {
           arr.push({
             text: faker.lorem.sentence(),
             votes: (() => {
-              const length = getRandNum(0, 1000)
+              const length = getRandNum(0, userMocks.length)
               answeredTimes += length
               return Array.from({ length }, v => mongoose.Types.ObjectId())
             })(),
@@ -40,7 +40,7 @@ times(25000, i => {
         return arr
       }
     })(),
-    answeredTimes,
+    answeredTimes: -1,
     options: (() => {
       const multipleChoice = faker.random.boolean()
       let maxSelectable = 1
@@ -51,6 +51,8 @@ times(25000, i => {
       }
     })(),
   }
+
+  data.answeredTimes = answeredTimes
 
   if (
     data.text.length >= QUESTION_INPUT_MIN_LENGTH &&
