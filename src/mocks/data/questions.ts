@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 import userMocks from './users'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
-import { getRandNum } from './../../lib/ask-the-world-shared/helpers'
+import { getRandNum, getRandNums } from './../../lib/ask-the-world-shared/helpers'
 
 import {
   QUESTION_INPUT_MIN_LENGTH,
@@ -18,29 +18,36 @@ const questionMocks = [] as IQuestion[]
 
 times(10000, i => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
-  let answeredTimes = 0
+  const allVotes = [] as any
 
-  const data = {
+  const question = {
     userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem.sentence(),
     answers: (() => {
-      {
-        const arr = [] as Array<{}>
-        times(numOfAnswers, i => {
-          arr.push({
-            text: faker.lorem.sentence(),
-            votes: (() => {
-              const length = getRandNum(0, userMocks.length)
-              answeredTimes += length
-              return Array.from({ length }, v => mongoose.Types.ObjectId())
-            })(),
-          })
+      const arr = [] as Array<{}>
+      times(numOfAnswers, i => {
+        arr.push({
+          text: faker.lorem.sentence(),
+          votes: (() => {
+            const userIndexes = getRandNums(
+              0,
+              userMocks.length - 1,
+              getRandNum(0, userMocks.length - 1)
+            )
+            const votes = [] as any[]
+            userIndexes.forEach(i => {
+              const userId = userMocks[i]._id
+              votes.push(userId)
+              if (!allVotes.includes(userId)) allVotes.push(userId)
+            })
+            return votes
+          })(),
         })
-        return arr
-      }
+      })
+      return arr
     })(),
-    answeredTimes: -1,
+    answeredTimes: allVotes.length,
     options: (() => {
       const multipleChoice = faker.random.boolean()
       let maxSelectable = 1
@@ -52,14 +59,12 @@ times(10000, i => {
     })(),
   }
 
-  data.answeredTimes = answeredTimes
-
   if (
-    data.text.length >= QUESTION_INPUT_MIN_LENGTH &&
-    data.text.length <= QUESTION_INPUT_MAX_LENGTH
+    question.text.length >= QUESTION_INPUT_MIN_LENGTH &&
+    question.text.length <= QUESTION_INPUT_MAX_LENGTH
   ) {
-    if (!data.answers.some((item: IAnswer) => item.text.length > ANSWER_INPUT_MAX_LENGTH)) {
-      questionMocks.push(data as IQuestion)
+    if (!question.answers.some((item: IAnswer) => item.text.length > ANSWER_INPUT_MAX_LENGTH)) {
+      questionMocks.push(question as IQuestion)
     }
   }
 })
