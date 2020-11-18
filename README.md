@@ -2,7 +2,7 @@
 
 - master url
 
-        ...
+        http://ask-the-world-api-master-795011334.eu-central-1.elb.amazonaws.com
 
 - SSH to AWS EC2 instance
 
