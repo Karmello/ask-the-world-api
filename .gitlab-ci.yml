@@ -1,0 +1,30 @@
+image: node:14.5.0
+cache:
+  paths:
+    - node_modules/
+stages:
+  - Node.js image
+  - AWS image
+Bundle:
+  stage: Node.js image
+  artifacts:
+    paths:
+      - api
+  script:
+    - yarn install
+    - yarn prettier
+    - yarn build
+    - mkdir api
+    - cp -r aws/. build api
+    - cp ecosystem.config.js api/build
+Deploy:
+  stage: AWS image
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  dependencies:
+    - Bundle
+  script:
+    - cd app
+    - tar -cvf api-master.tar build scripts appspec.yml
+    - aws s3 cp api-master.tar s3://ask-the-world-dev-release/
+    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-master --s3-location bucket=ask-the-world-dev-release,key=api-master.tar,bundleType=tar --deployment-group-name ask-the-world-api-master--output text`
+    - aws deploy wait deployment-successful --deployment-id $deploymentId
