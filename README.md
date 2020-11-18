@@ -1,3 +1,18 @@
 # Ask The World API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- master url
+
+        ...
+
+- SSH to AWS EC2 instance
+
+        ssh -i ask-the-world-dev.pem ubuntu@35.158.15.216
+
+- connect to MONGO
+
+        mongo "mongodb+srv://cluster0.wrpq7.mongodb.net/ask-the-world-dev" --username admin
+
+- generate new ssh key
+
+        ssh-keygen -t ed25519 -C "user@email.com"
+        
