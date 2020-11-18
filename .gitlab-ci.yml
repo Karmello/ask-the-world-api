@@ -23,7 +23,7 @@ Deploy:
   dependencies:
     - Bundle
   script:
-    - cd app
+    - cd api
     - tar -cvf api-master.tar build scripts appspec.yml
     - aws s3 cp api-master.tar s3://ask-the-world-dev-release/
     - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-master --s3-location bucket=ask-the-world-dev-release,key=api-master.tar,bundleType=tar --deployment-group-name ask-the-world-api-master--output text`
