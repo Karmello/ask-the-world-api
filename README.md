@@ -11,8 +11,3 @@
 - connect to MONGO
 
         mongo "mongodb+srv://cluster0.wrpq7.mongodb.net/ask-the-world-dev" --username admin
-
-- generate new ssh key
-
-        ssh-keygen -t ed25519 -C "user@email.com"
-        
