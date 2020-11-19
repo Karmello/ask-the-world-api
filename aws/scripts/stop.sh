@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /home/ubuntu/ask-the-world-api
-pm2 delete || exit 0
+pm2 stop ask-the-world-api
