@@ -9,7 +9,7 @@
     "prettier": "prettier --check src/**/*.ts",
     "test": "cross-env",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
-    "seed-staging": "ts-node ./src/mocks/seed.ts mongodb://heroku_kfmm9zz8:iv9vvsm77jpl9ha1u30e7ambta@ds259361.mlab.com:59361/heroku_kfmm9zz8",
+    "seed-remote-dev": "ts-node ./src/mocks/seed.ts mongodb+srv://admin:25Xe5fYhARFobS1d@cluster0.wrpq7.mongodb.net/ask-the-world-dev",
     "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://github.com/Karmello/ask-the-world-shared.git master --squash"
   },
@@ -32,6 +32,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "copy-webpack-plugin": "^6.3.1",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "esprima": "^4.0.1",

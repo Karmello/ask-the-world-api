@@ -10,17 +10,6 @@ import swaggerDocument from './../swagger.json'
 
 const registerControllers = (app: Application) => {
   //
-  if (process.env.REACT_APP_ENV !== Env.RemoteProd) {
-    app.get('/', (req, res) => {
-      res.json({ status: 'OK', docs: 'http://' + req.get('host') + req.originalUrl + 'swagger' })
-    })
-    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-  } else {
-    app.get('/', (req, res) => {
-      res.status(200).send('OK')
-    })
-  }
-
   ReadStats(app)
 
   AuthenticateUser(app)
@@ -33,6 +22,12 @@ const registerControllers = (app: Application) => {
   ReadQuestions(app)
   UpdateQuestion(app)
   DeleteQuestion(app)
+
+  app.get('/status', (req, res) => res.status(200).send('OK'))
+
+  if (process.env.REACT_APP_ENV !== Env.RemoteProd) {
+    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  }
 }
 
 export default registerControllers

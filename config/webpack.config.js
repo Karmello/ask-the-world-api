@@ -1,4 +1,5 @@
 const path = require('path')
+const copyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   name: 'bundle',
@@ -8,6 +9,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './../build'),
     filename: 'index.js',
+  },
+  node: {
+    __dirname: false,
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -26,4 +30,15 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new copyWebpackPlugin({
+      patterns: [
+        './node_modules/swagger-ui-dist/swagger-ui.css',
+        './node_modules/swagger-ui-dist/swagger-ui-bundle.js',
+        './node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js',
+        './node_modules/swagger-ui-dist/favicon-16x16.png',
+        './node_modules/swagger-ui-dist/favicon-32x32.png',
+      ],
+    }),
+  ],
 }
