@@ -7,9 +7,7 @@
     "start": "cross-env NODE_ENV=production node build/index.js",
     "start-local": "cross-env NODE_ENV=development nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
-    "test": "cross-env",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
-    "seed-remote-dev": "ts-node ./src/mocks/seed.ts mongodb+srv://admin:25Xe5fYhARFobS1d@cluster0.wrpq7.mongodb.net/ask-the-world-dev",
     "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://github.com/Karmello/ask-the-world-shared.git master --squash"
   },

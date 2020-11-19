@@ -1,8 +1,0 @@
-{
-  "addons": [
-    {
-      "plan": "mongolab:sandbox",
-      "as": "MONGO"
-    }
-  ]
-}
