@@ -55,9 +55,9 @@ if (NODE_ENV !== 'test') {
         if (isRemoteEnv) {
           createServer(
             {
-              key: readFileSync(path.resolve('server/ssl/key.pem'), { encoding: 'utf-8' }),
-              cert: readFileSync(path.resolve('server/ssl/cert.pem'), { encoding: 'utf-8' }),
-              ca: readFileSync(path.resolve('server/ssl/ca.pem'), { encoding: 'utf-8' }),
+              key: readFileSync(path.resolve('ssl/key.pem'), { encoding: 'utf-8' }),
+              cert: readFileSync(path.resolve('ssl/cert.pem'), { encoding: 'utf-8' }),
+              ca: readFileSync(path.resolve('ssl/ca.pem'), { encoding: 'utf-8' }),
               passphrase: 'zH3N3K4DKY',
             },
             app
