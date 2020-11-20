@@ -2,87 +2,221 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "ask-the-world-api",
-    "contact": {
-      "email": "nogakamil@gmail.com"
-    },
+    "title": "Ask The World API",
     "license": {
-      "name": "Repo",
-      "url": "https://github.com/Karmello/ask-the-world-api"
+      "name": "Repository",
+      "url": "https://gitlab.com/Karmello/ask-the-world-api"
     }
   },
   "basePath": "/",
-  "tags": [
-    {
-      "name": "[questions]",
-      "description": "read-write collection",
-      "externalDocs": {
-        "description": "",
-        "url": ""
-      }
-    }
-  ],
+  "tags": [{ "name": "User" }, { "name": "Question" }, { "name": "Other" }],
   "consumes": ["application/json"],
   "produces": ["application/json"],
+  "definitions": {
+    "User": {
+      "title": "User",
+      "properties": {
+        "_id": { "type": "string", "format": "byte", "unique": true },
+        "email": { "type": "string", "unique": true },
+        "username": { "type": "string", "unique": true },
+        "password": { "type": "string" },
+        "dateOfBirth": { "type": "string" },
+        "country": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["_id", "email", "username", "password", "dateOfBirth", "country", "timestamp"]
+    },
+    "Question": {
+      "title": "Question",
+      "properties": {
+        "_id": { "type": "string", "format": "byte", "unique": true },
+        "userId": { "type": "string", "format": "byte", "unique": true },
+        "timestamp": { "type": "number" },
+        "text": { "type": "string" },
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Answer"
+          }
+        },
+        "options": {
+          "properties": {
+            "multipleChoice": {
+              "type": "boolean"
+            },
+            "maxSelectable": {
+              "type": "number"
+            }
+          }
+        },
+        "answeredTimes": { "type": "number" }
+      },
+      "required": ["_id", "userId", "timestamp", "text", "answers", "options", "answeredTimes"]
+    },
+    "Answer": {
+      "title": "Answer",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": ["text"]
+    },
+    "Error": {
+      "title": "Error",
+      "properties": {}
+    }
+  },
   "paths": {
+    "/registration": {
+      "post": {
+        "summary": "[open endpoint]",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "formValues",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": { "type": "string" },
+                "username": { "type": "string" },
+                "password": { "type": "string" },
+                "dateOfBirth": { "type": "string" },
+                "country": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/authentication": {
+      "post": {
+        "summary": "[open endpoint]",
+        "tags": ["User"]
+      }
+    },
+    "/read-user": {
+      "get": {
+        "tags": ["User"]
+      }
+    },
+    "/update-user": {
+      "put": {
+        "tags": ["User"]
+      }
+    },
+    "/update-password": {
+      "put": {
+        "tags": ["User"]
+      }
+    },
+    "/create-question": {
+      "post": {
+        "tags": ["Question"]
+      }
+    },
     "/read-questions": {
       "get": {
-        "tags": ["[questions]"],
-        "summary": "gets questions",
+        "summary": "[open endpoint]",
+        "tags": ["Question"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "name": "skip",
+            "in": "query"
+          },
+          {
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "name": "timestamp",
+            "in": "query"
+          },
+          {
+            "name": "answeredTimes",
+            "in": "query"
+          },
+          {
+            "name": "selfAnswered",
+            "in": "query"
+          },
+          {
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "name": "keywordsMode",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
-            "$ref": "#/responses/questions"
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Question"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
     },
-    "/read-question": {
+    "/update-question": {
+      "put": {
+        "tags": ["Question"]
+      }
+    },
+    "/delete-question": {
+      "delete": {
+        "tags": ["Question"]
+      }
+    },
+    "/read-stats": {
       "get": {
-        "tags": ["[questions]"],
-        "summary": "gets a single question",
+        "summary": "[open endpoint]",
+        "tags": ["Other"],
         "responses": {
           "200": {
-            "$ref": "#/responses/question"
+            "schema": {
+              "properties": {
+                "count": {
+                  "properties": {
+                    "users": { "type": "number" },
+                    "questions": { "type": "number" },
+                    "answers": { "type": "number" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
-        }
-      }
-    }
-  },
-  "definitions": [{ "$ref": "#/schemas/Question" }],
-  "schemas": {
-    "Questions": {
-      "title": "Questions",
-      "required": ["_id"],
-      "properties": {
-        "_id": {
-          "$ref": "#/schemas/questionId"
-        }
-      }
-    },
-    "questionId": {
-      "type": "string",
-      "format": "byte",
-      "unique": true
-    }
-  },
-  "parameters": {},
-  "requestBody": {},
-  "responses": {
-    "questions": {
-      "description": "an array of question objects",
-      "schema": {
-        "type": "array",
-        "items": {
-          "$ref": "#/schemas/Question"
-        }
-      }
-    },
-    "question": {
-      "description": "a question objects",
-      "schema": {
-        "type": "object",
-        "items": {
-          "$ref": "#/schemas/Question"
         }
       }
     }

@@ -38,7 +38,7 @@ const config = {
     allowWithNoToken: false,
   },
   [RegisterUser]: {
-    allowWithNoToken: false,
+    allowWithNoToken: true,
   },
   [UpdateQuestion]: {
     allowWithNoToken: false,
