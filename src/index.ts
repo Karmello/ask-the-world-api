@@ -1,14 +1,20 @@
-import express from 'express'
+import express, { Errback } from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
+import { createServer } from 'https'
+import { readFileSync } from 'fs'
+import path from 'path'
 
+import { Env } from 'shared/utils/index'
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
 import registerControllers from 'controllers/index'
 
 require('dotenv').config()
 
 const { NODE_ENV, REACT_APP_ENV, PORT, MONGO_URI } = process.env
+const isRemoteEnv = REACT_APP_ENV && REACT_APP_ENV !== Env.Local
+
 const app = express()
 
 app.use(morgan('dev'))
@@ -40,10 +46,25 @@ if (NODE_ENV !== 'test') {
     })
     .then(
       () => {
-        app.listen(PORT, (err?) => {
+        //
+        const onStarted = (err?: Errback) => {
           if (err) return console.log(err)
           console.log(`API listening on port ${PORT}`, { NODE_ENV, REACT_APP_ENV }, '\n')
-        })
+        }
+
+        if (isRemoteEnv) {
+          createServer(
+            {
+              key: readFileSync(path.resolve('server/ssl/key.pem'), { encoding: 'utf-8' }),
+              cert: readFileSync(path.resolve('server/ssl/cert.pem'), { encoding: 'utf-8' }),
+              ca: readFileSync(path.resolve('server/ssl/ca.pem'), { encoding: 'utf-8' }),
+              passphrase: 'zH3N3K4DKY',
+            },
+            app
+          ).listen(PORT, onStarted)
+        } else {
+          app.listen(PORT, onStarted)
+        }
       },
       err => console.log(err)
     )
