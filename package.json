@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.config",
     "start": "cross-env NODE_ENV=production node build/index.js",
-    "start-local": "cross-env NODE_ENV=development nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
+    "start-local": "cross-env NODE_ENV=development REACT_APP_ENV=local nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
