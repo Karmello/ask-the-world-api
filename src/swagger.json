@@ -8,7 +8,6 @@
       "url": "https://gitlab.com/Karmello/ask-the-world-api"
     }
   },
-  "basePath": "/",
   "tags": [{ "name": "User" }, { "name": "Question" }, { "name": "Other" }],
   "consumes": ["application/json"],
   "produces": ["application/json"],
@@ -19,12 +18,11 @@
         "_id": { "type": "string", "format": "byte", "unique": true },
         "email": { "type": "string", "unique": true },
         "username": { "type": "string", "unique": true },
-        "password": { "type": "string" },
         "dateOfBirth": { "type": "string" },
         "country": { "type": "string" },
         "timestamp": { "type": "number" }
       },
-      "required": ["_id", "email", "username", "password", "dateOfBirth", "country", "timestamp"]
+      "required": ["_id", "email", "username", "dateOfBirth", "country", "timestamp"]
     },
     "Question": {
       "title": "Question",
@@ -61,9 +59,19 @@
         }
       },
       "required": ["text"]
+    }
+  },
+  "errors": {
+    "AuthorizationError": {
+      "title": "AuthorizationError",
+      "properties": {}
     },
-    "Error": {
-      "title": "Error",
+    "BadRequestError": {
+      "title": "BadRequestError",
+      "properties": {}
+    },
+    "ResourceNotFoundError": {
+      "title": "ResourceNotFoundError",
       "properties": {}
     }
   },
@@ -97,7 +105,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/errors/BadRequestError"
             }
           }
         }
@@ -106,27 +114,162 @@
     "/authentication": {
       "post": {
         "summary": "[open endpoint]",
-        "tags": ["User"]
+        "description": "Authenticate either with token or credentials.",
+        "tags": ["User"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header" },
+          {
+            "name": "formValues",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          }
+        }
       }
     },
     "/read-user": {
       "get": {
-        "tags": ["User"]
+        "tags": ["User"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          {
+            "name": "_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
+          }
+        }
       }
     },
     "/update-user": {
       "put": {
-        "tags": ["User"]
+        "tags": ["User"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          {
+            "name": "formValues",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": { "type": "string", "format": "byte" },
+                "email": { "type": "string" },
+                "username": { "type": "string" },
+                "dateOfBirth": { "type": "string" },
+                "country": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          }
+        }
       }
     },
     "/update-password": {
       "put": {
-        "tags": ["User"]
+        "tags": ["User"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          {
+            "name": "formValues",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": { "type": "string", "format": "byte" },
+                "currentPassword": { "type": "string" },
+                "newPassword": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          }
+        }
       }
     },
     "/create-question": {
       "post": {
-        "tags": ["Question"]
+        "tags": ["Question"],
+        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
       }
     },
     "/read-questions": {
@@ -134,37 +277,41 @@
         "summary": "[open endpoint]",
         "tags": ["Question"],
         "parameters": [
-          {
-            "name": "userId",
-            "in": "query"
-          },
-          {
-            "name": "skip",
-            "in": "query"
-          },
-          {
-            "name": "limit",
-            "in": "query"
-          },
+          { "name": "userId", "in": "query", "type": "string", "format": "byte" },
+          { "name": "skip", "in": "query", "type": "number" },
+          { "name": "limit", "in": "query", "type": "number", "default": 5 },
           {
             "name": "timestamp",
-            "in": "query"
+            "in": "query",
+            "type": "number",
+            "description": "sort by timestamp: [-1, 1]",
+            "default": 1
           },
           {
             "name": "answeredTimes",
-            "in": "query"
+            "in": "query",
+            "type": "number",
+            "description": "sort by answeredTimes: [-1, 1]",
+            "default": 1
           },
           {
             "name": "selfAnswered",
-            "in": "query"
+            "in": "query",
+            "type": "number",
+            "description": "[0, 1]",
+            "default": 0
           },
           {
             "name": "keywords",
-            "in": "query"
+            "in": "query",
+            "type": "string",
+            "description": "space separated strings"
           },
           {
             "name": "keywordsMode",
-            "in": "query"
+            "in": "query",
+            "type": "string",
+            "description": "[ALL, ANY]"
           }
         ],
         "responses": {
@@ -178,7 +325,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/errors/BadRequestError"
             }
           }
         }
@@ -186,12 +333,14 @@
     },
     "/update-question": {
       "put": {
-        "tags": ["Question"]
+        "tags": ["Question"],
+        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
       }
     },
     "/delete-question": {
       "delete": {
-        "tags": ["Question"]
+        "tags": ["Question"],
+        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
       }
     },
     "/read-stats": {
@@ -214,7 +363,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/errors/BadRequestError"
             }
           }
         }
