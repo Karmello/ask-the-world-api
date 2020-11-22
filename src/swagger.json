@@ -73,6 +73,10 @@
     "ResourceNotFoundError": {
       "title": "ResourceNotFoundError",
       "properties": {}
+    },
+    "AccessForbiddenError": {
+      "title": "AccessForbiddenError",
+      "properties": {}
     }
   },
   "paths": {
@@ -269,7 +273,53 @@
     "/create-question": {
       "post": {
         "tags": ["Question"],
-        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          {
+            "name": "formValues",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "answers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": { "type": "string" }
+                    }
+                  }
+                },
+                "options": {
+                  "type": "object",
+                  "properties": {
+                    "multipleChoice": { "type": "boolean" },
+                    "maxSelectable": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          }
+        }
       }
     },
     "/read-questions": {
@@ -278,7 +328,7 @@
         "tags": ["Question"],
         "parameters": [
           { "name": "userId", "in": "query", "type": "string", "format": "byte" },
-          { "name": "skip", "in": "query", "type": "number" },
+          { "nae": "skip", "in": "query", "type": "number" },
           { "name": "limit", "in": "query", "type": "number", "default": 5 },
           {
             "name": "timestamp",
@@ -334,13 +384,65 @@
     "/update-question": {
       "put": {
         "tags": ["Question"],
-        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "questionId", "in": "query", "required": true },
+          {
+            "name": "selectedIndexes",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/errors/AccessForbiddenError"
+            }
+          }
+        }
       }
     },
     "/delete-question": {
       "delete": {
         "tags": ["Question"],
-        "parameters": [{ "name": "atw-x-auth-token", "in": "header", "required": true }]
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "_id", "in": "query", "required": true }
+        ],
+        "responses": {
+          "204": {},
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          }
+        }
       }
     },
     "/read-stats": {
