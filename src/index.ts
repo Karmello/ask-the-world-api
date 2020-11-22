@@ -17,7 +17,7 @@ const isRemoteEnv = REACT_APP_ENV && REACT_APP_ENV !== Env.Local
 
 const app = express()
 
-app.use(morgan('dev'))
+if (REACT_APP_ENV !== Env.Test) app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 

@@ -76,12 +76,12 @@ const userSchema = new Schema(
 userSchema.plugin(uniqueValidator, { message: dict.alreadyTakenMsg })
 
 userSchema.methods = {
-  toJSON: function () {
+  toJSON() {
     const user = this.toObject() as IUserDoc
     delete user.password
     return user
   },
-  hashPassword: function (next: NextFunction) {
+  hashPassword(next: NextFunction) {
     const doc = this as IUserDoc
     if (!doc.isModified('password')) {
       next()
@@ -92,7 +92,7 @@ userSchema.methods = {
       })
     }
   },
-  comparePasswords: function (current: string, cb: (err?: Error, isMatch?: boolean) => void) {
+  comparePasswords(current: string, cb: (err?: Error, isMatch?: boolean) => void) {
     bcrypt.compare(current, this.password, (err: Error, isMatch) => cb(err, isMatch))
   },
 }

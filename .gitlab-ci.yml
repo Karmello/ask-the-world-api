@@ -13,6 +13,8 @@ Bundle:
   script:
     - yarn install
     - yarn prettier
+    - yarn tslint
+    - yarn test --silent
     - yarn build
     - mkdir api
     - cp -r aws/. build api

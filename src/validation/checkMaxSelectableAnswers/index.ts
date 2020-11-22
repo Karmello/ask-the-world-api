@@ -4,7 +4,7 @@ import dict from 'shared/validation/dictionary'
 export default {
   type: 'checkMaxSelectableAnswers',
   message: dict.invalidMsg,
-  validator: function (value: string) {
+  validator(value: string) {
     const { multipleChoice, maxSelectable } = this.options
     if (
       (!multipleChoice && maxSelectable === 1) ||

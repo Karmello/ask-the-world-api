@@ -1,6 +1,5 @@
 import faker from 'faker'
 import times from 'lodash/times'
-import mongoose from 'mongoose'
 
 import userMocks from './users'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
@@ -16,7 +15,7 @@ import {
 
 const questionMocks = [] as IQuestion[]
 
-times(10000, i => {
+times(10000, () => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   const allVotes = [] as any
 
@@ -25,8 +24,8 @@ times(10000, i => {
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem.sentence(),
     answers: (() => {
-      const arr = [] as Array<{}>
-      times(numOfAnswers, i => {
+      const arr = [] as {}[]
+      times(numOfAnswers, () => {
         arr.push({
           text: faker.lorem.sentence(),
           votes: (() => {

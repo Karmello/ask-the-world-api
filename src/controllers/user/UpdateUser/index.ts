@@ -19,9 +19,9 @@ export default (app: Application) =>
         doc.set({ email, username, dateOfBirth, country })
         doc
           .save()
-          .then(doc => {
-            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-            res.status(200).send(doc)
+          .then(_doc => {
+            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc._id))
+            res.status(200).send(_doc)
           })
           .catch(err => res.status(400).send(err.errors))
       })

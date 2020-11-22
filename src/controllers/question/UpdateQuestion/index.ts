@@ -27,9 +27,9 @@ export default (app: Application) =>
 
       doc
         .save()
-        .then(doc =>
-          res.status(200).send(QuestionModel.transformBeforeSend(doc.toObject(), req.decoded._id))
+        .then(_doc =>
+          res.status(200).send(QuestionModel.transformBeforeSend(_doc.toObject(), req.decoded._id))
         )
-        .catch(err => res.status(400).send(err))
+        .catch(_err => res.status(400).send(_err))
     })
   })
