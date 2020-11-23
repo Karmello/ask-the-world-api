@@ -36,8 +36,11 @@ app.use((req, res, next) => {
 
 registerControllers(app)
 
+const dbConnectionString = NODE_ENV !== Env.Test ? MONGO_URI : MONGO_URI_TEST
+console.log('>>>', dbConnectionString)
+
 mongoose
-  .connect(NODE_ENV !== Env.Test ? MONGO_URI : MONGO_URI_TEST, {
+  .connect(dbConnectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
