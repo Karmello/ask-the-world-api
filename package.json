@@ -45,6 +45,7 @@
     "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "mocha": "^8.2.1",
     "moment": "^2.25.1",
     "mongodb-client-encryption": "^1.1.0",
     "mongoose": "^5.9.25",
