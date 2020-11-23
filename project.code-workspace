@@ -35,6 +35,9 @@
     {
       "name": "controllers",
       "path": "src\\controllers"
+    },
+    {
+      "path": "tests"
     }
   ],
   "settings": {

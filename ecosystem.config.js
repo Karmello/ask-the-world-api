@@ -6,7 +6,6 @@ module.exports = {
       env: {
         PORT: 9000,
         NODE_ENV: 'production',
-        REACT_APP_ENV: 'remote-dev',
       },
     },
   ],

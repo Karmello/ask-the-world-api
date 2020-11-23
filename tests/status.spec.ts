@@ -1,16 +1,10 @@
-import chai, { should } from 'chai'
-import chaiHttp from 'chai-http'
-
-import app from './../src/index'
-
-chai.use(should)
-chai.use(chaiHttp)
+import { api, chai } from './_index'
 
 describe('GET /status', () => {
   //
   it('should return 200 and OK', done => {
     chai
-      .request(app)
+      .request(api)
       .get('/status')
       .end((err, res) => {
         res.should.have.status(200)

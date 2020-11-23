@@ -2,7 +2,7 @@ import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
-import { ReadStats } from './common/index'
+import { ReadStats } from './other/index'
 import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from './question/index'
 
@@ -25,7 +25,7 @@ const registerControllers = (app: Application) => {
 
   app.get('/status', (req, res) => res.status(200).send('OK'))
 
-  if (process.env.REACT_APP_ENV !== Env.RemoteProd) {
+  if (process.env.NODE_ENV !== Env.Prod) {
     app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   }
 }
