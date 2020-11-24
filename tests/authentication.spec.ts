@@ -77,7 +77,7 @@ describe('POST /authentication', () => {
       UserModel.collection.insertOne(userMocks[0])
     })
 
-    it('should return 201 and user', done => {
+    it('should return 201, user and token', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -106,7 +106,7 @@ describe('POST /authentication', () => {
       UserModel.collection.insertOne(userMocks[0])
     })
 
-    it('should return 201 and user', done => {
+    it('should return 201, user and token', done => {
       chai
         .request(api)
         .post('/authentication')
