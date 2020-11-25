@@ -4,12 +4,13 @@ import { UserModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
 import { api, chai } from './_index'
 
+let token
+
 describe('POST /authentication', () => {
   //
-  let token
-
-  beforeEach(() => {
+  before(() => {
     UserModel.collection.deleteMany({})
+    UserModel.collection.insertOne(userMocks[0])
   })
 
   describe('no token and credentials', () => {
@@ -75,9 +76,6 @@ describe('POST /authentication', () => {
   })
 
   describe('correct credentials', () => {
-    //
-    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
-
     it('should return 201, user and token', done => {
       chai
         .request(api)
@@ -101,9 +99,6 @@ describe('POST /authentication', () => {
   })
 
   describe('token', () => {
-    //
-    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
-
     it('should return 201, user and token', done => {
       chai
         .request(api)

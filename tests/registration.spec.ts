@@ -5,8 +5,9 @@ import { api, chai, expect } from './_index'
 
 describe('POST /registration', () => {
   //
-  beforeEach(() => {
+  before(() => {
     UserModel.collection.deleteMany({})
+    UserModel.collection.insertOne(userMocks[0])
   })
 
   describe('no body', () => {
@@ -45,9 +46,6 @@ describe('POST /registration', () => {
   })
 
   describe('user already exists', () => {
-    //
-    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
-
     it('should return 400 and errors', done => {
       chai
         .request(api)
@@ -69,7 +67,6 @@ describe('POST /registration', () => {
   })
 
   describe('incorrect body', () => {
-    //
     it('should return 400 and errors', done => {
       chai
         .request(api)
@@ -93,8 +90,6 @@ describe('POST /registration', () => {
     })
 
     it('should return 400 and errors', done => {
-      //
-      beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
       chai
         .request(api)
         .post('/registration')
@@ -118,6 +113,9 @@ describe('POST /registration', () => {
   })
 
   describe('correct body', () => {
+    //
+    before(() => UserModel.collection.deleteMany({}))
+
     it('should return 201, user and token', done => {
       chai
         .request(api)
