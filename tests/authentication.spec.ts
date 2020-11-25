@@ -8,6 +8,10 @@ describe('POST /authentication', () => {
   //
   let token
 
+  beforeEach(() => {
+    UserModel.collection.deleteMany({})
+  })
+
   describe('no token and credentials', () => {
     it('should return 401 and message', done => {
       chai
@@ -72,7 +76,6 @@ describe('POST /authentication', () => {
 
   describe('correct credentials', () => {
     it('should return 201, user and token', done => {
-      UserModel.collection.deleteMany({})
       UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)
@@ -97,7 +100,6 @@ describe('POST /authentication', () => {
 
   describe('token', () => {
     it('should return 201, user and token', done => {
-      UserModel.collection.deleteMany({})
       UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)

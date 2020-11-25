@@ -69,7 +69,6 @@ describe('POST /registration', () => {
   describe('incorrect body', () => {
     //
     it('should return 400 and errors', done => {
-      UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)
         .post('/registration')
