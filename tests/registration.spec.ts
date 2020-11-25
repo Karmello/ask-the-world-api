@@ -1,5 +1,6 @@
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
 import { UserModel } from './../src/models/index'
+import userMocks from './../src/mocks/data/users'
 import { api, chai, expect } from './_index'
 
 describe('POST /registration', () => {
@@ -8,8 +9,8 @@ describe('POST /registration', () => {
     UserModel.collection.deleteMany({})
   })
 
-  describe('empty body', () => {
-    it('should return 400 and required errors', done => {
+  describe('no body', () => {
+    it('should return 400 and errors', done => {
       chai
         .request(api)
         .post('/registration')
@@ -20,6 +21,95 @@ describe('POST /registration', () => {
           res.body.password.kind.should.equal('required')
           res.body.dateOfBirth.kind.should.equal('required')
           res.body.country.kind.should.equal('required')
+          done()
+        })
+    })
+  })
+
+  describe('empty object as body', () => {
+    it('should return 400 and errors', done => {
+      chai
+        .request(api)
+        .post('/registration')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.email.kind.should.equal('required')
+          res.body.username.kind.should.equal('required')
+          res.body.password.kind.should.equal('required')
+          res.body.dateOfBirth.kind.should.equal('required')
+          res.body.country.kind.should.equal('required')
+          done()
+        })
+    })
+  })
+
+  describe('user already exists', () => {
+    it('should return 400 and errors', done => {
+      UserModel.collection.insertOne(userMocks[0])
+      chai
+        .request(api)
+        .post('/registration')
+        .send({
+          email: userMocks[0].email,
+          username: userMocks[0].username,
+          password: 'password100',
+          dateOfBirth: userMocks[0].dateOfBirth,
+          country: userMocks[0].country,
+        })
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.email.kind.should.equal('unique')
+          res.body.username.kind.should.equal('unique')
+          done()
+        })
+    })
+  })
+
+  describe('incorrect body', () => {
+    //
+    it('should return 400 and errors', done => {
+      UserModel.collection.insertOne(userMocks[0])
+      chai
+        .request(api)
+        .post('/registration')
+        .send({
+          email: 'not-an-email',
+          username: 'ab',
+          password: 'xyz',
+          dateOfBirth: 'not-date-of-birth',
+          country: 'XX',
+        })
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.email.kind.should.equal('checkEmail')
+          res.body.username.kind.should.equal('checkMinLength')
+          res.body.password.kind.should.equal('checkMinLength')
+          res.body.dateOfBirth.kind.should.equal('checkDateOfBirth')
+          res.body.country.kind.should.equal('checkCountry')
+          done()
+        })
+    })
+
+    it('should return 400 and errors', done => {
+      UserModel.collection.insertOne(userMocks[0])
+      chai
+        .request(api)
+        .post('/registration')
+        .send({
+          email: 'username@email',
+          username: 'sgdjgfagskfgasdgkfjahgsdkfhaksdgfkajgsdfgakjsdgfkjasgdfkgaksjhdgfaksgdkjafg',
+          password: 'mxnbcvmncxbvmxnbcvbxmncbvnxbcvmnbxcmnvxmnbcvmxnbcvnxbcvmbxmbcvmxnbcmv',
+          dateOfBirth: '222-33-1',
+          country: 'country',
+        })
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.email.kind.should.equal('checkEmail')
+          res.body.username.kind.should.equal('checkMaxLength')
+          res.body.password.kind.should.equal('checkMaxLength')
+          res.body.dateOfBirth.kind.should.equal('checkDateOfBirth')
+          res.body.country.kind.should.equal('checkCountry')
           done()
         })
     })

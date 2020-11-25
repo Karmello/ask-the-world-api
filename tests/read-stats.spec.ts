@@ -3,11 +3,8 @@ import { api, chai } from './_index'
 
 describe('GET /read-stats', () => {
   //
-  beforeEach(() => {
+  it('should return 200 and data', done => {
     UserModel.collection.deleteMany({})
-  })
-
-  it('should return 200 and correct body', done => {
     chai
       .request(api)
       .get('/read-stats')

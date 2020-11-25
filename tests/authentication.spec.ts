@@ -9,7 +9,7 @@ describe('POST /authentication', () => {
   let token
 
   describe('no token and credentials', () => {
-    it('should return 401 and incorrect credentials message', done => {
+    it('should return 401 and message', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -22,7 +22,7 @@ describe('POST /authentication', () => {
   })
 
   describe('wrong credentials', () => {
-    it('should return 401 and incorrect credentials message', done => {
+    it('should return 401 and message', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -39,7 +39,7 @@ describe('POST /authentication', () => {
   })
 
   describe('wrong token', () => {
-    it('should return 401 and incorrect credentials message', done => {
+    it('should return 401 and message', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -53,7 +53,7 @@ describe('POST /authentication', () => {
   })
 
   describe('wrong token and correct credentials', () => {
-    it('should return 401 and incorrect credentials message', done => {
+    it('should return 401 and message', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -71,13 +71,9 @@ describe('POST /authentication', () => {
   })
 
   describe('correct credentials', () => {
-    //
-    beforeEach(() => {
+    it('should return 201, user and token', done => {
       UserModel.collection.deleteMany({})
       UserModel.collection.insertOne(userMocks[0])
-    })
-
-    it('should return 201, user and token', done => {
       chai
         .request(api)
         .post('/authentication')
@@ -100,13 +96,9 @@ describe('POST /authentication', () => {
   })
 
   describe('token', () => {
-    //
-    beforeEach(() => {
+    it('should return 201, user and token', done => {
       UserModel.collection.deleteMany({})
       UserModel.collection.insertOne(userMocks[0])
-    })
-
-    it('should return 201, user and token', done => {
       chai
         .request(api)
         .post('/authentication')
