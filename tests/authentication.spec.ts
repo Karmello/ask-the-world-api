@@ -75,8 +75,10 @@ describe('POST /authentication', () => {
   })
 
   describe('correct credentials', () => {
+    //
+    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
+
     it('should return 201, user and token', done => {
-      UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)
         .post('/authentication')
@@ -99,8 +101,10 @@ describe('POST /authentication', () => {
   })
 
   describe('token', () => {
+    //
+    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
+
     it('should return 201, user and token', done => {
-      UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)
         .post('/authentication')

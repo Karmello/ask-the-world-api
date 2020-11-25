@@ -45,8 +45,10 @@ describe('POST /registration', () => {
   })
 
   describe('user already exists', () => {
+    //
+    beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
+
     it('should return 400 and errors', done => {
-      UserModel.collection.insertOne(userMocks[0])
       chai
         .request(api)
         .post('/registration')
@@ -91,7 +93,8 @@ describe('POST /registration', () => {
     })
 
     it('should return 400 and errors', done => {
-      UserModel.collection.insertOne(userMocks[0])
+      //
+      beforeEach(() => UserModel.collection.insertOne(userMocks[0]))
       chai
         .request(api)
         .post('/registration')
