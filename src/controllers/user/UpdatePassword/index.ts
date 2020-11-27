@@ -23,6 +23,7 @@ export default (app: Application) =>
     UserModel.findOne({ _id: req.body._id })
       .exec()
       .then((doc: IUserDoc) => {
+        if (!doc) return res.status(404).send()
         doc.comparePasswords(currentPassword, (err, isMatch) => {
           if (err || !isMatch) {
             respondWithIncorrectPassword(res)

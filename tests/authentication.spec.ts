@@ -2,9 +2,7 @@ import validationDict from './../src/lib/ask-the-world-shared/validation/diction
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
 import { UserModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
-import { api, chai } from './_index'
-
-let token
+import { api, chai, getToken, setToken } from './_index'
 
 describe('POST /authentication', () => {
   //
@@ -92,7 +90,7 @@ describe('POST /authentication', () => {
           res.body.country.should.equal(userMocks[0].country)
           res.body.timestamp.should.equal(userMocks[0].timestamp)
           res.header[X_AUTH_TOKEN].should.exist
-          token = res.header[X_AUTH_TOKEN]
+          setToken(res.header[X_AUTH_TOKEN])
           done()
         })
     })
@@ -104,7 +102,7 @@ describe('POST /authentication', () => {
         .request(api)
         .post('/authentication')
         .set({
-          [X_AUTH_TOKEN]: token,
+          [X_AUTH_TOKEN]: getToken(),
         })
         .end((err, res) => {
           res.should.have.status(201)

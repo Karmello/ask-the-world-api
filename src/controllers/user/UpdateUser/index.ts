@@ -16,6 +16,7 @@ export default (app: Application) =>
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
+        if (!doc) return res.status(404).send()
         doc.set({ email, username, dateOfBirth, country })
         doc
           .save()

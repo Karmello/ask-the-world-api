@@ -110,6 +110,28 @@ describe('POST /registration', () => {
           done()
         })
     })
+
+    it('should return 400 and errors', done => {
+      chai
+        .request(api)
+        .post('/registration')
+        .send({
+          email: 'username@.com',
+          username: 'user name',
+          password: 'pass word100',
+          dateOfBirth: '2020-10-10',
+          country: 'Pl',
+        })
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.email.kind.should.equal('checkEmail')
+          res.body.username.kind.should.equal('checkAlphaChars')
+          res.body.password.kind.should.equal('checkAlphaChars')
+          res.body.dateOfBirth.kind.should.equal('checkDateOfBirth')
+          res.body.country.kind.should.equal('checkCountry')
+          done()
+        })
+    })
   })
 
   describe('correct body', () => {

@@ -14,6 +14,7 @@ const {
   ReadStats,
   ReadUser,
   RegisterUser,
+  UpdatePassword,
   UpdateQuestion,
   UpdateUser,
 } = ApiUrlPath
@@ -39,6 +40,9 @@ const config = {
   },
   [RegisterUser]: {
     allowWithNoToken: true,
+  },
+  [UpdatePassword]: {
+    allowWithNoToken: false,
   },
   [UpdateQuestion]: {
     allowWithNoToken: false,

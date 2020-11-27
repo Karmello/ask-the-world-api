@@ -228,6 +228,11 @@
             "schema": {
               "$ref": "#/errors/AuthorizationError"
             }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
           }
         }
       }
