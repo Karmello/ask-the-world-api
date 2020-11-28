@@ -2,14 +2,15 @@ import mongoose from 'mongoose'
 import { NextFunction } from 'express'
 import isArray from 'lodash/isArray'
 
-import {
-  QUESTION_INPUT_MIN_LENGTH,
-  QUESTION_INPUT_MAX_LENGTH,
-  ANSWER_INPUT_MAX_LENGTH,
-} from 'shared/utils/index'
-
+import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
-import { checkMinLength, checkMaxLength, checkMaxSelectableAnswers } from 'validation/index'
+
+import {
+  checkMinLength,
+  checkMaxLength,
+  checkAnswers,
+  checkMaxSelectableAnswers,
+} from 'validation/index'
 
 const { model, Schema } = mongoose
 
@@ -32,21 +33,12 @@ const questionSchema = new Schema(
         checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
       ],
     },
-    answers: [
-      {
-        text: {
-          type: String,
-          required: true,
-          validate: [checkMaxLength(ANSWER_INPUT_MAX_LENGTH)],
-        },
-        votes: [
-          {
-            ref: ModelName.User,
-            type: Schema.Types.ObjectId,
-          },
-        ],
-      },
-    ],
+    answers: {
+      type: Array,
+      required: true,
+      ref: ModelName.Answer,
+      validate: [checkAnswers],
+    },
     answeredTimes: {
       type: Number,
       required: true,
@@ -56,6 +48,7 @@ const questionSchema = new Schema(
       multipleChoice: {
         type: Boolean,
         required: true,
+        default: false,
       },
       maxSelectable: {
         type: Number,

@@ -1,9 +1,12 @@
-import { UserModel } from './../src/models/index'
+import { UserModel, QuestionModel } from './../src/models/index'
 import { api, chai } from './_index'
 
 describe('GET /read-stats', () => {
   //
-  before(() => UserModel.collection.deleteMany({}))
+  before(() => {
+    UserModel.collection.deleteMany({})
+    QuestionModel.collection.deleteMany({})
+  })
 
   it('should return 200 and data', done => {
     chai

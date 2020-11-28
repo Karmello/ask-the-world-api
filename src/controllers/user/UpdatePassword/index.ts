@@ -8,7 +8,7 @@ import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 
 const respondWithIncorrectPassword = (res: Response) =>
-  res.status(401).send({
+  res.status(400).send({
     currentPassword: {
       message: validationDict.incorrectPassword,
     },
