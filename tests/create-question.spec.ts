@@ -45,11 +45,47 @@ describe('POST /create-question', () => {
         .request(api)
         .post('/create-question')
         .set(X_AUTH_TOKEN, token)
-        .send({ text: '', answers: [] })
+        .send({
+          text: '',
+          answers: [],
+          options: {
+            multipleChoice: false,
+            maxSelectable: 0,
+          },
+        })
         .end((err, res) => {
           res.should.have.status(400)
           res.body.errors.text.kind.should.equal('required')
           res.body.errors.answers.kind.should.equal('checkAnswers')
+          res.body.errors['options.maxSelectable'].kind.should.equal('checkMaxSelectableAnswers')
+          done()
+        })
+    })
+
+    it('should return 400 and errors', done => {
+      chai
+        .request(api)
+        .post('/create-question')
+        .set(X_AUTH_TOKEN, token)
+        .send({
+          text: 'tooshort',
+          answers: [
+            {
+              text:
+                'toolong toolong toolong toolong toolong toolong toolong toolong toolong toolong',
+            },
+            { text: 'text' },
+          ],
+          options: {
+            multipleChoice: true,
+            maxSelectable: 5,
+          },
+        })
+        .end((err, res) => {
+          res.should.have.status(400)
+          res.body.errors.text.kind.should.equal('checkMinLength')
+          res.body.errors['answers.0.text'].kind.should.equal('checkMaxLength')
+          res.body.errors['options.maxSelectable'].kind.should.equal('checkMaxSelectableAnswers')
           done()
         })
     })
@@ -64,6 +100,10 @@ describe('POST /create-question', () => {
         .send({
           text: 'Who is going to be a new President of the United States of America ?',
           answers: [{ text: 'Donald Trump' }, { text: 'Joe Biden' }],
+          options: {
+            multipleChoice: true,
+            maxSelectable: 2,
+          },
         })
         .end((err, res) => {
           res.should.have.status(201)
@@ -73,20 +113,19 @@ describe('POST /create-question', () => {
           res.body.text.should.equal(
             'Who is going to be a new President of the United States of America ?'
           )
-          expect(res.body.answers).to.deep.equal([
-            {
-              text: 'Donald Trump',
-              votesInfo: { didVote: false, length: 0 },
-            },
-            {
-              text: 'Joe Biden',
-              votesInfo: { didVote: false, length: 0 },
-            },
-          ])
           res.body.answeredTimes.should.equal(0)
           res.body.options.should.deep.equal({
-            multipleChoice: false,
-            maxSelectable: 1,
+            multipleChoice: true,
+            maxSelectable: 2,
+          })
+          res.body.answers.should.have.length(2)
+          expect(res.body.answers[0]).to.deep.include({
+            text: 'Donald Trump',
+            votesInfo: { didVote: false, length: 0 },
+          })
+          expect(res.body.answers[1]).to.deep.include({
+            text: 'Joe Biden',
+            votesInfo: { didVote: false, length: 0 },
           })
           done()
         })

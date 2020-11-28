@@ -15,6 +15,7 @@ export default (app: Application) =>
         timestamp: moment().unix() * 1000,
         text: req.body.text,
         answers: req.body.answers.map(({ text }: IAnswer) => ({ text, votes: [] as any })),
+        options: req.body.options,
       })
 
       newQuestion
