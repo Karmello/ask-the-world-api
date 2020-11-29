@@ -2,7 +2,7 @@ import faker from 'faker'
 import times from 'lodash/times'
 
 import userMocks from './users'
-import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
+import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS, Env } from './../../lib/ask-the-world-shared/utils'
 import { getRandNum, getRandNums } from './../../lib/ask-the-world-shared/helpers'
 
 import {
@@ -13,9 +13,11 @@ import {
   IAnswer,
 } from './../../lib/ask-the-world-shared/utils'
 
+const { NODE_ENV } = process.env
+
 const questionMocks = [] as IQuestion[]
 
-times(10000, () => {
+times(NODE_ENV === Env.Test ? 100 : 10000, () => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   const allVotes = [] as any
 

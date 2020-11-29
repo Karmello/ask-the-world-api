@@ -1,7 +1,7 @@
 import { UserModel, QuestionModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
 import questionMocks from './../src/mocks/data/questions'
-import { api, chai, expect } from './_index'
+import { api, chai } from './_index'
 
 describe('GET /read-questions', () => {
   //
@@ -20,7 +20,7 @@ describe('GET /read-questions', () => {
   })
 
   describe('by userId', () => {
-    it('should return correct number of questions', done => {
+    it('should return correct data', done => {
       chai
         .request(api)
         .get('/read-questions')
@@ -28,6 +28,23 @@ describe('GET /read-questions', () => {
         .end((err, res) => {
           res.body.count.should.equal(count)
           res.body.data.length.should.equal(count)
+          done()
+        })
+    })
+  })
+
+  describe('with limit', () => {
+    it('should return correct data', done => {
+      chai
+        .request(api)
+        .get('/read-questions')
+        .query({
+          userId: userMocks[0]._id.toString(),
+          limit: 25,
+        })
+        .end((err, res) => {
+          res.body.count.should.equal(count)
+          res.body.data.length.should.equal(count > 25 ? 25 : count)
           done()
         })
     })
