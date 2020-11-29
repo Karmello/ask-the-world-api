@@ -8,7 +8,7 @@ describe('GET /read-user', () => {
   //
   let token
 
-  beforeEach(() => {
+  before(() => {
     UserModel.collection.deleteMany({})
     UserModel.collection.insertOne(userMocks[0])
     token = getToken()
@@ -43,9 +43,13 @@ describe('GET /read-user', () => {
 
   describe('user exists', () => {
     //
-    const user = { ...userMocks[0] }
-    user._id = user._id.toString() as any
-    delete user.password
+    let user
+
+    before(() => {
+      user = { ...userMocks[0] }
+      user._id = user._id.toString()
+      delete user.password
+    })
 
     it('should return 200 and user', done => {
       chai
