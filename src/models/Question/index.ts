@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { NextFunction } from 'express'
 import isArray from 'lodash/isArray'
 
-import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH, IAnswer } from 'shared/utils/index'
+import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
 import { AnswerModel } from 'models/index'
 

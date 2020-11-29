@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 import { ANSWER_INPUT_MAX_LENGTH } from 'shared/utils/index'
-import { ModelName, IAnswerDoc, IAnswerModel } from 'utils/index'
+import { ModelName, IAnswerDoc } from 'utils/index'
 import { checkMaxLength } from 'validation/index'
 
 const { model, Schema } = mongoose
@@ -24,4 +24,4 @@ const answerSchema = new Schema(
     versionKey: false,
   }
 )
-export default model<IAnswerDoc, IAnswerModel>(ModelName.Answer, answerSchema)
+export default model<IAnswerDoc>(ModelName.Answer, answerSchema)

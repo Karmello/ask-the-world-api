@@ -333,7 +333,7 @@
         "tags": ["Question"],
         "parameters": [
           { "name": "userId", "in": "query", "type": "string", "format": "byte" },
-          { "nae": "skip", "in": "query", "type": "number" },
+          { "name": "skip", "in": "query", "type": "number" },
           { "name": "limit", "in": "query", "type": "number", "default": 5 },
           {
             "name": "timestamp",

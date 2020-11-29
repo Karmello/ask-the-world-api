@@ -1,22 +1,15 @@
-import { UserModel, QuestionModel } from './../src/models/index'
-import { api, chai } from './_index'
+import { api, chai, expect } from './_index'
 
 describe('GET /read-stats', () => {
-  //
-  before(() => {
-    UserModel.collection.deleteMany({})
-    QuestionModel.collection.deleteMany({})
-  })
-
   it('should return 200 and data', done => {
     chai
       .request(api)
       .get('/read-stats')
       .end((err, res) => {
         res.should.have.status(200)
-        res.body.count.users.should.equal(0)
-        res.body.count.questions.should.equal(0)
-        res.body.count.answers.should.equal(0)
+        expect(res.body.count.users).to.be.a('number')
+        expect(res.body.count.questions).to.be.a('number')
+        expect(res.body.count.answers).to.be.a('number')
         done()
       })
   })

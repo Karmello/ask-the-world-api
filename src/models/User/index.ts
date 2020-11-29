@@ -102,4 +102,4 @@ userSchema.pre('save', function (next: NextFunction) {
   doc.hashPassword(next)
 })
 
-export default model(ModelName.User, userSchema)
+export default model<IUserDoc>(ModelName.User, userSchema)
