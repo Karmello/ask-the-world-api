@@ -3,7 +3,7 @@ import userMocks from './../src/mocks/data/users'
 import questionMocks from './../src/mocks/data/questions'
 import { api, chai } from './_index'
 
-xdescribe('GET /read-questions', () => {
+describe('GET /read-questions', () => {
   //
   let count
 
