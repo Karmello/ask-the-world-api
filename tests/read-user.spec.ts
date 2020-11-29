@@ -9,8 +9,6 @@ describe('GET /read-user', () => {
   let token
 
   before(() => {
-    UserModel.collection.deleteMany({})
-    UserModel.collection.insertOne(userMocks[0])
     token = getToken()
   })
 
@@ -46,6 +44,8 @@ describe('GET /read-user', () => {
     let user
 
     before(() => {
+      UserModel.collection.deleteMany({})
+      UserModel.collection.insertOne(userMocks[0])
       user = { ...userMocks[0] }
       user._id = user._id.toString()
       delete user.password
