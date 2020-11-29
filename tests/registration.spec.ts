@@ -5,7 +5,7 @@ import { api, chai, expect } from './_index'
 
 describe('POST /registration', () => {
   //
-  before(() => {
+  beforeEach(() => {
     UserModel.collection.deleteMany({})
     UserModel.collection.insertOne(userMocks[0])
   })
@@ -136,8 +136,6 @@ describe('POST /registration', () => {
 
   describe('correct body', () => {
     //
-    before(() => UserModel.collection.deleteMany({}))
-
     it('should return 201, user and token', done => {
       chai
         .request(api)
