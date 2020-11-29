@@ -6,6 +6,7 @@ module.exports = {
       env: {
         PORT: 9000,
         NODE_ENV: 'production',
+        APP_ENV: 'remote-dev',
       },
     },
   ],

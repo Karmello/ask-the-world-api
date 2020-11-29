@@ -13,8 +13,7 @@ import registerControllers from 'controllers/index'
 
 dotenv.config()
 
-const { NODE_ENV, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
-
+const { NODE_ENV, APP_ENV, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
 const app = express()
 
 if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
@@ -50,10 +49,11 @@ mongoose
       //
       const onStarted = (err?: Errback) => {
         if (err) return console.log(err)
-        if (NODE_ENV !== Env.Test) console.log(`API listening on port ${PORT}`, { NODE_ENV }, '\n')
+        if (NODE_ENV !== Env.Test)
+          console.log(`API listening on port ${PORT}`, { NODE_ENV, APP_ENV }, '\n')
       }
 
-      if (NODE_ENV === Env.Prod) {
+      if (APP_ENV !== Env.Local) {
         createServer(
           {
             key: readFileSync(path.resolve('ssl/key.pem'), { encoding: 'utf-8' }),

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.config",
     "start": "cross-env NODE_ENV=production node build/index.js",
-    "start-local": "cross-env NODE_ENV=development nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
+    "start-local": "cross-env NODE_ENV=development APP_ENV=local nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "tslint": "tslint src/**/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register tests/**/*.ts --timeout 10000 --exit",

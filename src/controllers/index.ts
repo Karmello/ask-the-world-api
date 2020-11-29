@@ -8,6 +8,8 @@ import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from '.
 
 import swaggerDocument from './../swagger.json'
 
+const { APP_ENV } = process.env
+
 const registerControllers = (app: Application) => {
   //
   ReadStats(app)
@@ -25,7 +27,7 @@ const registerControllers = (app: Application) => {
 
   app.get('/status', (req, res) => res.status(200).send('OK'))
 
-  if (process.env.NODE_ENV !== Env.Prod) {
+  if (APP_ENV !== Env.Prod) {
     app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   }
 }
