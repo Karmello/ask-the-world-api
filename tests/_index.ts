@@ -15,12 +15,19 @@ export const api = _api
 export const setToken = _token => (token = _token)
 export const getToken = () => token
 
+// status
+require('./status.spec')
+
+// user
+require('./registration.spec')
 require('./authentication.spec')
+require('./read-user.spec')
+require('./update-user.spec')
+require('./update-password.spec')
+
+// question
 require('./create-question.spec')
 require('./read-questions.spec')
+
+// stats
 require('./read-stats.spec')
-require('./read-user.spec')
-require('./registration.spec')
-require('./status.spec')
-require('./update-password.spec')
-require('./update-user.spec')
