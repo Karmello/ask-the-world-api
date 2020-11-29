@@ -6,7 +6,7 @@
 
 - SSH to AWS EC2 instance
 
-        ssh -i ask-the-world-dev.pem ubuntu@18.156.166.226
+        ssh -i ask-the-world-dev.pem ubuntu@18.193.119.53
 
 - connect to MONGO
 
