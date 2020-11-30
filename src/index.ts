@@ -49,11 +49,10 @@ mongoose
       //
       const onStarted = (err?: Errback) => {
         if (err) return console.log(err)
-        if (NODE_ENV !== Env.Test)
-          console.log(`API listening on port ${PORT}`, { NODE_ENV, APP_ENV }, '\n')
+        console.log(`API listening on port ${PORT}`, { NODE_ENV, APP_ENV }, '\n')
       }
 
-      if (APP_ENV !== Env.Local) {
+      if (![Env.Local, Env.Test].includes(APP_ENV as Env)) {
         createServer(
           {
             key: readFileSync(path.resolve('ssl/key.pem'), { encoding: 'utf-8' }),

@@ -1,15 +1,11 @@
 import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
-import { UserModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
-import { api, chai, getToken, setToken } from './_index'
+import { api, chai } from './_index'
 
 describe('POST /authentication', () => {
   //
-  before(() => {
-    UserModel.collection.deleteMany({})
-    UserModel.collection.insertOne(userMocks[0])
-  })
+  let token
 
   describe('no token and credentials', () => {
     it('should return 401 and message', done => {
@@ -90,7 +86,7 @@ describe('POST /authentication', () => {
           res.body.country.should.equal(userMocks[0].country)
           res.body.timestamp.should.equal(userMocks[0].timestamp)
           res.header[X_AUTH_TOKEN].should.exist
-          setToken(res.header[X_AUTH_TOKEN])
+          token = res.header[X_AUTH_TOKEN]
           done()
         })
     })
@@ -102,7 +98,7 @@ describe('POST /authentication', () => {
         .request(api)
         .post('/authentication')
         .set({
-          [X_AUTH_TOKEN]: getToken(),
+          [X_AUTH_TOKEN]: token,
         })
         .end((err, res) => {
           res.should.have.status(201)

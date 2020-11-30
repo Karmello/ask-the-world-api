@@ -1,17 +1,21 @@
 import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
-import { UserModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
-import { api, chai, expect, getToken } from './_index'
+import { api, chai, expect } from './_index'
 
 describe('PUT /update-user', () => {
   //
   let token
 
-  before(() => {
-    UserModel.collection.deleteMany({})
-    UserModel.collection.insertOne(userMocks[0])
-    token = getToken()
+  before(done => {
+    chai
+      .request(api)
+      .post('/authentication')
+      .send({ username: userMocks[1].username, password: 'cocacola100' })
+      .end((err, res) => {
+        token = res.header[X_AUTH_TOKEN]
+        done()
+      })
   })
 
   describe('no token', () => {
@@ -60,7 +64,7 @@ describe('PUT /update-user', () => {
         .put('/update-user')
         .set(X_AUTH_TOKEN, token)
         .send({
-          _id: userMocks[0]._id.toString(),
+          _id: userMocks[1]._id.toString(),
           dateOfBirth: '1999-04-23',
           country: 'FR',
         })
@@ -79,7 +83,7 @@ describe('PUT /update-user', () => {
 
     before(() => {
       user = {
-        _id: userMocks[0]._id.toString(),
+        _id: userMocks[1]._id.toString(),
         email: 'newemail@email.com',
         username: 'newusername',
         dateOfBirth: '1999-04-23',
@@ -97,7 +101,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
-            timestamp: userMocks[0].timestamp,
+            timestamp: userMocks[1].timestamp,
             dateOfBirth: '1999-04-23',
             country: 'FR',
           })
@@ -112,7 +116,7 @@ describe('PUT /update-user', () => {
 
     before(() => {
       user = {
-        _id: userMocks[0]._id.toString(),
+        _id: userMocks[1]._id.toString(),
         email: 'newemail@email.com',
         username: 'newusername',
         dateOfBirth: '1999-04-23',
@@ -135,7 +139,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
-            timestamp: userMocks[0].timestamp,
+            timestamp: userMocks[1].timestamp,
           })
           done()
         })

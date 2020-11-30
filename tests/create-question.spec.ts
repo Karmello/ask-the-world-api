@@ -1,16 +1,21 @@
 import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
 import userMocks from './../src/mocks/data/users'
-import { QuestionModel } from './../src/models/index'
-import { api, chai, expect, getToken } from './_index'
-
-let token
+import { api, chai, expect } from './_index'
 
 describe('POST /create-question', () => {
   //
-  before(() => {
-    QuestionModel.collection.deleteMany({})
-    token = getToken()
+  let token
+
+  before(done => {
+    chai
+      .request(api)
+      .post('/authentication')
+      .send({ username: userMocks[0].username, password: 'cocacola100' })
+      .end((err, res) => {
+        token = res.header[X_AUTH_TOKEN]
+        done()
+      })
   })
 
   describe('no token', () => {
