@@ -1,6 +1,6 @@
 import userMocks from './../src/mocks/data/users'
 import questionMocks from './../src/mocks/data/questions'
-import { api, chai } from './_index'
+import { api, chai, expect } from './_index'
 
 describe('GET /read-questions', () => {
   //
@@ -17,6 +17,7 @@ describe('GET /read-questions', () => {
         .get('/read-questions')
         .query({ userId: userMocks[1]._id.toString() })
         .end((err, res) => {
+          res.should.have.status(200)
           res.body.count.should.equal(count)
           res.body.data.length.should.equal(count)
           done()
@@ -34,8 +35,27 @@ describe('GET /read-questions', () => {
           limit: 25,
         })
         .end((err, res) => {
+          res.should.have.status(200)
           res.body.count.should.equal(count)
           res.body.data.length.should.equal(count > 25 ? 25 : count)
+          done()
+        })
+    })
+  })
+
+  describe('self answered', () => {
+    //
+    let userId
+    before(() => (userId = userMocks[2]._id.toString()))
+
+    it('should return correct data', done => {
+      chai
+        .request(api)
+        .get('/read-questions')
+        .query({ userId, limit: 25, selfAnswered: 1 })
+        .end((err, res) => {
+          res.should.have.status(200)
+          expect(res.body.data.some(q => q.userId !== userId)).to.equal(false)
           done()
         })
     })

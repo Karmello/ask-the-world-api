@@ -6,8 +6,6 @@ import { UserModel, QuestionModel } from './../src/models/index'
 import userMocks from './../src/mocks/data/users'
 import questionMocks from './../src/mocks/data/questions'
 
-let token
-
 _chai.use(should)
 _chai.use(chaiHttp)
 
@@ -16,16 +14,18 @@ export const expect = _expect
 export const api = _api
 
 describe('', () => {
-  //
-  UserModel.collection.deleteMany({})
-  UserModel.collection.insertOne(userMocks[0])
-  UserModel.collection.insertOne(userMocks[1])
-  UserModel.collection.insertOne(userMocks[2])
-  QuestionModel.collection.deleteMany({})
-  QuestionModel.collection.insertMany(questionMocks)
-
   it('ready to run specs', done => {
     setTimeout(() => {
+      //
+      UserModel.collection.deleteMany({}, () => {
+        UserModel.collection.insertOne(userMocks[0])
+        UserModel.collection.insertOne(userMocks[1])
+        UserModel.collection.insertOne(userMocks[2])
+      })
+      QuestionModel.collection.deleteMany({}, () => {
+        QuestionModel.collection.insertMany(questionMocks)
+      })
+
       require('./status.spec')
       require('./registration.spec')
       require('./authentication.spec')
@@ -34,6 +34,8 @@ describe('', () => {
       require('./update-password.spec')
       require('./create-question.spec')
       require('./read-questions.spec')
+      require('./update-question.spec')
+      require('./delete-question.spec')
       require('./read-stats.spec')
       done()
     }, 3000)

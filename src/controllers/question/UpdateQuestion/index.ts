@@ -1,5 +1,6 @@
 import { Application, Request, Response } from 'express'
 import isArray from 'lodash/isArray'
+import isEmpty from 'lodash/isEmpty'
 
 import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
@@ -13,23 +14,29 @@ export default (app: Application) =>
 
     QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestionDoc) => {
       //
-      if (err) res.status(400).send(err)
+      if (err) return res.status(400).send(err)
+      if (!doc) return res.status(404).send()
 
-      if (isArray(req.body)) {
-        req.body.forEach((i: number) => {
-          if (!doc.answers[i].votes.includes(req.decoded._id)) {
-            doc.answers[i].votes.push(req.decoded._id)
-          } else {
+      try {
+        if (isArray(req.body) && !isEmpty(req.body)) {
+          if (doc.answers.some(a => a.votes.includes(req.decoded._id))) {
             return res.status(403).send()
           }
-        })
-      }
+          req.body.forEach((i: number) => doc.answers[i].votes.push(req.decoded._id))
+        } else {
+          return res.status(400).send()
+        }
 
-      doc
-        .save()
-        .then(_doc =>
-          res.status(200).send(QuestionModel.transformBeforeSend(_doc.toObject(), req.decoded._id))
-        )
-        .catch(_err => res.status(400).send(_err))
+        doc
+          .save()
+          .then(_doc =>
+            res
+              .status(200)
+              .send(QuestionModel.transformBeforeSend(_doc.toObject(), req.decoded._id))
+          )
+          .catch(_err => res.status(400).send(_err))
+      } catch (ex) {
+        return res.status(400).send(ex.message)
+      }
     })
   })

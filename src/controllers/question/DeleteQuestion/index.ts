@@ -8,6 +8,6 @@ export default (app: Application) =>
   app.delete(ApiUrlPath.DeleteQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     QuestionModel.deleteOne({ _id: req.query._id })
-      .then(() => res.status(204).send())
+      .then(({ deletedCount }) => res.status(deletedCount > 0 ? 204 : 404).send())
       .catch(err => res.status(400).send(err))
   })
