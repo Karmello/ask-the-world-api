@@ -24,15 +24,18 @@ describe('', () => {
   QuestionModel.collection.deleteMany({})
   QuestionModel.collection.insertMany(questionMocks)
 
-  it('ready to run specs', () => {
-    require('./status.spec')
-    require('./registration.spec')
-    require('./authentication.spec')
-    require('./read-user.spec')
-    require('./update-user.spec')
-    require('./update-password.spec')
-    require('./create-question.spec')
-    require('./read-questions.spec')
-    require('./read-stats.spec')
+  it('ready to run specs', done => {
+    setTimeout(() => {
+      require('./status.spec')
+      require('./registration.spec')
+      require('./authentication.spec')
+      require('./read-user.spec')
+      require('./update-user.spec')
+      require('./update-password.spec')
+      require('./create-question.spec')
+      require('./read-questions.spec')
+      require('./read-stats.spec')
+      done()
+    }, 3000)
   })
 })
