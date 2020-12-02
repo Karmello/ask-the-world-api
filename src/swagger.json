@@ -446,6 +446,11 @@
             "schema": {
               "$ref": "#/errors/AuthorizationError"
             }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
           }
         }
       }
@@ -471,6 +476,20 @@
           "400": {
             "schema": {
               "$ref": "#/errors/BadRequestError"
+            }
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "[open endpoint]",
+        "tags": ["Other"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "string",
+              "example": "OK"
             }
           }
         }

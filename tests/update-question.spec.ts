@@ -1,7 +1,7 @@
 import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
 import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
 import userMocks from './../src/mocks/data/users'
-import { api, chai, expect } from './_index'
+import { api, chai } from './_index'
 
 describe('PUT /update-question', () => {
   //
@@ -121,7 +121,7 @@ describe('PUT /update-question', () => {
   })
 
   describe('correct body', () => {
-    it('should return 400', done => {
+    it('should return 200', done => {
       chai
         .request(api)
         .put('/update-question')
