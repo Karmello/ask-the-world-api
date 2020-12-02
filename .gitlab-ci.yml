@@ -8,6 +8,8 @@ stages:
 only:
   - master
 Bundle:
+  only:
+    - master
   stage: Node.js image
   artifacts:
     paths:
@@ -22,6 +24,8 @@ Bundle:
     - cp -r aws/. build api
     - cp ecosystem.config.js api/build
 Deploy:
+  only:
+    - master
   stage: AWS image
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
