@@ -9,6 +9,10 @@
       "path": "src"
     },
     {
+      "name": "lib",
+      "path": "src\\lib"
+    },
+    {
       "name": "mocks",
       "path": "src\\mocks"
     },
@@ -37,6 +41,7 @@
       "path": "src\\controllers"
     },
     {
+      "name": "tests",
       "path": "tests"
     }
   ],
