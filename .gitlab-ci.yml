@@ -5,6 +5,8 @@ cache:
 stages:
   - Node.js image
   - AWS image
+only:
+  - master
 Bundle:
   stage: Node.js image
   artifacts:
