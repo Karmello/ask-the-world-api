@@ -8,6 +8,7 @@ stages:
 Bundle:
   only:
     - master
+    - /^milestone-.*$/
   stage: Node.js image
   artifacts:
     paths:
@@ -33,4 +34,17 @@ Deploy:
     - tar -cvf api.tar build scripts appspec.yml
     - aws s3 cp api.tar s3://ask-the-world-dev-release/master/
     - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-master --s3-location bucket=ask-the-world-dev-release,key=master/api.tar,bundleType=tar --deployment-group-name ask-the-world-api-master --output text`
+    - aws deploy wait deployment-successful --deployment-id $deploymentId
+Deploy:
+  only:
+    - /^milestone-.*$/
+  stage: AWS image
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  dependencies:
+    - Bundle
+  script:
+    - cd api
+    - tar -cvf api.tar build scripts appspec.yml
+    - aws s3 cp api.tar s3://ask-the-world-dev-release/feature/
+    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-feature --s3-location bucket=ask-the-world-dev-release,key=feature/api.tar,bundleType=tar --deployment-group-name ask-the-world-api-feature --output text`
     - aws deploy wait deployment-successful --deployment-id $deploymentId
