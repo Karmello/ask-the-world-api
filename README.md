@@ -1,12 +1,13 @@
 # Ask The World API
 
-- master url
+- urls
 
-        http://ask-the-world-api-master-795011334.eu-central-1.elb.amazonaws.com
+        [master] http://ask-the-world-api-master-795011334.eu-central-1.elb.amazonaws.com
 
 - SSH to AWS EC2 instance
 
-        ssh -i ask-the-world-dev.pem ubuntu@18.193.119.53
+        [feature] ssh -i ask-the-world-dev.pem ubuntu@18.192.65.96
+        [master]  ssh -i ask-the-world-dev.pem ubuntu@18.193.119.53
 
 - connect to MONGO
 
