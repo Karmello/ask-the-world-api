@@ -44,7 +44,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.COMMIT_HASH': JSON.stringify(
-        childProcess.execSync('git rev-parse HEAD').toString()
+        childProcess.execSync('git rev-parse --short HEAD').toString()
       ),
     }),
   ],
