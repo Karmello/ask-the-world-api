@@ -1,4 +1,6 @@
+const childProcess = require('child_process')
 const path = require('path')
+const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -39,6 +41,10 @@ module.exports = {
         './node_modules/swagger-ui-dist/favicon-16x16.png',
         './node_modules/swagger-ui-dist/favicon-32x32.png',
       ],
+    }),
+    new webpack.DefinePlugin({
+      CI_COMMIT_REF_NAME: process.env.CI_COMMIT_REF_NAME,
+      CI_COMMIT_SHA: process.env.CI_COMMIT_SHA,
     }),
   ],
 }
