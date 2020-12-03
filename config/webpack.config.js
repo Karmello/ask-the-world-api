@@ -45,10 +45,8 @@ module.exports = {
       ],
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        CI_COMMIT_REF_NAME,
-        CI_COMMIT_SHA,
-      },
+      'process.env.CI_COMMIT_REF_NAME': CI_COMMIT_REF_NAME,
+      'process.env.CI_COMMIT_SHA': CI_COMMIT_SHA,
     }),
   ],
 }
