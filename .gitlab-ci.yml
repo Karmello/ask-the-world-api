@@ -14,8 +14,8 @@ Bundle:
     paths:
       - api
   script:
-    - export CI_COMMIT_SHA=${CI_COMMIT_SHA}
-    - export CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME}
+    - echo $CI_COMMIT_SHA
+    - echo $CI_COMMIT_REF_NAME
     - yarn install
     - yarn prettier
     - yarn tslint
