@@ -1,4 +1,6 @@
+const childProcess = require('child_process')
 const path = require('path')
+const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -39,6 +41,9 @@ module.exports = {
         './node_modules/swagger-ui-dist/favicon-16x16.png',
         './node_modules/swagger-ui-dist/favicon-32x32.png',
       ],
+    }),
+    new webpack.DefinePlugin({
+      COMMIT_HASH: JSON.stringify(childProcess.execSync('git rev-parse HEAD').toString()),
     }),
   ],
 }
