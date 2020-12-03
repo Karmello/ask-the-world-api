@@ -43,6 +43,9 @@ module.exports = {
       ],
     }),
     new webpack.DefinePlugin({
+      'process.env.BRANCH_NAME': JSON.stringify(
+        childProcess.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+      ),
       'process.env.COMMIT_HASH': JSON.stringify(
         childProcess.execSync('git rev-parse --short HEAD').toString().trim()
       ),
