@@ -1,13 +1,13 @@
 import { api, chai } from './_index'
 
-describe('GET /status', () => {
-  it('should return 200 and OK', done => {
+describe('GET /info', () => {
+  it('should return 200 and correct object', done => {
     chai
       .request(api)
-      .get('/status')
+      .get('/info')
       .end((err, res) => {
         res.should.have.status(200)
-        res.text.should.equal('OK')
+        res.body.status.should.equal('OK')
         done()
       })
   })

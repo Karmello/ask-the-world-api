@@ -10,9 +10,9 @@ const {
   AuthenticateUser,
   CreateQuestion,
   DeleteQuestion,
+  ReadInfo,
   ReadQuestions,
   ReadStats,
-  ReadStatus,
   ReadUser,
   RegisterUser,
   UpdatePassword,
@@ -30,13 +30,13 @@ const config = {
   [DeleteQuestion]: {
     allowWithNoToken: false,
   },
+  [ReadInfo]: {
+    allowWithNoToken: true,
+  },
   [ReadQuestions]: {
     allowWithNoToken: true,
   },
   [ReadStats]: {
-    allowWithNoToken: true,
-  },
-  [ReadStatus]: {
     allowWithNoToken: true,
   },
   [ReadUser]: {

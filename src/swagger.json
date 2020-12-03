@@ -481,15 +481,23 @@
         }
       }
     },
-    "/status": {
+    "/info": {
       "get": {
         "summary": "[open endpoint]",
         "tags": ["Other"],
         "responses": {
           "200": {
             "schema": {
-              "type": "string",
-              "example": "OK"
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "revision": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
