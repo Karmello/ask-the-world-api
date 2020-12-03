@@ -44,10 +44,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.BRANCH_NAME': JSON.stringify(
-        childProcess
-          .execSync('git branch --format="%(if)%(HEAD)%(then)%(refname:short)%(end)"')
-          .toString()
-          .trim()
+        childProcess.execSync('git symbolic-ref --short HEAD').toString().trim()
       ),
       'process.env.COMMIT_HASH': JSON.stringify(
         childProcess.execSync('git rev-parse --short HEAD').toString().trim()
