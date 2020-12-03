@@ -2,9 +2,6 @@ image: node:14.5.0
 cache:
   paths:
     - node_modules/
-variables:
-  CI_COMMIT_SHA: $CI_COMMIT_SHA
-  CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME
 stages:
   - Node.js image
   - AWS image
@@ -17,6 +14,8 @@ Bundle:
     paths:
       - api
   script:
+    - export CI_COMMIT_SHA=${CI_COMMIT_SHA}
+    - export CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME}
     - yarn install
     - yarn prettier
     - yarn tslint
