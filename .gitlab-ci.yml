@@ -14,13 +14,11 @@ Bundle:
     paths:
       - api
   script:
-    - export CI_COMMIT_SHA=$CI_COMMIT_SHA
-    - export CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
     - yarn install
     - yarn prettier
     - yarn tslint
     - yarn test
-    - yarn build
+    - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
     - mkdir api
     - cp -r aws/. build api
     - cp ecosystem.config.js api/build
