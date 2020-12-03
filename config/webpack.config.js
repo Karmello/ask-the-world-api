@@ -1,4 +1,3 @@
-const childProcess = require('child_process')
 const path = require('path')
 const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
