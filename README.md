@@ -1,8 +1,9 @@
 # Ask The World API
 
-- urls
+- Swagger
 
-        [master] http://ask-the-world-api-master-795011334.eu-central-1.elb.amazonaws.com
+        [feature] https://ask-the-world-api-feature-422752572.eu-central-1.elb.amazonaws.com
+        [master]  https://ask-the-world-api-master-795011334.eu-central-1.elb.amazonaws.com
 
 - SSH to AWS EC2 instance
 
