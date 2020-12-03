@@ -7,6 +7,6 @@ export default (app: Application) =>
     res.status(200).send({
       status: 'OK',
       branchName: process.env.CI_COMMIT_REF_NAME,
-      revision: process.env.COMMIT_HASH,
+      revision: process.env.CI_COMMIT_SHA,
     })
   )
