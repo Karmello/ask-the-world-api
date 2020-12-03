@@ -494,10 +494,10 @@
                   "type": "string",
                   "example": "OK"
                 },
-                "branchName": {
+                "branch": {
                   "type": "string"
                 },
-                "revision": {
+                "commit": {
                   "type": "string"
                 }
               }
