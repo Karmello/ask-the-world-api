@@ -3,6 +3,8 @@ const path = require('path')
 const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 
+const { CI_COMMIT_REF_NAME, CI_COMMIT_SHA } = process.env
+
 module.exports = {
   name: 'bundle',
   target: 'node',
@@ -43,8 +45,10 @@ module.exports = {
       ],
     }),
     new webpack.DefinePlugin({
-      CI_COMMIT_REF_NAME: process.env.CI_COMMIT_REF_NAME,
-      CI_COMMIT_SHA: process.env.CI_COMMIT_SHA,
+      'process.env': {
+        CI_COMMIT_REF_NAME,
+        CI_COMMIT_SHA,
+      },
     }),
   ],
 }
