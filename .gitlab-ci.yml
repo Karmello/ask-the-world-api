@@ -1,3 +1,7 @@
+# You can override the included template(s) by including variable overrides
+# See https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#priority-of-environment-variables
 image: node:14.5.0
 cache:
   paths:
@@ -6,6 +10,7 @@ stages:
 - Node.js image
 - AWS image
 - Security scans
+- test
 Bundle:
   only:
   - master
@@ -55,5 +60,7 @@ Deploy (feature):
   - aws deploy wait deployment-successful --deployment-id $deploymentId
 sast:
   stage: Security scans
+  variables:
+    SAST_EXCLUDED_PATHS: build, spec, test, tests, tmp
 include:
 - template: Security/SAST.gitlab-ci.yml
