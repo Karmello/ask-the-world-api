@@ -26,7 +26,7 @@ describe('', () => {
         QuestionModel.collection.insertMany(questionMocks)
       })
 
-      require('./status.spec')
+      require('./info.spec')
       require('./registration.spec')
       require('./authentication.spec')
       require('./read-user.spec')

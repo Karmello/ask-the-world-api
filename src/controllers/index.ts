@@ -2,7 +2,7 @@ import { Application } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
-import { ReadStats } from './other/index'
+import { ReadInfo, ReadStats } from './other/index'
 import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from './question/index'
 
@@ -12,6 +12,7 @@ const { APP_ENV } = process.env
 
 const registerControllers = (app: Application) => {
   //
+  ReadInfo(app)
   ReadStats(app)
 
   AuthenticateUser(app)
@@ -25,11 +26,7 @@ const registerControllers = (app: Application) => {
   UpdateQuestion(app)
   DeleteQuestion(app)
 
-  app.get('/status', (req, res) => res.status(200).send('OK'))
-
-  if (APP_ENV !== Env.Prod) {
-    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-  }
+  if (APP_ENV !== Env.Prod) app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 }
 
 export default registerControllers
