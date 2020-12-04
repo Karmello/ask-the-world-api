@@ -60,7 +60,5 @@ Deploy (feature):
   - aws deploy wait deployment-successful --deployment-id $deploymentId
 sast:
   stage: Security scans
-  variables:
-    SAST_EXCLUDED_PATHS: build, spec, test, tests, tmp
 include:
 - template: Security/SAST.gitlab-ci.yml
