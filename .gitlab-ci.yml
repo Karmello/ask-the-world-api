@@ -10,18 +10,12 @@ stages:
   - Node.js image
   - AWS image
 sast:
-  only:
-    - master
   stage: Security scans
 secret_detection_default_branch:
-  only:
-    - master
   stage: Security scans
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
 secret_detection:
-  only:
-    - master
   stage: Security scans
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
