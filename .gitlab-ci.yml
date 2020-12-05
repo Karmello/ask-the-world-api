@@ -11,14 +11,16 @@ stages:
   - AWS image
 sast:
   stage: Security scans
+  variables:
+    SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
 secret_detection_default_branch:
   stage: Security scans
   variables:
-    SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
+    SECRET_DETECTION_EXCLUDED_PATHS: node_modules
 secret_detection:
   stage: Security scans
   variables:
-    SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
+    SECRET_DETECTION_EXCLUDED_PATHS: node_modules
 Bundle:
   only:
     - master
