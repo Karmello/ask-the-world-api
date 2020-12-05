@@ -13,14 +13,20 @@ sast:
   stage: Security scans
   variables:
     SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
 secret_detection_default_branch:
   stage: Security scans
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: node_modules
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
 secret_detection:
   stage: Security scans
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: node_modules
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
 Bundle:
   only:
     - master
