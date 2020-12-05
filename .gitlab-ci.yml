@@ -11,6 +11,8 @@ stages:
   - AWS image
 sast:
   stage: Security scans
+dependency-scanning:
+  stage: Security scans
 Bundle:
   only:
     - master
