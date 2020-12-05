@@ -2,14 +2,14 @@ image: node:14.5.0
 cache:
   paths:
     - node_modules/
+include:
+  - template: Security/SAST.gitlab-ci.yml
 stages:
   - Security scans
   - Node.js image
   - AWS image
-sast:
+sastaaa:
   stage: Security scans
-  include:
-    - template: Security/SAST.gitlab-ci.yml
 Bundle:
   only:
     - master
