@@ -1,68 +1,75 @@
+# You can override the included template(s) by including variable overrides
+# See https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#priority-of-environment-variables
 image: node:14.5.0
 cache:
   paths:
-    - node_modules/
+  - node_modules/
 include:
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
 stages:
-  - Security scans
-  - Node.js image
-  - AWS image
+- Security scans
+- Node.js image
+- AWS image
+- test
 sast:
   stage: Security scans
+  variables:
+    SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
 secret_detection_default_branch:
   stage: Security scans
   variables:
-    SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
+    SECRET_DETECTION_EXCLUDED_PATHS: node_modules
 secret_detection:
   stage: Security scans
   variables:
-    SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
+    SECRET_DETECTION_EXCLUDED_PATHS: node_modules
 Bundle:
   only:
-    - master
-    - '/^milestone#.*$/'
+  - master
+  - "/^milestone#.*$/"
   stage: Node.js image
   artifacts:
     paths:
-      - api
+    - api
   script:
-    - yarn install
-    - yarn prettier
-    - yarn tslint
-    - yarn test
-    - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
-    - mkdir api
-    - cp -r aws/. build api
-    - cp ecosystem.config.js api/build
+  - yarn install
+  - yarn prettier
+  - yarn tslint
+  - yarn test
+  - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
+  - mkdir api
+  - cp -r aws/. build api
+  - cp ecosystem.config.js api/build
 Deploy (master):
   only:
-    - master
+  - master
   stage: AWS image
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
-    - Bundle
+  - Bundle
   script:
-    - cd api
-    - tar -cvf api.tar build scripts appspec.yml
-    - aws s3 cp api.tar s3://ask-the-world-dev-release/master/
-    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-master
-      --s3-location bucket=ask-the-world-dev-release,key=master/api.tar,bundleType=tar
-      --deployment-group-name ask-the-world-api-master --output text`
-    - aws deploy wait deployment-successful --deployment-id $deploymentId
+  - cd api
+  - tar -cvf api.tar build scripts appspec.yml
+  - aws s3 cp api.tar s3://ask-the-world-dev-release/master/
+  - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-master
+    --s3-location bucket=ask-the-world-dev-release,key=master/api.tar,bundleType=tar
+    --deployment-group-name ask-the-world-api-master --output text`
+  - aws deploy wait deployment-successful --deployment-id $deploymentId
 Deploy (feature):
   only:
-    - '/^milestone#.*$/'
+  - "/^milestone#.*$/"
   stage: AWS image
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
-    - Bundle
+  - Bundle
   script:
-    - cd api
-    - tar -cvf api.tar build scripts appspec.yml
-    - aws s3 cp api.tar s3://ask-the-world-dev-release/feature/
-    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-feature
-      --s3-location bucket=ask-the-world-dev-release,key=feature/api.tar,bundleType=tar
-      --deployment-group-name ask-the-world-api-feature --output text`
-    - aws deploy wait deployment-successful --deployment-id $deploymentId
+  - cd api
+  - tar -cvf api.tar build scripts appspec.yml
+  - aws s3 cp api.tar s3://ask-the-world-dev-release/feature/
+  - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-feature
+    --s3-location bucket=ask-the-world-dev-release,key=feature/api.tar,bundleType=tar
+    --deployment-group-name ask-the-world-api-feature --output text`
+  - aws deploy wait deployment-successful --deployment-id $deploymentId
