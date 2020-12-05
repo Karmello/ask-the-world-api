@@ -8,7 +8,7 @@ stages:
   - Security scans
   - Node.js image
   - AWS image
-sastaaa:
+sast:
   stage: Security scans
 Bundle:
   only:
