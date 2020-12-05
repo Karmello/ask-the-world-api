@@ -22,7 +22,9 @@ export default (app: Application) =>
           if (doc.answers.some(a => a.votes.includes(req.decoded._id))) {
             return res.status(403).send()
           }
-          req.body.forEach((i: number) => doc.answers[i].votes.push(req.decoded._id))
+          req.body.forEach((i: number) =>
+            doc.answers[parseInt(i.toString())].votes.push(req.decoded._id)
+          )
         } else {
           return res.status(400).send()
         }
