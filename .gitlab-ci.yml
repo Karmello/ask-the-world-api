@@ -11,8 +11,11 @@ stages:
   - AWS image
 sast:
   stage: Security scans
-secret_detection:
 secret_detection_default_branch:
+  stage: Security scans
+  variables:
+    SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
+secret_detection:
   stage: Security scans
   variables:
     SECRET_DETECTION_EXCLUDED_PATHS: 'node_modules'
