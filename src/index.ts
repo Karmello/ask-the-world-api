@@ -6,6 +6,7 @@ import { createServer } from 'https'
 import { readFileSync } from 'fs'
 import path from 'path'
 import dotenv from 'dotenv'
+import helmet from 'helmet'
 
 import { Env } from 'shared/utils/index'
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
@@ -20,6 +21,7 @@ if ([Env.Local, Env.Test].includes(APP_ENV as Env)) dotenv.config({ path: '.env.
 if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(helmet())
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
