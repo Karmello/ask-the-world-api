@@ -11,6 +11,8 @@ stages:
   - AWS image
 sast:
   stage: Security scans
+secret_detection_default_branch:
+  stage: Security scans
 Bundle:
   only:
     - master
