@@ -8,6 +8,12 @@
     },
     {
       "path": "validation"
+    },
+    {
+      "path": "assets"
+    },
+    {
+      "path": "helpers"
     }
   ]
 }
