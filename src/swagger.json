@@ -8,7 +8,7 @@
       "url": "https://gitlab.com/Karmello/ask-the-world-api"
     }
   },
-  "tags": [{ "name": "User" }, { "name": "Question" }, { "name": "Other" }],
+  "tags": [{ "name": "Util" }, { "name": "User" }, { "name": "Question" }],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "definitions": {
@@ -80,6 +80,31 @@
     }
   },
   "paths": {
+    "/info": {
+      "get": {
+        "summary": "[open endpoint]",
+        "tags": ["Util"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "branch": {
+                  "type": "string"
+                },
+                "commit": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/registration": {
       "post": {
         "summary": "[open endpoint]",
@@ -476,31 +501,6 @@
           "400": {
             "schema": {
               "$ref": "#/errors/BadRequestError"
-            }
-          }
-        }
-      }
-    },
-    "/info": {
-      "get": {
-        "summary": "[open endpoint]",
-        "tags": ["Other"],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "OK"
-                },
-                "branch": {
-                  "type": "string"
-                },
-                "commit": {
-                  "type": "string"
-                }
-              }
             }
           }
         }

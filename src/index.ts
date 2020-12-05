@@ -21,7 +21,8 @@ if ([Env.Local, Env.Test].includes(APP_ENV as Env)) dotenv.config({ path: '.env.
 if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(helmet())
+app.use(helmet.frameguard())
+app.use(helmet.hidePoweredBy())
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
