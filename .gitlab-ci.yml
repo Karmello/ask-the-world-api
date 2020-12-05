@@ -4,6 +4,7 @@ cache:
     - node_modules/
 include:
   - template: Security/SAST.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
 stages:
   - Security scans
   - Node.js image
