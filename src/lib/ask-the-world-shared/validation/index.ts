@@ -8,8 +8,7 @@ export const doesStringNotContainAlphaChars = (value: string, isPassword?: boole
   (isPassword && new RegExp(/^([a-zA-Z0-9_!@#$%-+=?]+)$/).test(value)) ||
   new RegExp(/^([a-zA-Z0-9_]+)$/).test(value)
 
-export const isValidEmail = (value: string): boolean =>
-  new RegExp(/^\w+([.-]?\w+)\*@\w+([.-]?\w+)\*(\.\w{2,3})+$/).test(value)
+export const isValidEmail = (value: string): boolean => new RegExp(/\S+@\S+\.\S+/).test(value)
 
 export const isDateSameOrBefore = (value: string, maxDate: string): boolean =>
   new Date(value) <= new Date(maxDate)
