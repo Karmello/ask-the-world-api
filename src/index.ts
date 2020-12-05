@@ -16,6 +16,7 @@ dotenv.config()
 const { NODE_ENV, APP_ENV, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
 const app = express()
 
+if ([Env.Local, Env.Test].includes(APP_ENV as Env)) dotenv.config({ path: '.env.local' })
 if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
