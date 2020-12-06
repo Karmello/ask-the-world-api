@@ -45,7 +45,7 @@ Deploy (master):
     - aws s3 cp api.tar s3://ask-the-world-dev-release/master/
     - deploymentId=`aws deploy create-deployment --application-name ask-the-world-master
       --s3-location bucket=ask-the-world-dev-release,key=master/api.tar,bundleType=tar
-      --deployment-group-name ask-the-world-master --output text`
+      --deployment-group-name ask-the-world-master --file-exists-behavior OVERWRITE --output text`
     - aws deploy wait deployment-successful --deployment-id $deploymentId
 Deploy (feature):
   only:
@@ -63,5 +63,5 @@ Deploy (feature):
     - aws s3 cp api.tar s3://ask-the-world-dev-release/feature/
     - deploymentId=`aws deploy create-deployment --application-name ask-the-world-feature
       --s3-location bucket=ask-the-world-dev-release,key=feature/api.tar,bundleType=tar
-      --deployment-group-name ask-the-world-feature --output text`
+      --deployment-group-name ask-the-world-feature --file-exists-behavior OVERWRITE --output text`
     - aws deploy wait deployment-successful --deployment-id $deploymentId
