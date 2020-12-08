@@ -30,6 +30,7 @@ const registerControllers = (app: Application) => {
     app.use(
       '/',
       (req: Request, res: Response, next: NextFunction) => {
+        console.log(req)
         swaggerDocument.host = req.headers.host
         next()
       },
