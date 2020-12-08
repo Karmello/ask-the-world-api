@@ -1,5 +1,6 @@
 {
   "swagger": "2.0",
+  "basePath": "/api",
   "info": {
     "version": "1.0.0",
     "title": "Ask The World API",
