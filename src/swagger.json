@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "basePath": "/api",
+  "host": "localhost:9000",
   "info": {
     "version": "1.0.0",
     "title": "Ask The World API",
