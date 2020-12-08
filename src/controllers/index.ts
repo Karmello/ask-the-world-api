@@ -30,8 +30,7 @@ const registerControllers = (app: Application) => {
     app.use(
       '/',
       (req: Request, res: Response, next: NextFunction) => {
-        console.log(req)
-        swaggerDocument.host = req.headers.host
+        swaggerDocument.host = new URL(process.env.API_URL).host
         next()
       },
       swaggerUi.serve,
