@@ -1,4 +1,4 @@
-import { Application } from 'express'
+import { Application, Request, Response, NextFunction } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
@@ -26,7 +26,17 @@ const registerControllers = (app: Application) => {
   UpdateQuestion(app)
   DeleteQuestion(app)
 
-  if (APP_ENV !== Env.Prod) app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  if (APP_ENV !== Env.Prod) {
+    app.use(
+      '/',
+      (req: Request, res: Response, next: NextFunction) => {
+        swaggerDocument.host = req.headers.host
+        next()
+      },
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    )
+  }
 }
 
 export default registerControllers

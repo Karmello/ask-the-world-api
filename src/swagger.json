@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "localhost:9000",
+  "host": "",
   "info": {
     "version": "1.0.0",
     "title": "Ask The World API",
