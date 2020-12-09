@@ -35,7 +35,7 @@ Deploy (master):
   stage: AWS image
   environment:
     name: Master
-    url: https://ask-the-world-master-1144547669.eu-central-1.elb.amazonaws.com/api
+    url: https://ask-the-world-api-master-2011553807.eu-central-1.elb.amazonaws.com
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
@@ -53,7 +53,7 @@ Deploy (feature):
   stage: AWS image
   environment:
     name: Feature
-    url: https://ask-the-world-feature-507989894.eu-central-1.elb.amazonaws.com/api
+    url: https://ask-the-world-api-feature-228670306.eu-central-1.elb.amazonaws.com
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
@@ -61,7 +61,7 @@ Deploy (feature):
     - cd api
     - tar -cvf api.tar build scripts appspec.yml
     - aws s3 cp api.tar s3://ask-the-world-dev-release/feature/
-    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-feature
+    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-feature
       --s3-location bucket=ask-the-world-dev-release,key=feature/api.tar,bundleType=tar
-      --deployment-group-name ask-the-world-feature --file-exists-behavior OVERWRITE --output text`
+      --deployment-group-name ask-the-world-api-feature --file-exists-behavior OVERWRITE --output text`
     - aws deploy wait deployment-successful --deployment-id $deploymentId

@@ -9,6 +9,9 @@ module.exports = {
         APP_ENV: 'remote-dev',
         API_URL: 'https://ask-the-world-api-master-2011553807.eu-central-1.elb.amazonaws.com',
       },
+      env_feature: {
+        API_URL: 'https://ask-the-world-api-feature-228670306.eu-central-1.elb.amazonaws.com',
+      },
     },
   ],
 }
