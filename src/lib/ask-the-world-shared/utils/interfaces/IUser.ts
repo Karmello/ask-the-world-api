@@ -6,6 +6,7 @@ interface IUser {
   password: string
   dateOfBirth: string
   country: string
+  sex: string
   timestamp: number
 }
 
