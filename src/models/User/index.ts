@@ -18,6 +18,7 @@ import {
   checkMaxLength,
   checkDateOfBirth,
   checkCountry,
+  checkSex,
 } from 'validation/index'
 
 import { USER_MIN_AGE, DOB_FORMAT_PATTERN } from 'shared/utils/index'
@@ -71,6 +72,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
       validate: [checkCountry],
+    },
+    sex: {
+      type: String,
+      required: true,
+      validate: [checkSex],
     },
   },
   {
