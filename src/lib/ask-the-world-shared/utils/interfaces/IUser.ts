@@ -1,5 +1,6 @@
 interface IUser {
   _id: any
+  active: boolean
   email: string
   username: string
   password: string
