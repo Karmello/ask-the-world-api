@@ -1,3 +1,4 @@
+import { Sex } from './../index'
 interface IUser {
   _id: any
   active: boolean
@@ -6,7 +7,7 @@ interface IUser {
   password: string
   dateOfBirth: string
   country: string
-  sex: string
+  sex: Sex
   timestamp: number
 }
 
