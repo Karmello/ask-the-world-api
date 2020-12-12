@@ -72,6 +72,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(400)
           res.body.email.kind.should.equal('required')
           res.body.username.kind.should.equal('required')
+          res.body.sex.kind.should.equal('required')
           done()
         })
     })
@@ -88,6 +89,7 @@ describe('PUT /update-user', () => {
         username: 'newusername',
         dateOfBirth: '1999-04-23',
         country: 'FR',
+        sex: 'F',
       }
     })
 
@@ -105,6 +107,7 @@ describe('PUT /update-user', () => {
             timestamp: userMocks[1].timestamp,
             dateOfBirth: '1999-04-23',
             country: 'FR',
+            sex: 'F',
           })
           done()
         })
@@ -122,6 +125,7 @@ describe('PUT /update-user', () => {
         username: 'newusername',
         dateOfBirth: '1999-04-23',
         country: 'FR',
+        sex: 'M',
       }
     })
 
