@@ -3,8 +3,16 @@ import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats } from './other/index'
-import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from './question/index'
+
+import {
+  ActivateUser,
+  AuthenticateUser,
+  RegisterUser,
+  ReadUser,
+  UpdateUser,
+  UpdatePassword,
+} from './user/index'
 
 import swaggerDocument from './../swagger.json'
 
@@ -15,6 +23,7 @@ const registerControllers = (app: Application) => {
   ReadInfo(app)
   ReadStats(app)
 
+  ActivateUser(app)
   AuthenticateUser(app)
   RegisterUser(app)
   ReadUser(app)

@@ -7,6 +7,7 @@ type Config = {
 }
 
 const {
+  ActivateUser,
   AuthenticateUser,
   CreateQuestion,
   DeleteQuestion,
@@ -21,6 +22,9 @@ const {
 } = ApiUrlPath
 
 const config = {
+  [ActivateUser]: {
+    allowWithNoToken: true,
+  },
   [AuthenticateUser]: {
     allowWithNoToken: true,
   },
