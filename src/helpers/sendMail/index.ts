@@ -1,26 +1,31 @@
 import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'app.ask.the.world@gmail.com',
-    pass: 'Jordan#23',
-  },
-})
+import dict from 'src/dictionary'
 
 type TOptions = {
   to: string
+  activationLink: string
 }
 
 export default (options: TOptions, onSuccess: () => void) => {
   //
-  const { to } = options
+  const { EMAIL_USER, EMAIL_PASS } = process.env
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: EMAIL_USER,
+      pass: EMAIL_PASS,
+    },
+  })
+
+  const { to, activationLink } = options
 
   const mailOptions = {
-    from: 'app.ask.the.world@gmail.com',
+    from: EMAIL_USER,
     to,
-    subject: 'Invoices due',
-    text: 'Dudes, we really need your money.',
+    subject: dict.mailSubject,
+    html: `<p><a href="${activationLink}" target="new">${activationLink}</a></p>`,
   }
 
   transporter.sendMail(mailOptions, (err, info) => {

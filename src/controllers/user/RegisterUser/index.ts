@@ -3,7 +3,7 @@ import moment from 'moment/moment'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
-import { getFreshAuthToken, sendMail } from 'helpers/index'
+import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 export default (app: Application) =>
@@ -18,15 +18,8 @@ export default (app: Application) =>
     newUser
       .save()
       .then(doc => {
-        sendMail(
-          {
-            to: doc.email,
-          },
-          () => {
-            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-            res.status(201).send(doc)
-          }
-        )
+        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
+        res.status(201).send(doc)
       })
       .catch(err => res.status(400).send(err.errors))
   })

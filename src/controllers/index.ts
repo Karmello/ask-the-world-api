@@ -2,7 +2,7 @@ import { Application, Request, Response, NextFunction } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
-import { ReadInfo, ReadStats } from './other/index'
+import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
 import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from './question/index'
 
 import {
@@ -20,6 +20,7 @@ const { APP_ENV } = process.env
 
 const registerControllers = (app: Application) => {
   //
+  GetActivationLink(app)
   ReadInfo(app)
   ReadStats(app)
 

@@ -11,6 +11,7 @@ const {
   AuthenticateUser,
   CreateQuestion,
   DeleteQuestion,
+  GetActivationLink,
   ReadInfo,
   ReadQuestions,
   ReadStats,
@@ -23,7 +24,7 @@ const {
 
 const config = {
   [ActivateUser]: {
-    allowWithNoToken: true,
+    allowWithNoToken: false,
   },
   [AuthenticateUser]: {
     allowWithNoToken: true,
@@ -32,6 +33,9 @@ const config = {
     allowWithNoToken: false,
   },
   [DeleteQuestion]: {
+    allowWithNoToken: false,
+  },
+  [GetActivationLink]: {
     allowWithNoToken: false,
   },
   [ReadInfo]: {
