@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 export default [
   {
     _id: mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
+    active: true,
     email: 'michael.jordan@gmail.com',
     username: 'Mj23',
     password: '$2a$10$v0KVTnB/PB0DNGlfK1z0bulBYcIfTMrC2nBDzxyI5Ri5e1d6AmzyC',
@@ -12,6 +13,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5eeb97db52c1dc555c2d676d'),
+    active: true,
     email: 'donald.trump@gmail.com',
     username: 'Donald_Trump',
     password: '$2a$10$LqD/lI4uKkmZF9Azr7HgQO8Gx0FpREQvCw1x/zsANAhXLR9K9xy7G',
@@ -21,6 +23,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
+    active: true,
     email: 'sophie.dee@gmail.com',
     username: 'SophieDee',
     password: '$2a$10$NvsMWW7szzbJtz5ieGQlievNY/8B4wEjN0dT7bWfXP47uphBv5d6m',
@@ -30,6 +33,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5eeb992452c1dc555c2d676f'),
+    active: true,
     email: 'christian.bale@gmail.com',
     username: 'Christian_Bale',
     password: '$2a$10$ZbMb1wsmzxCNQfClPL79XepncfbvpCte98oGY5zw5XJ1e0k6C1lmy',
@@ -39,6 +43,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5eeb997a52c1dc555c2d6770'),
+    active: true,
     email: 'pamela.anderson@gmail.com',
     username: 'PamAnderson',
     password: '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2',
@@ -48,6 +53,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
+    active: true,
     email: 'batman@gotham.com',
     username: 'Batman',
     password: '$2a$10$hNLS8fu.EPqBaXlaR6oigO.tAhN00XUxMyBB7sHLA5J3uI.x.Z92u',
@@ -57,6 +63,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa221fd74bf1121704a85'),
+    active: true,
     email: 'marshall@eminem.com',
     username: 'Eminem',
     password: '$2a$10$i3LFr6EfU/BPR.EGNxbfi.JwBkY/B6xXwd4cqASp2yCFvJFmam9g2',
@@ -66,6 +73,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa29b49a6a31058a6f57f'),
+    active: true,
     email: 'benny_hill@gmail.uk',
     username: 'BennyHill',
     password: '$2a$10$FN8fpYBFlGiE5rw.y2XT2OfV.hVQhQ0zMBmsjLhCdx5MJex0cGbEy',
@@ -75,6 +83,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa30b3007ef1388d93483'),
+    active: true,
     email: 'sasha_grey@gmail.com',
     username: 'SashaGrey',
     password: '$2a$10$TEFcskFFPJm0UhUXhO.9/OjUanqN2Bp1Zq4uxyv2z/H547.PnrfYq',
@@ -84,6 +93,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa3e93e9cb7f1c82739da'),
+    active: true,
     email: 'picasso@gmail.com',
     username: 'Picasso',
     password: '$2a$10$bhrU5gDOhHY72Ao4dNOf5e3hyrGlO0gx8Al8Lzu.X0A/Q9c/tGH.m',

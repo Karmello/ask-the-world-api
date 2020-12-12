@@ -101,6 +101,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
+            active: true,
             timestamp: userMocks[1].timestamp,
             dateOfBirth: '1999-04-23',
             country: 'FR',
@@ -139,6 +140,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
+            active: true,
             timestamp: userMocks[1].timestamp,
           })
           done()

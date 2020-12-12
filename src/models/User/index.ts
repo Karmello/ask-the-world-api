@@ -32,6 +32,11 @@ const userSchema = new Schema(
       type: Number,
       required: true,
     },
+    active: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     email: {
       type: String,
       required: true,

@@ -2,7 +2,7 @@ import faker from 'faker'
 import times from 'lodash/times'
 
 import userMocks from './users'
-import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS, Env } from './../../lib/ask-the-world-shared/utils'
+import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
 import { getRandNum, getRandNums } from './../../lib/ask-the-world-shared/helpers'
 
 import {
@@ -10,26 +10,25 @@ import {
   QUESTION_INPUT_MAX_LENGTH,
   ANSWER_INPUT_MAX_LENGTH,
   IQuestion,
-  IAnswer,
 } from './../../lib/ask-the-world-shared/utils'
-
-const { NODE_ENV } = process.env
 
 const questionMocks = [] as IQuestion[]
 
-times(NODE_ENV === Env.Test ? 100 : 10000, () => {
+times(200, () => {
   const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
   const allVotes = [] as any
 
   const question = {
     userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
-    text: faker.lorem.sentence(),
+    text: faker.lorem
+      .sentence()
+      .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
     answers: (() => {
       const arr = [] as {}[]
       times(numOfAnswers, () => {
         arr.push({
-          text: faker.lorem.sentence(),
+          text: faker.lorem.sentence().substring(0, ANSWER_INPUT_MAX_LENGTH),
           votes: (() => {
             const userIndexes = getRandNums(
               0,
@@ -60,14 +59,7 @@ times(NODE_ENV === Env.Test ? 100 : 10000, () => {
     })(),
   }
 
-  if (
-    question.text.length >= QUESTION_INPUT_MIN_LENGTH &&
-    question.text.length <= QUESTION_INPUT_MAX_LENGTH
-  ) {
-    if (!question.answers.some((item: IAnswer) => item.text.length > ANSWER_INPUT_MAX_LENGTH)) {
-      questionMocks.push(question as IQuestion)
-    }
-  }
+  questionMocks.push(question as IQuestion)
 })
 
 export default questionMocks
