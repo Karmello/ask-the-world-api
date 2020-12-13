@@ -25,7 +25,7 @@ export default [
   },
   {
     _id: mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
-    active: true,
+    active: false,
     email: 'sophie.dee@gmail.com',
     username: 'SophieDee',
     password: '$2a$10$NvsMWW7szzbJtz5ieGQlievNY/8B4wEjN0dT7bWfXP47uphBv5d6m',

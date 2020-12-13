@@ -35,7 +35,7 @@ Deploy (master):
   stage: AWS image
   environment:
     name: Master
-    url: https://ask-the-world-api-master-2011553807.eu-central-1.elb.amazonaws.com
+    url: https://ask-the-world-master-1144547669.eu-central-1.elb.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
@@ -53,7 +53,7 @@ Deploy (feature):
   stage: AWS image
   environment:
     name: Feature
-    url: https://ask-the-world-api-feature-228670306.eu-central-1.elb.amazonaws.com
+    url: https://ask-the-world-feature-507989894.eu-central-1.elb.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
