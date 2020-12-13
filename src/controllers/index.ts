@@ -40,7 +40,7 @@ const registerControllers = (app: Application) => {
     app.use(
       '/',
       (req: Request, res: Response, next: NextFunction) => {
-        swaggerDocument.host = new URL(process.env.API_URL).host
+        swaggerDocument.host = new URL(process.env.APP_URL).host + '/api'
         next()
       },
       swaggerUi.serve,
