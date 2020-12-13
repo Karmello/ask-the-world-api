@@ -9,23 +9,22 @@ import { UserModel } from 'models/index'
 export default (app: Application) =>
   app.get(ApiUrlPath.GetActivationLink, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const { API_URL } = process.env
-
     UserModel.findOne({ _id: req.decoded._id })
       .then((doc: IUserDoc) => {
         if (doc) {
-          sendMail(
-            {
-              to: doc.email,
-              activationLink:
-                API_URL +
-                ApiUrlPath.ActivateUser +
-                `?${X_AUTH_TOKEN}=` +
-                getFreshAuthToken(doc._id),
-            },
-            () => {
-              res.status(200).send()
-            }
+          //
+          const activationLink =
+            process.env.API_URL +
+            ApiUrlPath.ActivateUser +
+            `?${X_AUTH_TOKEN}=` +
+            getFreshAuthToken(doc._id)
+
+          sendMail({
+            to: doc.email,
+            activationLink,
+          }).then(
+            () => res.status(200).send(),
+            () => res.status(400).send()
           )
         } else {
           res.status(404).send()
