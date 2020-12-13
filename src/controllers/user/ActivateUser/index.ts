@@ -19,7 +19,7 @@ export default (app: Application) =>
         doc
           .save()
           .then(_doc => {
-            res.redirect(APP_URL)
+            res.redirect(APP_URL + '/profile?_id=' + doc._id)
           })
           .catch(err => res.status(400).send(err.errors))
       })
