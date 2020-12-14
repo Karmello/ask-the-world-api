@@ -555,7 +555,9 @@
                   "properties": {
                     "users": { "type": "number" },
                     "questions": { "type": "number" },
-                    "answers": { "type": "number" }
+                    "answers": { "type": "number" },
+                    "females": { "type": "number" },
+                    "males": { "type": "number" }
                   }
                 }
               }
