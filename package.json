@@ -10,7 +10,7 @@
     "tslint": "tslint src/**/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
     "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
-    "seed-remote-dev": "ts-node ./src/mocks/seed.ts mongodb+srv://cluster0.wrpq7.mongodb.net/ask-the-world-dev -u admin -p $MONGO_PASS",
+    "seed-remote-dev": "ts-node ./src/mocks/seed.ts mongodb+srv://cluster0.wrpq7.mongodb.net/ask-the-world-dev -u admin -p QNeyWuNunR1Yoda4",
     "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://gitlab.com/Karmello/ask-the-world-shared.git master --squash"
   },
