@@ -14,7 +14,8 @@ export default (app: Application) =>
         if (doc) {
           //
           const activationLink =
-            process.env.API_URL +
+            process.env.APP_URL +
+            '/api' +
             ApiUrlPath.ActivateUser +
             `?${X_AUTH_TOKEN}=` +
             getFreshAuthToken(doc._id)
