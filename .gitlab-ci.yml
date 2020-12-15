@@ -25,7 +25,7 @@ Bundle:
     - yarn prettier
     - yarn tslint
     - yarn test
-    - yarn seed-remote-dev
+    - yarn ts-node ./src/mocks/seed.ts $MONGO_URI
     - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
     - mkdir api
     - cp -r aws/. build api
