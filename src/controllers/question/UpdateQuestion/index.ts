@@ -23,7 +23,7 @@ export default (app: Application) =>
             return res.status(403).send()
           }
           req.body.forEach((i: number) =>
-            doc.answers[parseInt(i.toString())].votes.push(req.decoded._id)
+            doc.answers[parseInt(i.toString(), 10)].votes.push(req.decoded._id)
           )
         } else {
           return res.status(400).send()
