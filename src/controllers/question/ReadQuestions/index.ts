@@ -26,10 +26,11 @@ export default (app: Application) =>
     if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
 
     if (Number(selfAnswered)) {
+      delete query.userId
       query.answers = {
         $elemMatch: {
           votes: {
-            $in: req.decoded?._id,
+            $in: userId,
           },
         },
       }
