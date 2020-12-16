@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
+import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(ApiUrlPath.ActivateUser, userAuthMiddleware, (req: Request, res: Response) => {
@@ -15,6 +16,7 @@ export default (app: Application) =>
       .exec()
       .then((doc: IUserDoc) => {
         if (!doc) return res.status(404).send()
+        if (doc.active) return res.status(403).send(dict.accountAlreadyActive)
         doc.set({ active: true })
         doc
           .save()
