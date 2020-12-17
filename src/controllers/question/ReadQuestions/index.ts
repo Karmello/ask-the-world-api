@@ -30,7 +30,7 @@ export default (app: Application) =>
       query.answers = {
         $elemMatch: {
           votes: {
-            $in: userId,
+            $in: req.decoded?._id,
           },
         },
       }
