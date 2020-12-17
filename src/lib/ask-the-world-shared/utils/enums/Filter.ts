@@ -1,8 +1,9 @@
 enum Filter {
   All = 'ALL',
   Any = 'ANY',
-  Created = 'Created',
-  Answered = 'Answered',
+  Created = 'CREATED',
+  Answered = 'ANSWERED',
+  NotAnswered = 'NOT_ANSWERED',
 }
 
 export default Filter
