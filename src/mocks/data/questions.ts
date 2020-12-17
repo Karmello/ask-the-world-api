@@ -22,13 +22,13 @@ times(200, () => {
     userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
     timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem
-      .sentence()
+      .sentence(30)
       .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
     answers: (() => {
       const arr = [] as {}[]
       times(numOfAnswers, () => {
         arr.push({
-          text: faker.lorem.sentence().substring(0, ANSWER_INPUT_MAX_LENGTH),
+          text: faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH),
           votes: (() => {
             const userIndexes = getRandNums(
               0,

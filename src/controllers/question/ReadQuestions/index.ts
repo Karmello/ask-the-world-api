@@ -13,11 +13,11 @@ export default (app: Application) =>
       limit = 0,
       timestamp,
       answeredTimes,
-      selfAnswered,
       keywords,
       keywordsMode,
     } = (req.query as unknown) as IRequestQuery
 
+    const selfAnswered = Number(req.query.selfAnswered)
     const query = {} as any
     const sort = {} as any
 
@@ -25,15 +25,14 @@ export default (app: Application) =>
     if (timestamp) sort.timestamp = Number(timestamp)
     if (answeredTimes) sort.answeredTimes = Number(answeredTimes)
 
-    if (Number(selfAnswered)) {
+    if (selfAnswered) {
       delete query.userId
-      query.answers = {
-        $elemMatch: {
-          votes: {
-            $in: req.decoded?._id,
-          },
+      const $elemMatch = {
+        votes: {
+          $in: req.decoded?._id,
         },
       }
+      query.answers = selfAnswered === -1 ? { $not: { $elemMatch } } : { $elemMatch }
     }
 
     if (keywords) {

@@ -36,7 +36,10 @@ export default (app: Application) =>
               .status(200)
               .send(QuestionModel.transformBeforeSend(_doc.toObject(), req.decoded._id))
           )
-          .catch(_err => res.status(400).send(_err))
+          .catch(_err => {
+            console.log(_err)
+            res.status(400).send(_err)
+          })
       } catch (ex) {
         return res.status(400).send(ex.message)
       }
