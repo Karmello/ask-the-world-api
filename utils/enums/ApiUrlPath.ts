@@ -12,6 +12,7 @@ enum ApiUrlPath {
   RegisterUser = '/registration',
   UpdatePassword = '/update-password',
   UpdateUser = '/update-user',
+  WatchQuestion = '/watch-question',
 }
 
 export default ApiUrlPath
