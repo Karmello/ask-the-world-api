@@ -79,6 +79,7 @@ questionSchema.statics.transformBeforeSend = (
 ) => {
   //
   const transform = (question: IQuestionDoc) => {
+    delete question.watchers
     question.answers.forEach(answer => {
       answer.votesInfo = {
         length: answer.votes.length,
