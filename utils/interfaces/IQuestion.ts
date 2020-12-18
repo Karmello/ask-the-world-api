@@ -12,6 +12,7 @@ interface IQuestion {
   }
   answeredTimes: number
   watchers: []
+  watched: boolean
 }
 
 export default IQuestion
