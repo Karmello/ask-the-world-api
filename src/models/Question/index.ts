@@ -57,6 +57,7 @@ const questionSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: ModelName.User,
+        default: [],
       },
     ],
   },
@@ -79,7 +80,10 @@ questionSchema.statics.transformBeforeSend = (
 ) => {
   //
   const transform = (question: IQuestionDoc) => {
+    //
+    question.watched = question.watchers.some(id => id.toString() === userId)
     delete question.watchers
+
     question.answers.forEach(answer => {
       answer.votesInfo = {
         length: answer.votes.length,

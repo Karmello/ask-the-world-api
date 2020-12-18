@@ -57,6 +57,7 @@ times(200, () => {
         maxSelectable,
       }
     })(),
+    watchers: [] as any,
   }
 
   questionMocks.push(question as IQuestion)
