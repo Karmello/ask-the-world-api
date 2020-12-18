@@ -53,6 +53,12 @@ const questionSchema = new Schema(
         validate: [checkMaxSelectableAnswers],
       },
     },
+    watchers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: ModelName.User,
+      },
+    ],
   },
   {
     versionKey: false,

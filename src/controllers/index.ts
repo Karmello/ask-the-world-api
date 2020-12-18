@@ -3,7 +3,14 @@ import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
-import { AnswerQuestion, CreateQuestion, ReadQuestions, DeleteQuestion } from './question/index'
+
+import {
+  AnswerQuestion,
+  CreateQuestion,
+  ReadQuestions,
+  DeleteQuestion,
+  WatchQuestion,
+} from './question/index'
 
 import {
   ActivateUser,
@@ -33,8 +40,9 @@ const registerControllers = (app: Application) => {
 
   AnswerQuestion(app)
   CreateQuestion(app)
-  ReadQuestions(app)
   DeleteQuestion(app)
+  ReadQuestions(app)
+  WatchQuestion(app)
 
   if (APP_ENV !== Env.Prod) {
     app.use(

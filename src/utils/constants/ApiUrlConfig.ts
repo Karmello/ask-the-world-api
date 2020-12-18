@@ -20,6 +20,7 @@ const {
   RegisterUser,
   UpdatePassword,
   UpdateUser,
+  WatchQuestion,
 } = ApiUrlPath
 
 const config = {
@@ -60,6 +61,9 @@ const config = {
     allowWithNoToken: false,
   },
   [UpdateUser]: {
+    allowWithNoToken: false,
+  },
+  [WatchQuestion]: {
     allowWithNoToken: false,
   },
 } as Config
