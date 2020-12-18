@@ -8,7 +8,7 @@ import { IQuestionDoc } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.AnswerQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { questionId } = req.query
 

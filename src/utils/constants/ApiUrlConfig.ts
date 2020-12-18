@@ -8,6 +8,7 @@ type Config = {
 
 const {
   ActivateUser,
+  AnswerQuestion,
   AuthenticateUser,
   CreateQuestion,
   DeleteQuestion,
@@ -18,12 +19,14 @@ const {
   ReadUser,
   RegisterUser,
   UpdatePassword,
-  UpdateQuestion,
   UpdateUser,
 } = ApiUrlPath
 
 const config = {
   [ActivateUser]: {
+    allowWithNoToken: false,
+  },
+  [AnswerQuestion]: {
     allowWithNoToken: false,
   },
   [AuthenticateUser]: {
@@ -54,9 +57,6 @@ const config = {
     allowWithNoToken: true,
   },
   [UpdatePassword]: {
-    allowWithNoToken: false,
-  },
-  [UpdateQuestion]: {
     allowWithNoToken: false,
   },
   [UpdateUser]: {

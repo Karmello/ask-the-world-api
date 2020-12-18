@@ -469,7 +469,7 @@
         }
       }
     },
-    "/update-question": {
+    "/answer-question": {
       "put": {
         "tags": ["Question"],
         "parameters": [
