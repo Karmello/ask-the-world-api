@@ -7,8 +7,8 @@ import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
 import {
   AnswerQuestion,
   CreateQuestion,
-  ReadQuestions,
   DeleteQuestion,
+  GetQuestions,
   WatchQuestion,
 } from './question/index'
 
@@ -41,7 +41,7 @@ const registerControllers = (app: Application) => {
   AnswerQuestion(app)
   CreateQuestion(app)
   DeleteQuestion(app)
-  ReadQuestions(app)
+  GetQuestions(app)
   WatchQuestion(app)
 
   if (APP_ENV !== Env.Prod) {

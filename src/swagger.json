@@ -410,7 +410,7 @@
         }
       }
     },
-    "/read-questions": {
+    "/get-questions": {
       "get": {
         "summary": "[open endpoint]",
         "tags": ["Question"],

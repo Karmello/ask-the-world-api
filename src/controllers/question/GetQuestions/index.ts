@@ -5,7 +5,7 @@ import { ApiUrlPath, IRequestQuery, Filter } from 'shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadQuestions, userAuthMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.GetQuestions, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const {
       userId,
