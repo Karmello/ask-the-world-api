@@ -3,7 +3,7 @@ import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
 import userMocks from './../src/mocks/data/users'
 import { api, chai } from './_index'
 
-describe('PUT /update-question', () => {
+describe('PUT /answer-question', () => {
   //
   let token
   let question

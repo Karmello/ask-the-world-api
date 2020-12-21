@@ -2,7 +2,7 @@ import userMocks from './../src/mocks/data/users'
 import questionMocks from './../src/mocks/data/questions'
 import { api, chai, expect } from './_index'
 
-describe('GET /read-questions', () => {
+describe('GET /get-questions', () => {
   //
   let count
 
