@@ -38,7 +38,7 @@ describe('PUT /answer-question', () => {
     it('should return 401 and message', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .end((err, res) => {
           res.should.have.status(401)
           res.text.should.equal(validationDict.incorrectCredentialsMsg)
@@ -51,7 +51,7 @@ describe('PUT /answer-question', () => {
     it('should return 404', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: '123412341234123412341234' })
         .end((err, res) => {
@@ -65,7 +65,7 @@ describe('PUT /answer-question', () => {
     it('should return 400', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .end((err, res) => {
@@ -79,7 +79,7 @@ describe('PUT /answer-question', () => {
     it('should return 400', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send({})
@@ -94,7 +94,7 @@ describe('PUT /answer-question', () => {
     it('should return 400', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send([])
@@ -109,7 +109,7 @@ describe('PUT /answer-question', () => {
     it('should return 400', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send([3, 1])
@@ -124,7 +124,7 @@ describe('PUT /answer-question', () => {
     it('should return 200', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send([0])
@@ -144,7 +144,7 @@ describe('PUT /answer-question', () => {
     it('should return 403', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send([0])
@@ -159,7 +159,7 @@ describe('PUT /answer-question', () => {
     it('should return 403', done => {
       chai
         .request(api)
-        .put('/update-question')
+        .put('/answer-question')
         .set(X_AUTH_TOKEN, token)
         .query({ questionId: question._id.toString() })
         .send([1])
