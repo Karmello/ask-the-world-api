@@ -10,6 +10,8 @@ describe('GET /read-stats', () => {
         expect(res.body.count.users).to.be.a('number')
         expect(res.body.count.questions).to.be.a('number')
         expect(res.body.count.answers).to.be.a('number')
+        expect(res.body.count.females).to.be.a('number')
+        expect(res.body.count.males).to.be.a('number')
         done()
       })
   })

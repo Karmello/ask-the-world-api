@@ -3,6 +3,8 @@ interface IStats {
     users: number
     questions: number
     answers: number
+    females: number
+    males: number
   }
 }
 

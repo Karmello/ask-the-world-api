@@ -1,3 +1,4 @@
+export { default as ActivateUser } from './ActivateUser/index'
 export { default as AuthenticateUser } from './AuthenticateUser/index'
 export { default as ReadUser } from './ReadUser/index'
 export { default as RegisterUser } from './RegisterUser/index'

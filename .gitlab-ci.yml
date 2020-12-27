@@ -2,16 +2,16 @@ image: node:14.5.0
 cache:
   paths:
     - node_modules/
-include:
-  - template: Security/SAST.gitlab-ci.yml
+# include:
+#   - template: Security/SAST.gitlab-ci.yml
 stages:
-  - Security scans
+  # - Security scans
   - Node.js image
   - AWS image
-sast:
-  stage: Security scans
-  variables:
-    SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
+# sast:
+#   stage: Security scans
+#   variables:
+#     SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
 Bundle:
   only:
     - master
@@ -26,6 +26,7 @@ Bundle:
     - yarn tslint
     - yarn test
     - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
+    - yarn seed-remote-dev
     - mkdir api
     - cp -r aws/. build api
     - cp ecosystem.config.js api/build
@@ -35,7 +36,7 @@ Deploy (master):
   stage: AWS image
   environment:
     name: Master
-    url: https://ask-the-world-api-master-2011553807.eu-central-1.elb.amazonaws.com
+    url: https://ask-the-world-master-1144547669.eu-central-1.elb.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
@@ -53,7 +54,7 @@ Deploy (feature):
   stage: AWS image
   environment:
     name: Feature
-    url: https://ask-the-world-api-feature-228670306.eu-central-1.elb.amazonaws.com
+    url: https://ask-the-world-feature-507989894.eu-central-1.elb.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle

@@ -53,6 +53,13 @@ const questionSchema = new Schema(
         validate: [checkMaxSelectableAnswers],
       },
     },
+    watchers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: ModelName.User,
+        default: [],
+      },
+    ],
   },
   {
     versionKey: false,
@@ -73,6 +80,10 @@ questionSchema.statics.transformBeforeSend = (
 ) => {
   //
   const transform = (question: IQuestionDoc) => {
+    //
+    question.watched = question.watchers.some(id => id.toString() === userId)
+    delete question.watchers
+
     question.answers.forEach(answer => {
       answer.votesInfo = {
         length: answer.votes.length,

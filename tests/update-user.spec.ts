@@ -72,6 +72,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(400)
           res.body.email.kind.should.equal('required')
           res.body.username.kind.should.equal('required')
+          res.body.sex.kind.should.equal('required')
           done()
         })
     })
@@ -88,6 +89,7 @@ describe('PUT /update-user', () => {
         username: 'newusername',
         dateOfBirth: '1999-04-23',
         country: 'FR',
+        sex: 'F',
       }
     })
 
@@ -101,9 +103,11 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
+            active: true,
             timestamp: userMocks[1].timestamp,
             dateOfBirth: '1999-04-23',
             country: 'FR',
+            sex: 'F',
           })
           done()
         })
@@ -121,6 +125,7 @@ describe('PUT /update-user', () => {
         username: 'newusername',
         dateOfBirth: '1999-04-23',
         country: 'FR',
+        sex: 'M',
       }
     })
 
@@ -139,6 +144,7 @@ describe('PUT /update-user', () => {
           res.should.have.status(200)
           expect(res.body).to.deep.equal({
             ...user,
+            active: true,
             timestamp: userMocks[1].timestamp,
           })
           done()

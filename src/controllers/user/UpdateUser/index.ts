@@ -10,14 +10,14 @@ export default (app: Application) =>
   //
   app.put(ApiUrlPath.UpdateUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const { email, username, dateOfBirth, country } = req.body
+    const { email, username, dateOfBirth, country, sex } = req.body
 
     UserModel.findOne({ _id: req.body._id })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
         if (!doc) return res.status(404).send()
-        doc.set({ email, username, dateOfBirth, country })
+        doc.set({ email, username, dateOfBirth, country, sex })
         doc
           .save()
           .then(_doc => {

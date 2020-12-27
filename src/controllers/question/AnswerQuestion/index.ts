@@ -8,7 +8,7 @@ import { IQuestionDoc } from 'utils/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.AnswerQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { questionId } = req.query
 
@@ -23,7 +23,7 @@ export default (app: Application) =>
             return res.status(403).send()
           }
           req.body.forEach((i: number) =>
-            doc.answers[parseInt(i.toString())].votes.push(req.decoded._id)
+            doc.answers[parseInt(i.toString(), 10)].votes.push(req.decoded._id)
           )
         } else {
           return res.status(400).send()

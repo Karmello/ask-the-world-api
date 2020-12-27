@@ -1,10 +1,11 @@
+import Filter from './../enums/Filter'
+import SortBy from './../enums/SortBy'
+
 interface IRequestQuery {
   userId?: string
-  skip?: number
-  limit?: number
-  timestamp?: number
-  answeredTimes?: number
-  selfAnswered?: number
+  filter: Filter
+  sortBy: SortBy
+  pageNo: number
   keywords?: string
   keywordsMode?: string
 }

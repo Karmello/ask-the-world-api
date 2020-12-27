@@ -7,20 +7,29 @@ type Config = {
 }
 
 const {
+  ActivateUser,
+  AnswerQuestion,
   AuthenticateUser,
   CreateQuestion,
   DeleteQuestion,
+  GetActivationLink,
+  GetQuestions,
   ReadInfo,
-  ReadQuestions,
   ReadStats,
   ReadUser,
   RegisterUser,
   UpdatePassword,
-  UpdateQuestion,
   UpdateUser,
+  WatchQuestion,
 } = ApiUrlPath
 
 const config = {
+  [ActivateUser]: {
+    allowWithNoToken: false,
+  },
+  [AnswerQuestion]: {
+    allowWithNoToken: false,
+  },
   [AuthenticateUser]: {
     allowWithNoToken: true,
   },
@@ -30,10 +39,13 @@ const config = {
   [DeleteQuestion]: {
     allowWithNoToken: false,
   },
-  [ReadInfo]: {
+  [GetActivationLink]: {
+    allowWithNoToken: false,
+  },
+  [GetQuestions]: {
     allowWithNoToken: true,
   },
-  [ReadQuestions]: {
+  [ReadInfo]: {
     allowWithNoToken: true,
   },
   [ReadStats]: {
@@ -48,10 +60,10 @@ const config = {
   [UpdatePassword]: {
     allowWithNoToken: false,
   },
-  [UpdateQuestion]: {
+  [UpdateUser]: {
     allowWithNoToken: false,
   },
-  [UpdateUser]: {
+  [WatchQuestion]: {
     allowWithNoToken: false,
   },
 } as Config

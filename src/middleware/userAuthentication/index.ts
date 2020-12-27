@@ -10,7 +10,7 @@ const respondWithIncorrectCredentials = (res: Response) =>
 
 export default (req: Request, res: Response, next: NextFunction) => {
   //
-  const token = req.headers[X_AUTH_TOKEN] as string
+  const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
 
   if (token) {
     jwt.verify(token, process.env.AUTH_SECRET, (err, decoded: { _id: string }) => {

@@ -4,6 +4,8 @@ export { default as ApiUrlPath } from './enums/ApiUrlPath'
 export { default as Env } from './enums/Env'
 export { default as Filter } from './enums/Filter'
 export { default as HttpMethod } from './enums/HttpMethod'
+export { default as Sex } from './enums/Sex'
+export { default as SortBy } from './enums/SortBy'
 
 export { default as IAnswer } from './interfaces/IAnswer'
 export { default as IQuestion } from './interfaces/IQuestion'

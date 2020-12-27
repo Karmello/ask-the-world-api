@@ -106,6 +106,32 @@
         }
       }
     },
+    "/activation-link": {
+      "get": {
+        "tags": ["Util"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" }
+        ],
+        "responses": {
+          "200": {},
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
+          }
+        }
+      }
+    },
     "/registration": {
       "post": {
         "summary": "[open endpoint]",
@@ -147,7 +173,7 @@
         "description": "Authenticate either with token or credentials.",
         "tags": ["User"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header" },
+          { "name": "atw-x-auth-token", "in": "header", "default": "" },
           {
             "name": "formValues",
             "in": "body",
@@ -179,11 +205,37 @@
         }
       }
     },
+    "/activation": {
+      "get": {
+        "tags": ["User"],
+        "parameters": [
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" }
+        ],
+        "responses": {
+          "200": {},
+          "400": {
+            "schema": {
+              "$ref": "#/errors/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/errors/AuthorizationError"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
+          }
+        }
+      }
+    },
     "/read-user": {
       "get": {
         "tags": ["User"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           {
             "name": "_id",
             "in": "query",
@@ -222,7 +274,7 @@
       "put": {
         "tags": ["User"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           {
             "name": "formValues",
             "in": "body",
@@ -267,7 +319,7 @@
       "put": {
         "tags": ["User"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           {
             "name": "formValues",
             "in": "body",
@@ -297,6 +349,11 @@
             "schema": {
               "$ref": "#/errors/AuthorizationError"
             }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
           }
         }
       }
@@ -305,7 +362,7 @@
       "post": {
         "tags": ["Question"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           {
             "name": "formValues",
             "in": "body",
@@ -353,7 +410,7 @@
         }
       }
     },
-    "/read-questions": {
+    "/get-questions": {
       "get": {
         "summary": "[open endpoint]",
         "tags": ["Question"],
@@ -412,11 +469,11 @@
         }
       }
     },
-    "/update-question": {
+    "/answer-question": {
       "put": {
         "tags": ["Question"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           { "name": "questionId", "in": "query", "required": true },
           {
             "name": "selectedIndexes",
@@ -450,6 +507,11 @@
             "schema": {
               "$ref": "#/errors/AccessForbiddenError"
             }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/errors/ResourceNotFoundError"
+            }
           }
         }
       }
@@ -458,7 +520,7 @@
       "delete": {
         "tags": ["Question"],
         "parameters": [
-          { "name": "atw-x-auth-token", "in": "header", "required": true },
+          { "name": "atw-x-auth-token", "in": "header", "required": true, "default": "" },
           { "name": "_id", "in": "query", "required": true }
         ],
         "responses": {
@@ -493,7 +555,9 @@
                   "properties": {
                     "users": { "type": "number" },
                     "questions": { "type": "number" },
-                    "answers": { "type": "number" }
+                    "answers": { "type": "number" },
+                    "females": { "type": "number" },
+                    "males": { "type": "number" }
                   }
                 }
               }

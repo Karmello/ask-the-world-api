@@ -1,8 +1,10 @@
 enum Filter {
   All = 'ALL',
   Any = 'ANY',
-  CreatedByYou = 'CREATED_BY_YOU',
-  EditedByYou = 'EDITED_BY_YOU',
+  Created = 'CREATED',
+  Answered = 'ANSWERED',
+  NotAnswered = 'NOT_ANSWERED',
+  Watched = 'WATCHED',
 }
 
 export default Filter
