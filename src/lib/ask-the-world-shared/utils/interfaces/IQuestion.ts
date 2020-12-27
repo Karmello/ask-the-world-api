@@ -11,6 +11,7 @@ interface IQuestion {
     maxSelectable: number
   }
   answeredTimes: number
+  watchers: any[]
   watched: boolean
 }
 
