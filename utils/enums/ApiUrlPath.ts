@@ -5,6 +5,7 @@ enum ApiUrlPath {
   CreateQuestion = '/create-question',
   DeleteQuestion = '/delete-question',
   GetActivationLink = '/activation-link',
+  GetQuestion = '/get-question',
   GetQuestions = '/get-questions',
   ReadInfo = '/info',
   ReadStats = '/read-stats',
