@@ -13,6 +13,7 @@ const {
   CreateQuestion,
   DeleteQuestion,
   GetActivationLink,
+  GetQuestion,
   GetQuestions,
   ReadInfo,
   ReadStats,
@@ -41,6 +42,9 @@ const config = {
   },
   [GetActivationLink]: {
     allowWithNoToken: false,
+  },
+  [GetQuestion]: {
+    allowWithNoToken: true,
   },
   [GetQuestions]: {
     allowWithNoToken: true,
