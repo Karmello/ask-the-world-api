@@ -10,6 +10,7 @@ export { default as SortBy } from './enums/SortBy'
 
 export { default as IAnswer } from './interfaces/IAnswer'
 export { default as IQuestion } from './interfaces/IQuestion'
+export { default as IReport } from './interfaces/IReport'
 export { default as IRequestQuery } from './interfaces/IRequestQuery'
 export { default as IStats } from './interfaces/IStats'
 export { default as IUser } from './interfaces/IUser'
