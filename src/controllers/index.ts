@@ -10,6 +10,7 @@ import {
   DeleteQuestion,
   GetQuestion,
   GetQuestions,
+  ReportQuestion,
   WatchQuestion,
 } from './question/index'
 
@@ -44,6 +45,7 @@ const registerControllers = (app: Application) => {
   DeleteQuestion(app)
   GetQuestion(app)
   GetQuestions(app)
+  ReportQuestion(app)
   WatchQuestion(app)
 
   if (APP_ENV !== Env.Prod) {

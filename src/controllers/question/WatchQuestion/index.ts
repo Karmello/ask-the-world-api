@@ -1,8 +1,8 @@
 import { Application, Request, Response } from 'express'
 
-import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath } from 'shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
+import { userAuthMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>

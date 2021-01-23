@@ -15,8 +15,6 @@ import {
 
 const { model, Schema } = mongoose
 
-console.log(ReportModel)
-
 const questionSchema = new Schema(
   {
     userId: {

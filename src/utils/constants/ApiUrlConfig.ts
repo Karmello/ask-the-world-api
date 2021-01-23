@@ -19,6 +19,7 @@ const {
   ReadStats,
   ReadUser,
   RegisterUser,
+  ReportQuestion,
   UpdatePassword,
   UpdateUser,
   WatchQuestion,
@@ -60,6 +61,9 @@ const config = {
   },
   [RegisterUser]: {
     allowWithNoToken: true,
+  },
+  [ReportQuestion]: {
+    allowWithNoToken: false,
   },
   [UpdatePassword]: {
     allowWithNoToken: false,
