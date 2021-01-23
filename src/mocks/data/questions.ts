@@ -58,7 +58,7 @@ times(200, () => {
       }
     })(),
     watchers: [] as any,
-    reporters: [] as any,
+    reports: [] as any,
   }
 
   questionMocks.push(question as IQuestion)

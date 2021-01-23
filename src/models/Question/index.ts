@@ -6,8 +6,6 @@ import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/uti
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
 import { AnswerModel, ReportModel } from 'models/index'
 
-console.log(ReportModel)
-
 import {
   checkMinLength,
   checkMaxLength,
@@ -16,6 +14,8 @@ import {
 } from 'validation/index'
 
 const { model, Schema } = mongoose
+
+console.log(ReportModel)
 
 const questionSchema = new Schema(
   {

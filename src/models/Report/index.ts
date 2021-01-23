@@ -5,8 +5,6 @@ import { ModelName, IReportDoc } from 'utils/index'
 
 const { model, Schema } = mongoose
 
-console.log('>>>', Object.values(ReportReason))
-
 const reportSchema = new Schema(
   {
     userId: {
