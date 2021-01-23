@@ -83,6 +83,7 @@ questionSchema.statics.transformBeforeSend = (
   const transform = (question: IQuestionDoc) => {
     //
     question.watched = question.watchers.some(id => id.toString() === userId)
+    question.reported = question.reports.some(report => report.userId.toString() === userId)
     delete question.watchers
     delete question.reports
 
