@@ -13,8 +13,10 @@ interface IQuestion {
   }
   answeredTimes: number
   watchers: any[]
-  watched: boolean
   reports: IReport[]
+  //
+  watched: boolean
+  reported: boolean
 }
 
 export default IQuestion
