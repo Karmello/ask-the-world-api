@@ -4,7 +4,9 @@ import isArray from 'lodash/isArray'
 
 import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
-import { AnswerModel } from 'models/index'
+import { AnswerModel, ReportModel } from 'models/index'
+
+console.log(ReportModel)
 
 import {
   checkMinLength,
@@ -60,6 +62,7 @@ const questionSchema = new Schema(
         default: [],
       },
     ],
+    reports: [ReportModel.schema],
   },
   {
     versionKey: false,
@@ -83,6 +86,7 @@ questionSchema.statics.transformBeforeSend = (
     //
     question.watched = question.watchers.some(id => id.toString() === userId)
     delete question.watchers
+    delete question.reports
 
     question.answers.forEach(answer => {
       answer.votesInfo = {
