@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
@@ -19,8 +19,8 @@ export default (app: Application) =>
             data: QuestionModel.transformBeforeSend([doc], req.decoded?._id),
           })
         } else {
-          res.status(404).send()
+          res.status(404).send(AppError.NoSuchQuestionError)
         }
       })
-      .catch(err => res.status(400).send(err))
+      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
   })

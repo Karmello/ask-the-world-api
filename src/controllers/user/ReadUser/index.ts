@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
@@ -15,8 +15,8 @@ export default (app: Application) =>
         if (doc) {
           res.status(200).send(doc)
         } else {
-          res.status(404).send()
+          res.status(404).send(AppError.NoSuchUserError)
         }
       })
-      .catch(err => res.status(400).send(err))
+      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
   })
