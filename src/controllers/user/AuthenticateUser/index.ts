@@ -13,7 +13,7 @@ type TQuery = {
 }
 
 const respondWithIncorrectCredentials = (res: Response) =>
-  res.status(401).send(validationDict.incorrectCredentialsMsg)
+  res.status(401).send(validationDict.incorrectCredentialsMsg + 'controller')
 
 const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
