@@ -1,4 +1,5 @@
 import IAnswer from './IAnswer'
+import IReport from './IReport'
 
 interface IQuestion {
   _id: any
@@ -12,7 +13,10 @@ interface IQuestion {
   }
   answeredTimes: number
   watchers: any[]
+  reports: IReport[]
+  //
   watched: boolean
+  reported: boolean
 }
 
 export default IQuestion

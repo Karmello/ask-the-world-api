@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, AppError, X_AUTH_TOKEN } from 'shared/utils/index'
 import validationDict from 'shared/validation/dictionary'
 import { getFreshAuthToken } from 'helpers/index'
 import { userAuthMiddleware } from 'middleware/index'
@@ -49,8 +49,8 @@ export default (app: Application) =>
             respondWithFreshToken(res, doc)
           }
         } else {
-          respondWithIncorrectCredentials(res)
+          res.status(400).send(AppError.SomethingWentWrong)
         }
       })
-      .catch(err => res.status(400).send(err))
+      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
   })

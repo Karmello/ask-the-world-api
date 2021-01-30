@@ -1,5 +1,5 @@
 import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
-import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
+import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
 import userMocks from './../src/mocks/data/users'
 import { api, chai, expect } from './_index'
 
@@ -25,7 +25,7 @@ describe('PUT /update-user', () => {
         .put('/update-user')
         .end((err, res) => {
           res.should.have.status(401)
-          res.text.should.equal(validationDict.incorrectCredentialsMsg)
+          res.text.should.equal(AppError.SessionExpired)
           done()
         })
     })

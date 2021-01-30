@@ -1,9 +1,8 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, IRequestQuery, Filter, READ_QUESTIONS_MAX } from 'shared/utils/index'
+import { ApiUrlPath, IRequestQuery, Filter, SortBy, READ_QUESTIONS_MAX } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
-import SortBy from 'shared/utils/enums/SortBy'
 
 export default (app: Application) =>
   app.get(ApiUrlPath.GetQuestions, userAuthMiddleware, (req: Request, res: Response) => {

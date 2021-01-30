@@ -24,4 +24,5 @@ const answerSchema = new Schema(
     versionKey: false,
   }
 )
+
 export default model<IAnswerDoc>(ModelName.Answer, answerSchema)

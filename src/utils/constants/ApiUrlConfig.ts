@@ -13,11 +13,13 @@ const {
   CreateQuestion,
   DeleteQuestion,
   GetActivationLink,
+  GetQuestion,
   GetQuestions,
   ReadInfo,
   ReadStats,
   ReadUser,
   RegisterUser,
+  ReportQuestion,
   UpdatePassword,
   UpdateUser,
   WatchQuestion,
@@ -42,6 +44,9 @@ const config = {
   [GetActivationLink]: {
     allowWithNoToken: false,
   },
+  [GetQuestion]: {
+    allowWithNoToken: true,
+  },
   [GetQuestions]: {
     allowWithNoToken: true,
   },
@@ -56,6 +61,9 @@ const config = {
   },
   [RegisterUser]: {
     allowWithNoToken: true,
+  },
+  [ReportQuestion]: {
+    allowWithNoToken: false,
   },
   [UpdatePassword]: {
     allowWithNoToken: false,

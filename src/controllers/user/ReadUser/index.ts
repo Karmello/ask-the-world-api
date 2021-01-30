@@ -1,22 +1,29 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
-import { UserModel } from 'models/index'
-import { IUserDoc } from 'utils/index'
+import { UserModel, QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   //
   app.get(ApiUrlPath.ReadUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    UserModel.findOne({ _id: req.query._id })
-      .then((doc: IUserDoc) => {
+    const userId = req.query._id
+
+    Promise.all([QuestionModel.count({ userId }), UserModel.findOne({ _id: userId })])
+      .then(results => {
         //
-        if (doc) {
-          res.status(200).send(doc)
+        const count = {
+          questions: results[0],
+        }
+
+        const user = results[1]
+
+        if (user) {
+          res.status(200).send({ count, user })
         } else {
-          res.status(404).send()
+          res.status(404).send(AppError.NoSuchUserError)
         }
       })
-      .catch(err => res.status(400).send(err))
+      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
   })

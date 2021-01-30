@@ -1,11 +1,12 @@
-import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
-import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
+import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
 import userMocks from './../src/mocks/data/users'
+import questionMocks from './../src/mocks/data/questions'
 import { api, chai, expect } from './_index'
 
 describe('GET /read-user', () => {
   //
   let token
+  let count
 
   before(done => {
     chai
@@ -18,6 +19,8 @@ describe('GET /read-user', () => {
       })
   })
 
+  before(() => (count = questionMocks.filter(q => q.userId === userMocks[0]._id).length))
+
   describe('no token', () => {
     it('should return 401 and message', done => {
       chai
@@ -25,7 +28,7 @@ describe('GET /read-user', () => {
         .get('/read-user')
         .end((err, res) => {
           res.should.have.status(401)
-          res.text.should.equal(validationDict.incorrectCredentialsMsg)
+          res.text.should.equal(AppError.SessionExpired)
           done()
         })
     })
@@ -63,7 +66,12 @@ describe('GET /read-user', () => {
         .query({ _id: user._id })
         .end((err, res) => {
           res.should.have.status(200)
-          expect(res.body).to.deep.equal(user)
+          expect(res.body).to.deep.equal({
+            count: {
+              questions: count,
+            },
+            user,
+          })
           done()
         })
     })
