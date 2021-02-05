@@ -1,16 +1,21 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
+SET ATW_CERTS_PATH="D:/Dev/gitlab/certs"
+SET ATW_API_PATH="D:/Dev/gitlab/ask-the-world-api"
+SET ATW_FE_PATH="D:/Dev/gitlab/ask-the-world-fe"
+SET ATW_SHARED_PATH="D:/Dev/gitlab/ask-the-world-shared"
+
 if %1 == app (
-  cmd /k "cd ../certs & ssh -i ask-the-world-dev.pem ubuntu@18.194.139.71" -new_console:t:"ec2-master"
-  cmd /k "cd ../certs & ssh -i ask-the-world-dev.pem ubuntu@18.196.70.139" -new_console:t:"ec2-feature"
-  cmd /k "mongod" -new_console:t:"mongo"
-  cmd /k "cd ../ask-the-world-api & yarn start-local" -new_console:t:"api"
-  cmd /k "cd ../ask-the-world-fe & yarn start-server" -new_console:t:"server"
-  cmd /k "cd ../ask-the-world-fe & yarn start-client" -new_console:t:"client"
-  cmd /k "cd ../ask-the-world-fe & git status" -new_console:t:"ask-the-world-fe"
-  cmd /k "cd ../ask-the-world-api & git status" -new_console:t:"ask-the-world-api"
-  cmd /k "cd ../ask-the-world-shared & git status" -new_console:t:"ask-the-world-shared"
+  cmd /k -new_console:t:"ec2-master":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.194.139.71
+  cmd /k -new_console:t:"ec2-feature":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.196.70.139
+  cmd /k -new_console:t:"mongo" mongod
+  cmd /k -new_console:t:"api":d:%ATW_API_PATH% yarn start-local
+  cmd /k -new_console:t:"server":d:%ATW_FE_PATH% yarn start-server
+  cmd /k -new_console:t:"client":d:%ATW_FE_PATH% yarn start-client
+  cmd /k -new_console:t:"ask-the-world-fe":d:%ATW_FE_PATH% git status
+  cmd /k -new_console:t:"ask-the-world-api":d:%ATW_API_PATH% git status
+  cmd /k -new_console:t:"ask-the-world-shared":d:%ATW_SHARED_PATH% git status
   exit
   goto:end
 )
