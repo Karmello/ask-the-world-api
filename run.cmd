@@ -11,8 +11,8 @@ if %1 == app (
   cmd /k -new_console:t:"ec2-feature":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.196.70.139
   cmd /k -new_console:t:"mongo" mongod
   cmd /k -new_console:t:"api":d:%ATW_API_PATH% yarn start-local
-  cmd /k -new_console:t:"server":d:%ATW_FE_PATH% yarn start-server
-  cmd /k -new_console:t:"client":d:%ATW_FE_PATH% yarn start-client
+  cmd /k -new_console:t:"server":d:%ATW_FE_PATH% yarn dev-server
+  cmd /k -new_console:t:"client":d:%ATW_FE_PATH% yarn dev-client
   cmd /k -new_console:t:"ask-the-world-fe":d:%ATW_FE_PATH% git status
   cmd /k -new_console:t:"ask-the-world-api":d:%ATW_API_PATH% git status
   cmd /k -new_console:t:"ask-the-world-shared":d:%ATW_SHARED_PATH% git status
