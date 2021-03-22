@@ -29,5 +29,5 @@ export default (options: TOptions) =>
       html: `<p><a href="${activationLink}" target="new">${activationLink}</a></p>`,
     }
 
-    transporter.sendMail(mailOptions, (err, info) => (err ? reject() : resolve()))
+    transporter.sendMail(mailOptions, (err, info) => (err ? reject(err) : resolve(info)))
   })

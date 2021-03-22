@@ -12,6 +12,9 @@ type TQuery = {
   username?: string
 }
 
+const responseWithSomethingWentWrong = (res: Response) =>
+  res.status(400).send(AppError.SomethingWentWrong)
+
 const respondWithIncorrectCredentials = (res: Response) =>
   res.status(401).send(validationDict.incorrectCredentialsMsg)
 
@@ -49,8 +52,12 @@ export default (app: Application) =>
             respondWithFreshToken(res, doc)
           }
         } else {
-          res.status(400).send(AppError.SomethingWentWrong)
+          if (username && password) {
+            respondWithIncorrectCredentials(res)
+          } else {
+            responseWithSomethingWentWrong(res)
+          }
         }
       })
-      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
+      .catch(() => responseWithSomethingWentWrong(res))
   })

@@ -1,30 +1,26 @@
-import express, { Errback } from 'express'
+import express, { Request, Response, Errback, NextFunction } from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
 import path from 'path'
-import dotenv from 'dotenv'
 import helmet from 'helmet'
 
 import { Env } from 'shared/utils/index'
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
 import registerControllers from 'controllers/index'
 
-dotenv.config()
-
-const { NODE_ENV, APP_ENV, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
+const { NODE_ENV, APP_ENV, APP_URL, API_URL, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
 const app = express()
 
-if ([Env.Local, Env.Test].includes(APP_ENV as Env)) dotenv.config({ path: '.env.local' })
 if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(helmet.frameguard())
 app.use(helmet.hidePoweredBy())
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Credentials', 1)
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH, OPTIONS')
@@ -34,6 +30,14 @@ app.use((req, res, next) => {
   )
   res.setHeader('Access-Control-Expose-Headers', X_AUTH_TOKEN)
   res.setHeader('Cache-Control', 'no-cache')
+  next()
+})
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const _send = res.send
+  res.send = function () {
+    return _send.apply(this, arguments)
+  }
   next()
 })
 
@@ -53,7 +57,11 @@ mongoose
       //
       const onStarted = (err?: Errback) => {
         if (err) return console.log(err)
-        console.log(`API listening on port ${PORT}`, { NODE_ENV, APP_ENV }, '\n')
+        console.log(
+          `API listening on port ${PORT}`,
+          { NODE_ENV, APP_ENV, APP_URL, API_URL, MONGO_URI },
+          '\n'
+        )
       }
 
       if (![Env.Local, Env.Test].includes(APP_ENV as Env)) {

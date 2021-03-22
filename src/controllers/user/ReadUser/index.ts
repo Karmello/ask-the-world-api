@@ -10,7 +10,7 @@ export default (app: Application) =>
     //
     const userId = req.query._id
 
-    Promise.all([QuestionModel.count({ userId }), UserModel.findOne({ _id: userId })])
+    Promise.all([QuestionModel.countDocuments({ userId }), UserModel.findOne({ _id: userId })])
       .then(results => {
         //
         const count = {
