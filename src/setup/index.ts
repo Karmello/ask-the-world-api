@@ -40,10 +40,10 @@ export default (app: Application, logs: {}[]) => {
             log_time: moment.utc(Date.now() + 3600000).format('YYYY-MM-DD hh:mm:ss'),
             req: {
               method: req.method,
-              headers: { [X_AUTH_TOKEN]: req.headers[X_AUTH_TOKEN] },
               path: req.path,
               query: !isEmpty(req.query) ? req.query : undefined,
               body: !isEmpty(req.body) ? req.body : undefined,
+              headers: { [X_AUTH_TOKEN]: req.headers[X_AUTH_TOKEN] },
             },
             res: {
               statusCode: res.statusCode,
