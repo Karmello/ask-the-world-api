@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express'
 
 import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
+import { GetLogs } from './log/index'
 
 import {
   AnswerQuestion,
@@ -27,7 +28,7 @@ import swaggerDocument from './../swagger.json'
 
 const { APP_ENV } = process.env
 
-const registerControllers = (app: Application) => {
+const registerControllers = (app: Application, logs: {}[]) => {
   //
   GetActivationLink(app)
   ReadInfo(app)
@@ -47,6 +48,8 @@ const registerControllers = (app: Application) => {
   GetQuestions(app)
   ReportQuestion(app)
   WatchQuestion(app)
+
+  GetLogs(app, logs)
 
   if (APP_ENV !== Env.Prod) {
     app.use(
