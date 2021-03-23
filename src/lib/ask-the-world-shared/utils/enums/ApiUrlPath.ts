@@ -16,7 +16,6 @@ enum ApiUrlPath {
   UpdateUser = '/update-user',
   WatchQuestion = '/watch-question',
   GetLogs = '/logs',
-  PostLog = 'log',
 }
 
 export default ApiUrlPath
