@@ -37,12 +37,12 @@
       "path": "src\\utils"
     },
     {
-      "name": "controllers",
-      "path": "src\\controllers"
-    },
-    {
       "name": "tests",
       "path": "tests"
+    },
+    {
+      "name": "controllers",
+      "path": "src\\controllers"
     }
   ],
   "settings": {

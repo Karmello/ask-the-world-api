@@ -33,9 +33,10 @@ export default (app: Application, logs: {}[]) => {
 
   if (APP_ENV === Env.Local) {
     app.use((req: Request, res: Response, next: NextFunction) => {
-      const _json = res.json
-      res.json = function (data) {
+      const _send = res.send
+      res.send = data => {
         if (![ApiUrlPath.GetLogs, '/favicon.ico'].includes(req.path)) {
+          const token = req.headers[X_AUTH_TOKEN]
           logs.push({
             log_time: moment.utc(Date.now() + 3600000).format('YYYY-MM-DD hh:mm:ss'),
             req: {
@@ -43,7 +44,7 @@ export default (app: Application, logs: {}[]) => {
               path: req.path,
               query: !isEmpty(req.query) ? req.query : undefined,
               body: !isEmpty(req.body) ? req.body : undefined,
-              headers: { [X_AUTH_TOKEN]: req.headers[X_AUTH_TOKEN] },
+              headers: token ? { [X_AUTH_TOKEN]: token } : undefined,
             },
             res: {
               statusCode: res.statusCode,
@@ -51,7 +52,7 @@ export default (app: Application, logs: {}[]) => {
             },
           })
         }
-        return _json.apply(this, arguments)
+        return _send.call(res, JSON.stringify(data))
       }
       next()
     })
