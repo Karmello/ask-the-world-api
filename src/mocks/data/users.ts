@@ -10,7 +10,7 @@ export default [
     dateOfBirth: '1963-02-17',
     country: 'US',
     sex: 'M',
-    timestamp: 1592498017000.0,
+    registeredAt: 1592498017000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5eeb97db52c1dc555c2d676d'),
@@ -21,7 +21,7 @@ export default [
     dateOfBirth: '1946-06-14',
     country: 'US',
     sex: 'M',
-    timestamp: 1592498139000.0,
+    registeredAt: 1592498139000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
@@ -32,7 +32,7 @@ export default [
     dateOfBirth: '1984-01-17',
     country: 'GB',
     sex: 'F',
-    timestamp: 1592498322000.0,
+    registeredAt: 1592498322000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5eeb992452c1dc555c2d676f'),
@@ -43,7 +43,7 @@ export default [
     dateOfBirth: '1974-01-30',
     country: 'GB',
     sex: 'M',
-    timestamp: 1592498468000.0,
+    registeredAt: 1592498468000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5eeb997a52c1dc555c2d6770'),
@@ -54,7 +54,7 @@ export default [
     dateOfBirth: '1967-07-01',
     country: 'CA',
     sex: 'F',
-    timestamp: 1592498554000.0,
+    registeredAt: 1592498554000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
@@ -65,7 +65,7 @@ export default [
     dateOfBirth: '1963-02-19',
     country: 'US',
     sex: 'M',
-    timestamp: 1595089886000.0,
+    registeredAt: 1595089886000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa221fd74bf1121704a85'),
@@ -76,7 +76,7 @@ export default [
     dateOfBirth: '1972-10-17',
     country: 'US',
     sex: 'M',
-    timestamp: 1600102945000.0,
+    registeredAt: 1600102945000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa29b49a6a31058a6f57f'),
@@ -87,7 +87,7 @@ export default [
     dateOfBirth: '1924-01-24',
     country: 'GB',
     sex: 'M',
-    timestamp: 1600103067000.0,
+    registeredAt: 1600103067000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa30b3007ef1388d93483'),
@@ -98,7 +98,7 @@ export default [
     dateOfBirth: '1988-03-14',
     country: 'US',
     sex: 'F',
-    timestamp: 1600103179000.0,
+    registeredAt: 1600103179000.0,
   },
   {
     _id: mongoose.Types.ObjectId('5f5fa3e93e9cb7f1c82739da'),
@@ -109,6 +109,6 @@ export default [
     dateOfBirth: '1881-10-24',
     country: 'ES',
     sex: 'M',
-    timestamp: 1600103401000.0,
+    registeredAt: 1600103401000.0,
   },
 ]

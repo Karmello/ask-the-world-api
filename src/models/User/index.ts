@@ -29,15 +29,6 @@ const { model, Schema } = mongoose
 
 const userSchema = new Schema(
   {
-    timestamp: {
-      type: Number,
-      required: true,
-    },
-    active: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     email: {
       type: String,
       required: true,
@@ -77,6 +68,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
       validate: [checkSex],
+    },
+    registeredAt: {
+      type: Number,
+      required: true,
+    },
+    active: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {

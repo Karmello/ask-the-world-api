@@ -9,6 +9,10 @@
       "path": "src"
     },
     {
+      "name": "tests",
+      "path": "tests"
+    },
+    {
       "name": "lib",
       "path": "src\\lib"
     },
@@ -25,10 +29,6 @@
       "path": "src\\helpers"
     },
     {
-      "name": "models",
-      "path": "src\\models"
-    },
-    {
       "name": "middleware",
       "path": "src\\middleware"
     },
@@ -37,8 +37,8 @@
       "path": "src\\utils"
     },
     {
-      "name": "tests",
-      "path": "tests"
+      "name": "models",
+      "path": "src\\models"
     },
     {
       "name": "controllers",

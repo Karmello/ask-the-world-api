@@ -34,12 +34,6 @@ const questionSchema = new Schema(
         checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
       ],
     },
-    answers: [AnswerModel.schema],
-    answeredTimes: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
     options: {
       multipleChoice: {
         type: Boolean,
@@ -52,6 +46,12 @@ const questionSchema = new Schema(
         default: 1,
         validate: [checkMaxSelectableAnswers],
       },
+    },
+    answers: [AnswerModel.schema],
+    answeredTimes: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     watchers: [
       {

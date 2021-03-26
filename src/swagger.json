@@ -21,9 +21,9 @@
         "username": { "type": "string", "unique": true },
         "dateOfBirth": { "type": "string" },
         "country": { "type": "string" },
-        "timestamp": { "type": "number" }
+        "registeredAt": { "type": "number" }
       },
-      "required": ["_id", "email", "username", "dateOfBirth", "country", "timestamp"]
+      "required": ["_id", "email", "username", "dateOfBirth", "country", "registeredAt"]
     },
     "Question": {
       "title": "Question",

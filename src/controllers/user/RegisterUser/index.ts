@@ -12,7 +12,7 @@ export default (app: Application) =>
     //
     const newUser = new UserModel({
       ...req.body,
-      timestamp: moment().unix() * 1000,
+      registeredAt: moment().unix() * 1000,
     })
 
     newUser
