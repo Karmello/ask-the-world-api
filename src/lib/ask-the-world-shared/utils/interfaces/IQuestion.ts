@@ -1,16 +1,15 @@
-import IAnswer from './IAnswer'
 import IReport from './IReport'
 
 interface IQuestion {
   _id: any
   userId: any
-  timestamp: number
   text: string
-  answers: IAnswer[]
+  answers: string[]
   options: {
     multipleChoice: boolean
     maxSelectable: number
   }
+  timestamp: number
   answeredTimes: number
   watchers: any[]
   reports: IReport[]
