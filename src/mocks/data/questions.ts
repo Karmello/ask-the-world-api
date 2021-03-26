@@ -20,34 +20,16 @@ times(200, () => {
 
   const question = {
     userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
-    timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem
       .sentence(30)
       .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
     answers: (() => {
       const arr = [] as {}[]
       times(numOfAnswers, () => {
-        arr.push({
-          text: faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH),
-          votes: (() => {
-            const userIndexes = getRandNums(
-              0,
-              userMocks.length - 1,
-              getRandNum(0, userMocks.length - 1)
-            )
-            const votes = [] as any[]
-            userIndexes.forEach(i => {
-              const userId = userMocks[i]._id
-              votes.push(userId)
-              if (!allVotes.includes(userId)) allVotes.push(userId)
-            })
-            return votes
-          })(),
-        })
+        arr.push(faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH))
       })
       return arr
     })(),
-    answeredTimes: allVotes.length,
     options: (() => {
       const multipleChoice = faker.random.boolean()
       let maxSelectable = 1
@@ -57,6 +39,8 @@ times(200, () => {
         maxSelectable,
       }
     })(),
+    timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
+    answeredTimes: allVotes.length,
     watchers: [] as any,
     reports: [] as any,
   }
@@ -65,3 +49,18 @@ times(200, () => {
 })
 
 export default questionMocks
+
+// votes: (() => {
+//   const userIndexes = getRandNums(
+//     0,
+//     userMocks.length - 1,
+//     getRandNum(0, userMocks.length - 1)
+//   )
+//   const votes = [] as any[]
+//   userIndexes.forEach(i => {
+//     const userId = userMocks[i]._id
+//     votes.push(userId)
+//     if (!allVotes.includes(userId)) allVotes.push(userId)
+//   })
+//   return votes
+// })(),

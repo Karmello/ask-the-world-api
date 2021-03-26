@@ -22,10 +22,6 @@ const questionSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    timestamp: {
-      type: Number,
-      required: true,
-    },
     text: {
       type: String,
       required: true,
@@ -34,6 +30,12 @@ const questionSchema = new Schema(
         checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
       ],
     },
+    answers: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     options: {
       multipleChoice: {
         type: Boolean,
@@ -47,7 +49,10 @@ const questionSchema = new Schema(
         validate: [checkMaxSelectableAnswers],
       },
     },
-    answers: [AnswerModel.schema],
+    timestamp: {
+      type: Number,
+      required: true,
+    },
     answeredTimes: {
       type: Number,
       required: true,
