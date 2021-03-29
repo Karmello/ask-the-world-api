@@ -1,9 +1,7 @@
-import mongoose from 'mongoose'
-
 interface IAnswer {
-  _id: mongoose.Types.ObjectId
-  questionId: mongoose.Types.ObjectId
-  answererId: mongoose.Types.ObjectId
+  _id: any
+  questionId: any
+  answererId: any
   answeredAt: number
   selectedIndexes: number[]
 }

@@ -1,10 +1,9 @@
-import mongoose from 'mongoose'
 import { ReportReason } from './../index'
 
 interface IReport {
-  _id: mongoose.Types.ObjectId
-  questionId: mongoose.Types.ObjectId
-  reporterId: mongoose.Types.ObjectId
+  _id: any
+  questionId: any
+  reporterId: any
   reason: ReportReason
 }
 
