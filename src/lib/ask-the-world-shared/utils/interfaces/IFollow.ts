@@ -1,9 +1,7 @@
-import mongoose from 'mongoose'
-
 interface IFollow {
-  _id: mongoose.Types.ObjectId
-  questionId: mongoose.Types.ObjectId
-  followerId: mongoose.Types.ObjectId
+  _id: any
+  questionId: any
+  followerId: any
   followedAt: number
 }
 

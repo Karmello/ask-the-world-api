@@ -1,8 +1,6 @@
-import mongoose from 'mongoose'
-
 interface IQuestion {
-  _id: mongoose.Types.ObjectId
-  creatorId: mongoose.Types.ObjectId
+  _id: any
+  creatorId: any
   createdAt: number
   text: string
   answers: string[]

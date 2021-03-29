@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
 import { Sex } from './../index'
 
 interface IUser {
-  _id: mongoose.Types.ObjectId
+  _id: any
   registeredAt: number
   active: boolean
   email: string
