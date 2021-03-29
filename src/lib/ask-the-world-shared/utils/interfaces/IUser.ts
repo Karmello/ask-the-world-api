@@ -1,14 +1,16 @@
+import mongoose from 'mongoose'
 import { Sex } from './../index'
+
 interface IUser {
-  _id: any
+  _id: mongoose.Types.ObjectId
+  registeredAt: number
+  active: boolean
   email: string
   username: string
   password: string
   dateOfBirth: string
   country: string
   sex: Sex
-  registeredAt: number
-  active: boolean
 }
 
 export default IUser
