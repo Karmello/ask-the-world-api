@@ -1,9 +1,11 @@
-import IVote from './IVote'
+import mongoose from 'mongoose'
 
 interface IAnswer {
-  text: string
-  votes: any[]
-  votesInfo: IVote
+  _id: mongoose.Types.ObjectId
+  questionId: mongoose.Types.ObjectId
+  answererId: mongoose.Types.ObjectId
+  answeredAt: number
+  selectedIndexes: number[]
 }
 
 export default IAnswer

@@ -1,0 +1,22 @@
+{
+  "name": "ask-the-world-shared",
+  "version": "1.0.0",
+  "description": "- App",
+  "main": "run.cmd",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ask-the-world/ask-the-world-shared.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ask-the-world/ask-the-world-shared/issues"
+  },
+  "homepage": "https://gitlab.com/ask-the-world/ask-the-world-shared#readme",
+  "dependencies": {
+    "@types/mongoose": "^5.10.4"
+  }
+}

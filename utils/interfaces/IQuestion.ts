@@ -1,21 +1,15 @@
-import IReport from './IReport'
+import mongoose from 'mongoose'
 
 interface IQuestion {
-  _id: any
-  userId: any
+  _id: mongoose.Types.ObjectId
+  creatorId: mongoose.Types.ObjectId
+  createdAt: number
   text: string
   answers: string[]
   options: {
     multipleChoice: boolean
     maxSelectable: number
   }
-  timestamp: number
-  answeredTimes: number
-  watchers: any[]
-  reports: IReport[]
-  //
-  watched: boolean
-  reported: boolean
 }
 
 export default IQuestion
