@@ -4,7 +4,7 @@ import isArray from 'lodash/isArray'
 
 import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
-import { AnswerModel, ReportModel } from 'models/index'
+import { ReportModel } from 'models/index'
 
 import {
   checkMinLength,
