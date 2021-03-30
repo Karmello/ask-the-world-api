@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 import moment from 'moment/moment'
 
-import { ApiUrlPath, IAnswer } from 'shared/utils/index'
+import { ApiUrlPath } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
 
@@ -11,10 +11,10 @@ export default (app: Application) =>
     //
     try {
       const newQuestion = new QuestionModel({
-        userId: req.decoded._id,
-        timestamp: moment().unix() * 1000,
+        creatorId: req.decoded._id,
+        createdAt: moment().unix() * 1000,
         text: req.body.text,
-        answers: req.body.answers.map(({ text }: IAnswer) => ({ text, votes: [] as any })),
+        answers: req.body.answers,
         options: req.body.options,
       })
 

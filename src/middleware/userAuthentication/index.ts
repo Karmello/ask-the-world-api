@@ -14,7 +14,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       req.decoded = decoded
       next()
     })
-  } else if (ApiUrlConfig[req.route.path].allowWithNoToken) {
+  } else if (!ApiUrlConfig[req.route.path].secured) {
     return next()
   } else {
     res.status(401).send(AppError.SessionExpired)

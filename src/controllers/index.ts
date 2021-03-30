@@ -1,5 +1,4 @@
-import { Application, Request, Response, NextFunction } from 'express'
-import swaggerUi from 'swagger-ui-express'
+import { Application } from 'express'
 
 import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
@@ -24,8 +23,6 @@ import {
   UpdatePassword,
 } from './user/index'
 
-import swaggerDocument from './../swagger.json'
-
 const { APP_ENV } = process.env
 
 const registerControllers = (app: Application, logs: {}[]) => {
@@ -49,19 +46,7 @@ const registerControllers = (app: Application, logs: {}[]) => {
   ReportQuestion(app)
   WatchQuestion(app)
 
-  GetLogs(app, logs)
-
-  if (APP_ENV !== Env.Prod) {
-    app.use(
-      '/',
-      (req: Request, res: Response, next: NextFunction) => {
-        swaggerDocument.host = new URL(process.env.APP_URL).host + '/api'
-        next()
-      },
-      swaggerUi.serve,
-      swaggerUi.setup(swaggerDocument)
-    )
-  }
+  if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
 
 export default registerControllers

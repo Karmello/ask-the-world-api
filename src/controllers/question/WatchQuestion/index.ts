@@ -14,13 +14,6 @@ export default (app: Application) =>
       //
       if (err) return res.status(400).send(err)
       if (!doc) return res.status(404).send()
-      if (doc.userId === req.decoded._id) return res.status(400).send()
-
-      if (doc.watchers.includes(req.decoded._id)) {
-        doc.watchers.splice(doc.watchers.indexOf(req.decoded._id), 1)
-      } else {
-        doc.watchers.push(req.decoded._id)
-      }
 
       doc
         .save()

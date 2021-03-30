@@ -1,22 +1,32 @@
 import mongoose from 'mongoose'
 
-import { ANSWER_INPUT_MAX_LENGTH } from 'shared/utils/index'
+// import { ANSWER_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IAnswerDoc } from 'utils/index'
-import { checkMaxLength } from 'validation/index'
+// import { checkMaxLength } from 'validation/index'
 
 const { model, Schema } = mongoose
 
 const answerSchema = new Schema(
   {
-    text: {
-      type: String,
+    questionId: {
+      ref: ModelName.Question,
+      type: Schema.Types.ObjectId,
       required: true,
-      validate: [checkMaxLength(ANSWER_INPUT_MAX_LENGTH)],
     },
-    votes: [
+    answererId: {
+      ref: ModelName.User,
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    answeredAt: {
+      type: Number,
+      required: true,
+    },
+    selectedIndexes: [
       {
-        type: Schema.Types.ObjectId,
-        ref: ModelName.User,
+        type: Number,
+        required: true,
+        default: [],
       },
     ],
   },

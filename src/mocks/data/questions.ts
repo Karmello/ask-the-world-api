@@ -19,7 +19,8 @@ times(200, () => {
   const allVotes = [] as any
 
   const question = {
-    userId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
+    creatorId: userMocks[getRandNum(0, userMocks.length - 1)]._id,
+    createdAt: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
     text: faker.lorem
       .sentence(30)
       .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
@@ -39,10 +40,6 @@ times(200, () => {
         maxSelectable,
       }
     })(),
-    timestamp: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
-    answeredTimes: allVotes.length,
-    watchers: [] as any,
-    reports: [] as any,
   }
 
   questionMocks.push(question as IQuestion)

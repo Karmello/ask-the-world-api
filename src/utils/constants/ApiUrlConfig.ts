@@ -2,7 +2,7 @@ import { ApiUrlPath } from 'shared/utils/index'
 
 type Config = {
   [key: string]: {
-    allowWithNoToken: boolean
+    secured: boolean
   }
 }
 
@@ -27,52 +27,52 @@ const {
 
 const config = {
   [ActivateUser]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [AnswerQuestion]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [AuthenticateUser]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [CreateQuestion]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [DeleteQuestion]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [GetActivationLink]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [GetQuestion]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [GetQuestions]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [ReadInfo]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [ReadStats]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [ReadUser]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [RegisterUser]: {
-    allowWithNoToken: true,
+    secured: false,
   },
   [ReportQuestion]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [UpdatePassword]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [UpdateUser]: {
-    allowWithNoToken: false,
+    secured: true,
   },
   [WatchQuestion]: {
-    allowWithNoToken: false,
+    secured: true,
   },
 } as Config
 

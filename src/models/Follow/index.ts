@@ -1,25 +1,23 @@
 import mongoose from 'mongoose'
 
-import { ReportReason } from 'shared/utils/index'
-import { ModelName, IReportDoc } from 'utils/index'
+import { ModelName, IFollowDoc } from 'utils/index'
 
 const { model, Schema } = mongoose
 
-const reportSchema = new Schema(
+const followSchema = new Schema(
   {
     questionId: {
       ref: ModelName.Question,
       type: Schema.Types.ObjectId,
       required: true,
     },
-    reporterId: {
+    followerId: {
       ref: ModelName.User,
       type: Schema.Types.ObjectId,
       required: true,
     },
-    reason: {
-      type: String,
-      enum: Object.values(ReportReason),
+    followedAt: {
+      type: Number,
       required: true,
     },
   },
@@ -28,4 +26,4 @@ const reportSchema = new Schema(
   }
 )
 
-export default model<IReportDoc>(ModelName.Report, reportSchema)
+export default model<IFollowDoc>(ModelName.Follow, followSchema)
