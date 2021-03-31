@@ -4,16 +4,7 @@
       "path": "."
     },
     {
-      "path": "utils"
-    },
-    {
-      "path": "validation"
-    },
-    {
-      "path": "assets"
-    },
-    {
-      "path": "helpers"
+      "path": "src"
     }
   ]
 }
