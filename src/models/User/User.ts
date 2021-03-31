@@ -5,6 +5,7 @@ import { NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
 
 import {
+  EMAIL_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
   USERNAME_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
@@ -32,6 +33,7 @@ const userSchema = new Schema(
     registeredAt: {
       type: Number,
       required: true,
+      default: moment().unix() * 1000,
     },
     active: {
       type: Boolean,
@@ -42,7 +44,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: [checkEmail],
+      validate: [checkEmail, checkMaxLength(EMAIL_MAX_LENGTH)],
     },
     username: {
       type: String,

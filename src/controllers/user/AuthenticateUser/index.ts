@@ -20,7 +20,7 @@ const respondWithIncorrectCredentials = (res: Response) =>
 
 const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-  res.status(201).send(doc)
+  res.status(200).send(doc)
 }
 
 export default (app: Application) =>

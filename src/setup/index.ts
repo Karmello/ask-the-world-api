@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import moment from 'moment/moment'
 import isEmpty from 'lodash/isEmpty'
+import keys from 'lodash/keys'
 
 import { ApiUrlPath, Env } from 'shared/utils/index'
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
@@ -35,6 +36,12 @@ export default (app: Application, logs: {}[]) => {
     app.use((req: Request, res: Response, next: NextFunction) => {
       const _send = res.send
       res.send = data => {
+        if (data.errors) {
+          keys(data.errors).forEach(key => {
+            data.errors[key] = data.errors[key].kind
+          })
+          data = { errors: data.errors }
+        }
         if (![ApiUrlPath.GetLogs, '/favicon.ico'].includes(req.path)) {
           const token = req.headers[X_AUTH_TOKEN]
           logs.push({
