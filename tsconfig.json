@@ -14,11 +14,10 @@
     "resolveJsonModule": true,
     "sourceMap": false,
     "paths": {
-      "shared/*": ["src/lib/ask-the-world-shared/*"],
+      "shared/*": ["src/lib/ask-the-world-shared/src/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
-      "mocks/*": ["src/mocks/*"],
       "validation/*": ["src/validation/*"],
       "middleware/*": ["src/middleware/*"],
       "helpers/*": ["src/helpers/*"]

@@ -14,15 +14,16 @@ import {
 
 import {
   checkEmail,
-  checkAlphaChars,
+  checkCredentialChars,
   checkMinLength,
   checkMaxLength,
   checkDateOfBirth,
+  checkDateFormat,
   checkCountry,
   checkSex,
 } from 'validation/index'
 
-import { USER_MIN_AGE, DOB_FORMAT_PATTERN } from 'shared/utils/index'
+import { USER_MIN_AGE, DATE_FORMAT_PATTERN } from 'shared/utils/index'
 import dict from 'shared/validation/dictionary'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
 
@@ -51,7 +52,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       validate: [
-        checkAlphaChars(),
+        checkCredentialChars(),
         checkMinLength(USERNAME_MIN_LENGTH),
         checkMaxLength(USERNAME_MAX_LENGTH),
       ],
@@ -60,7 +61,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       validate: [
-        checkAlphaChars(true),
+        checkCredentialChars(true),
         checkMinLength(PASSWORD_MIN_LENGTH),
         checkMaxLength(PASSWORD_MAX_LENGTH),
       ],
@@ -68,7 +69,10 @@ const userSchema = new Schema(
     dateOfBirth: {
       type: String,
       required: true,
-      validate: [checkDateOfBirth(moment().add(-USER_MIN_AGE, 'years').format(DOB_FORMAT_PATTERN))],
+      validate: [
+        checkDateFormat,
+        checkDateOfBirth(moment().add(-USER_MIN_AGE, 'years').format(DATE_FORMAT_PATTERN)),
+      ],
     },
     country: {
       type: String,

@@ -2,15 +2,17 @@ import faker from 'faker'
 import times from 'lodash/times'
 
 import userMocks from './users'
-import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from './../../lib/ask-the-world-shared/utils'
-import { getRandNum, getRandNums } from './../../lib/ask-the-world-shared/helpers'
 
 import {
+  MIN_NUM_OF_ANSWERS,
+  MAX_NUM_OF_ANSWERS,
   QUESTION_INPUT_MIN_LENGTH,
   QUESTION_INPUT_MAX_LENGTH,
   ANSWER_INPUT_MAX_LENGTH,
   IQuestion,
-} from './../../lib/ask-the-world-shared/utils'
+} from './../../src/lib/ask-the-world-shared/src/utils'
+
+import { getRandNum, getRandNums } from './../../src/lib/ask-the-world-shared/src/helpers'
 
 const questionMocks = [] as IQuestion[]
 

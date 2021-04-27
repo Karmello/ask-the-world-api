@@ -5,12 +5,12 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.config",
     "start": "cross-env NODE_ENV=production node build/index.js",
-    "start-local": "cross-env dotenv_config_path=env/.env.local NODE_ENV=development APP_ENV=local nodemon --watch src --exec ts-node -r dotenv/config -r tsconfig-paths/register src/index.ts",
+    "start-local": "cross-env dotenv_config_path=env/.env.local NODE_ENV=development APP_ENV=local nodemon --exec ts-node -r dotenv/config -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "tslint": "tslint src/**/*.{ts,tsx}",
     "test": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
-    "unit": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
-    "seed-local": "ts-node ./src/mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
+    "unit": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --watch --timeout 10000 --exit",
+    "seed-local": "ts-node ./mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "seed-remote-dev": "yarn ts-node ./src/mocks/seed.ts $MONGO_URI",
     "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://gitlab.com/Karmello/ask-the-world-shared.git master --squash"
