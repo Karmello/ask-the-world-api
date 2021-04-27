@@ -41,7 +41,7 @@ export default (app: Application) =>
 
     switch (filter) {
       case Filter.Created:
-        if (userId) query.userId = userId
+        if (userId) query.creatorId = userId
         break
       case Filter.Answered:
         query.answers = {

@@ -1,9 +1,8 @@
 import { Application, Request, Response } from 'express'
-import get from 'lodash/get'
 
 import { userAuthMiddleware } from 'middleware/index'
 import { ApiUrlPath, Sex } from 'shared/utils/index'
-import { UserModel, QuestionModel } from 'models/index'
+import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 
 export default (app: Application) =>
   app.get(ApiUrlPath.ReadStats, userAuthMiddleware, (req: Request, res: Response) => {
@@ -11,16 +10,7 @@ export default (app: Application) =>
     Promise.all([
       UserModel.countDocuments(),
       QuestionModel.countDocuments(),
-      QuestionModel.aggregate([
-        {
-          $group: {
-            _id: null,
-            answers: {
-              $sum: '$answeredTimes',
-            },
-          },
-        },
-      ]),
+      AnswerModel.countDocuments(),
       UserModel.countDocuments({ sex: Sex.Female }),
       UserModel.countDocuments({ sex: Sex.Male }),
     ]).then(
@@ -29,7 +19,7 @@ export default (app: Application) =>
           count: {
             users: results[0],
             questions: results[1],
-            answers: get(results, '[2][0].answers', 0),
+            answers: results[2],
             females: results[3],
             males: results[4],
           },
