@@ -76,7 +76,7 @@ export default (app: Application) =>
       results =>
         res.status(200).send({
           count: results[0],
-          data: QuestionModel.transformBeforeSend(results[1], req.decoded?._id),
+          data: results[1],
         }),
       err => {
         console.log(err)
