@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "sourceMap": false,
     "paths": {
-      "shared/*": ["src/lib/ask-the-world-shared/src/*"],
+      "shared/*": ["src/lib/ask-the-world-shared/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
