@@ -1,17 +1,25 @@
 import { MongoClient } from 'mongodb'
 
 import userMocks from './data/users'
-import questionMocks from './data/questions'
+import getQuestionMocks from './data/questions'
+import getAnswerMocks from './data/answers'
 
 const uri = process.argv[2]
 
 const clearAndSeedDb = async (client: MongoClient) => {
-  const usersCollection = await client.db().collection('users')
-  const questionsCollection = await client.db().collection('questions')
-  await usersCollection.deleteMany({})
+  const usersCollection = client.db().collection('users')
+  const questionsCollection = client.db().collection('questions')
+  const answersCollection = client.db().collection('answers')
+
+  usersCollection.deleteMany({})
+  questionsCollection.deleteMany({})
+  answersCollection.deleteMany({})
+
   await usersCollection.insertMany(userMocks)
-  await questionsCollection.deleteMany({})
-  await questionsCollection.insertMany(questionMocks)
+  const users = await usersCollection.find().toArray()
+  await questionsCollection.insertMany(getQuestionMocks(users))
+  const questions = await questionsCollection.find().toArray()
+  await answersCollection.insertMany(getAnswerMocks(questions))
 }
 
 const main = async () => {

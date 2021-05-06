@@ -3,10 +3,12 @@ import { MongoClient } from 'mongodb'
 const uri = process.argv[2]
 
 const clearDb = async (client: MongoClient) => {
-  const usersCollection = await client.db().collection('users')
-  const questionsCollection = await client.db().collection('questions')
+  const usersCollection = client.db().collection('users')
+  const questionsCollection = client.db().collection('questions')
+  const answersCollection = client.db().collection('answers')
   await usersCollection.deleteMany({})
   await questionsCollection.deleteMany({})
+  await answersCollection.deleteMany({})
 }
 
 const main = async () => {

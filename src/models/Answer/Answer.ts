@@ -1,8 +1,6 @@
 import mongoose from 'mongoose'
 
-// import { ANSWER_INPUT_MAX_LENGTH } from 'shared/utils/index'
 import { ModelName, IAnswerDoc } from 'utils/index'
-// import { checkMaxLength } from 'validation/index'
 
 const { model, Schema } = mongoose
 

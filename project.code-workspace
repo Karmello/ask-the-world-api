@@ -5,6 +5,10 @@
       "path": "."
     },
     {
+      "name": "mocks",
+      "path": "mocks"
+    },
+    {
       "name": "src",
       "path": "src"
     },
@@ -15,10 +19,6 @@
     {
       "name": "lib",
       "path": "src\\lib"
-    },
-    {
-      "name": "mocks",
-      "path": "src\\mocks"
     },
     {
       "name": "validation",

@@ -12,7 +12,7 @@
     "unit": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --watch --timeout 10000 --exit",
     "seed-local": "ts-node ./mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "seed-remote-dev": "yarn ts-node ./src/mocks/seed.ts $MONGO_URI",
-    "clear-local": "ts-node ./src/mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
+    "clear-local": "ts-node ./mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
     "pull-shared": "git subtree pull --prefix src/lib/ask-the-world-shared https://gitlab.com/Karmello/ask-the-world-shared.git master --squash"
   },
   "dependencies": {
