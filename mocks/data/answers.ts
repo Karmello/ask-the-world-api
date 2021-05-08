@@ -14,7 +14,7 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
     times(userIndexes.length, (i: number) => {
       answerMocks.push({
         questionId: _id,
-        answererId: users[i]._id,
+        answererId: users[userIndexes[i]]._id,
         answeredAt: createdAt + 86400000 * getRandNum(1, 100),
         selectedIndexes: (() => {
           let arr

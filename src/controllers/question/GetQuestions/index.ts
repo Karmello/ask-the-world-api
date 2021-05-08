@@ -47,21 +47,17 @@ export default (app: Application) =>
         if (userId) match.creatorId = ObjectId(userId)
         break
       case Filter.Answered:
-        match.answers = {
+        match.answersData = {
           $elemMatch: {
-            votes: {
-              $in: ObjectId(req.decoded?._id),
-            },
+            answererId: ObjectId(req.decoded?._id),
           },
         }
         break
       case Filter.NotAnswered:
-        match.answers = {
+        match.answersData = {
           $not: {
             $elemMatch: {
-              votes: {
-                $in: ObjectId(req.decoded?._id),
-              },
+              answererId: ObjectId(req.decoded?._id),
             },
           },
         }
@@ -90,35 +86,35 @@ export default (app: Application) =>
 
     QuestionModel.aggregate([
       {
+        $set: {
+          _id: {
+            $toObjectId: '$_id',
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'answers',
+          localField: '_id',
+          foreignField: 'questionId',
+          as: 'answersData',
+        },
+      },
+      { $match: match },
+      {
         $facet: {
-          allDocs: [{ $match: match }, { $count: 'count' }],
+          allDocs: [{ $count: 'count' }],
           matchedDocs: [
-            { $match: match },
-            {
-              $set: {
-                _id: {
-                  $toObjectId: '$_id',
-                },
-              },
-            },
-            {
-              $lookup: {
-                from: 'answers',
-                localField: '_id',
-                foreignField: 'questionId',
-                as: 'answeresData',
-              },
-            },
             {
               $set: {
                 meta: {
                   answeredTimes: {
-                    $size: '$answeresData',
+                    $size: '$answersData',
                   },
                 },
               },
             },
-            { $unset: 'answeresData' },
+            { $unset: 'answersData' },
             { $sort: sort },
             { $skip: Number(skip) },
             { $limit: Number(limit) },
@@ -131,6 +127,9 @@ export default (app: Application) =>
           count: results[0].allDocs[0].count,
           data: results[0].matchedDocs,
         }),
-      err => res.status(400).send(err)
+      err => {
+        console.log(err)
+        res.status(400).send(err)
+      }
     )
   })
