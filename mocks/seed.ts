@@ -19,7 +19,7 @@ const clearAndSeedDb = async (client: MongoClient) => {
   const users = await usersCollection.find().toArray()
   await questionsCollection.insertMany(getQuestionMocks(users))
   const questions = await questionsCollection.find().toArray()
-  await answersCollection.insertMany(getAnswerMocks(questions))
+  await answersCollection.insertMany(getAnswerMocks(users, questions))
 }
 
 const main = async () => {

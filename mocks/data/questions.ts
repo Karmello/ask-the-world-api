@@ -9,9 +9,9 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
   IUser,
   IQuestion,
-} from './../../src/lib/ask-the-world-shared/src/utils'
+} from './../../src/lib/ask-the-world-shared/utils/index'
 
-import { getRandNum } from './../../src/lib/ask-the-world-shared/src/helpers'
+import { getRandNum } from './../../src/lib/ask-the-world-shared/helpers'
 
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]

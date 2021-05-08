@@ -38,7 +38,7 @@ export default (app: Application) =>
         sort.createdAt = -1
         break
       case SortBy.MostPopular:
-        sort.answeredTimes = -1
+        sort['meta.answeredTimes'] = -1
         break
     }
 
