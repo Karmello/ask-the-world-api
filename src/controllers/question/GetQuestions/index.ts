@@ -106,16 +106,19 @@ export default (app: Application) =>
                 from: 'answers',
                 localField: '_id',
                 foreignField: 'questionId',
-                as: 'answeredTimes',
+                as: 'answeresData',
               },
             },
             {
               $set: {
-                answeredTimes: {
-                  $size: '$answeredTimes',
+                meta: {
+                  answeredTimes: {
+                    $size: '$answeresData',
+                  },
                 },
               },
             },
+            { $unset: 'answeresData' },
             { $sort: sort },
             { $skip: Number(skip) },
             { $limit: Number(limit) },
