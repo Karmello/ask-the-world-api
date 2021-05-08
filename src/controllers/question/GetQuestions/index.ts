@@ -91,9 +91,31 @@ export default (app: Application) =>
     QuestionModel.aggregate([
       {
         $facet: {
-          allDocs: [{ $count: 'count' }],
+          allDocs: [{ $match: match }, { $count: 'count' }],
           matchedDocs: [
             { $match: match },
+            {
+              $set: {
+                _id: {
+                  $toObjectId: '$_id',
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: 'answers',
+                localField: '_id',
+                foreignField: 'questionId',
+                as: 'answeredTimes',
+              },
+            },
+            {
+              $set: {
+                answeredTimes: {
+                  $size: '$answeredTimes',
+                },
+              },
+            },
             { $sort: sort },
             { $skip: Number(skip) },
             { $limit: Number(limit) },
