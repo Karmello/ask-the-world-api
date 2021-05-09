@@ -102,6 +102,11 @@ export default (app: Application) =>
       },
       { $match: match },
       {
+        $addFields: {
+          answererIds: '$answersData.answererId',
+        },
+      },
+      {
         $facet: {
           allDocs: [{ $count: 'count' }],
           matchedDocs: [
@@ -111,10 +116,13 @@ export default (app: Application) =>
                   answeredTimes: {
                     $size: '$answersData',
                   },
+                  selfAnswered: {
+                    $in: [ObjectId(req.decoded?._id), '$answererIds'],
+                  },
                 },
               },
             },
-            { $unset: 'answersData' },
+            { $unset: ['answersData', 'answererIds'] },
             { $sort: sort },
             { $skip: Number(skip) },
             { $limit: Number(limit) },

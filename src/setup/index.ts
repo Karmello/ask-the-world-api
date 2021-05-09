@@ -45,7 +45,7 @@ export default (app: Application, logs: {}[]) => {
         if (![ApiUrlPath.GetLogs, '/favicon.ico'].includes(req.path)) {
           const token = req.headers[X_AUTH_TOKEN]
           logs.push({
-            log_time: moment.utc(Date.now() + 3600000).format('YYYY-MM-DD hh:mm:ss'),
+            log_time: moment.utc(Date.now()).format('YYYY-MM-DD hh:mm:ss'),
             req: {
               method: req.method,
               path: req.path,
