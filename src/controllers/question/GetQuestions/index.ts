@@ -38,7 +38,7 @@ export default (app: Application) =>
         sort.createdAt = -1
         break
       case SortBy.MostPopular:
-        sort['meta.answeredTimes'] = -1
+        sort['meta.totalSubmissions'] = -1
         break
     }
 
@@ -47,14 +47,14 @@ export default (app: Application) =>
         if (userId) match.creatorId = ObjectId(userId)
         break
       case Filter.Answered:
-        match.answersData = {
+        match.answersCollection = {
           $elemMatch: {
             answererId: ObjectId(req.decoded?._id),
           },
         }
         break
       case Filter.NotAnswered:
-        match.answersData = {
+        match.answersCollection = {
           $not: {
             $elemMatch: {
               answererId: ObjectId(req.decoded?._id),
@@ -97,15 +97,10 @@ export default (app: Application) =>
           from: 'answers',
           localField: '_id',
           foreignField: 'questionId',
-          as: 'answersData',
+          as: 'answersCollection',
         },
       },
       { $match: match },
-      {
-        $addFields: {
-          answererIds: '$answersData.answererId',
-        },
-      },
       {
         $facet: {
           allDocs: [{ $count: 'count' }],
@@ -113,19 +108,16 @@ export default (app: Application) =>
             {
               $set: {
                 meta: {
-                  answeredTimes: {
-                    $size: '$answersData',
-                  },
-                  selfAnswered: {
-                    $in: [ObjectId(req.decoded?._id), '$answererIds'],
+                  totalSubmissions: {
+                    $size: '$answersCollection',
                   },
                 },
               },
             },
-            { $unset: ['answersData', 'answererIds'] },
             { $sort: sort },
             { $skip: Number(skip) },
             { $limit: Number(limit) },
+            { $unset: 'meta' },
           ],
         },
       },

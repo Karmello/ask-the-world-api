@@ -21,7 +21,7 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
           if (!options.multipleChoice) {
             arr = [getRandNum(0, answers.length - 1)]
           } else {
-            arr = getRandNums(0, answers.length - 1, options.maxSelectable)
+            arr = getRandNums(0, answers.length - 1, getRandNum(1, options.maxSelectable))
           }
           return arr
         })(),
