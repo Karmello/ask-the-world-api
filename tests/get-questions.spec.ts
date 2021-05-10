@@ -1,10 +1,11 @@
-import userMocks from './../src/mocks/data/users'
-import questionMocks from './../src/mocks/data/questions'
+import userMocks from './../mocks/data/users'
+import getQuestionMocks from './../mocks/data/questions'
 import { api, chai } from './_index'
-import { Filter, SortBy, X_AUTH_TOKEN } from '../src/lib/ask-the-world-shared/utils'
+import { Filter, SortBy, X_AUTH_TOKEN, IUser } from '../src/lib/atw-shared/utils'
 
 describe('GET /get-questions', () => {
   //
+  const questionMocks = getQuestionMocks(userMocks as IUser[])
   let token
   let count
 
@@ -20,7 +21,7 @@ describe('GET /get-questions', () => {
   })
 
   before(() => {
-    count = questionMocks.filter(q => q.userId === userMocks[1]._id).length
+    count = questionMocks.filter(q => q.creatorId === userMocks[1]._id).length
   })
 
   describe('by userId', () => {

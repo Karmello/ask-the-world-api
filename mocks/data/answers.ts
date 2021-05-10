@@ -1,7 +1,7 @@
 import times from 'lodash/times'
 
-import { IUser, IQuestion, IAnswer } from './../../src/lib/ask-the-world-shared/utils'
-import { getRandNum, getRandNums } from './../../src/lib/ask-the-world-shared/helpers'
+import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/utils'
+import { getRandNum, getRandNums } from './../../src/lib/atw-shared/helpers'
 
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]

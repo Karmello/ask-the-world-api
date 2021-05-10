@@ -1,10 +1,11 @@
-import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
-import userMocks from './../src/mocks/data/users'
-import questionMocks from './../src/mocks/data/questions'
+import { X_AUTH_TOKEN, AppError, IUser } from './../src/lib/atw-shared/utils/index'
+import userMocks from './../mocks/data/users'
+import getQuestionMocks from './../mocks/data/questions'
 import { api, chai, expect } from './_index'
 
 describe('GET /read-user', () => {
   //
+  const questionMocks = getQuestionMocks(userMocks as IUser[])
   let token
   let count
 
@@ -19,7 +20,7 @@ describe('GET /read-user', () => {
       })
   })
 
-  before(() => (count = questionMocks.filter(q => q.userId === userMocks[0]._id).length))
+  before(() => (count = questionMocks.filter(q => q.creatorId === userMocks[0]._id).length))
 
   describe('no token', () => {
     it('should return 401 and message', done => {
