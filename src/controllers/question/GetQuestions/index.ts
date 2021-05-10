@@ -1,5 +1,6 @@
 import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
+import get from 'lodash/get'
 
 import { ApiUrlPath, IRequestQuery, Filter, SortBy, READ_QUESTIONS_MAX } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
@@ -137,7 +138,7 @@ export default (app: Application) =>
     ]).then(
       results =>
         res.status(200).send({
-          count: results[0].allDocs[0].count,
+          count: get(results[0], 'allDocs[0].count', 0),
           data: results[0].matchedDocs,
         }),
       err => res.status(400).send(err)
