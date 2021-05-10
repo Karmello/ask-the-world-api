@@ -9,7 +9,7 @@ module.exports = function (api) {
       'module-resolver',
       {
         alias: {
-          '^shared(.+)': './src/lib/ask-the-world-shared/\\1',
+          '^shared(.+)': './src/lib/atw-shared/\\1',
           '^src(.+)': './src/\\1',
           '^(controllers|utils|models|mocks|validation|middleware|helpers)(.+)': './src/\\1/\\2',
         },
