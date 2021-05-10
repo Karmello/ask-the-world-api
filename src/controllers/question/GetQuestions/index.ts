@@ -38,7 +38,7 @@ export default (app: Application) =>
         sort.createdAt = -1
         break
       case SortBy.MostPopular:
-        sort['meta.totalSubmissions'] = -1
+        sort['temp.totalSubmissions'] = -1
         break
     }
 
@@ -63,9 +63,9 @@ export default (app: Application) =>
         }
         break
       case Filter.Watched:
-        match.watchers = {
+        match.followsCollection = {
           $elemMatch: {
-            $in: ObjectId(req.decoded?._id),
+            followerId: ObjectId(req.decoded?._id),
           },
         }
         break
@@ -100,6 +100,14 @@ export default (app: Application) =>
           as: 'answersCollection',
         },
       },
+      {
+        $lookup: {
+          from: 'follows',
+          localField: '_id',
+          foreignField: 'questionId',
+          as: 'followsCollection',
+        },
+      },
       { $match: match },
       {
         $facet: {
@@ -108,6 +116,11 @@ export default (app: Application) =>
             {
               $set: {
                 meta: {
+                  isFollowedByAuthUser: {
+                    $in: [ObjectId(req.decoded?._id), '$followsCollection'],
+                  },
+                },
+                temp: {
                   totalSubmissions: {
                     $size: '$answersCollection',
                   },
@@ -115,9 +128,9 @@ export default (app: Application) =>
               },
             },
             { $sort: sort },
+            { $unset: ['temp', 'followsCollection'] },
             { $skip: Number(skip) },
             { $limit: Number(limit) },
-            { $unset: 'meta' },
           ],
         },
       },
@@ -127,9 +140,6 @@ export default (app: Application) =>
           count: results[0].allDocs[0].count,
           data: results[0].matchedDocs,
         }),
-      err => {
-        console.log(err)
-        res.status(400).send(err)
-      }
+      err => res.status(400).send(err)
     )
   })
