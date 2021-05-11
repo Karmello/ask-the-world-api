@@ -1,5 +1,7 @@
-declare namespace Express {
-  export interface Request {
+import { Request } from 'express'
+
+declare module 'express' {
+  interface Request extends Request {
     decoded: {
       _id: string
     }

@@ -54,6 +54,6 @@ describe('email validation', () => {
   it('username@gmail.com => no error', () => {
     const user = new UserModel({ email: 'username@gmail.com' })
     const err = user.validateSync()
-    expect(err.errors.email).to.be.undefined
+    expect(err.errors.email).to.eql(undefined)
   })
 })
