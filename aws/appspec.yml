@@ -4,6 +4,9 @@ files:
   - source: build
     destination: /home/ubuntu/ask-the-world-api
 hooks:
+  ApplicationStop:
+    - location: scripts/stop.sh
+      runas: ubuntu
   ApplicationStart:
     - location: scripts/start.sh
       runas: ubuntu
