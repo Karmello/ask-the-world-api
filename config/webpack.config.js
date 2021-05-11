@@ -36,14 +36,5 @@ module.exports = {
       'process.env.CI_COMMIT_REF_NAME': JSON.stringify(process.env.CI_COMMIT_REF_NAME),
       'process.env.CI_COMMIT_SHA': JSON.stringify(process.env.CI_COMMIT_SHA),
     }),
-    new copyWebpackPlugin({
-      patterns: [
-        './node_modules/swagger-ui-dist/swagger-ui.css',
-        './node_modules/swagger-ui-dist/swagger-ui-bundle.js',
-        './node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js',
-        './node_modules/swagger-ui-dist/favicon-16x16.png',
-        './node_modules/swagger-ui-dist/favicon-32x32.png',
-      ],
-    }),
   ],
 }

@@ -5,3 +5,4 @@ call git subtree add --prefix src/lib/temp https://gitlab.com/Karmello/ask-the-w
 call rimraf -rf "src/lib/atw-shared"
 call xcopy  "src/lib/temp/src" "src/lib/atw-shared" /e /i /h
 call rimraf -rf "src/lib/temp"
+call rimraf -rf "src/lib/atw-shared/**/spec.ts"
