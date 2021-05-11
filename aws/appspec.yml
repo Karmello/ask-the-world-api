@@ -6,5 +6,7 @@ files:
 hooks:
   ApplicationStart:
     - location: scripts/start.sh
+      runas: ubuntu
   ValidateService:
     - location: scripts/validate.sh
+      runas: ubuntu
