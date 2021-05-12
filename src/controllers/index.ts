@@ -5,7 +5,6 @@ import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
 import { GetLogs } from './log/index'
 
 import {
-  AnswerQuestion,
   CreateQuestion,
   DeleteQuestion,
   GetQuestion,
@@ -13,6 +12,8 @@ import {
   ReportQuestion,
   WatchQuestion,
 } from './question/index'
+
+import { CreateAnswer } from './answer/index'
 
 import {
   ActivateUser,
@@ -38,13 +39,14 @@ const registerControllers = (app: Application, logs: {}[]) => {
   UpdateUser(app)
   UpdatePassword(app)
 
-  AnswerQuestion(app)
   CreateQuestion(app)
   DeleteQuestion(app)
   GetQuestion(app)
   GetQuestions(app)
   ReportQuestion(app)
   WatchQuestion(app)
+
+  CreateAnswer(app)
 
   if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
