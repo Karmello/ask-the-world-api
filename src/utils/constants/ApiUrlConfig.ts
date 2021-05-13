@@ -8,8 +8,8 @@ type Config = {
 
 const {
   ActivateUser,
-  AnswerQuestion,
   AuthenticateUser,
+  CreateAnswer,
   CreateQuestion,
   DeleteQuestion,
   GetActivationLink,
@@ -29,11 +29,11 @@ const config = {
   [ActivateUser]: {
     secured: true,
   },
-  [AnswerQuestion]: {
-    secured: true,
-  },
   [AuthenticateUser]: {
     secured: false,
+  },
+  [CreateAnswer]: {
+    secured: true,
   },
   [CreateQuestion]: {
     secured: true,

@@ -36,7 +36,7 @@ export default (app: Application, logs: {}[]) => {
     app.use((req: Request, res: Response, next: NextFunction) => {
       const _send = res.send
       res.send = data => {
-        if (data.errors) {
+        if (data && data.errors) {
           keys(data.errors).forEach(key => {
             data.errors[key] = data.errors[key].kind
           })

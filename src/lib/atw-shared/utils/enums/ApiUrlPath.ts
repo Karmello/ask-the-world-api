@@ -1,7 +1,7 @@
 enum ApiUrlPath {
   ActivateUser = '/activation',
-  AnswerQuestion = '/answer-question',
   AuthenticateUser = '/authentication',
+  CreateAnswer = '/create-answer',
   CreateQuestion = '/create-question',
   DeleteQuestion = '/delete-question',
   GetActivationLink = '/activation-link',

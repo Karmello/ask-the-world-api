@@ -6,12 +6,13 @@ import { userAuthMiddleware } from 'middleware/index'
 import { AnswerModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.AnswerQuestion, userAuthMiddleware, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.CreateAnswer, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const answer = new AnswerModel({
       questionId: req.query.questionId,
       answererId: req.decoded._id,
       answeredAt: moment().unix() * 1000,
+      selectedIndexes: req.body,
     })
 
     answer
