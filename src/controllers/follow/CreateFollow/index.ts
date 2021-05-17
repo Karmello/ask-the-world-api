@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 import moment from 'moment/moment'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
 import { FollowModel } from 'models/index'
 
@@ -10,18 +10,19 @@ export default (app: Application) =>
     //
     FollowModel.findOne({ questionId: req.query._id, followerId: req.decoded._id })
       .then(doc => {
-        console.log(doc)
-        //
-        // const follow = new FollowModel({
-        //   questionId: req.query._id,
-        //   followerId: req.decoded._id,
-        //   followedAt: moment().unix() * 1000,
-        // })
+        // already following
+        if (doc) return res.status(400).send(AppError.AlreadyFollowing)
 
-        // follow
-        //   .save()
-        //   .then(doc => res.status(200).send(doc))
-        //   .catch(err => res.status(400).send(err))
+        const follow = new FollowModel({
+          questionId: req.query._id,
+          followerId: req.decoded._id,
+          followedAt: moment().unix() * 1000,
+        })
+
+        follow
+          .save()
+          .then(doc => res.status(200).send(doc))
+          .catch(err => res.status(400).send(err))
       })
       .catch(err => res.status(400).send(err))
   })
