@@ -10,10 +10,11 @@ import {
   GetQuestion,
   GetQuestions,
   ReportQuestion,
-  WatchQuestion,
 } from './question/index'
 
 import { CreateAnswer } from './answer/index'
+
+import { CreateFollow } from './follow/index'
 
 import {
   ActivateUser,
@@ -44,9 +45,10 @@ const registerControllers = (app: Application, logs: {}[]) => {
   GetQuestion(app)
   GetQuestions(app)
   ReportQuestion(app)
-  WatchQuestion(app)
 
   CreateAnswer(app)
+
+  CreateFollow(app)
 
   if (APP_ENV === Env.Local) GetLogs(app, logs)
 }

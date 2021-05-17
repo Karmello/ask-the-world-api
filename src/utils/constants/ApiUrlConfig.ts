@@ -10,6 +10,7 @@ const {
   ActivateUser,
   AuthenticateUser,
   CreateAnswer,
+  CreateFollow,
   CreateQuestion,
   DeleteQuestion,
   GetActivationLink,
@@ -22,7 +23,6 @@ const {
   ReportQuestion,
   UpdatePassword,
   UpdateUser,
-  WatchQuestion,
 } = ApiUrlPath
 
 const config = {
@@ -33,6 +33,9 @@ const config = {
     secured: false,
   },
   [CreateAnswer]: {
+    secured: true,
+  },
+  [CreateFollow]: {
     secured: true,
   },
   [CreateQuestion]: {
@@ -69,9 +72,6 @@ const config = {
     secured: true,
   },
   [UpdateUser]: {
-    secured: true,
-  },
-  [WatchQuestion]: {
     secured: true,
   },
 } as Config

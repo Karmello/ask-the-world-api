@@ -2,6 +2,7 @@ enum ApiUrlPath {
   ActivateUser = '/activation',
   AuthenticateUser = '/authentication',
   CreateAnswer = '/create-answer',
+  CreateFollow = '/create-follow',
   CreateQuestion = '/create-question',
   DeleteQuestion = '/delete-question',
   GetActivationLink = '/activation-link',
@@ -14,7 +15,6 @@ enum ApiUrlPath {
   ReportQuestion = '/report-question',
   UpdatePassword = '/update-password',
   UpdateUser = '/update-user',
-  WatchQuestion = '/watch-question',
   GetLogs = '/logs',
 }
 
