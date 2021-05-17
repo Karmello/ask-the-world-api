@@ -118,7 +118,7 @@ export default (app: Application) =>
               $set: {
                 meta: {
                   isFollowedByAuthUser: {
-                    $in: [ObjectId(req.decoded?._id), '$followsCollection'],
+                    $in: [ObjectId(req.decoded?._id), '$followsCollection.followerId'],
                   },
                 },
                 temp: {
