@@ -14,7 +14,7 @@ import {
 
 import { CreateAnswer } from './answer/index'
 
-import { CreateFollow } from './follow/index'
+import { CreateFollow, DeleteFollow } from './follow/index'
 
 import {
   ActivateUser,
@@ -49,6 +49,7 @@ const registerControllers = (app: Application, logs: {}[]) => {
   CreateAnswer(app)
 
   CreateFollow(app)
+  DeleteFollow(app)
 
   if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
