@@ -13,8 +13,6 @@ interface IQuestion {
     maxSelectable: number
   }
   answersCollection?: IAnswer[]
-  followsCollection?: IFollow[]
-  reportsCollection?: IReport[]
   meta?: {
     isFollowedByAuthUser: boolean
   }
