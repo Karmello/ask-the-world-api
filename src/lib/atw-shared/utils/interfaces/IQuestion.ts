@@ -1,4 +1,6 @@
 import IAnswer from './IAnswer'
+import IFollow from './IFollow'
+import IReport from './IReport'
 
 interface IQuestion {
   _id: any
@@ -11,6 +13,8 @@ interface IQuestion {
     maxSelectable: number
   }
   answersCollection?: IAnswer[]
+  followsCollection?: IFollow[]
+  reportsCollection?: IReport[]
   meta?: {
     isFollowedByAuthUser: boolean
   }
