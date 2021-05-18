@@ -31,7 +31,7 @@ export default (app: Application) =>
 
     const skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
     const limit = READ_QUESTIONS_MAX
-    const sort = {} as any
+    let sort = {} as any
     const match = {} as any
 
     switch (sortBy) {
@@ -53,6 +53,7 @@ export default (app: Application) =>
             answererId: ObjectId(req.decoded?._id),
           },
         }
+        if (sortBy === SortBy.DateAnswered) sort = { 'answersCollection.answeredAt': -1 }
         break
       case Filter.NotAnswered:
         match.answersCollection = {
