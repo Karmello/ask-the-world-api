@@ -4,17 +4,11 @@ import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
 import { GetLogs } from './log/index'
 
-import {
-  CreateQuestion,
-  DeleteQuestion,
-  GetQuestion,
-  GetQuestions,
-  ReportQuestion,
-} from './question/index'
+import { CreateQuestion, DeleteQuestion, GetQuestion, GetQuestions } from './question/index'
 
 import { CreateAnswer } from './answer/index'
-
 import { CreateFollow, DeleteFollow } from './follow/index'
+import { CreateReport } from './report/index'
 
 import {
   ActivateUser,
@@ -28,11 +22,12 @@ import {
 const { APP_ENV } = process.env
 
 const registerControllers = (app: Application, logs: {}[]) => {
-  //
+  // misc
   GetActivationLink(app)
   ReadInfo(app)
   ReadStats(app)
 
+  // user
   ActivateUser(app)
   AuthenticateUser(app)
   RegisterUser(app)
@@ -40,16 +35,21 @@ const registerControllers = (app: Application, logs: {}[]) => {
   UpdateUser(app)
   UpdatePassword(app)
 
+  // question
   CreateQuestion(app)
   DeleteQuestion(app)
   GetQuestion(app)
   GetQuestions(app)
-  ReportQuestion(app)
 
+  // answer
   CreateAnswer(app)
 
+  // follow
   CreateFollow(app)
   DeleteFollow(app)
+
+  // report
+  CreateReport(app)
 
   if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
