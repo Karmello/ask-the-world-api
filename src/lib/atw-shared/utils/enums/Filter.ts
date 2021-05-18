@@ -4,7 +4,7 @@ enum Filter {
   Created = 'CREATED',
   Answered = 'ANSWERED',
   NotAnswered = 'NOT_ANSWERED',
-  Watched = 'WATCHED',
+  Followed = 'FOLLOWED',
 }
 
 export default Filter

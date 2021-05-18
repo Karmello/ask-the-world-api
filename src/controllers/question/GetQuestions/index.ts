@@ -63,7 +63,7 @@ export default (app: Application) =>
           },
         }
         break
-      case Filter.Watched:
+      case Filter.Followed:
         match.followsCollection = {
           $elemMatch: {
             followerId: ObjectId(req.decoded?._id),
