@@ -8,7 +8,7 @@ import { IUserDoc } from 'utils/index'
 
 export default (app: Application) =>
   //
-  app.put(ApiUrlPath.User, userAuthMiddleware, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { email, username, dateOfBirth, country, sex } = req.body
 

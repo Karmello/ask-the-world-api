@@ -5,7 +5,7 @@ import { ApiUrlPath } from 'shared/utils/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadStats, userAuthMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Stats, userAuthMiddleware, (req: Request, res: Response) => {
     //
     Promise.all([
       UserModel.countDocuments(),

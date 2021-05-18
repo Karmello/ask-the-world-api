@@ -6,7 +6,7 @@ import { userAuthMiddleware } from 'middleware/index'
 import { AnswerModel } from 'models/index'
 
 export default (app: Application) =>
-  app.post(ApiUrlPath.Answer, userAuthMiddleware, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.CreateAnswer, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const answer = new AnswerModel({
       questionId: req.query.questionId,
