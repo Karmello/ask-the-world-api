@@ -6,7 +6,7 @@ import { userAuthMiddleware } from 'middleware/index'
 import { FollowModel } from 'models/index'
 
 export default (app: Application) =>
-  app.post(ApiUrlPath.CreateFollow, userAuthMiddleware, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.FollowQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     FollowModel.findOne({ questionId: req.query._id, followerId: req.decoded._id })
       .then(doc => {

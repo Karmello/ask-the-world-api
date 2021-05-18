@@ -6,7 +6,7 @@ import { UserModel, QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   //
-  app.get(ApiUrlPath.ReadUser, userAuthMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.User, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const _id = req.query._id
 

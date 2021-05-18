@@ -16,7 +16,7 @@ const respondWithIncorrectPassword = (res: Response) =>
 
 export default (app: Application) =>
   //
-  app.put(ApiUrlPath.UpdatePassword, userAuthMiddleware, (req: Request, res: Response) => {
+  app.put(ApiUrlPath.UpdateUserPassword, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { currentPassword, newPassword } = req.body
 

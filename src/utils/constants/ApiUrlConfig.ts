@@ -8,9 +8,8 @@ type Config = {
 
 const {
   ActivateUser,
+  AnswerQuestion,
   AuthenticateUser,
-  CreateAnswer,
-  CreateFollow,
   CreateQuestion,
   DeleteQuestion,
   GetActivationLink,
@@ -23,20 +22,18 @@ const {
   ReportQuestion,
   UpdatePassword,
   UpdateUser,
+  WatchQuestion,
 } = ApiUrlPath
 
 const config = {
   [ActivateUser]: {
     secured: true,
   },
+  [AnswerQuestion]: {
+    secured: true,
+  },
   [AuthenticateUser]: {
     secured: false,
-  },
-  [CreateAnswer]: {
-    secured: true,
-  },
-  [CreateFollow]: {
-    secured: true,
   },
   [CreateQuestion]: {
     secured: true,
@@ -72,6 +69,9 @@ const config = {
     secured: true,
   },
   [UpdateUser]: {
+    secured: true,
+  },
+  [WatchQuestion]: {
     secured: true,
   },
 } as Config

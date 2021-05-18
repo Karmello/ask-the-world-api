@@ -1,22 +1,25 @@
 enum ApiUrlPath {
-  ActivateUser = '/activation',
-  AuthenticateUser = '/authentication',
-  CreateAnswer = '/create-answer',
-  CreateFollow = '/create-follow',
-  CreateQuestion = '/create-question',
-  DeleteQuestion = '/delete-question',
-  DeleteFollow = '/delete-follow',
+  // user
+  User = '/user',
+  RegisterUser = '/user/register',
+  ActivateUser = '/user/activate',
+  AuthenticateUser = '/user/authenticate',
+  UpdateUserPassword = '/user/password',
+  // question
+  Question = '/question',
+  CreateQuestion = '/question/create',
+  DeleteQuestion = '/question/delete',
+  FollowQuestion = '/question/follow',
+  UnfollowQuestion = '/question/unfollow',
+  ReportQuestion = '/question/report',
+  Questions = '/questions',
+  // answer
+  Answer = '/answer',
+  // misc
+  Info = '/info',
+  Stats = '/stats',
   GetActivationLink = '/activation-link',
-  GetQuestion = '/get-question',
-  GetQuestions = '/get-questions',
-  ReadInfo = '/info',
-  ReadStats = '/read-stats',
-  ReadUser = '/read-user',
-  RegisterUser = '/registration',
-  ReportQuestion = '/report-question',
-  UpdatePassword = '/update-password',
-  UpdateUser = '/update-user',
-  GetLogs = '/logs',
+  ReadLogs = '/logs',
 }
 
 export default ApiUrlPath

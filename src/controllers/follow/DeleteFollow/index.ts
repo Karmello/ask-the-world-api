@@ -6,7 +6,7 @@ import { userAuthMiddleware } from 'middleware/index'
 import { FollowModel } from 'models/index'
 
 export default (app: Application) =>
-  app.delete(ApiUrlPath.DeleteFollow, userAuthMiddleware, (req: Request, res: Response) => {
+  app.delete(ApiUrlPath.UnfollowQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })
       .then(() => res.status(204).send())

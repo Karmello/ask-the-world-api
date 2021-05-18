@@ -9,7 +9,7 @@ import { QuestionModel } from 'models/index'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.GetQuestions, userAuthMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Questions, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const {
       userId,

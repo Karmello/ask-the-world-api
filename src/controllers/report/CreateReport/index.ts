@@ -6,7 +6,7 @@ import { userAuthMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
-  app.put(ApiUrlPath.ReportQuestion, userAuthMiddleware, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.ReportQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     const { _id } = req.query
 
