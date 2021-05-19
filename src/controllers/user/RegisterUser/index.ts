@@ -1,5 +1,4 @@
 import { Application, Request, Response } from 'express'
-import moment from 'moment/moment'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
 import { userAuthMiddleware } from 'middleware/index'
@@ -10,10 +9,7 @@ export default (app: Application) =>
   //
   app.post(ApiUrlPath.RegisterUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const newUser = new UserModel({
-      ...req.body,
-      timestamp: moment().unix() * 1000,
-    })
+    const newUser = new UserModel(req.body)
 
     newUser
       .save()
@@ -21,5 +17,5 @@ export default (app: Application) =>
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
         res.status(201).send(doc)
       })
-      .catch(err => res.status(400).send(err.errors))
+      .catch(err => res.status(400).send(err))
   })

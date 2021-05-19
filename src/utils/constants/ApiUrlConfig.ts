@@ -2,78 +2,48 @@ import { ApiUrlPath } from 'shared/utils/index'
 
 type Config = {
   [key: string]: {
-    allowWithNoToken: boolean
+    secured: boolean
   }
 }
 
 const {
-  ActivateUser,
-  AnswerQuestion,
-  AuthenticateUser,
-  CreateQuestion,
-  DeleteQuestion,
-  GetActivationLink,
-  GetQuestion,
-  GetQuestions,
-  ReadInfo,
-  ReadStats,
   ReadUser,
   RegisterUser,
-  ReportQuestion,
-  UpdatePassword,
+  ActivateUser,
+  AuthenticateUser,
   UpdateUser,
-  WatchQuestion,
+  UpdateUserPassword,
+  ReadQuestions,
+  ReadQuestion,
+  CreateQuestion,
+  DeleteQuestion,
+  FollowQuestion,
+  UnfollowQuestion,
+  ReportQuestion,
+  CreateAnswer,
+  Info,
+  Stats,
+  GetActivationLink,
 } = ApiUrlPath
 
 const config = {
-  [ActivateUser]: {
-    allowWithNoToken: false,
-  },
-  [AnswerQuestion]: {
-    allowWithNoToken: false,
-  },
-  [AuthenticateUser]: {
-    allowWithNoToken: true,
-  },
-  [CreateQuestion]: {
-    allowWithNoToken: false,
-  },
-  [DeleteQuestion]: {
-    allowWithNoToken: false,
-  },
-  [GetActivationLink]: {
-    allowWithNoToken: false,
-  },
-  [GetQuestion]: {
-    allowWithNoToken: true,
-  },
-  [GetQuestions]: {
-    allowWithNoToken: true,
-  },
-  [ReadInfo]: {
-    allowWithNoToken: true,
-  },
-  [ReadStats]: {
-    allowWithNoToken: true,
-  },
-  [ReadUser]: {
-    allowWithNoToken: false,
-  },
-  [RegisterUser]: {
-    allowWithNoToken: true,
-  },
-  [ReportQuestion]: {
-    allowWithNoToken: false,
-  },
-  [UpdatePassword]: {
-    allowWithNoToken: false,
-  },
-  [UpdateUser]: {
-    allowWithNoToken: false,
-  },
-  [WatchQuestion]: {
-    allowWithNoToken: false,
-  },
+  [ReadUser]: { secured: true },
+  [RegisterUser]: { secured: false },
+  [ActivateUser]: { secured: true },
+  [AuthenticateUser]: { secured: false },
+  [UpdateUser]: { secured: true },
+  [UpdateUserPassword]: { secured: true },
+  [ReadQuestions]: { secured: false },
+  [ReadQuestion]: { secured: false },
+  [CreateQuestion]: { secured: true },
+  [DeleteQuestion]: { secured: true },
+  [FollowQuestion]: { secured: true },
+  [UnfollowQuestion]: { secured: true },
+  [ReportQuestion]: { secured: true },
+  [CreateAnswer]: { secured: true },
+  [Info]: { secured: false },
+  [Stats]: { secured: false },
+  [GetActivationLink]: { secured: true },
 } as Config
 
 export default config

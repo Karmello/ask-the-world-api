@@ -1,6 +1,6 @@
-import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
-import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
-import userMocks from './../src/mocks/data/users'
+import validationDict from './../src/lib/atw-shared/validation/dictionary'
+import { X_AUTH_TOKEN, AppError } from './../src/lib/atw-shared/utils/index'
+import userMocks from './../mocks/data/users'
 import { api, chai } from './_index'
 
 describe('POST /authentication', () => {
@@ -84,7 +84,7 @@ describe('POST /authentication', () => {
           res.body.username.should.equal(userMocks[0].username)
           res.body.dateOfBirth.should.equal(userMocks[0].dateOfBirth)
           res.body.country.should.equal(userMocks[0].country)
-          res.body.timestamp.should.equal(userMocks[0].timestamp)
+          res.body.timestamp.should.equal(userMocks[0].registeredAt)
           res.header[X_AUTH_TOKEN].should.exist
           token = res.header[X_AUTH_TOKEN]
           done()
@@ -106,7 +106,7 @@ describe('POST /authentication', () => {
           res.body.username.should.equal(userMocks[0].username)
           res.body.dateOfBirth.should.equal(userMocks[0].dateOfBirth)
           res.body.country.should.equal(userMocks[0].country)
-          res.body.timestamp.should.equal(userMocks[0].timestamp)
+          res.body.timestamp.should.equal(userMocks[0].registeredAt)
           res.header[X_AUTH_TOKEN].should.exist
           done()
         })

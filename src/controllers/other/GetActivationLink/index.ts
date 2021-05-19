@@ -24,8 +24,8 @@ export default (app: Application) =>
             to: doc.email,
             activationLink,
           }).then(
-            () => res.status(200).send(),
-            () => res.status(400).send()
+            info => res.status(200).send(info),
+            err => res.status(400).send(err)
           )
         } else {
           res.status(404).send()

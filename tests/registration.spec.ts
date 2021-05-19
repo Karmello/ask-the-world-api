@@ -1,5 +1,5 @@
-import { X_AUTH_TOKEN } from './../src/lib/ask-the-world-shared/utils/index'
-import userMocks from './../src/mocks/data/users'
+import { X_AUTH_TOKEN } from './../src/lib/atw-shared/utils/index'
+import userMocks from './../mocks/data/users'
 import { api, chai, expect } from './_index'
 
 describe('POST /registration', () => {

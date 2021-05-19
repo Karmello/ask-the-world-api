@@ -1,6 +1,6 @@
-import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
-import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
-import userMocks from './../src/mocks/data/users'
+import validationDict from './../src/lib/atw-shared/validation/dictionary'
+import { X_AUTH_TOKEN, AppError } from './../src/lib/atw-shared/utils/index'
+import userMocks from './../mocks/data/users'
 import { api, chai, expect } from './_index'
 
 describe('PUT /update-password', () => {
@@ -140,7 +140,7 @@ describe('PUT /update-password', () => {
         .end((err, res) => {
           res.should.have.status(200)
           res.body._id.should.equal(userMocks[2]._id.toString())
-          res.body.timestamp.should.equal(userMocks[2].timestamp)
+          res.body.timestamp.should.equal(userMocks[2].registeredAt)
           done()
         })
     })

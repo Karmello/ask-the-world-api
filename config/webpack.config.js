@@ -32,15 +32,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new copyWebpackPlugin({
-      patterns: [
-        './node_modules/swagger-ui-dist/swagger-ui.css',
-        './node_modules/swagger-ui-dist/swagger-ui-bundle.js',
-        './node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js',
-        './node_modules/swagger-ui-dist/favicon-16x16.png',
-        './node_modules/swagger-ui-dist/favicon-32x32.png',
-      ],
-    }),
     new webpack.DefinePlugin({
       'process.env.CI_COMMIT_REF_NAME': JSON.stringify(process.env.CI_COMMIT_REF_NAME),
       'process.env.CI_COMMIT_SHA': JSON.stringify(process.env.CI_COMMIT_SHA),

@@ -8,9 +8,9 @@ export default (app: Application) =>
   //
   app.get(ApiUrlPath.ReadUser, userAuthMiddleware, (req: Request, res: Response) => {
     //
-    const userId = req.query._id
+    const _id = req.query._id
 
-    Promise.all([QuestionModel.count({ userId }), UserModel.findOne({ _id: userId })])
+    Promise.all([QuestionModel.countDocuments({ creatorId: _id }), UserModel.findOne({ _id })])
       .then(results => {
         //
         const count = {

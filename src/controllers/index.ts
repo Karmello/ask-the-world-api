@@ -1,18 +1,14 @@
-import { Application, Request, Response, NextFunction } from 'express'
-import swaggerUi from 'swagger-ui-express'
+import { Application } from 'express'
 
 import { Env } from 'shared/utils/index'
 import { ReadInfo, ReadStats, GetActivationLink } from './other/index'
+import { GetLogs } from './log/index'
 
-import {
-  AnswerQuestion,
-  CreateQuestion,
-  DeleteQuestion,
-  GetQuestion,
-  GetQuestions,
-  ReportQuestion,
-  WatchQuestion,
-} from './question/index'
+import { CreateQuestion, DeleteQuestion, GetQuestion, GetQuestions } from './question/index'
+
+import { CreateAnswer } from './answer/index'
+import { CreateFollow, DeleteFollow } from './follow/index'
+import { CreateReport } from './report/index'
 
 import {
   ActivateUser,
@@ -23,16 +19,15 @@ import {
   UpdatePassword,
 } from './user/index'
 
-import swaggerDocument from './../swagger.json'
-
 const { APP_ENV } = process.env
 
-const registerControllers = (app: Application) => {
-  //
+const registerControllers = (app: Application, logs: {}[]) => {
+  // misc
   GetActivationLink(app)
   ReadInfo(app)
   ReadStats(app)
 
+  // user
   ActivateUser(app)
   AuthenticateUser(app)
   RegisterUser(app)
@@ -40,25 +35,23 @@ const registerControllers = (app: Application) => {
   UpdateUser(app)
   UpdatePassword(app)
 
-  AnswerQuestion(app)
+  // question
   CreateQuestion(app)
   DeleteQuestion(app)
   GetQuestion(app)
   GetQuestions(app)
-  ReportQuestion(app)
-  WatchQuestion(app)
 
-  if (APP_ENV !== Env.Prod) {
-    app.use(
-      '/',
-      (req: Request, res: Response, next: NextFunction) => {
-        swaggerDocument.host = new URL(process.env.APP_URL).host + '/api'
-        next()
-      },
-      swaggerUi.serve,
-      swaggerUi.setup(swaggerDocument)
-    )
-  }
+  // answer
+  CreateAnswer(app)
+
+  // follow
+  CreateFollow(app)
+  DeleteFollow(app)
+
+  // report
+  CreateReport(app)
+
+  if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
 
 export default registerControllers

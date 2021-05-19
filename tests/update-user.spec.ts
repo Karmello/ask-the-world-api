@@ -1,6 +1,5 @@
-import validationDict from './../src/lib/ask-the-world-shared/validation/dictionary'
-import { X_AUTH_TOKEN, AppError } from './../src/lib/ask-the-world-shared/utils/index'
-import userMocks from './../src/mocks/data/users'
+import { X_AUTH_TOKEN, AppError } from './../src/lib/atw-shared/utils/index'
+import userMocks from './../mocks/data/users'
 import { api, chai, expect } from './_index'
 
 describe('PUT /update-user', () => {
@@ -104,7 +103,7 @@ describe('PUT /update-user', () => {
           expect(res.body).to.deep.equal({
             ...user,
             active: true,
-            timestamp: userMocks[1].timestamp,
+            timestamp: userMocks[1].registeredAt,
             dateOfBirth: '1999-04-23',
             country: 'FR',
             sex: 'F',
@@ -145,7 +144,7 @@ describe('PUT /update-user', () => {
           expect(res.body).to.deep.equal({
             ...user,
             active: true,
-            timestamp: userMocks[1].timestamp,
+            timestamp: userMocks[1].registeredAt,
           })
           done()
         })

@@ -5,16 +5,20 @@
       "path": "."
     },
     {
+      "name": "mocks",
+      "path": "mocks"
+    },
+    {
       "name": "src",
       "path": "src"
     },
     {
-      "name": "lib",
-      "path": "src\\lib"
+      "name": "tests",
+      "path": "tests"
     },
     {
-      "name": "mocks",
-      "path": "src\\mocks"
+      "name": "lib",
+      "path": "src\\lib"
     },
     {
       "name": "validation",
@@ -25,10 +29,6 @@
       "path": "src\\helpers"
     },
     {
-      "name": "models",
-      "path": "src\\models"
-    },
-    {
       "name": "middleware",
       "path": "src\\middleware"
     },
@@ -37,12 +37,12 @@
       "path": "src\\utils"
     },
     {
-      "name": "controllers",
-      "path": "src\\controllers"
+      "name": "models",
+      "path": "src\\models"
     },
     {
-      "name": "tests",
-      "path": "tests"
+      "name": "controllers",
+      "path": "src\\controllers"
     }
   ],
   "settings": {

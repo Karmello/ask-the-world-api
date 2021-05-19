@@ -1,23 +1,23 @@
 {
   "ts-node": {
-    "transpileOnly": true
+    "transpileOnly": false,
+    "files": true
   },
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es5",
     "esModuleInterop": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "resolveJsonModule": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "paths": {
-      "shared/*": ["src/lib/ask-the-world-shared/*"],
+      "shared/*": ["src/lib/atw-shared/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
-      "mocks/*": ["src/mocks/*"],
       "validation/*": ["src/validation/*"],
       "middleware/*": ["src/middleware/*"],
       "helpers/*": ["src/helpers/*"]

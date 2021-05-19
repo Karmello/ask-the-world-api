@@ -12,12 +12,15 @@ type TQuery = {
   username?: string
 }
 
+const responseWithSomethingWentWrong = (res: Response) =>
+  res.status(400).send(AppError.SomethingWentWrong)
+
 const respondWithIncorrectCredentials = (res: Response) =>
   res.status(401).send(validationDict.incorrectCredentialsMsg)
 
 const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
-  res.status(201).send(doc)
+  res.status(200).send(doc)
 }
 
 export default (app: Application) =>
@@ -49,8 +52,12 @@ export default (app: Application) =>
             respondWithFreshToken(res, doc)
           }
         } else {
-          res.status(400).send(AppError.SomethingWentWrong)
+          if (username && password) {
+            respondWithIncorrectCredentials(res)
+          } else {
+            responseWithSomethingWentWrong(res)
+          }
         }
       })
-      .catch(() => res.status(400).send(AppError.SomethingWentWrong))
+      .catch(() => responseWithSomethingWentWrong(res))
   })

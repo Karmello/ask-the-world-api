@@ -2,16 +2,9 @@ image: node:14.5.0
 cache:
   paths:
     - node_modules/
-# include:
-#   - template: Security/SAST.gitlab-ci.yml
 stages:
-  # - Security scans
   - Node.js image
   - AWS image
-# sast:
-#   stage: Security scans
-#   variables:
-#     SAST_DEFAULT_ANALYZERS: eslint, nodejs-scan
 Bundle:
   only:
     - master
@@ -29,7 +22,7 @@ Bundle:
     - yarn seed-remote-dev
     - mkdir api
     - cp -r aws/. build api
-    - cp ecosystem.config.js api/build
+    - cp env/ecosystem.config.js api/build
 Deploy (master):
   only:
     - master

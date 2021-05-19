@@ -3,7 +3,9 @@ cd /home/ubuntu/ask-the-world-api
 
 if [ "$APPLICATION_NAME" == "ask-the-world-api-feature" ]
 then
-  pm2 startOrReload ecosystem.config.js --env feature
+  sudo pm2 start ecosystem.config.js --env feature
 else
-  pm2 startOrReload ecosystem.config.js
+  sudo pm2 start ecosystem.config.js
 fi
+
+sudo pm2 save

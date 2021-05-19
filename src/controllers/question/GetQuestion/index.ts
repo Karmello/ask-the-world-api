@@ -7,7 +7,7 @@ import { QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   //
-  app.get(ApiUrlPath.GetQuestion, userAuthMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.ReadQuestion, userAuthMiddleware, (req: Request, res: Response) => {
     //
     QuestionModel.findOne({ _id: req.query._id })
       .lean()
