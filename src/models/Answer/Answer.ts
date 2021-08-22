@@ -19,6 +19,7 @@ const answerSchema = new Schema(
     answeredAt: {
       type: Number,
       required: true,
+      default: Date.now,
     },
     selectedIndexes: [
       {

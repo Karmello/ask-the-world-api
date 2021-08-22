@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { UserModel } from 'models/index'
 
-describe('email validation', () => {
+describe('user email validation', () => {
   //
   it('none => required', () => {
     const user = new UserModel()
@@ -33,25 +33,25 @@ describe('email validation', () => {
     expect(err.errors.email.kind).to.eql('checkEmail')
   })
 
-  it('username@ => checkEmail', () => {
+  it('wrong format => checkEmail', () => {
     const user = new UserModel({ email: 'username@' })
     const err = user.validateSync()
     expect(err.errors.email.kind).to.eql('checkEmail')
   })
 
-  it('username@gmail. => checkEmail', () => {
+  it('wrong format => checkEmail', () => {
     const user = new UserModel({ email: 'username@gmail.' })
     const err = user.validateSync()
     expect(err.errors.email.kind).to.eql('checkEmail')
   })
 
-  it('username_username_username@gmail.com => checkMaxLength', () => {
+  it('too long => checkMaxLength', () => {
     const user = new UserModel({ email: 'username_username_username@gmail.com' })
     const err = user.validateSync()
     expect(err.errors.email.kind).to.eql('checkMaxLength')
   })
 
-  it('username@gmail.com => no error', () => {
+  it('valid => no error', () => {
     const user = new UserModel({ email: 'username@gmail.com' })
     const err = user.validateSync()
     expect(err.errors.email).to.eql(undefined)

@@ -8,5 +8,3 @@ hooks:
     - location: scripts/stop.sh
   ApplicationStart:
     - location: scripts/start.sh
-  ValidateService:
-    - location: scripts/validate.sh

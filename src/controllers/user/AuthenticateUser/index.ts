@@ -19,7 +19,7 @@ const respondWithIncorrectCredentials = (res: Response) =>
   res.status(401).send(validationDict.incorrectCredentialsMsg)
 
 const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
-  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
+  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
   res.status(200).send(doc)
 }
 

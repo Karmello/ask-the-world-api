@@ -35,6 +35,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.CI_COMMIT_REF_NAME': JSON.stringify(process.env.CI_COMMIT_REF_NAME),
       'process.env.CI_COMMIT_SHA': JSON.stringify(process.env.CI_COMMIT_SHA),
+      'process.env.BUILD_TIMESTAMP': JSON.stringify(Date.now()),
     }),
   ],
 }

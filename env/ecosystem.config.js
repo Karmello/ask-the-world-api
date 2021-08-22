@@ -8,11 +8,11 @@ module.exports = {
         NODE_ENV: 'production',
         APP_ENV: 'remote-dev',
         API_URL: 'https://localhost:9000',
-        APP_URL: 'https://ask-the-world-master-1144547669.eu-central-1.elb.amazonaws.com',
+        APP_URL: 'https://ec2-18-194-139-71.eu-central-1.compute.amazonaws.com:8000',
         EMAIL_USER: 'app.ask.the.world@gmail.com',
       },
       env_feature: {
-        APP_URL: 'https://ask-the-world-feature-507989894.eu-central-1.elb.amazonaws.com',
+        APP_URL: 'https://ec2-18-196-70-139.eu-central-1.compute.amazonaws.com:8000',
       },
     },
   ],

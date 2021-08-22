@@ -14,7 +14,7 @@ export default (app: Application) =>
     newUser
       .save()
       .then(doc => {
-        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc._id))
+        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
         res.status(201).send(doc)
       })
       .catch(err => res.status(400).send(err))

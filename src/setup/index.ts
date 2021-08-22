@@ -2,11 +2,11 @@ import { Application, Request, Response, NextFunction } from 'express'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import helmet from 'helmet'
-import moment from 'moment/moment'
 import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
+import { format } from 'date-fns'
 
-import { ApiUrlPath, Env } from 'shared/utils/index'
+import { ApiUrlPath, Env, DATE_TIME_FORMAT } from 'shared/utils/index'
 import { X_AUTH_TOKEN } from 'shared/utils/constants'
 
 const { NODE_ENV, APP_ENV } = process.env
@@ -14,6 +14,7 @@ const { NODE_ENV, APP_ENV } = process.env
 export default (app: Application, logs: {}[]) => {
   //
   if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
+
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   app.use(helmet.frameguard())
@@ -45,7 +46,7 @@ export default (app: Application, logs: {}[]) => {
         if (![ApiUrlPath.ReadLogs, '/favicon.ico'].includes(req.path)) {
           const token = req.headers[X_AUTH_TOKEN]
           logs.push({
-            log_time: moment.utc(Date.now()).format('YYYY-MM-DD hh:mm:ss'),
+            log_time: format(Date.now(), DATE_TIME_FORMAT),
             req: {
               method: req.method,
               path: req.path,

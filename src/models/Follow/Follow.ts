@@ -19,6 +19,7 @@ const followSchema = new Schema(
     followedAt: {
       type: Number,
       required: true,
+      default: Date.now,
     },
   },
   {
