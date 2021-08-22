@@ -4,6 +4,7 @@ enum AppError {
   NoSuchQuestionError = 'NO_SUCH_QUESTION_ERROR',
   SomethingWentWrong = 'SOMETHING_WENT_WRONG',
   AlreadyFollowing = 'ALREADY_FOLLOWING',
+  IllegalAction = 'ILLEGAL_ACTION',
 }
 
 export default AppError

@@ -13,10 +13,6 @@
       "path": "src"
     },
     {
-      "name": "tests",
-      "path": "tests"
-    },
-    {
       "name": "lib",
       "path": "src\\lib"
     },

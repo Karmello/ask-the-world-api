@@ -1,10 +1,9 @@
 import nodemailer from 'nodemailer'
 
-import dict from 'src/dictionary'
-
 type TOptions = {
   to: string
-  activationLink: string
+  subject: string
+  link: string
 }
 
 export default (options: TOptions) =>
@@ -20,13 +19,13 @@ export default (options: TOptions) =>
       },
     })
 
-    const { to, activationLink } = options
+    const { to, subject, link } = options
 
     const mailOptions = {
       from: EMAIL_USER,
       to,
-      subject: dict.mailSubject,
-      html: `<p><a href="${activationLink}" target="new">${activationLink}</a></p>`,
+      subject,
+      html: `<p><a href="${link}" target="new">${link}</a></p>`,
     }
 
     transporter.sendMail(mailOptions, (err, info) => (err ? reject(err) : resolve(info)))

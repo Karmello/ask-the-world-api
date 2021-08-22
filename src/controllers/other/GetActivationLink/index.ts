@@ -6,6 +6,8 @@ import { userAuthMiddleware } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
+import dict from 'src/dictionary'
+
 export default (app: Application) =>
   app.get(ApiUrlPath.GetActivationLink, userAuthMiddleware, (req: Request, res: Response) => {
     //
@@ -13,16 +15,17 @@ export default (app: Application) =>
       .then((doc: IUserDoc) => {
         if (doc) {
           //
-          const activationLink =
+          const link =
             process.env.APP_URL +
             '/api' +
             ApiUrlPath.ActivateUser +
             `?${X_AUTH_TOKEN}=` +
-            getFreshAuthToken(doc._id)
+            getFreshAuthToken(doc)
 
           sendMail({
             to: doc.email,
-            activationLink,
+            subject: dict.accountActivationLink,
+            link,
           }).then(
             info => res.status(200).send(info),
             err => res.status(400).send(err)

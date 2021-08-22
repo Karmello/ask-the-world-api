@@ -1,8 +1,8 @@
 import mongoose, { Error } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
-import moment from 'moment/moment'
 import { NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
+import { addYears, format } from 'date-fns'
 
 import {
   EMAIL_MAX_LENGTH,
@@ -23,24 +23,14 @@ import {
   checkSex,
 } from 'validation/index'
 
-import { USER_MIN_AGE, DATE_FORMAT_PATTERN } from 'shared/utils/index'
-import dict from 'shared/validation/dictionary'
+import { USER_MIN_AGE, DATE_FORMAT } from 'shared/utils/index'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
+import dict from 'shared/validation/dictionary'
 
 const { model, Schema } = mongoose
 
 const userSchema = new Schema(
   {
-    registeredAt: {
-      type: Number,
-      required: true,
-      default: moment().unix() * 1000,
-    },
-    active: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     email: {
       type: String,
       required: true,
@@ -71,7 +61,7 @@ const userSchema = new Schema(
       required: true,
       validate: [
         checkDateFormat,
-        checkDateOfBirth(moment().add(-USER_MIN_AGE, 'years').format(DATE_FORMAT_PATTERN)),
+        checkDateOfBirth(format(addYears(new Date(), -USER_MIN_AGE), DATE_FORMAT)),
       ],
     },
     country: {
@@ -83,6 +73,27 @@ const userSchema = new Schema(
       type: String,
       required: true,
       validate: [checkSex],
+    },
+    config: {
+      registeredAt: {
+        type: Number,
+        required: true,
+        default: Date.now,
+      },
+      confirmed: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+      payment: {
+        orderID: { type: String },
+        status: { type: String },
+        update_time: { type: String },
+        amount: {
+          currency_code: { type: String },
+          value: { type: String },
+        },
+      },
     },
   },
   {

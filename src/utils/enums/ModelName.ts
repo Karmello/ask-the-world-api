@@ -4,6 +4,7 @@ enum ModelName {
   Answer = 'Answer',
   Follow = 'Follow',
   Report = 'Report',
+  Payment = 'Payment',
 }
 
 export default ModelName

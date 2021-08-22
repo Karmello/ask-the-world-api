@@ -22,6 +22,7 @@ const questionSchema = new Schema(
     createdAt: {
       type: Number,
       required: true,
+      default: Date.now,
     },
     text: {
       type: String,

@@ -16,8 +16,8 @@ export default (app: Application) =>
       .exec()
       .then((doc: IUserDoc) => {
         if (!doc) return res.status(404).send()
-        if (doc.active) return res.status(403).send(dict.accountAlreadyActive)
-        doc.set({ active: true })
+        if (doc.config.confirmed) return res.status(403).send(dict.accountAlreadyActive)
+        doc.set({ config: { confirmed: true } })
         doc
           .save()
           .then(_doc => {

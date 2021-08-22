@@ -3,6 +3,8 @@ import { ApiUrlPath } from 'shared/utils/index'
 type Config = {
   [key: string]: {
     secured: boolean
+    confirmationRequired?: boolean
+    paymentRequired?: boolean
   }
 }
 
@@ -13,6 +15,7 @@ const {
   AuthenticateUser,
   UpdateUser,
   UpdateUserPassword,
+  UpdateUserPayment,
   ReadQuestions,
   ReadQuestion,
   CreateQuestion,
@@ -21,6 +24,7 @@ const {
   UnfollowQuestion,
   ReportQuestion,
   CreateAnswer,
+  UpdateAnswer,
   Info,
   Stats,
   GetActivationLink,
@@ -33,14 +37,16 @@ const config = {
   [AuthenticateUser]: { secured: false },
   [UpdateUser]: { secured: true },
   [UpdateUserPassword]: { secured: true },
+  [UpdateUserPayment]: { secured: true, confirmationRequired: true },
   [ReadQuestions]: { secured: false },
   [ReadQuestion]: { secured: false },
-  [CreateQuestion]: { secured: true },
-  [DeleteQuestion]: { secured: true },
-  [FollowQuestion]: { secured: true },
-  [UnfollowQuestion]: { secured: true },
-  [ReportQuestion]: { secured: true },
-  [CreateAnswer]: { secured: true },
+  [CreateQuestion]: { secured: true, paymentRequired: true },
+  [DeleteQuestion]: { secured: true, paymentRequired: true },
+  [FollowQuestion]: { secured: true, paymentRequired: true },
+  [UnfollowQuestion]: { secured: true, paymentRequired: true },
+  [ReportQuestion]: { secured: true, paymentRequired: true },
+  [CreateAnswer]: { secured: true, confirmationRequired: true },
+  [UpdateAnswer]: { secured: true, confirmationRequired: true },
   [Info]: { secured: false },
   [Stats]: { secured: false },
   [GetActivationLink]: { secured: true },

@@ -1,6 +1,4 @@
 import IAnswer from './IAnswer'
-import IFollow from './IFollow'
-import IReport from './IReport'
 
 interface IQuestion {
   _id: any
@@ -12,9 +10,16 @@ interface IQuestion {
     multipleChoice: boolean
     maxSelectable: number
   }
-  answersCollection?: IAnswer[]
-  meta?: {
-    isFollowedByAuthUser: boolean
+  voting?: {
+    all: {
+      [key: number]: number
+    }
+    requestor: number[]
+  }
+  isFollowedByRequestor?: boolean
+  ui?: {
+    no: number
+    visible: boolean
   }
 }
 

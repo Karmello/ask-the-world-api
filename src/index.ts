@@ -31,7 +31,7 @@ mongoose
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
-          { NODE_ENV, APP_ENV, APP_URL, API_URL, MONGO_URI },
+          { NODE_ENV, APP_ENV, APP_URL, API_URL, dbConnectionString },
           '\n'
         )
       }

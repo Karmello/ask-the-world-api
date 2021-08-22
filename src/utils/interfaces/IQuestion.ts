@@ -3,6 +3,4 @@ import { IQuestion } from 'shared/utils/index'
 
 export interface IQuestionDoc extends IQuestion, Document {}
 
-export interface IQuestionModel extends Model<IQuestionDoc> {
-  transformBeforeSend(data: IQuestion[] | IQuestion, userId?: string): IQuestion[]
-}
+export interface IQuestionModel extends Model<IQuestionDoc> {}
