@@ -9,6 +9,7 @@ enum AppError {
   CountNotVerifyToken = 'COULD_NOT_VERIFY_TOKEN',
   EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
   NotFullAccount = 'NOT_FULL_ACCOUNT',
+  AuthenticationFailed = 'AUTHENTICATION_FAILED',
 }
 
 export default AppError
