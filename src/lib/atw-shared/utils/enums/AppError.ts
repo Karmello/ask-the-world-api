@@ -7,6 +7,8 @@ enum AppError {
   NoSuchQuestionError = 'NO_SUCH_QUESTION_ERROR',
   AlreadyFollowing = 'ALREADY_FOLLOWING',
   CountNotVerifyToken = 'COULD_NOT_VERIFY_TOKEN',
+  EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
+  NotFullAccount = 'NOT_FULL_ACCOUNT',
 }
 
 export default AppError
