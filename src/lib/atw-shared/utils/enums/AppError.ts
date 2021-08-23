@@ -6,6 +6,7 @@ enum AppError {
   NoSuchUserError = 'NO_SUCH_USER_ERROR',
   NoSuchQuestionError = 'NO_SUCH_QUESTION_ERROR',
   AlreadyFollowing = 'ALREADY_FOLLOWING',
+  CountNotVerifyToken = 'COULD_NOT_VERIFY_TOKEN',
 }
 
 export default AppError
