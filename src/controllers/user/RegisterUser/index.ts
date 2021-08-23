@@ -1,13 +1,12 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
-import { userAuthMiddleware } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 export default (app: Application) =>
   //
-  app.post(ApiUrlPath.RegisterUser, userAuthMiddleware, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.RegisterUser, (req: Request, res: Response) => {
     //
     const newUser = new UserModel(req.body)
 

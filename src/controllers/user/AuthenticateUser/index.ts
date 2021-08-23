@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, AppError, X_AUTH_TOKEN } from 'shared/utils/index'
 import validationDict from 'shared/validation/dictionary'
 import { getFreshAuthToken } from 'helpers/index'
-import { userAuthMiddleware, checkCredentialsMiddleware } from 'middleware/index'
+import { checkCredentialsMiddleware, verifyAuthTokenMiddleware } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 
@@ -28,7 +28,7 @@ export default (app: Application) =>
   app.post(
     ApiUrlPath.AuthenticateUser,
     checkCredentialsMiddleware,
-    userAuthMiddleware,
+    verifyAuthTokenMiddleware,
     (req: Request, res: Response) => {
       //
       const query = {} as TQuery

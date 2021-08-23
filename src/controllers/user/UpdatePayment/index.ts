@@ -1,16 +1,22 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
+import { IUserDoc } from 'utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
-import { IUserDoc } from 'utils/index'
+
+import {
+  checkCredentialsMiddleware,
+  verifyAuthTokenMiddleware,
+  checkAccountStatusMiddleware,
+} from 'middleware/index'
 
 export default (app: Application) =>
   //
   app.put(
     ApiUrlPath.UpdateUserPayment,
-    userAuthMiddleware,
+    checkCredentialsMiddleware,
+    verifyAuthTokenMiddleware,
     checkAccountStatusMiddleware,
     (req: Request, res: Response) => {
       //

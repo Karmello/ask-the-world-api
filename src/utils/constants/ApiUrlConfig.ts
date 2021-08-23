@@ -31,12 +31,7 @@ const {
 } = ApiUrlPath
 
 const config = {
-  [ReadUser]: { secured: true },
-  [RegisterUser]: { secured: false },
-  [ActivateUser]: { secured: true },
   [AuthenticateUser]: { secured: false },
-  [UpdateUser]: { secured: true },
-  [UpdateUserPassword]: { secured: true },
   [UpdateUserPayment]: { secured: true, confirmationRequired: true },
   [ReadQuestions]: { secured: false },
   [ReadQuestion]: { secured: false },
@@ -49,7 +44,6 @@ const config = {
   [UpdateAnswer]: { secured: true, confirmationRequired: true },
   [Info]: { secured: false },
   [Stats]: { secured: false },
-  [GetActivationLink]: { secured: true },
 } as Config
 
 export default config
