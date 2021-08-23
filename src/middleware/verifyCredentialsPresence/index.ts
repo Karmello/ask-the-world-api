@@ -9,9 +9,11 @@ export default (req: Request, res: Response, next: NextFunction) => {
     body: { username, password },
   } = req
 
-  if (!token || !username || !password) {
-    return res.status(401).send(AppError.NoCredentialsProvided)
+  if (token) {
+    return next()
+  } else if (username && password) {
+    return next()
   }
 
-  next()
+  res.status(401).send(AppError.NoCredentialsProvided)
 }
