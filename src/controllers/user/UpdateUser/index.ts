@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
-import { checkCredentialsMiddleware, verifyAuthTokenMiddleware } from 'middleware/index'
+import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
@@ -10,8 +10,8 @@ export default (app: Application) =>
   //
   app.put(
     ApiUrlPath.UpdateUser,
-    checkCredentialsMiddleware,
-    verifyAuthTokenMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
     (req: Request, res: Response) => {
       //
       const { email, username, dateOfBirth, country, sex } = req.body

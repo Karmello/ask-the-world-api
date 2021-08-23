@@ -1,15 +1,15 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppError } from 'shared/utils/index'
-import { checkCredentialsMiddleware, verifyAuthTokenMiddleware } from 'middleware/index'
+import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel } from 'models/index'
 
 export default (app: Application) =>
   //
   app.get(
     ApiUrlPath.ReadUser,
-    checkCredentialsMiddleware,
-    verifyAuthTokenMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
     (req: Request, res: Response) => {
       //
       const _id = req.query._id

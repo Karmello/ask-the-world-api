@@ -2,15 +2,15 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
-import { checkCredentialsMiddleware, verifyAuthTokenMiddleware } from 'middleware/index'
+import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(
     ApiUrlPath.ActivateUser,
-    checkCredentialsMiddleware,
-    verifyAuthTokenMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
     (req: Request, res: Response) => {
       //
       const { APP_URL } = process.env

@@ -1,15 +1,23 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+  verifyPaymentStatus,
+} from 'middleware/index'
 
 export default (app: Application) =>
   //
   app.post(
     ApiUrlPath.CreateQuestion,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
+    verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
       try {

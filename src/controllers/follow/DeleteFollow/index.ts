@@ -1,14 +1,22 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { FollowModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+  verifyPaymentStatus,
+} from 'middleware/index'
 
 export default (app: Application) =>
   app.delete(
     ApiUrlPath.UnfollowQuestion,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
+    verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
       FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })

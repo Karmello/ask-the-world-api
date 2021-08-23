@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 import get from 'lodash/get'
 
 import { ApiUrlPath, IRequestQuery, Filter, READ_QUESTIONS_MAX } from 'shared/utils/index'
-import { checkEntityRequestMiddleware } from 'middleware/index'
+import { verifyDataRequest } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadQuestions, checkEntityRequestMiddleware, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.ReadQuestions, verifyDataRequest, (req: Request, res: Response) => {
     //
     const endWithSuccess = results =>
       res.status(200).send({

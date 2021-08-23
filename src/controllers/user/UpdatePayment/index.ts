@@ -6,18 +6,18 @@ import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import {
-  checkCredentialsMiddleware,
-  verifyAuthTokenMiddleware,
-  checkAccountStatusMiddleware,
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
 } from 'middleware/index'
 
 export default (app: Application) =>
   //
   app.put(
     ApiUrlPath.UpdateUserPayment,
-    checkCredentialsMiddleware,
-    verifyAuthTokenMiddleware,
-    checkAccountStatusMiddleware,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
     (req: Request, res: Response) => {
       //
       UserModel.findOne({ _id: req.decoded._id })
