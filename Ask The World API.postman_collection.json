@@ -1,0 +1,1399 @@
+{
+	"info": {
+		"_postman_id": "beafdeb8-c007-44ff-9d29-a23cd25e1d3d",
+		"name": "Ask The World API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Controllers",
+			"item": [
+				{
+					"name": "AuthenticateUser",
+					"item": [
+						{
+							"name": "Good token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should responde with 200\", () => {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should responde with proper body\", () => {\r",
+											"    const body = pm.response.json()\r",
+											"    pm.expect(body.dateOfBirth).to.eql(\"1984-09-24\")\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "atw-x-auth-token",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{API_URL}}{{userAuthenticatePath}}",
+									"host": [
+										"{{API_URL}}{{userAuthenticatePath}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Good login and password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should responde with 200\", () => {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should responde with proper body\", () => {\r",
+											"    const body = pm.response.json()\r",
+											"    pm.expect(body.country).to.eql(\"PL\")\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "Karmello",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "cocacola100",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{API_URL}}{{userAuthenticatePath}}",
+									"host": [
+										"{{API_URL}}{{userAuthenticatePath}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"Utils.registerUser(pm)",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"Utils.deleteUser(pm)",
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "RegisterUser",
+					"item": [
+						{
+							"name": "No body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should responde with 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should responde with proper errors\", function () {\r",
+											"    const body = pm.response.json()\r",
+											"    pm.expect(body.errors).to.eql({\r",
+											"        sex: 'required',\r",
+											"        country: 'required',\r",
+											"        dateOfBirth: 'required',\r",
+											"        password: 'required',\r",
+											"        username: 'required',\r",
+											"        email: 'required',\r",
+											"    })\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}{{userPath}}",
+									"host": [
+										"{{API_URL}}{{userPath}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Duplicate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should responde with 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should responde with proper errors\", function () {\r",
+											"    const body = pm.response.json()\r",
+											"    pm.expect(body.errors).to.eql({\r",
+											"\t\t\temail: 'unique',\r",
+											"\t\t\tusername: 'unique',\r",
+											"    })\r",
+											"});\r",
+											"\r",
+											"Utils.deleteUser(pm)\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"Utils.registerUser(pm)\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "username@email.com",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "Karmello",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "cocacola100",
+											"type": "text"
+										},
+										{
+											"key": "country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "dateOfBirth",
+											"value": "1984-09-24",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "M",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{API_URL}}{{userPath}}",
+									"host": [
+										"{{API_URL}}{{userPath}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should responde with 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should responde with proper body\", function () {\r",
+											"    const body = pm.response.json()\r",
+											"    pm.expect(body.username).to.eql(\"Karmello\")\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('authToken', pm.response.headers.get('atw-x-auth-token'))\r",
+											"Utils.deleteUser(pm)\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "username@email.com",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "Karmello",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "cocacola100",
+											"type": "text"
+										},
+										{
+											"key": "country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "M",
+											"type": "text"
+										},
+										{
+											"key": "dateOfBirth",
+											"value": "1984-09-24",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{API_URL}}{{userPath}}",
+									"host": [
+										"{{API_URL}}{{userPath}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DeactivateUser",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Middlewares",
+			"item": [
+				{
+					"name": "No credentials",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "AuthenticateUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userAuthenticatePath}}",
+											"host": [
+												"{{API_URL}}{{userAuthenticatePath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ActivateUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userActivatePath}}",
+											"host": [
+												"{{API_URL}}{{userActivatePath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DeactivateUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userDeactivatePath}}",
+											"host": [
+												"{{API_URL}}{{userDeactivatePath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ReadUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userPath}}",
+											"host": [
+												"{{API_URL}}{{userPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdatePassword",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userPasswordPath}}",
+											"host": [
+												"{{API_URL}}{{userPasswordPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdatePayment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userPaymentPath}}",
+											"host": [
+												"{{API_URL}}{{userPaymentPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{userPath}}",
+											"host": [
+												"{{API_URL}}{{userPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Question",
+							"item": [
+								{
+									"name": "CreateQuestion",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{questionPath}}",
+											"host": [
+												"{{API_URL}}{{questionPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DeleteQuestion",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{questionPath}}",
+											"host": [
+												"{{API_URL}}{{questionPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Answer",
+							"item": [
+								{
+									"name": "CreateAnswer",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{answerPath}}",
+											"host": [
+												"{{API_URL}}{{answerPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateAnswer",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{answerPath}}",
+											"host": [
+												"{{API_URL}}{{answerPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Follow",
+							"item": [
+								{
+									"name": "CreateFollow",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{followPath}}",
+											"host": [
+												"{{API_URL}}{{followPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DeleteFollow",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{followPath}}",
+											"host": [
+												"{{API_URL}}{{followPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Report",
+							"item": [
+								{
+									"name": "CreateReport",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{API_URL}}{{reportPath}}",
+											"host": [
+												"{{API_URL}}{{reportPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {",
+									"  pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');",
+									"});",
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Authentication failed",
+					"item": [
+						{
+							"name": "Bad token",
+							"item": [
+								{
+									"name": "User",
+									"item": [
+										{
+											"name": "AuthenticateUser",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userAuthenticatePath}}",
+													"host": [
+														"{{API_URL}}{{userAuthenticatePath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ActivateUser",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userActivatePath}}",
+													"host": [
+														"{{API_URL}}{{userActivatePath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "DeactivateUser",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userDeactivatePath}}",
+													"host": [
+														"{{API_URL}}{{userDeactivatePath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ReadUser",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userPath}}",
+													"host": [
+														"{{API_URL}}{{userPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "UpdatePassword",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userPasswordPath}}",
+													"host": [
+														"{{API_URL}}{{userPasswordPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "UpdatePayment",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userPaymentPath}}",
+													"host": [
+														"{{API_URL}}{{userPaymentPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "UpdateUser",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{userPath}}",
+													"host": [
+														"{{API_URL}}{{userPath}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Question",
+									"item": [
+										{
+											"name": "CreateQuestion",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{questionPath}}",
+													"host": [
+														"{{API_URL}}{{questionPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "DeleteQuestion",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
+													"host": [
+														"{{API_URL}}{{questionPath}}"
+													],
+													"query": [
+														{
+															"key": "atw-x-auth-token",
+															"value": "abcd"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Answer",
+									"item": [
+										{
+											"name": "CreateAnswer",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{answerPath}}",
+													"host": [
+														"{{API_URL}}{{answerPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "UpdateAnswer",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{answerPath}}",
+													"host": [
+														"{{API_URL}}{{answerPath}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Follow",
+									"item": [
+										{
+											"name": "CreateFollow",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{followPath}}",
+													"host": [
+														"{{API_URL}}{{followPath}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "DeleteFollow",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{followPath}}",
+													"host": [
+														"{{API_URL}}{{followPath}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Report",
+									"item": [
+										{
+											"name": "CreateReport",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "atw-x-auth-token",
+														"value": "abcd",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{API_URL}}{{reportPath}}",
+													"host": [
+														"{{API_URL}}{{reportPath}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Wrong user and pass",
+							"item": [
+								{
+									"name": "AuthenticateUser",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "Karmello",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "cocacola100",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{API_URL}}{{userAuthenticatePath}}",
+											"host": [
+												"{{API_URL}}{{userAuthenticatePath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {",
+									"  pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');",
+									"});",
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Email not confirmed",
+					"item": [
+						{
+							"name": "Answer",
+							"item": [
+								{
+									"name": "CreateAnswer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "atw-x-auth-token",
+												"value": "{{authToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{API_URL}}{{answerPath}}",
+											"host": [
+												"{{API_URL}}{{answerPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateAnswer",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "atw-x-auth-token",
+												"value": "{{authToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{API_URL}}{{answerPath}}",
+											"host": [
+												"{{API_URL}}{{answerPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Follow",
+							"item": [
+								{
+									"name": "CreateFollow",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "atw-x-auth-token",
+												"value": "{{authToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{API_URL}}{{followPath}}",
+											"host": [
+												"{{API_URL}}{{followPath}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DeleteFollow",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "atw-x-auth-token",
+												"value": "{{authToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{API_URL}}{{followPath}}",
+											"host": [
+												"{{API_URL}}{{followPath}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"Utils.registerUser(pm)",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"Utils.deleteUser(pm)",
+									"",
+									"pm.test(\"Should responde with 403\", () => {",
+									"  pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');",
+									"});",
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"Utils = {",
+					"\tregisterUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get('API_URL') + pm.variables.get('userPath'), ",
+					"      method: 'POST',",
+					"      header: {",
+					"        'Accept': 'application/json',",
+					"        'Content-Type': 'application/x-www-form-urlencoded',",
+					"      },",
+					"      body: {",
+					"          mode: 'urlencoded',",
+					"          urlencoded: [",
+					"            { key: 'email', value: 'username@email.com' },",
+					"            { key: 'username', value: 'Karmello' },",
+					"\t\t\t\t\t\t{ key: 'password', value: 'cocacola100' },",
+					"\t\t\t\t\t\t{ key: 'country', value: 'PL' },",
+					"\t\t\t\t\t\t{ key: 'sex', value: 'M' },",
+					"\t\t\t\t\t\t{ key: 'dateOfBirth', value: '1984-09-24' },",
+					"        ]",
+					"      }",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set('authToken', res.headers.get('atw-x-auth-token'))",
+					"\t\t})",
+					"\t},",
+					"\tdeleteUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'), ",
+					"      method: 'GET',",
+					"      header: {",
+					"        'atw-x-auth-token': pm.environment.get('authToken'),",
+					"      },",
+					"\t\t})",
+					"\t}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userPath",
+			"value": "/user"
+		},
+		{
+			"key": "userActivationLinkPath",
+			"value": "/user/activation-link"
+		},
+		{
+			"key": "userDeactivationLinkPath",
+			"value": "/user/deactivation-link"
+		},
+		{
+			"key": "userActivatePath",
+			"value": "/user/activate"
+		},
+		{
+			"key": "userDeactivatePath",
+			"value": "/user/deactivate"
+		},
+		{
+			"key": "userAuthenticatePath",
+			"value": "/user/authenticate"
+		},
+		{
+			"key": "userPasswordPath",
+			"value": "/user/password"
+		},
+		{
+			"key": "userPaymentPath",
+			"value": "/user/payment"
+		},
+		{
+			"key": "questionPath",
+			"value": "/question"
+		},
+		{
+			"key": "questionsPath",
+			"value": "/questions"
+		},
+		{
+			"key": "answerPath",
+			"value": "/answer"
+		},
+		{
+			"key": "followPath",
+			"value": "/follow"
+		},
+		{
+			"key": "reportPath",
+			"value": "/report"
+		},
+		{
+			"key": "infoPath",
+			"value": "/info"
+		},
+		{
+			"key": "statsPath",
+			"value": "/stats"
+		},
+		{
+			"key": "logsPath",
+			"value": "/logs"
+		}
+	]
+}
