@@ -6,7 +6,7 @@ import { UserModel } from 'models/index'
 
 export default (app: Application) =>
   //
-  app.post(ApiUrlPath.RegisterUser, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.User, (req: Request, res: Response) => {
     //
     const newUser = new UserModel(req.body)
 

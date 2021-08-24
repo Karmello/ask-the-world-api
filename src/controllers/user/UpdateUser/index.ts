@@ -9,7 +9,7 @@ import { IUserDoc } from 'utils/index'
 export default (app: Application) =>
   //
   app.put(
-    ApiUrlPath.UpdateUser,
+    ApiUrlPath.User,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {

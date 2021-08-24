@@ -43,7 +43,7 @@ export default (app: Application, logs: {}[]) => {
           })
           data = { errors: data.errors }
         }
-        if (![ApiUrlPath.ReadLogs, '/favicon.ico'].includes(req.path)) {
+        if (![ApiUrlPath.Logs, '/favicon.ico'].includes(req.path)) {
           const token = req.headers[X_AUTH_TOKEN]
           logs.push({
             log_time: format(Date.now(), DATE_TIME_FORMAT),

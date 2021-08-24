@@ -8,7 +8,7 @@ import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadQuestion, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Question, (req: Request, res: Response) => {
     //
     const requestorId = req.decoded ? ObjectId(req.decoded._id) : null
     const questionId = ObjectId(req.query._id as string)

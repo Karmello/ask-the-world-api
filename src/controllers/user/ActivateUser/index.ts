@@ -8,7 +8,7 @@ import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(
-    ApiUrlPath.ActivateUser,
+    ApiUrlPath.UserActivate,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {

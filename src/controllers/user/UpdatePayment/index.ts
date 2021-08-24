@@ -14,7 +14,7 @@ import {
 export default (app: Application) =>
   //
   app.put(
-    ApiUrlPath.UpdateUserPayment,
+    ApiUrlPath.UserPayment,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,

@@ -17,7 +17,7 @@ const respondWithIncorrectPassword = (res: Response) =>
 export default (app: Application) =>
   //
   app.put(
-    ApiUrlPath.UpdateUserPassword,
+    ApiUrlPath.UserPassword,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {

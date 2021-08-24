@@ -12,7 +12,7 @@ import {
 
 export default (app: Application) =>
   app.post(
-    ApiUrlPath.ReportQuestion,
+    ApiUrlPath.Report,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,

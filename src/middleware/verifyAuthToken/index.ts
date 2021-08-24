@@ -7,7 +7,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   //
   const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
 
-  if (!token && req.route.path === ApiUrlPath.AuthenticateUser) {
+  if (!token && req.route.path === ApiUrlPath.UserAuthenticate) {
     return next()
   }
 

@@ -7,7 +7,7 @@ import { UserModel, QuestionModel } from 'models/index'
 export default (app: Application) =>
   //
   app.get(
-    ApiUrlPath.ReadUser,
+    ApiUrlPath.User,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {

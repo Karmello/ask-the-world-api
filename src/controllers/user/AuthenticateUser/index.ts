@@ -14,7 +14,7 @@ type TQuery = {
 export default (app: Application) =>
   //
   app.post(
-    ApiUrlPath.AuthenticateUser,
+    ApiUrlPath.UserAuthenticate,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {

@@ -9,7 +9,7 @@ import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.ReadQuestions, verifyDataRequest, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Questions, verifyDataRequest, (req: Request, res: Response) => {
     //
     const endWithSuccess = results =>
       res.status(200).send({

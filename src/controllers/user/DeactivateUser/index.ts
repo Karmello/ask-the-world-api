@@ -8,8 +8,8 @@ import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.delete(
-    ApiUrlPath.DeactivateUser,
+  app.get(
+    ApiUrlPath.UserDeactivate,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
