@@ -15,7 +15,7 @@ const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
   app.put(
-    ApiUrlPath.UpdateAnswer,
+    ApiUrlPath.Answer,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,
