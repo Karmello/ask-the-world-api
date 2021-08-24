@@ -18,7 +18,7 @@ enum ApiUrlPath {
   // misc
   Info = '/info',
   Stats = '/stats',
-  ReadLogs = '/logs',
+  Logs = '/logs',
 }
 
 export default ApiUrlPath
