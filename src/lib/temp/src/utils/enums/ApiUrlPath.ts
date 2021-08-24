@@ -1,0 +1,24 @@
+enum ApiUrlPath {
+  User = '/user',
+  UserActivationLink = '/user/activation-link',
+  UserDeactivationLink = '/user/deactivation-link',
+  UserActivate = '/user/activate',
+  UserAuthenticate = '/user/authenticate',
+  UserPassword = '/user/password',
+  UserPayment = '/user/payment',
+  // question
+  Question = '/question',
+  Questions = '/questions',
+  // answer
+  Answer = '/answer',
+  // follow
+  Follown = '/follow',
+  // report
+  Report = '/report',
+  // misc
+  Info = '/info',
+  Stats = '/stats',
+  ReadLogs = '/logs',
+}
+
+export default ApiUrlPath
