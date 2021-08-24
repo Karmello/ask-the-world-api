@@ -12,7 +12,7 @@ import {
 
 export default (app: Application) =>
   app.post(
-    ApiUrlPath.FollowQuestion,
+    ApiUrlPath.Follow,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,

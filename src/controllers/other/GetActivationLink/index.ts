@@ -10,7 +10,7 @@ import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(
-    ApiUrlPath.GetActivationLink,
+    ApiUrlPath.UserActivationLink,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
@@ -22,7 +22,7 @@ export default (app: Application) =>
             const link =
               process.env.APP_URL +
               '/api' +
-              ApiUrlPath.ActivateUser +
+              ApiUrlPath.UserActivate +
               `?${X_AUTH_TOKEN}=` +
               getFreshAuthToken(doc)
 

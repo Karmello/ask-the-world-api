@@ -12,7 +12,7 @@ import {
 
 export default (app: Application) =>
   app.delete(
-    ApiUrlPath.UnfollowQuestion,
+    ApiUrlPath.Follow,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,
