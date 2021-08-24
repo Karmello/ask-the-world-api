@@ -12,7 +12,7 @@ enum ApiUrlPath {
   // answer
   Answer = '/answer',
   // follow
-  Follown = '/follow',
+  Follow = '/follow',
   // report
   Report = '/report',
   // misc
