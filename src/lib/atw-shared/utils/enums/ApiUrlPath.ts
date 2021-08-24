@@ -1,29 +1,23 @@
 enum ApiUrlPath {
-  // user
-  ReadUser = '/user/read',
-  RegisterUser = '/user/register',
-  ActivateUser = '/user/activate',
-  DeactivateUser = '/user/deactivate',
-  AuthenticateUser = '/user/authenticate',
-  UpdateUser = '/user/update',
-  UpdateUserPassword = '/user/update/password',
-  UpdateUserPayment = '/user/update/payment',
+  User = '/user',
+  UserActivationLink = '/user/activation-link',
+  UserDeactivationLink = '/user/deactivation-link',
+  UserActivate = '/user/activate',
+  UserAuthenticate = '/user/authenticate',
+  UserPassword = '/user/password',
+  UserPayment = '/user/payment',
   // question
-  ReadQuestions = '/questions/read',
-  ReadQuestion = '/question/read',
-  CreateQuestion = '/question/create',
-  DeleteQuestion = '/question/delete',
-  FollowQuestion = '/question/follow',
-  UnfollowQuestion = '/question/unfollow',
-  ReportQuestion = '/question/report',
+  Question = '/question',
+  Questions = '/questions',
   // answer
-  CreateAnswer = '/answer/create',
-  UpdateAnswer = '/answer/update',
+  Answer = '/answer',
+  // follow
+  Follown = '/follow',
+  // report
+  Report = '/report',
   // misc
   Info = '/info',
   Stats = '/stats',
-  GetActivationLink = '/activation-link',
-  GetDeactivationLink = '/deactivation-link',
   ReadLogs = '/logs',
 }
 
