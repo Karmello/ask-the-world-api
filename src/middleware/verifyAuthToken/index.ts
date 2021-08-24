@@ -13,7 +13,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   jwt.verify(token, process.env.AUTH_SECRET, (err, decoded: { _id: string }) => {
     if (err || !decoded) {
-      return res.status(401).send(AppError.CountNotVerifyToken)
+      return res.status(401).send(AppError.AuthenticationFailed)
     }
     req.decoded = decoded
     next()

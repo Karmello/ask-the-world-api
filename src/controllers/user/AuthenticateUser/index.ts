@@ -1,7 +1,6 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppError, X_AUTH_TOKEN } from 'shared/utils/index'
-import validationDict from 'shared/validation/dictionary'
 import { getFreshAuthToken } from 'helpers/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
@@ -10,17 +9,6 @@ import { IUserDoc } from 'utils/index'
 type TQuery = {
   _id?: string
   username?: string
-}
-
-const responseWithSomethingWentWrong = (res: Response) =>
-  res.status(400).send(AppError.SomethingWentWrong)
-
-const respondWithIncorrectCredentials = (res: Response) =>
-  res.status(401).send(validationDict.incorrectCredentialsMsg)
-
-const respondWithFreshToken = (res: Response, doc: IUserDoc) => {
-  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
-  res.status(200).send(doc)
 }
 
 export default (app: Application) =>
@@ -44,25 +32,23 @@ export default (app: Application) =>
         .then((doc: IUserDoc) => {
           //
           if (doc) {
-            if (!decoded) {
+            if (username) {
               doc.comparePasswords(password, (err, isMatch) => {
                 if (err || !isMatch) {
-                  respondWithIncorrectCredentials(res)
+                  res.status(401).send(AppError.AuthenticationFailed)
                 } else {
-                  respondWithFreshToken(res, doc)
+                  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
+                  res.status(200).send(doc)
                 }
               })
             } else {
-              respondWithFreshToken(res, doc)
+              res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
+              res.status(200).send(doc)
             }
           } else {
-            if (username && password) {
-              respondWithIncorrectCredentials(res)
-            } else {
-              responseWithSomethingWentWrong(res)
-            }
+            res.status(401).send(AppError.AuthenticationFailed)
           }
         })
-        .catch(() => responseWithSomethingWentWrong(res))
+        .catch(() => res.status(401).send(AppError.AuthenticationFailed))
     }
   )
