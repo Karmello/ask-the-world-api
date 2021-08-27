@@ -57,10 +57,9 @@
 
 - GET ReadQuestions (filtered)
 
-    | Filter | By another user |
+    | Filter | Only by requestor |
     |--------|:------:|
-    | All ||
-    | Created | ✔ |
-    | Followed | ✘ |
-    | Answered | ✘ |
-    | Not answered | ✘ |
+    | Created ||
+    | Followed | ✔ |
+    | Answered | ✔ |
+    | Not answered | ✔ |
