@@ -2,15 +2,44 @@
 
 #### USER
 
-| Name | Method | Authentication |
+| Name | Method | Auth required |
 | ------ | ------ | ------ |
-| AuthenticateUser | POST | mandatory |
+| AuthenticateUser | POST | ✔ |
 | RegisterUser | POST ||
-| ActivateUser | GET | mandatory |
-| DeactivateUser | GET | mandatory |
-| GetActivationLink | GET | mandatory |
-| GetDeactivationLink | GET | mandatory |
-| ReadUser | GET | mandatory |
-| UpdateUser | PUT | mandatory |
-| UpdatePassword | PUT | mandatory |
-| UpdatePayment | PUT | mandatory |
+| ActivateUser | GET | ✔ |
+| DeactivateUser | GET | ✔ |
+| GetActivationLink | GET | ✔ |
+| GetDeactivationLink | GET | ✔ |
+| ReadUser | GET | ✔ |
+| UpdateUser | PUT | ✔ |
+| UpdatePassword | PUT | ✔ |
+| UpdatePayment | PUT | ✔ |
+
+#### QUESTION
+
+| Name | Method | Auth required |
+| ------ | ------ | ------ |
+| CreateQuestion | POST | ✔ |
+| ReadQuestion | GET ||
+| ReadQuestions | GET ||
+| DeleteQuestion | DELETE | ✔ |
+
+#### ANSWER
+
+| Name | Method | Auth required |
+| ------ | ------ | ------ |
+| CreateAnswer | POST | ✔ |
+| UpdateAnswer | GET | ✔ |
+
+#### FOLLOW
+
+| Name | Method | Auth required |
+| ------ | ------ | ------ |
+| CreateFollow | POST | ✔ |
+| DeleteFollow | DELETE | ✔ |
+
+#### REPORT
+
+| Name | Method | Auth required |
+| ------ | ------ | ------ |
+| CreateReport | POST | ✔ |
