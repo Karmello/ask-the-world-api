@@ -2,44 +2,50 @@
 
 #### USER
 
-| Name | Method | Auth required |
-| ------ | ------ | ------ |
-| AuthenticateUser | POST | ✔ |
-| RegisterUser | POST ||
-| ActivateUser | GET | ✔ |
-| DeactivateUser | GET | ✔ |
-| GetActivationLink | GET | ✔ |
-| GetDeactivationLink | GET | ✔ |
-| ReadUser | GET | ✔ |
-| UpdateUser | PUT | ✔ |
-| UpdatePassword | PUT | ✔ |
-| UpdatePayment | PUT | ✔ |
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| AuthenticateUser | POST | ✔ ||
+| RegisterUser | POST |||
+| ActivateUser | GET | ✔ ||
+| DeactivateUser | GET | ✔ ||
+| GetActivationLink | GET | ✔ ||
+| GetDeactivationLink | GET | ✔ ||
+| ReadUser | GET | ✔ ||
+| UpdateUser | PUT | ✔ ||
+| UpdatePassword | PUT | ✔ ||
+| UpdatePayment | PUT | ✔ | ✔ |
 
 #### QUESTION
 
-| Name | Method | Auth required |
-| ------ | ------ | ------ |
-| CreateQuestion | POST | ✔ |
-| ReadQuestion | GET ||
-| ReadQuestions | GET ||
-| DeleteQuestion | DELETE | ✔ |
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| CreateQuestion | POST | ✔ | ✔ |
+| ReadQuestion | GET |||
+| ReadQuestions | GET |||
+| DeleteQuestion | DELETE | ✔ | ✔ |
 
 #### ANSWER
 
-| Name | Method | Auth required |
-| ------ | ------ | ------ |
-| CreateAnswer | POST | ✔ |
-| UpdateAnswer | GET | ✔ |
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| CreateAnswer | POST | ✔ | ✔ |
+| UpdateAnswer | GET | ✔ | ✔ |
 
 #### FOLLOW
 
-| Name | Method | Auth required |
-| ------ | ------ | ------ |
-| CreateFollow | POST | ✔ |
-| DeleteFollow | DELETE | ✔ |
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| CreateFollow | POST | ✔ | ✔ |
+| DeleteFollow | DELETE | ✔ | ✔ |
 
 #### REPORT
 
-| Name | Method | Auth required |
-| ------ | ------ | ------ |
-| CreateReport | POST | ✔ |
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| CreateReport | POST | ✔ | ✔ |
+
+#### STATS
+
+| Name | Method | Auth required | Confirmation required |
+| ------ | ------ | ------ | ------ |
+| ReadStats | GET |||
