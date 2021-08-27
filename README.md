@@ -1,51 +1,66 @@
 # Ask The World API
 
-#### USER
+#### Endpoints by DB entity
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| AuthenticateUser | POST | ✔ |||
-| RegisterUser | POST ||||
-| ActivateUser | GET | ✔ |||
-| DeactivateUser | GET | ✔ |||
-| GetActivationLink | GET | ✔ |||
-| GetDeactivationLink | GET | ✔ |||
-| ReadUser | GET | ✔ |||
-| UpdateUser | PUT | ✔ |||
-| UpdatePassword | PUT | ✔ |||
-| UpdatePayment | PUT | ✔ | ✔ ||
+- USER
 
-#### QUESTION
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | AuthenticateUser | POST | ✔ |||
+    | RegisterUser | POST ||||
+    | ActivateUser | GET | ✔ |||
+    | DeactivateUser | GET | ✔ |||
+    | GetActivationLink | GET | ✔ |||
+    | GetDeactivationLink | GET | ✔ |||
+    | ReadUser | GET | ✔ |||
+    | UpdateUser | PUT | ✔ |||
+    | UpdatePassword | PUT | ✔ |||
+    | UpdatePayment | PUT | ✔ | ✔ ||
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| CreateQuestion | POST | ✔ | ✔ | ✔ |
-| ReadQuestion | GET ||||
-| ReadQuestions | GET ||||
-| DeleteQuestion | DELETE | ✔ | ✔ | ✔ |
+- QUESTION
 
-#### ANSWER
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | CreateQuestion | POST | ✔ | ✔ | ✔ |
+    | ReadQuestion | GET ||||
+    | ReadQuestions (all) | GET ||||
+    | ReadQuestions (filtered) | GET | ✔ | ✔ | ✔ |
+    | DeleteQuestion | DELETE | ✔ | ✔ | ✔ |
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| CreateAnswer | POST | ✔ | ✔ ||
-| UpdateAnswer | GET | ✔ | ✔ ||
+- ANSWER
 
-#### FOLLOW
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | CreateAnswer | POST | ✔ | ✔ ||
+    | UpdateAnswer | GET | ✔ | ✔ ||
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| CreateFollow | POST | ✔ | ✔ | ✔ |
-| DeleteFollow | DELETE | ✔ | ✔ | ✔ |
+- FOLLOW
 
-#### REPORT
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | CreateFollow | POST | ✔ | ✔ | ✔ |
+    | DeleteFollow | DELETE | ✔ | ✔ | ✔ |
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| CreateReport | POST | ✔ | ✔ | ✔ |
+- REPORT
 
-#### STATS
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | CreateReport | POST | ✔ | ✔ | ✔ |
 
-| Name | Method | Auth required | Confirmation required | Payment required |
-| ------ | ------ | ------ | ------ | ------ |
-| ReadStats | GET ||||
+- STATS
+
+    | Name | Method | Auth required | Confirmation required | Payment required |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|
+    | ReadStats | GET ||||
+
+#### Rules for specific endpoints
+
+- GET ReadQuestions (filtered)
+
+    | Filter | By another user |
+    |--------|:------:|
+    | All ||
+    | Created | ✔ |
+    | Followed | ✘ |
+    | Answered | ✘ |
+    | Not answered | ✘ |
