@@ -20,7 +20,7 @@ export default (app: Application) =>
         .exec()
         .then((doc: IUserDoc) => {
           if (!doc) return res.status(404).send(AppError.NoSuchUserError)
-          if (doc.config.confirmed) return res.status(403).send(dict.accountAlreadyActive)
+          if (doc.config.confirmed) return res.status(403).send(AppError.EmailAlreadyConfirmed)
           doc.set({ config: { confirmed: true } })
           doc
             .save()
