@@ -1,4 +1,5 @@
 enum ApiUrlPath {
+  // user
   User = '/user',
   UserActivationLink = '/user/activation-link',
   UserDeactivationLink = '/user/deactivation-link',
@@ -16,9 +17,10 @@ enum ApiUrlPath {
   Follow = '/follow',
   // report
   Report = '/report',
-  // misc
-  Info = '/info',
+  // other
   Stats = '/stats',
+  // utils
+  Info = '/info',
   Logs = '/logs',
 }
 
