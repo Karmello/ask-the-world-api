@@ -2,6 +2,7 @@ enum AppError {
   NoCredentialsProvided = 'NO_CREDENTIALS_PROVIDED',
   AuthenticationFailed = 'AUTHENTICATION_FAILED',
   EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
+  EmailAlreadyConfirmed = 'EMAIL_ALREADY_CONFIRMED',
   NotFullAccount = 'NOT_FULL_ACCOUNT',
   IllegalAction = 'ILLEGAL_ACTION',
   SomethingWentWrong = 'SOMETHING_WENT_WRONG',
