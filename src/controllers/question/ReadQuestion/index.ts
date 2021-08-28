@@ -3,12 +3,13 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, AppError, IAnswer } from 'shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
+import { verifyAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.Question, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Question, verifyAuthToken, (req: Request, res: Response) => {
     //
     const requestorId = req.decoded ? ObjectId(req.decoded._id) : null
     const questionId = ObjectId(req.query._id as string)
