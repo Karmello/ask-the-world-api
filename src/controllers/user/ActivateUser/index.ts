@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
@@ -19,7 +19,7 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send()
+          if (!doc) return res.status(404).send(AppError.NoSuchUserError)
           if (doc.config.confirmed) return res.status(403).send(dict.accountAlreadyActive)
           doc.set({ config: { confirmed: true } })
           doc
