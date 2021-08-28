@@ -19,39 +19,39 @@
 
 - QUESTION
 
-    | Name | Method | Auth required | Confirmation required | Payment required |
-    |------|:------:|:-------------:|:---------------------:|:----------------:|
-    | CreateQuestion | POST | ✔ | ✔ | ✔ |
-    | ReadQuestion | GET ||||
-    | ReadQuestions (all) | GET ||||
-    | ReadQuestions (filtered) | GET | ✔ | ✔ | ✔ |
-    | DeleteQuestion | DELETE | ✔ | ✔ | ✔ |
+    | Name | Method | Auth required | Confirmation required | Payment required | Description |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
+    | CreateQuestion | POST | ✔ | ✔ | ✔ | Creates new question |
+    | ReadQuestion | GET |||| Gets a single question object |
+    | ReadQuestions (all) | GET |||| Gets limited number of questions from list of all questions |
+    | ReadQuestions (filtered) | GET | ✔ | ✔ | ✔ | Gets limited number of questions from filtered list of questions |
+    | DeleteQuestion | DELETE | ✔ | ✔ | ✔ | Deletes question and its answers |
 
 - ANSWER
 
-    | Name | Method | Auth required | Confirmation required | Payment required |
-    |------|:------:|:-------------:|:---------------------:|:----------------:|
-    | CreateAnswer | POST | ✔ | ✔ ||
-    | UpdateAnswer | GET | ✔ | ✔ ||
+    | Name | Method | Auth required | Confirmation required | Payment required | Description |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
+    | CreateAnswer | POST | ✔ | ✔ || Creates new answer |
+    | UpdateAnswer | GET | ✔ | ✔ || Updates existing answer |
 
 - FOLLOW
 
-    | Name | Method | Auth required | Confirmation required | Payment required |
-    |------|:------:|:-------------:|:---------------------:|:----------------:|
-    | CreateFollow | POST | ✔ | ✔ | ✔ |
-    | DeleteFollow | DELETE | ✔ | ✔ | ✔ |
+    | Name | Method | Auth required | Confirmation required | Payment required | Description |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
+    | CreateFollow | POST | ✔ | ✔ | ✔ | Creates new follow |
+    | DeleteFollow | DELETE | ✔ | ✔ | ✔ | Deletes existing follow |
 
 - REPORT
 
-    | Name | Method | Auth required | Confirmation required | Payment required |
-    |------|:------:|:-------------:|:---------------------:|:----------------:|
-    | CreateReport | POST | ✔ | ✔ | ✔ |
+    | Name | Method | Auth required | Confirmation required | Payment required | Description |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
+    | CreateReport | POST | ✔ | ✔ | ✔ | Creates new report |
 
 - STATS
 
-    | Name | Method | Auth required | Confirmation required | Payment required |
-    |------|:------:|:-------------:|:---------------------:|:----------------:|
-    | ReadStats | GET ||||
+    | Name | Method | Auth required | Confirmation required | Payment required | Description |
+    |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
+    | ReadStats | GET |||| Gets overall statistics |
 
 #### Rules for specific endpoints
 
