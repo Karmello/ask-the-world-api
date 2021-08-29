@@ -8,7 +8,7 @@
     |------|:------:|:-------------:|:---------------------:|:----------------:|-------------|
     | AuthenticateUser | POST | ✔ ||| Authenticates user by JWT or username and password |
     | RegisterUser | POST |||| Creates new user with unique email and username |
-    | GetActivationLink | GET | ✔ ||| Sends email confirmation link to user's mailbox |
+    | GetActivationLink | GET | ✔ ||| Sends email confirmation link to user's mailbox, link contains email confirmation token |
     | GetDeactivationLink | GET | ✔ ||| Sends account deactivation link to user's mailbox |
     | ActivateUser | GET | ✔ ||| Called by clicking an activation link, confirms user's email |
     | DeactivateUser | GET | ✔ ||| Called by clicking deactivation link, removes user as well as his questions and answers  |
