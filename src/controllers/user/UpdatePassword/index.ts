@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import validationDict from 'shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -24,10 +24,10 @@ export default (app: Application) =>
       //
       const { currentPassword, newPassword } = req.body
 
-      UserModel.findOne({ _id: req.body._id })
+      UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send()
+          if (!doc) return res.status(404).send(AppError.NoSuchUserError)
           doc.comparePasswords(currentPassword, (err, isMatch) => {
             if (err || !isMatch) {
               respondWithIncorrectPassword(res)

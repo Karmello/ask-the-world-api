@@ -6,1274 +6,3346 @@
 	},
 	"item": [
 		{
-			"name": "Controllers",
+			"name": "AuthenticateUser",
 			"item": [
 				{
-					"name": "AuthenticateUser",
-					"item": [
-						{
-							"name": "Good token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Should responde with 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Should responde with proper body\", () => {\r",
-											"    const body = pm.response.json()\r",
-											"    pm.expect(body.dateOfBirth).to.eql(\"1984-09-24\")\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "atw-x-auth-token",
-										"value": "{{authToken}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": []
-								},
-								"url": {
-									"raw": "{{API_URL}}{{userAuthenticatePath}}",
-									"host": [
-										"{{API_URL}}{{userAuthenticatePath}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Good login and password",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Should responde with 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Should responde with proper body\", () => {\r",
-											"    const body = pm.response.json()\r",
-											"    pm.expect(body.country).to.eql(\"PL\")\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "Karmello",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "cocacola100",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{API_URL}}{{userAuthenticatePath}}",
-									"host": [
-										"{{API_URL}}{{userAuthenticatePath}}"
-									]
-								}
-							},
-							"response": []
-						}
-					],
+					"name": "No credentials",
 					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"Utils.registerUser(pm)",
-									""
-								]
-							}
-						},
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"Utils.deleteUser(pm)",
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
-					]
-				},
-				{
-					"name": "RegisterUser",
-					"item": [
-						{
-							"name": "No body",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Should responde with 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Should responde with proper errors\", function () {\r",
-											"    const body = pm.response.json()\r",
-											"    pm.expect(body.errors).to.eql({\r",
-											"        sex: 'required',\r",
-											"        country: 'required',\r",
-											"        dateOfBirth: 'required',\r",
-											"        password: 'required',\r",
-											"        username: 'required',\r",
-											"        email: 'required',\r",
-											"    })\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{API_URL}}{{userPath}}",
-									"host": [
-										"{{API_URL}}{{userPath}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Duplicate",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Should responde with 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Should responde with proper errors\", function () {\r",
-											"    const body = pm.response.json()\r",
-											"    pm.expect(body.errors).to.eql({\r",
-											"\t\t\temail: 'unique',\r",
-											"\t\t\tusername: 'unique',\r",
-											"    })\r",
-											"});\r",
-											"\r",
-											"Utils.deleteUser(pm)\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"Utils.registerUser(pm)\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "username@email.com",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "Karmello",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "cocacola100",
-											"type": "text"
-										},
-										{
-											"key": "country",
-											"value": "PL",
-											"type": "text"
-										},
-										{
-											"key": "dateOfBirth",
-											"value": "1984-09-24",
-											"type": "text"
-										},
-										{
-											"key": "sex",
-											"value": "M",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{API_URL}}{{userPath}}",
-									"host": [
-										"{{API_URL}}{{userPath}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Should responde with 201\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Should responde with proper body\", function () {\r",
-											"    const body = pm.response.json()\r",
-											"    pm.expect(body.username).to.eql(\"Karmello\")\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('authToken', pm.response.headers.get('atw-x-auth-token'))\r",
-											"Utils.deleteUser(pm)\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "username@email.com",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "Karmello",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "cocacola100",
-											"type": "text"
-										},
-										{
-											"key": "country",
-											"value": "PL",
-											"type": "text"
-										},
-										{
-											"key": "sex",
-											"value": "M",
-											"type": "text"
-										},
-										{
-											"key": "dateOfBirth",
-											"value": "1984-09-24",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{API_URL}}{{userPath}}",
-									"host": [
-										"{{API_URL}}{{userPath}}"
-									]
-								}
-							},
-							"response": []
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "DeactivateUser",
-					"item": []
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad login and password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Good token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"    const body = pm.response.json()\r",
+									"    pm.expect(body.email).to.eql('username@email.com')\r",
+									"\t\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\t\tpm.expect(body.password).to.be.undefined\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Good login and password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with proper body\", () => {\r",
+									"    const body = pm.response.json()\r",
+									"    pm.expect(body.country).to.eql(\"PL\")\r",
+									"\t\tpm.expect(body.password).to.be.undefined\r",
+									"});\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "Middlewares",
+			"name": "RegisterUser",
+			"item": [
+				{
+					"name": "No body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"    pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"    const body = pm.response.json()\r",
+									"\t\tpm.expect(body.email.kind).to.eql('required')\r",
+									"\t\tpm.expect(body.username.kind).to.eql('required')\r",
+									"\t\tpm.expect(body.password.kind).to.eql('required')\r",
+									"\t\tpm.expect(body.dateOfBirth.kind).to.eql('required')\r",
+									"\t\tpm.expect(body.country.kind).to.eql('required')\r",
+									"\t\tpm.expect(body.sex.kind).to.eql('required')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicates in body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with proper errors\", function () {\r",
+									"    const body = pm.response.json()\r",
+									"\t\tpm.expect(body.email.kind).to.eql('unique')\r",
+									"\t\tpm.expect(body.username.kind).to.eql('unique')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "username@email.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "PL",
+									"type": "text"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1984-09-24",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "M",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with proper body\", function () {\r",
+									"    const body = pm.response.json()\r",
+									"    pm.expect(body.username).to.eql(\"Karmello\")\r",
+									"});\r",
+									"\r",
+									"pm.environment.set('authToken', pm.response.headers.get('atw-x-auth-token'))\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "username@email.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "PL",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1984-09-24",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadUser",
 			"item": [
 				{
 					"name": "No credentials",
-					"item": [
-						{
-							"name": "User",
-							"item": [
-								{
-									"name": "AuthenticateUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userAuthenticatePath}}",
-											"host": [
-												"{{API_URL}}{{userAuthenticatePath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "ActivateUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userActivatePath}}",
-											"host": [
-												"{{API_URL}}{{userActivatePath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "DeactivateUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userDeactivatePath}}",
-											"host": [
-												"{{API_URL}}{{userDeactivatePath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "ReadUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userPath}}",
-											"host": [
-												"{{API_URL}}{{userPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "UpdatePassword",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userPasswordPath}}",
-											"host": [
-												"{{API_URL}}{{userPasswordPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "UpdatePayment",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userPaymentPath}}",
-											"host": [
-												"{{API_URL}}{{userPaymentPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "UpdateUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{userPath}}",
-											"host": [
-												"{{API_URL}}{{userPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Question",
-							"item": [
-								{
-									"name": "CreateQuestion",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{questionPath}}",
-											"host": [
-												"{{API_URL}}{{questionPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "DeleteQuestion",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{questionPath}}",
-											"host": [
-												"{{API_URL}}{{questionPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Answer",
-							"item": [
-								{
-									"name": "CreateAnswer",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{answerPath}}",
-											"host": [
-												"{{API_URL}}{{answerPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "UpdateAnswer",
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{answerPath}}",
-											"host": [
-												"{{API_URL}}{{answerPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Follow",
-							"item": [
-								{
-									"name": "CreateFollow",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{followPath}}",
-											"host": [
-												"{{API_URL}}{{followPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "DeleteFollow",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{followPath}}",
-											"host": [
-												"{{API_URL}}{{followPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Report",
-							"item": [
-								{
-									"name": "CreateReport",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{API_URL}}{{reportPath}}",
-											"host": [
-												"{{API_URL}}{{reportPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					],
 					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {",
-									"  pm.response.to.have.status(401);",
-									"});",
-									"",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');",
-									"});",
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
-					]
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "Authentication failed",
-					"item": [
-						{
-							"name": "Bad token",
-							"item": [
-								{
-									"name": "User",
-									"item": [
-										{
-											"name": "AuthenticateUser",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userAuthenticatePath}}",
-													"host": [
-														"{{API_URL}}{{userAuthenticatePath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "ActivateUser",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userActivatePath}}",
-													"host": [
-														"{{API_URL}}{{userActivatePath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "DeactivateUser",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userDeactivatePath}}",
-													"host": [
-														"{{API_URL}}{{userDeactivatePath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "ReadUser",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userPath}}",
-													"host": [
-														"{{API_URL}}{{userPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "UpdatePassword",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "PUT",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userPasswordPath}}",
-													"host": [
-														"{{API_URL}}{{userPasswordPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "UpdatePayment",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "PUT",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userPaymentPath}}",
-													"host": [
-														"{{API_URL}}{{userPaymentPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "UpdateUser",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "PUT",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{userPath}}",
-													"host": [
-														"{{API_URL}}{{userPath}}"
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Question",
-									"item": [
-										{
-											"name": "CreateQuestion",
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{questionPath}}",
-													"host": [
-														"{{API_URL}}{{questionPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "DeleteQuestion",
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
-													"host": [
-														"{{API_URL}}{{questionPath}}"
-													],
-													"query": [
-														{
-															"key": "atw-x-auth-token",
-															"value": "abcd"
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Answer",
-									"item": [
-										{
-											"name": "CreateAnswer",
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{answerPath}}",
-													"host": [
-														"{{API_URL}}{{answerPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "UpdateAnswer",
-											"request": {
-												"method": "PUT",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{answerPath}}",
-													"host": [
-														"{{API_URL}}{{answerPath}}"
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Follow",
-									"item": [
-										{
-											"name": "CreateFollow",
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{followPath}}",
-													"host": [
-														"{{API_URL}}{{followPath}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "DeleteFollow",
-											"request": {
-												"method": "DELETE",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{followPath}}",
-													"host": [
-														"{{API_URL}}{{followPath}}"
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Report",
-									"item": [
-										{
-											"name": "CreateReport",
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "atw-x-auth-token",
-														"value": "abcd",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{API_URL}}{{reportPath}}",
-													"host": [
-														"{{API_URL}}{{reportPath}}"
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								}
-							]
-						},
-						{
-							"name": "Wrong user and pass",
-							"item": [
-								{
-									"name": "AuthenticateUser",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "urlencoded",
-											"urlencoded": [
-												{
-													"key": "username",
-													"value": "Karmello",
-													"type": "text"
-												},
-												{
-													"key": "password",
-													"value": "cocacola100",
-													"type": "text"
-												}
-											]
-										},
-										"url": {
-											"raw": "{{API_URL}}{{userAuthenticatePath}}",
-											"host": [
-												"{{API_URL}}{{userAuthenticatePath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					],
+					"name": "Bad token",
 					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {",
-									"  pm.response.to.have.status(401);",
-									"});",
-									"",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');",
-									"});",
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
-					]
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id=123412341234123412341234",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "123412341234123412341234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.count.questions).to.eql(0)\r",
+									"\tpm.expect(body.user.email).to.eql('username@email.com')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UpdateUser",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id=123412341234123412341234",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "123412341234123412341234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.username.kind).to.eql('required')\r",
+									"\tpm.expect(body.dateOfBirth.kind).to.eql('required')\r",
+									"\tpm.expect(body.country.kind).to.eql('required')\r",
+									"\tpm.expect(body.sex.kind).to.eql('required')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.username.kind).to.eql('unique')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									"Utils.deleteSecondUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"Utils.registerSecondUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "TheSecondUser",
+									"type": "text"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1984-09-24",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "PL",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "M",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Correct update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.username).to.eql('UpdatedUsername')\r",
+									"\tpm.expect(body.country).to.eql('GB')\r",
+									"\tpm.expect(body.sex).to.eql('F')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1980-05-01')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "UpdatedUsername",
+									"type": "text"
+								},
+								{
+									"key": "dateOfBirth",
+									"value": "1980-05-01",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "GB",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "F",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"host": [
+								"{{API_URL}}{{userPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "UpdatePassword",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "currentPassword",
+									"value": "incorrect_password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incorrect current password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No new password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"  pm.expect(body.password.kind).to.eql('required')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "currentPassword",
+									"value": "cocacola100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Correct update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.email).to.eql('username@email.com')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "currentPassword",
+									"value": "cocacola100",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "pepsicola200",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPasswordPath}}",
+							"host": [
+								"{{API_URL}}{{userPasswordPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UpdatePayment",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Email not confirmed",
-					"item": [
+					"event": [
 						{
-							"name": "Answer",
-							"item": [
-								{
-									"name": "CreateAnswer",
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "atw-x-auth-token",
-												"value": "{{authToken}}",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{API_URL}}{{answerPath}}",
-											"host": [
-												"{{API_URL}}{{answerPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "UpdateAnswer",
-									"request": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "atw-x-auth-token",
-												"value": "{{authToken}}",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{API_URL}}{{answerPath}}",
-											"host": [
-												"{{API_URL}}{{answerPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						},
 						{
-							"name": "Follow",
-							"item": [
-								{
-									"name": "CreateFollow",
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "atw-x-auth-token",
-												"value": "{{authToken}}",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{API_URL}}{{followPath}}",
-											"host": [
-												"{{API_URL}}{{followPath}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "DeleteFollow",
-									"request": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "atw-x-auth-token",
-												"value": "{{authToken}}",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{API_URL}}{{followPath}}",
-											"host": [
-												"{{API_URL}}{{followPath}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ActivateUser",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Already activated",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"Utils.registerUser(pm)",
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"Utils.deleteUser(pm)",
-									"",
-									"pm.test(\"Should responde with 403\", () => {",
-									"  pm.response.to.have.status(403);",
-									"});",
-									"",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');",
-									"});",
+									"pm.test('Should responde with 403', () => {\r",
+									"    pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_ALREADY_CONFIRMED', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_ALREADY_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
-					]
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 302', () => {\r",
+									"    pm.response.to.have.status(302)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "DeactivateUser",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetActivationLink",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "GetDeactivationLink",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateQuestion",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadQuestion",
+			"item": []
+		},
+		{
+			"name": "ReadQuestions",
+			"item": [
+				{
+					"name": "Another user's answered questions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
+									"});\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionsPath}}?filter=ANSWERED&pageNo=1&userId=1234",
+							"host": [
+								"{{API_URL}}{{questionsPath}}"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "ANSWERED"
+								},
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Another user's not answered questions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
+									"});\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionsPath}}?filter=NOT_ANSWERED&pageNo=1&userId=1234",
+							"host": [
+								"{{API_URL}}{{questionsPath}}"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "NOT_ANSWERED"
+								},
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Another user's followed questions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
+									"});\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionsPath}}?filter=FOLLOWED&pageNo=1&userId=1234",
+							"host": [
+								"{{API_URL}}{{questionsPath}}"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "FOLLOWED"
+								},
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeleteQuestion",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "atw-x-auth-token",
+									"value": "abcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateAnswer",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "UpdateAnswer",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{answerPath}}",
+							"host": [
+								"{{API_URL}}{{answerPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateFollow",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeleteFollow",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{followPath}}",
+							"host": [
+								"{{API_URL}}{{followPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateReport",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{reportPath}}",
+							"host": [
+								"{{API_URL}}{{reportPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{reportPath}}",
+							"host": [
+								"{{API_URL}}{{reportPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{reportPath}}?atw-x-auth-token={{authToken}}",
+							"host": [
+								"{{API_URL}}{{reportPath}}"
+							],
+							"query": [
+								{
+									"key": "atw-x-auth-token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"Utils.deleteUser(pm)\r",
+									"\r",
+									"pm.test(\"Should responde with 403\", () => {\r",
+									"  pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{reportPath}}?atw-x-auth-token={{authToken}}",
+							"host": [
+								"{{API_URL}}{{reportPath}}"
+							],
+							"query": [
+								{
+									"key": "atw-x-auth-token",
+									"value": "{{authToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadStats",
+			"item": []
 		}
 	],
 	"event": [
@@ -1304,11 +3376,54 @@
 					"      }",
 					"\t\t}, (err, res) => {",
 					"\t\t\tpm.environment.set('authToken', res.headers.get('atw-x-auth-token'))",
+					"\t\t\tpm.environment.set('userId', res.json()._id)",
+					"\t\t})",
+					"\t},",
+					"\tregisterSecondUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get('API_URL') + pm.variables.get('userPath'), ",
+					"      method: 'POST',",
+					"      header: {",
+					"        'Accept': 'application/json',",
+					"        'Content-Type': 'application/x-www-form-urlencoded',",
+					"      },",
+					"      body: {",
+					"          mode: 'urlencoded',",
+					"          urlencoded: [",
+					"            { key: 'email', value: 'username2@email.com' },",
+					"            { key: 'username', value: 'TheSecondUser' },",
+					"\t\t\t\t\t\t{ key: 'password', value: 'cocacola200' },",
+					"\t\t\t\t\t\t{ key: 'country', value: 'PL' },",
+					"\t\t\t\t\t\t{ key: 'sex', value: 'F' },",
+					"\t\t\t\t\t\t{ key: 'dateOfBirth', value: '2000-01-01' },",
+					"        ]",
+					"      }",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set('authToken2', res.headers.get('atw-x-auth-token'))",
+					"\t\t\tpm.environment.set('userId2', res.json()._id)",
 					"\t\t})",
 					"\t},",
 					"\tdeleteUser: (pm) => {",
 					"\t\tpm.sendRequest({",
 					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'), ",
+					"      method: 'GET',",
+					"      header: {",
+					"        'atw-x-auth-token': pm.environment.get('authToken'),",
+					"      },",
+					"\t\t})",
+					"\t},",
+					"\tdeleteSecondUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'), ",
+					"      method: 'GET',",
+					"      header: {",
+					"        'atw-x-auth-token': pm.environment.get('authToken2'),",
+					"      },",
+					"\t\t})",
+					"\t},",
+					"\tactivateUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userActivatePath'), ",
 					"      method: 'GET',",
 					"      header: {",
 					"        'atw-x-auth-token': pm.environment.get('authToken'),",
