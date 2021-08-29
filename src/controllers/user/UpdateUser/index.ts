@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -14,14 +14,14 @@ export default (app: Application) =>
     verifyAuthToken,
     (req: Request, res: Response) => {
       //
-      const { email, username, dateOfBirth, country, sex } = req.body
+      const { username, dateOfBirth, country, sex } = req.body
 
-      UserModel.findOne({ _id: req.body._id })
+      UserModel.findOne({ _id: req.decoded._id })
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send()
-          doc.set({ email, username, dateOfBirth, country, sex })
+          if (!doc) res.status(404).send(AppError.NoSuchUserError)
+          doc.set({ username, dateOfBirth, country, sex })
           doc
             .save()
             .then(_doc => {

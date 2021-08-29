@@ -29,6 +29,6 @@ export default (app: Application) =>
             res.status(404).send(AppError.NoSuchUserError)
           }
         })
-        .catch(() => res.status(400).send(AppError.SomethingWentWrong))
+        .catch(err => res.status(400).send(err))
     }
   )
