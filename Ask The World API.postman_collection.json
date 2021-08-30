@@ -1501,6 +1501,212 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad orderID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with COULD_NOT_CONFIRM_PAYMENT', () => {\r",
+									"  pm.response.to.have.body('\"COULD_NOT_CONFIRM_PAYMENT\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"}, 1000)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderID",
+									"value": "98765",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Correct body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"    const body = pm.response.json()\r",
+									"    pm.expect(body.username).to.eql('Karmello')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"}, 1000)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderID",
+									"value": "8GX01699AW078850T",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"type": "text"
+								},
+								{
+									"key": "update_time",
+									"value": "2021-08-30T19:24:37Z",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userPaymentPath}}",
+							"host": [
+								"{{API_URL}}{{userPaymentPath}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -1598,6 +1804,56 @@
 					"response": []
 				},
 				{
+					"name": "Not email confirmation token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"    pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Already activated",
 					"event": [
 						{
@@ -1607,8 +1863,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1638,53 +1898,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
-							"host": [
-								"{{API_URL}}{{userActivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Activation",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 302', () => {\r",
-									"    pm.response.to.have.status(302)\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{emailConfirmationToken}}",
 								"type": "text"
 							}
 						],
@@ -2086,8 +2300,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2481,8 +2699,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2930,9 +3152,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
-									""
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3118,9 +3343,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
-									""
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3297,9 +3525,12 @@
 									"Utils.registerUser(pm)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
+									"\tUtils.getActivationLink(pm)\r",
 									"}, 1000)\r",
-									""
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm)\r",
+									"}, 5000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3421,12 +3652,23 @@
 					"      },",
 					"\t\t})",
 					"\t},",
+					"\tgetActivationLink: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userActivationLinkPath'),",
+					"      method: 'GET',",
+					"      header: {",
+					"        'atw-x-auth-token': pm.environment.get('authToken'),",
+					"      },",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set('emailConfirmationToken', res.json())",
+					"\t\t})",
+					"\t},",
 					"\tactivateUser: (pm) => {",
 					"\t\tpm.sendRequest({",
 					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userActivatePath'), ",
 					"      method: 'GET',",
 					"      header: {",
-					"        'atw-x-auth-token': pm.environment.get('authToken'),",
+					"        'atw-x-auth-token': pm.environment.get('emailConfirmationToken'),",
 					"      },",
 					"\t\t})",
 					"\t}",

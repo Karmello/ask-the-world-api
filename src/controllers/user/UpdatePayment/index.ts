@@ -54,10 +54,10 @@ export default (app: Application) =>
                   })
                   .catch(err => res.status(400).send(err.errors))
               } else {
-                res.status(400).send()
+                res.status(400).send(AppError.CountNotConfirmPayment)
               }
             })
-            .catch(err => res.status(400).send(err))
+            .catch(() => res.status(400).send(AppError.CountNotConfirmPayment))
         })
         .catch(err => res.status(400).send(err.errors))
     }
