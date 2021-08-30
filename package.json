@@ -33,6 +33,7 @@
     "@types/mongoose-unique-validator": "^1.0.4",
     "@types/morgan": "^1.9.1",
     "@types/nodemailer": "^6.4.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "bcryptjs": "^2.4.3",

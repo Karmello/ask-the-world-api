@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, Env } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
@@ -19,19 +19,17 @@ export default (app: Application) =>
         .then((doc: IUserDoc) => {
           if (doc) {
             //
+            const token = getFreshAuthToken(doc, true)
+
             const link =
-              process.env.APP_URL +
-              '/api' +
-              ApiUrlPath.UserActivate +
-              `?${X_AUTH_TOKEN}=` +
-              getFreshAuthToken(doc)
+              process.env.APP_URL + '/api' + ApiUrlPath.UserActivate + `?${X_AUTH_TOKEN}=` + token
 
             sendMail({
               to: doc.email,
               subject: dict.accountActivationLink,
               link,
             }).then(
-              info => res.status(200).send(info),
+              () => res.status(200).send(process.env.APP_ENV === Env.Local ? token : undefined),
               err => res.status(400).send(err)
             )
           } else {

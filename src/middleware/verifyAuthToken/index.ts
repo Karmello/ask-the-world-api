@@ -16,11 +16,19 @@ export default (req: Request, res: Response, next: NextFunction) => {
     return next()
   }
 
-  jwt.verify(token, process.env.AUTH_SECRET, (err, decoded: { _id: string }) => {
-    if (err || !decoded) {
-      return res.status(401).send(AppError.AuthenticationFailed)
+  jwt.verify(
+    token,
+    process.env.AUTH_SECRET,
+    (err, decoded: { _id: string; emailConfirmation?: boolean }) => {
+      if (
+        err ||
+        !decoded ||
+        (req.route.path === ApiUrlPath.UserActivate && !decoded.emailConfirmation)
+      ) {
+        return res.status(401).send(AppError.AuthenticationFailed)
+      }
+      req.decoded = decoded
+      next()
     }
-    req.decoded = decoded
-    next()
-  })
+  )
 }
