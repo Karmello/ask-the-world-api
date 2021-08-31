@@ -4,7 +4,6 @@ import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(

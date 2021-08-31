@@ -20,20 +20,21 @@ export default (app: Application) =>
     verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
-      try {
-        const newQuestion = new QuestionModel({
-          creatorId: req.decoded._id,
-          text: req.body.text,
-          answers: req.body.answers,
-          options: req.body.options,
-        })
+      console.log(req.body)
 
-        newQuestion
-          .save()
-          .then(doc => res.status(201).send(doc.toObject()))
-          .catch(err => res.status(400).send(err))
-      } catch (ex) {
-        res.status(400).send(ex.message)
-      }
+      const creatorId = req.decoded._id
+      const { text, answers, options } = req.body
+
+      const newQuestion = new QuestionModel({
+        creatorId,
+        text,
+        answers,
+        options,
+      })
+
+      newQuestion
+        .save()
+        .then(doc => res.status(201).send(doc.toObject()))
+        .catch(err => res.status(400).send(err))
     }
   )

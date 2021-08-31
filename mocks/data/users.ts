@@ -3,18 +3,9 @@ import faker from 'faker'
 
 import COUNTRIES from './../../src/lib/atw-shared/utils/constants/countries'
 import { getRandNum } from './../../src/lib/atw-shared/helpers/index'
+import payment from './payment'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'
-
-const payment = {
-  amount: {
-    currency_code: 'PLN',
-    value: '15.00',
-  },
-  orderID: '5XC846163M632145K',
-  status: 'COMPLETED',
-  update_time: '2021-08-17T08:33:31Z',
-}
 
 const basicUsers = [
   {

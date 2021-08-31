@@ -27,11 +27,11 @@ export default (app: Application) =>
               .then(() => {
                 res.redirect(301, APP_URL + '?logout')
               })
-              .catch(err => res.status(400).send(err.errors))
+              .catch(err => res.status(400).send(err))
           } else {
-            res.status(400).send(AppError.NoSuchUserError)
+            res.status(404).send(AppError.NoSuchUserError)
           }
         })
-        .catch(err => res.status(400).send(err.errors))
+        .catch(err => res.status(400).send(err))
     }
   )
