@@ -7,11 +7,11 @@ import {
   DeactivateUser,
   GetActivationLink,
   GetDeactivationLink,
+  MakePayment,
   RegisterUser,
   ReadUser,
   UpdateUser,
   UpdatePassword,
-  UpdatePayment,
 } from './user/index'
 
 import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './question/index'
@@ -30,10 +30,10 @@ const registerControllers = (app: Application, logs: {}[]) => {
   DeactivateUser(app)
   GetActivationLink(app)
   GetDeactivationLink(app)
+  MakePayment(app)
   ReadUser(app)
   RegisterUser(app)
   UpdatePassword(app)
-  UpdatePayment(app)
   UpdateUser(app)
 
   // question

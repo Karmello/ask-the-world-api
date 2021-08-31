@@ -10,7 +10,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       //
       if (!user) return res.status(404).send(AppError.NoSuchUserError)
 
-      if (!user.config.payment.amount.value) {
+      if (user.config.payment.status !== 'COMPLETED') {
         return res.status(403).send(AppError.NotFullAccount)
       }
 

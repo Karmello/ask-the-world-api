@@ -55,10 +55,7 @@ export default (app: Application) =>
                 })
                 .catch(err => res.status(400).send(err.errors))
             })
-            .catch(err => {
-              console.log(err)
-              res.status(400).send(AppError.CountNotConfirmPayment)
-            })
+            .catch(() => res.status(400).send(AppError.CountNotConfirmPayment))
         })
         .catch(err => res.status(400).send(err.errors))
     }
