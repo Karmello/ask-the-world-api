@@ -1,5 +1,7 @@
 import { Sex } from './../index'
 
+import IPayment from './IPayment'
+
 interface IUser {
   _id: any
   email: string
@@ -11,15 +13,7 @@ interface IUser {
   config: {
     registeredAt: number
     confirmed: boolean
-    payment?: {
-      orderID: string
-      status: string
-      update_time: string
-      amount: {
-        currency_code: string
-        value: string
-      }
-    }
+    payment?: IPayment
   }
 }
 
