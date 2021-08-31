@@ -14,7 +14,7 @@ import {
 
 export default (app: Application) =>
   //
-  app.put(
+  app.post(
     ApiUrlPath.UserPayment,
     verifyCredentialsPresence,
     verifyAuthToken,
@@ -29,35 +29,36 @@ export default (app: Application) =>
           if (!doc) return res.status(404).send(AppError.NoSuchUserError)
 
           axios
-            .get(process.env.PAYPAL_API_URL + '/v2/checkout/orders/' + req.body.orderID, {
-              auth: {
-                username: process.env.PAYPAL_USERNAME,
-                password: process.env.PAYPAL_PASSWORD,
-              },
-            })
+            .post(
+              process.env.PAYPAL_API_URL + '/v2/checkout/orders/' + req.body.orderID + '/capture',
+              undefined,
+              {
+                auth: {
+                  username: process.env.PAYPAL_USERNAME,
+                  password: process.env.PAYPAL_PASSWORD,
+                },
+                headers: {
+                  'content-type': 'application/json',
+                  authorization: `Bearer ${req.body.facilitatorAccessToken}`,
+                },
+              }
+            )
             .then(paypalRes => {
               //
-              const { id, status, update_time } = paypalRes.data
+              doc.set({ config: { payment: paypalRes.data } })
 
-              if (
-                id === req.body.orderID &&
-                status === req.body.status &&
-                update_time === req.body.update_time
-              ) {
-                //
-                doc.set({ config: { payment: req.body } })
-                doc
-                  .save()
-                  .then(_doc => {
-                    res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
-                    res.status(200).send(_doc)
-                  })
-                  .catch(err => res.status(400).send(err.errors))
-              } else {
-                res.status(400).send(AppError.CountNotConfirmPayment)
-              }
+              doc
+                .save()
+                .then(_doc => {
+                  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
+                  res.status(200).send(_doc)
+                })
+                .catch(err => res.status(400).send(err.errors))
             })
-            .catch(() => res.status(400).send(AppError.CountNotConfirmPayment))
+            .catch(err => {
+              console.log(err)
+              res.status(400).send(AppError.CountNotConfirmPayment)
+            })
         })
         .catch(err => res.status(400).send(err.errors))
     }

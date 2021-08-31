@@ -85,15 +85,7 @@ const userSchema = new Schema(
         required: true,
         default: false,
       },
-      payment: {
-        orderID: { type: String },
-        status: { type: String },
-        update_time: { type: String },
-        amount: {
-          currency_code: { type: String },
-          value: { type: String },
-        },
-      },
+      payment: {},
     },
   },
   {
