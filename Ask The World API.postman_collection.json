@@ -1380,7 +1380,7 @@
 			]
 		},
 		{
-			"name": "UpdatePayment",
+			"name": "MakePayment",
 			"item": [
 				{
 					"name": "No credentials",
@@ -1403,7 +1403,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{API_URL}}{{userPaymentPath}}",
@@ -1435,7 +1435,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "atw-x-auth-token",
@@ -1485,7 +1485,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "atw-x-auth-token",
@@ -1536,7 +1536,7 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "atw-x-auth-token",
@@ -1586,14 +1586,14 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)"
+									"}, 3000)"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "atw-x-auth-token",
@@ -1609,95 +1609,7 @@
 									"value": "98765",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "javascript"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_URL}}{{userPaymentPath}}",
-							"host": [
-								"{{API_URL}}{{userPaymentPath}}"
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Correct body",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 200', () => {\r",
-									"  pm.response.to.have.status(200)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
-									"    const body = pm.response.json()\r",
-									"    pm.expect(body.username).to.eql('Karmello')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 5000)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "orderID",
-									"value": "8GX01699AW078850T",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "COMPLETED",
-									"type": "text"
-								},
-								{
-									"key": "update_time",
-									"value": "2021-08-30T19:24:37Z",
-									"type": "text"
-								}
-							],
-							"options": {
-								"raw": {
-									"language": "javascript"
-								}
-							}
 						},
 						"url": {
 							"raw": "{{API_URL}}{{userPaymentPath}}",
@@ -1868,7 +1780,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)\r",
+									"}, 3000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1884,6 +1796,56 @@
 									"\r",
 									"pm.test('Should responde with EMAIL_ALREADY_CONFIRMED', () => {\r",
 									"  pm.response.to.have.body('\"EMAIL_ALREADY_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{emailConfirmationToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 302', () => {\r",
+									"    pm.response.to.have.status(302)\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -1985,11 +1947,228 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Deactivation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 301', () => {\r",
+									"  pm.response.to.have.status(301)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "GetActivationLink",
+			"item": [
+				{
+					"name": "No credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should responde with 401\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User does not exist Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetDeactivationLink",
 			"item": [
 				{
 					"name": "No credentials",
@@ -2069,6 +2248,103 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -2089,81 +2365,6 @@
 							""
 						]
 					}
-				}
-			]
-		},
-		{
-			"name": "GetDeactivationLink",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -2305,7 +2506,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)\r",
+									"}, 3000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2339,6 +2540,434 @@
 								"type": "text"
 							}
 						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No question body",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\terrors: {\r",
+									"\t\t\ttext: 'required',\r",
+									"\t\t\tanswers: 'checkAnswers'\r",
+									"\t\t}\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single answer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\terrors: {\r",
+									"\t\t\tanswers: 'checkAnswers'\r",
+									"\t\t}\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\"],\r\n\t\"options\": { \"multipleChoice\": false, \"maxSelectable\": 1 }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong maxSelectable option",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\terrors: {\r",
+									"\t\t\t'options.maxSelectable': 'checkMaxSelectableAnswers'\r",
+									"\t\t}\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\", \"answer2\"],\r\n\t\"options\": { \"multipleChoice\": true, \"maxSelectable\": 1 }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong maxSelectable option",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\terrors: {\r",
+									"\t\t\t'options.maxSelectable': 'checkMaxSelectableAnswers'\r",
+									"\t\t}\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\", \"answer2\"],\r\n\t\"options\": { \"multipleChoice\": false, \"maxSelectable\": 2 }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong maxSelectable option",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper errors', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\terrors: {\r",
+									"\t\t\t'options.maxSelectable': 'checkMaxSelectableAnswers'\r",
+									"\t\t}\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\", \"answer2\"],\r\n\t\"options\": { \"multipleChoice\": true, \"maxSelectable\": 3 }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No options",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 201', () => {\r",
+									"  pm.response.to.have.status(201)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.text).to.eql('this is my new test question which has proper length')\r",
+									"\tpm.expect(body.options).to.eql({\r",
+									"\t\tmultipleChoice: false,\r",
+									"\t\tmaxSelectable: 1\r",
+									"\t})\r",
+									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\"])\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\", \"answer2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fully correct scenario",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 201', () => {\r",
+									"  pm.response.to.have.status(201)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper body', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.text).to.eql('this is my new test question which has proper length')\r",
+									"\tpm.expect(body.options).to.eql({\r",
+									"\t\tmultipleChoice: true,\r",
+									"\t\tmaxSelectable: 3\r",
+									"\t})\r",
+									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\", \"answer3\"])\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"text\": \"this is my new test question which has proper length\",\r\n\t\"answers\": [\"answer1\", \"answer2\", \"answer3\"],\r\n\t\"options\": { \"multipleChoice\": true, \"maxSelectable\": 3 }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{API_URL}}{{questionPath}}",
 							"host": [
@@ -2704,7 +3333,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)\r",
+									"}, 3000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3157,7 +3786,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)"
+									"}, 3000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3348,7 +3977,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)"
+									"}, 3000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3530,7 +4159,7 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.activateUser(pm)\r",
-									"}, 5000)"
+									"}, 3000)"
 								],
 								"type": "text/javascript"
 							}
@@ -3671,8 +4300,37 @@
 					"        'atw-x-auth-token': pm.environment.get('emailConfirmationToken'),",
 					"      },",
 					"\t\t})",
+					"\t},",
+					"\tauthenticateFullUser: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userAuthenticatePath'),",
+					"      method: 'POST',",
+					"\t\t\theader: {",
+					"        'Accept': 'application/json',",
+					"        'Content-Type': 'application/x-www-form-urlencoded',",
+					"      },",
+					"      body: {",
+					"          mode: 'urlencoded',",
+					"          urlencoded: [",
+					"            { key: 'username', value: 'Mj23' },",
+					"            { key: 'password', value: 'cocacola100' },",
+					"        ]",
+					"      }",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set('authToken', res.headers.get('atw-x-auth-token'))",
+					"\t\t\tpm.environment.set('userId', res.json()._id)",
+					"\t\t})",
+					"\t},",
+					"\tresetLocalVars: (pm) => {",
+					"\t\tpm.environment.set('authToken', '')",
+					"\t\tpm.environment.set('userId', '')",
+					"\t\tpm.environment.set('authToken2', '')",
+					"\t\tpm.environment.set('userId2', '')",
+					"\t\tpm.environment.set('emailConfirmationToken', '')",
 					"\t}",
 					"}",
+					"",
+					"Utils.resetLocalVars(pm)",
 					""
 				]
 			}
