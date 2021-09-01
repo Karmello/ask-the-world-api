@@ -20,8 +20,6 @@ export default (app: Application) =>
     verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
-      console.log(req.body)
-
       const creatorId = req.decoded._id
       const { text, answers, options } = req.body
 
