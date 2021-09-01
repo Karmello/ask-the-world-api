@@ -27,7 +27,7 @@ export default (app: Application) =>
       UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppError.NoSuchUserError)
+          if (!doc) return res.status(404).send(AppError.NoSuchUser)
           doc.comparePasswords(currentPassword, (err, isMatch) => {
             if (err || !isMatch) {
               respondWithIncorrectPassword(res)

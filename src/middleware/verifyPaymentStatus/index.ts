@@ -8,7 +8,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   UserModel.findOne({ _id: req.decoded._id })
     .then((user: IUser) => {
       //
-      if (!user) return res.status(404).send(AppError.NoSuchUserError)
+      if (!user) return res.status(404).send(AppError.NoSuchUser)
 
       if (!user.config.payment || user.config.payment.status !== 'COMPLETED') {
         return res.status(403).send(AppError.NotFullAccount)

@@ -18,7 +18,7 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppError.NoSuchUserError)
+          if (!doc) return res.status(404).send(AppError.NoSuchUser)
           if (doc.config.confirmed) return res.status(403).send(AppError.EmailAlreadyConfirmed)
           doc.set({ config: { confirmed: true } })
           doc

@@ -33,7 +33,7 @@ export default (app: Application) =>
               err => res.status(400).send(err)
             )
           } else {
-            res.status(404).send(AppError.NoSuchUserError)
+            res.status(404).send(AppError.NoSuchUser)
           }
         })
         .catch(err => res.status(400).send(err))

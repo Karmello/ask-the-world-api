@@ -20,7 +20,7 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) res.status(404).send(AppError.NoSuchUserError)
+          if (!doc) res.status(404).send(AppError.NoSuchUser)
           doc.set({ username, dateOfBirth, country, sex })
           doc
             .save()

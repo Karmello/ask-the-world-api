@@ -26,7 +26,7 @@ export default (app: Application) =>
           if (user) {
             res.status(200).send({ count, user })
           } else {
-            res.status(404).send(AppError.NoSuchUserError)
+            res.status(404).send(AppError.NoSuchUser)
           }
         })
         .catch(err => res.status(400).send(err))

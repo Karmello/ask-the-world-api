@@ -26,7 +26,7 @@ export default (app: Application) =>
         .exec()
         .then((doc: IUserDoc) => {
           //
-          if (!doc) return res.status(404).send(AppError.NoSuchUserError)
+          if (!doc) return res.status(404).send(AppError.NoSuchUser)
 
           axios
             .post(

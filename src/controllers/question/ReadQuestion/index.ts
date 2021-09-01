@@ -17,7 +17,7 @@ export default (app: Application) =>
     QuestionModel.findOne({ _id: questionId })
       .then((question: IQuestionDoc) => {
         //
-        if (!question) return res.status(400).send(AppError.NoSuchQuestionError)
+        if (!question) return res.status(400).send(AppError.NoSuchQuestion)
 
         if (!requestorId) {
           return res.status(200).send({
