@@ -6,270 +6,27 @@
 	},
 	"item": [
 		{
-			"name": "AuthenticateUser",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userAuthenticatePath}}",
-							"host": [
-								"{{API_URL}}{{userAuthenticatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userAuthenticatePath}}",
-							"host": [
-								"{{API_URL}}{{userAuthenticatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad login and password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "Karmello",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "cocacola100",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{API_URL}}{{userAuthenticatePath}}",
-							"host": [
-								"{{API_URL}}{{userAuthenticatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Good token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 200', () => {\r",
-									"    pm.response.to.have.status(200)\r",
-									"});\r",
-									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
-									"    const body = pm.response.json()\r",
-									"    pm.expect(body.email).to.eql('username@email.com')\r",
-									"\t\tpm.expect(body.username).to.eql('Karmello')\r",
-									"\t\tpm.expect(body.password).to.be.undefined\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{API_URL}}{{userAuthenticatePath}}",
-							"host": [
-								"{{API_URL}}{{userAuthenticatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Good login and password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 200\", () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with proper body\", () => {\r",
-									"    const body = pm.response.json()\r",
-									"    pm.expect(body.country).to.eql(\"PL\")\r",
-									"\t\tpm.expect(body.password).to.be.undefined\r",
-									"});\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "Karmello",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "cocacola100",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{API_URL}}{{userAuthenticatePath}}",
-							"host": [
-								"{{API_URL}}{{userAuthenticatePath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "RegisterUser",
 			"item": [
 				{
-					"name": "No body",
+					"name": "Registering with no user details",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
 									"pm.test('Should responde with 400', () => {\r",
-									"    pm.response.to.have.status(400)\r",
+									"\tpm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
-									"    const body = pm.response.json()\r",
-									"\t\tpm.expect(body.email.kind).to.eql('required')\r",
-									"\t\tpm.expect(body.username.kind).to.eql('required')\r",
-									"\t\tpm.expect(body.password.kind).to.eql('required')\r",
-									"\t\tpm.expect(body.dateOfBirth.kind).to.eql('required')\r",
-									"\t\tpm.expect(body.country.kind).to.eql('required')\r",
-									"\t\tpm.expect(body.sex.kind).to.eql('required')\r",
+									"pm.test('Should responde with required error for all fields', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.email.kind).to.eql('required')\r",
+									"\tpm.expect(body.username.kind).to.eql('required')\r",
+									"\tpm.expect(body.password.kind).to.eql('required')\r",
+									"\tpm.expect(body.dateOfBirth.kind).to.eql('required')\r",
+									"\tpm.expect(body.country.kind).to.eql('required')\r",
+									"\tpm.expect(body.sex.kind).to.eql('required')\r",
 									"})\r",
 									""
 								],
@@ -290,23 +47,23 @@
 					"response": []
 				},
 				{
-					"name": "Duplicates in body",
+					"name": "Registering already taken email and username",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"\tpm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with unique errors for email and username', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.email.kind).to.eql('unique')\r",
+									"\tpm.expect(body.username.kind).to.eql('unique')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with proper errors\", function () {\r",
-									"    const body = pm.response.json()\r",
-									"\t\tpm.expect(body.email.kind).to.eql('unique')\r",
-									"\t\tpm.expect(body.username.kind).to.eql('unique')\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -371,22 +128,37 @@
 					"response": []
 				},
 				{
-					"name": "Valid body",
+					"name": "Correct registration",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
+									"pm.test('Should responde with 201', () => {\r",
+									"  pm.response.to.have.status(201)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with proper body\", function () {\r",
-									"    const body = pm.response.json()\r",
-									"    pm.expect(body.username).to.eql(\"Karmello\")\r",
-									"});\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.country).to.eql('PL')\r",
+									"\tpm.expect(body.sex).to.eql('M')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not have email confirmed', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.config.confirmed).to.be.false\r",
+									"})\r",
 									"\r",
 									"pm.environment.set('authToken', pm.response.headers.get('atw-x-auth-token'))\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
 									""
 								],
@@ -447,22 +219,687 @@
 			]
 		},
 		{
-			"name": "ReadUser",
+			"name": "AuthenticateUser",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Authenticating with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticating with bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticating with bad login and password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticating with valid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"\tpm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.country).to.eql('PL')\r",
+									"\tpm.expect(body.sex).to.eql('M')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticating with valid username and password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"\tpm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.country).to.eql('PL')\r",
+									"\tpm.expect(body.sex).to.eql('M')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Karmello",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "cocacola100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}{{userAuthenticatePath}}",
+							"host": [
+								"{{API_URL}}{{userAuthenticatePath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetActivationLink",
+			"item": [
+				{
+					"name": "Requesting activation link with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting activation link with bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting activation link for deleted user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid activation link request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userActivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActivateUser",
+			"item": [
+				{
+					"name": "Confirming email with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirming email with bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirming email with auth token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"    pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Second time email confirmation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"\r",
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"    pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_ALREADY_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_ALREADY_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{emailConfirmationToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful  email confirmation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 302', () => {\r",
+									"    pm.response.to.have.status(302)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{emailConfirmationToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userActivatePath}}",
+							"host": [
+								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadUser",
+			"item": [
+				{
+					"name": "Requesting user data with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -482,19 +919,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Requesting user data with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -520,7 +957,7 @@
 					"response": []
 				},
 				{
-					"name": "User does not exist",
+					"name": "Requesting user data for deleted user",
 					"event": [
 						{
 							"listen": "test",
@@ -530,8 +967,8 @@
 									"  pm.response.to.have.status(404)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
 									"})\r",
 									""
 								],
@@ -578,7 +1015,7 @@
 					"response": []
 				},
 				{
-					"name": "User exists",
+					"name": "Successful user data request",
 					"event": [
 						{
 							"listen": "test",
@@ -588,10 +1025,20 @@
 									"  pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.count.questions).to.eql(0)\r",
 									"\tpm.expect(body.user.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.user.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.user.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.user.country).to.eql('PL')\r",
+									"\tpm.expect(body.user.sex).to.eql('M')\r",
+									"\tpm.expect(body.user.dateOfBirth).to.eql('1984-09-24')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -641,19 +1088,19 @@
 			"name": "UpdateUser",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Updating user details with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -673,19 +1120,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Updating user details with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -711,7 +1158,7 @@
 					"response": []
 				},
 				{
-					"name": "User does not exist",
+					"name": "Updating user details for deleted user",
 					"event": [
 						{
 							"listen": "test",
@@ -721,8 +1168,8 @@
 									"  pm.response.to.have.status(404)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
 									"})\r",
 									""
 								],
@@ -769,7 +1216,7 @@
 					"response": []
 				},
 				{
-					"name": "No body",
+					"name": "Updating user details with no payload",
 					"event": [
 						{
 							"listen": "test",
@@ -779,7 +1226,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with required errors', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.username.kind).to.eql('required')\r",
 									"\tpm.expect(body.dateOfBirth.kind).to.eql('required')\r",
@@ -833,7 +1280,7 @@
 					"response": []
 				},
 				{
-					"name": "Duplicate username",
+					"name": "Updating user details with duplicate username",
 					"event": [
 						{
 							"listen": "test",
@@ -843,7 +1290,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with unique error for username', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.username.kind).to.eql('unique')\r",
 									"})\r",
@@ -917,7 +1364,7 @@
 					"response": []
 				},
 				{
-					"name": "Correct update",
+					"name": "Successful user details update",
 					"event": [
 						{
 							"listen": "test",
@@ -927,12 +1374,18 @@
 									"  pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.email).to.eql('username@email.com')\r",
 									"\tpm.expect(body.username).to.eql('UpdatedUsername')\r",
 									"\tpm.expect(body.country).to.eql('GB')\r",
 									"\tpm.expect(body.sex).to.eql('F')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1980-05-01')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -1027,19 +1480,19 @@
 			"name": "UpdatePassword",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Changing password with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1059,19 +1512,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Changing password with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1097,7 +1550,7 @@
 					"response": []
 				},
 				{
-					"name": "User does not exist",
+					"name": "Changing password for deleted user",
 					"event": [
 						{
 							"listen": "test",
@@ -1107,8 +1560,8 @@
 									"  pm.response.to.have.status(404)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
 									"})\r",
 									""
 								],
@@ -1149,7 +1602,7 @@
 					"response": []
 				},
 				{
-					"name": "No body",
+					"name": "Changing password with no payload",
 					"event": [
 						{
 							"listen": "test",
@@ -1157,6 +1610,15 @@
 								"exec": [
 									"pm.test('Should responde with 400', () => {\r",
 									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with error for currentPassword', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\t\"currentPassword\": {\r",
+									"\t\t\t\"message\": \"Incorrect password\"\r",
+									"\t\t}\r",
+									"\t})\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -1205,7 +1667,7 @@
 					"response": []
 				},
 				{
-					"name": "Incorrect current password",
+					"name": "Changing password with incorrect current one",
 					"event": [
 						{
 							"listen": "test",
@@ -1213,6 +1675,15 @@
 								"exec": [
 									"pm.test('Should responde with 400', () => {\r",
 									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with error for currentPassword', () => {\r",
+									"\tconst body = pm.response.json()\r",
+									"\tpm.expect(body).to.eql({\r",
+									"\t\t\"currentPassword\": {\r",
+									"\t\t\t\"message\": \"Incorrect password\"\r",
+									"\t\t}\r",
+									"\t})\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -1251,7 +1722,7 @@
 					"response": []
 				},
 				{
-					"name": "No new password",
+					"name": "Changing password with no new one",
 					"event": [
 						{
 							"listen": "test",
@@ -1261,7 +1732,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with error for password', () => {\r",
 									"\tconst body = pm.response.json()\r",
 									"  pm.expect(body.password.kind).to.eql('required')\r",
 									"})\r",
@@ -1312,7 +1783,7 @@
 					"response": []
 				},
 				{
-					"name": "Correct update",
+					"name": "Successful password change",
 					"event": [
 						{
 							"listen": "test",
@@ -1322,9 +1793,18 @@
 									"  pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
+									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.country).to.eql('PL')\r",
+									"\tpm.expect(body.sex).to.eql('M')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not expose password', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
@@ -1383,19 +1863,19 @@
 			"name": "MakePayment",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Making payment with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1415,19 +1895,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Making payment with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1453,21 +1933,21 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Making payment when email not confirmed",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1503,7 +1983,7 @@
 					"response": []
 				},
 				{
-					"name": "User does not exist",
+					"name": "Making payment for deleted user",
 					"event": [
 						{
 							"listen": "test",
@@ -1513,9 +1993,10 @@
 									"  pm.response.to.have.status(404)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
-									"})"
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
+									"})\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1554,7 +2035,7 @@
 					"response": []
 				},
 				{
-					"name": "Bad orderID",
+					"name": "Making payment with bad orderID",
 					"event": [
 						{
 							"listen": "test",
@@ -1564,7 +2045,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with COULD_NOT_CONFIRM_PAYMENT', () => {\r",
+									"pm.test('Should responde with COULD_NOT_CONFIRM_PAYMENT error', () => {\r",
 									"  pm.response.to.have.body('\"COULD_NOT_CONFIRM_PAYMENT\"')\r",
 									"})\r",
 									"\r",
@@ -1643,22 +2124,22 @@
 			]
 		},
 		{
-			"name": "ActivateUser",
+			"name": "GetDeactivationLink",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Requesting deactivation link with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1669,60 +2150,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
 							"host": [
-								"{{API_URL}}{{userActivatePath}}"
+								"{{API_URL}}{{userDeactivationLinkPath}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
-							"host": [
-								"{{API_URL}}{{userActivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Not email confirmation token",
+					"name": "Requesting deactivation link with bad token",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1733,498 +2175,12 @@
 							"script": {
 								"exec": [
 									"pm.test('Should responde with 401', () => {\r",
-									"    pm.response.to.have.status(401)\r",
+									"  pm.response.to.have.status(401)\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
 									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
 									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
-							"host": [
-								"{{API_URL}}{{userActivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Already activated",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"    pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with EMAIL_ALREADY_CONFIRMED', () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_ALREADY_CONFIRMED\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{emailConfirmationToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
-							"host": [
-								"{{API_URL}}{{userActivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Activation",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 302', () => {\r",
-									"    pm.response.to.have.status(302)\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{emailConfirmationToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivatePath}}",
-							"host": [
-								"{{API_URL}}{{userActivatePath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "DeactivateUser",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deactivation",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 301', () => {\r",
-									"  pm.response.to.have.status(301)\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "GetActivationLink",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "User does not exist Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 404', () => {\r",
-									"  pm.response.to.have.status(404)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
-									"}, 1000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Success",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 200', () => {\r",
-									"  pm.response.to.have.status(200)\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userActivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userActivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "GetDeactivationLink",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2250,7 +2206,7 @@
 					"response": []
 				},
 				{
-					"name": "User does not exist",
+					"name": "Requesting deactivation link for deleted user",
 					"event": [
 						{
 							"listen": "test",
@@ -2260,8 +2216,8 @@
 									"  pm.response.to.have.status(404)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with NO_SUCH_USER_ERROR', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER_ERROR\"')\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
 									"})"
 								],
 								"type": "text/javascript"
@@ -2301,7 +2257,7 @@
 					"response": []
 				},
 				{
-					"name": "Success",
+					"name": "Valid deactivation link request",
 					"event": [
 						{
 							"listen": "test",
@@ -2369,22 +2325,141 @@
 			]
 		},
 		{
-			"name": "CreateQuestion",
+			"name": "DeactivateUser",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Removing account with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Removing account with bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful account removal",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 301', () => {\r",
+									"  pm.response.to.have.status(301)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateQuestion",
+			"item": [
+				{
+					"name": "Creating question with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2404,19 +2479,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Creating question with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2442,7 +2517,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Creating question when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2458,15 +2533,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2492,7 +2567,7 @@
 					"response": []
 				},
 				{
-					"name": "Payment not done",
+					"name": "Creating question when payment not done",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2502,11 +2577,11 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
 									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)\r",
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2516,15 +2591,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2550,7 +2625,7 @@
 					"response": []
 				},
 				{
-					"name": "No question body",
+					"name": "Creating question with no payload",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2570,7 +2645,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with errors for text and answers', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\terrors: {\r",
@@ -2604,7 +2679,7 @@
 					"response": []
 				},
 				{
-					"name": "Single answer",
+					"name": "Creating question with a single answer",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2624,7 +2699,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with errors for answers', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\terrors: {\r",
@@ -2666,7 +2741,7 @@
 					"response": []
 				},
 				{
-					"name": "Wrong maxSelectable option",
+					"name": "Creating question with wrong maxSelectable value",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2686,7 +2761,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with errors for maxSelectable', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\terrors: {\r",
@@ -2728,7 +2803,7 @@
 					"response": []
 				},
 				{
-					"name": "Wrong maxSelectable option",
+					"name": "Creating question with wrong maxSelectable value",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2748,7 +2823,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with errors for maxSelectable', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\terrors: {\r",
@@ -2790,7 +2865,7 @@
 					"response": []
 				},
 				{
-					"name": "Wrong maxSelectable option",
+					"name": "Creating question with wrong maxSelectable value",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2810,7 +2885,7 @@
 									"  pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper errors', () => {\r",
+									"pm.test('Should responde with errors for maxSelectable', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\terrors: {\r",
@@ -2852,7 +2927,7 @@
 					"response": []
 				},
 				{
-					"name": "No options",
+					"name": "Creating question with no options in payload",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2872,14 +2947,14 @@
 									"  pm.response.to.have.status(201)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
+									"pm.test('Should responde with proper Question doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.text).to.eql('this is my new test question which has proper length')\r",
+									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\"])\r",
 									"\tpm.expect(body.options).to.eql({\r",
 									"\t\tmultipleChoice: false,\r",
 									"\t\tmaxSelectable: 1\r",
 									"\t})\r",
-									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\"])\r",
 									"})\r",
 									""
 								],
@@ -2915,7 +2990,7 @@
 					"response": []
 				},
 				{
-					"name": "Fully correct scenario",
+					"name": "Successful question creation",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2935,14 +3010,14 @@
 									"  pm.response.to.have.status(201)\r",
 									"})\r",
 									"\r",
-									"pm.test('Should responde with proper body', () => {\r",
+									"pm.test('Should responde with proper Question doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.text).to.eql('this is my new test question which has proper length')\r",
+									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\", \"answer3\"])\r",
 									"\tpm.expect(body.options).to.eql({\r",
 									"\t\tmultipleChoice: true,\r",
 									"\t\tmaxSelectable: 3\r",
 									"\t})\r",
-									"\tpm.expect(body.answers).to.eql([\"answer1\", \"answer2\", \"answer3\"])\r",
 									"})\r",
 									""
 								],
@@ -2980,14 +3055,95 @@
 			]
 		},
 		{
-			"name": "ReadQuestion",
-			"item": []
-		},
-		{
-			"name": "ReadQuestions",
+			"name": "DeleteQuestion",
 			"item": [
 				{
-					"name": "Another user's answered questions",
+					"name": "Deleting question with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question with bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "atw-x-auth-token",
+									"value": "abcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3003,13 +3159,433 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
-									"});\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question when payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getActivationLink(pm)\r",
+									"\r",
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadQuestion",
+			"item": [
+				{
+					"name": "Requesting question without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_QUESTION error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_QUESTION\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting non existing question",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 400', () => {\r",
+									"  pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_QUESTION error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_QUESTION\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?_id=123412341234123412341234",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "123412341234123412341234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting question when not authenticated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper questions count', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.count).to.eql(1)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper Question doc', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].creatorId).to.eql('5eeb976152c1dc555c2d676c')\r",
+									"\tpm.expect(body.data[0].options).to.eql({\r",
+									"\t\tmultipleChoice: false,\r",
+									"\t\tmaxSelectable: 1\r",
+									"\t})\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not include voting and isFollowedByRequestor', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.undefined\r",
+									"\tpm.expect(body.data[0].voting).to.be.undefined\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.createQuestion(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?_id={{questionId}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{questionId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting question when authenticated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper questions count', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.count).to.eql(1)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper Question doc', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].creatorId).to.eql('5eeb976152c1dc555c2d676c')\r",
+									"\tpm.expect(body.data[0].options).to.eql({\r",
+									"\t\tmultipleChoice: false,\r",
+									"\t\tmaxSelectable: 1\r",
+									"\t})\r",
+									"})\r",
+									"\r",
+									"pm.test('Should include isFollowedByRequestor', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.false\r",
+									"})\r",
+									"\r",
+									"pm.test('Should not include voting', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].voting).to.be.undefined\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.createQuestion(pm)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?_id={{questionId}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{questionId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting question that has answer when authenticated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper questions count', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.count).to.eql(1)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper Question doc', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].creatorId).to.eql('5eeb976152c1dc555c2d676c')\r",
+									"\tpm.expect(body.data[0].options).to.eql({\r",
+									"\t\t\"multipleChoice\": false,\r",
+									"\t\t\"maxSelectable\": 1\r",
+									"\t})\r",
+									"})\r",
+									"\r",
+									"pm.test('Should include voting and isFollowedByRequestor', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.false\r",
+									"\tpm.expect(body.data[0].voting).to.eql({\r",
+									"\t\t\"all\": {\r",
+									"\t\t\t\"0\": 1,\r",
+									"\t\t\t\"1\": 0\r",
+									"\t\t},\r",
+									"\t\t\"requestor\": [\r",
+									"\t\t\t0\r",
+									"\t\t]\r",
+									"\t})\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.authenticateFullUser(pm)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.createQuestion(pm)\r",
+									"\r",
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.createAnswer(pm)\r",
+									"\t}, 1000)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?_id={{questionId}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "{{questionId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReadQuestions",
+			"item": [
+				{
+					"name": "Requesting another user's answered questions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
+									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
 									""
@@ -3051,7 +3627,7 @@
 					"response": []
 				},
 				{
-					"name": "Another user's not answered questions",
+					"name": "Requesting another user's not answered questions",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3067,13 +3643,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
-									"});\r",
+									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
+									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
 									""
@@ -3115,7 +3691,7 @@
 					"response": []
 				},
 				{
-					"name": "Another user's followed questions",
+					"name": "Requesting another user's followed questions",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3131,13 +3707,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with ILLEGAL_ACTION\", () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"');\r",
-									"});\r",
+									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
+									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
+									"})\r",
 									"\r",
 									"Utils.deleteUser(pm)\r",
 									""
@@ -3181,220 +3757,22 @@
 			]
 		},
 		{
-			"name": "DeleteQuestion",
-			"item": [
-				{
-					"name": "No credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bad token",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							],
-							"query": [
-								{
-									"key": "atw-x-auth-token",
-									"value": "abcd"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Email not confirmed",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Payment not done",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "CreateAnswer",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Create answer with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3414,19 +3792,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Creating answer with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3452,7 +3830,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Creating answer when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3468,15 +3846,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3527,19 +3905,19 @@
 			"name": "UpdateAnswer",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Reanswering with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3559,19 +3937,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Reanswering with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3597,7 +3975,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Reanswering when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3613,15 +3991,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3652,19 +4030,19 @@
 			"name": "CreateFollow",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Following question with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3684,19 +4062,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Following question with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3722,7 +4100,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Followin question when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3738,15 +4116,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3772,7 +4150,7 @@
 					"response": []
 				},
 				{
-					"name": "Payment not done",
+					"name": "Following question when payment not done",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3782,11 +4160,12 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
 									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)"
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3795,15 +4174,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3834,19 +4213,19 @@
 			"name": "DeleteFollow",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Unfollowing question with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3866,7 +4245,7 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Unfollowing question with bad token",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3881,13 +4260,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3913,7 +4292,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Unfollowing question when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3929,15 +4308,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3963,7 +4342,7 @@
 					"response": []
 				},
 				{
-					"name": "Payment not done",
+					"name": "Unfollowing question when payment not done",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3973,11 +4352,12 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
 									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)"
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3986,15 +4366,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4025,19 +4405,19 @@
 			"name": "CreateReport",
 			"item": [
 				{
-					"name": "No credentials",
+					"name": "Reporting question with no credentials",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Should responde with NO_CREDENTIALS_PROVIDED\", () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"');\r",
-									"});\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4057,19 +4437,19 @@
 					"response": []
 				},
 				{
-					"name": "Bad token",
+					"name": "Reporting question with bad token",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Should responde with 401\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
-									"});\r",
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
 									"\r",
-									"pm.test(\"Should responde with AUTHENTICATION_FAILED\", () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"');\r",
-									"});\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4095,7 +4475,7 @@
 					"response": []
 				},
 				{
-					"name": "Email not confirmed",
+					"name": "Reporting question when email not confirmed",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -4111,15 +4491,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with EMAIL_NOT_CONFIRMED\", () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4145,7 +4525,7 @@
 					"response": []
 				},
 				{
-					"name": "Payment not done",
+					"name": "Reporting question when payment not done",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -4155,11 +4535,12 @@
 									"\r",
 									"setTimeout(() => {\r",
 									"\tUtils.getActivationLink(pm)\r",
-									"}, 1000)\r",
 									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)"
+									"\tsetTimeout(() => {\r",
+									"\t\tUtils.activateUser(pm)\r",
+									"\t}, 2000)\r",
+									"}, 1000)\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -4168,15 +4549,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
 									"Utils.deleteUser(pm)\r",
-									"\r",
-									"pm.test(\"Should responde with 403\", () => {\r",
-									"  pm.response.to.have.status(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Should responde with NOT_FULL_ACCOUNT\", () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4205,7 +4586,43 @@
 		},
 		{
 			"name": "ReadStats",
-			"item": []
+			"item": [
+				{
+					"name": "Requesting statistics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with proper statistics object', () => {\r",
+									"  const body = pm.response.json()\r",
+									"\tpm.expect(typeof body.count.users).to.eql('number')\r",
+									"\tpm.expect(typeof body.count.questions).to.eql('number')\r",
+									"\tpm.expect(typeof body.count.answers).to.eql('number')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{statsPath}}",
+							"host": [
+								"{{API_URL}}{{statsPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -4321,12 +4738,45 @@
 					"\t\t\tpm.environment.set('userId', res.json()._id)",
 					"\t\t})",
 					"\t},",
+					"\tcreateQuestion: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get('API_URL') + pm.variables.get('questionPath'), ",
+					"      method: 'POST',",
+					"      header: {",
+					"        'Accept': 'application/json',",
+					"        'Content-Type': 'application/x-www-form-urlencoded',",
+					"\t\t\t\t'atw-x-auth-token': pm.environment.get('authToken'),",
+					"      },",
+					"      body: {",
+					"          mode: 'urlencoded',",
+					"          urlencoded: [",
+					"            { key: 'text', value: 'Who is going to be a new president of the United States ?' },",
+					"            { key: 'answers', value: ['Donald Trump', 'Joe Biden'] },",
+					"        ]",
+					"      }",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set('questionId', res.json()._id)",
+					"\t\t})",
+					"\t},",
+					"\tcreateAnswer: (pm) => {",
+					"\t\tpm.sendRequest({",
+					"      url: pm.environment.get('API_URL') + pm.variables.get('answerPath') + '?questionId=' + pm.environment.get('questionId'),",
+					"      method: 'POST',",
+					"      header: {",
+					"        'Accept': 'application/json',",
+					"        'Content-Type': 'application/json',",
+					"\t\t\t\t'atw-x-auth-token': pm.environment.get('authToken'),",
+					"      },",
+					"      body: JSON.stringify([0])",
+					"\t\t})",
+					"\t},",
 					"\tresetLocalVars: (pm) => {",
 					"\t\tpm.environment.set('authToken', '')",
 					"\t\tpm.environment.set('userId', '')",
 					"\t\tpm.environment.set('authToken2', '')",
 					"\t\tpm.environment.set('userId2', '')",
 					"\t\tpm.environment.set('emailConfirmationToken', '')",
+					"\t\tpm.environment.set('questionId', '')",
 					"\t}",
 					"}",
 					"",
