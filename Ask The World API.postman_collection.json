@@ -4632,7 +4632,7 @@
 				"type": "text/javascript",
 				"exec": [
 					"Utils = {",
-					"\tregisterUser: (pm) => {",
+					"  registerUser: (pm) => {",
 					"\t\tpm.sendRequest({",
 					"      url: pm.environment.get('API_URL') + pm.variables.get('userPath'), ",
 					"      method: 'POST',",
