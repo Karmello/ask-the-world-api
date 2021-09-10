@@ -6,11 +6,9 @@ enum AppError {
   NotFullAccount = 'NOT_FULL_ACCOUNT',
   IllegalAction = 'ILLEGAL_ACTION',
   SomethingWentWrong = 'SOMETHING_WENT_WRONG',
-  SessionExpired = 'SESSION_EXPIRED',
   NoSuchUser = 'NO_SUCH_USER',
   NoSuchQuestion = 'NO_SUCH_QUESTION',
   AlreadyFollowing = 'ALREADY_FOLLOWING',
-  CountNotVerifyToken = 'COULD_NOT_VERIFY_TOKEN',
   CountNotConfirmPayment = 'COULD_NOT_CONFIRM_PAYMENT',
 }
 
