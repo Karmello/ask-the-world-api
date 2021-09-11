@@ -150,7 +150,7 @@ const basicUsers = [
 
 const defaultUsers = (() => {
   const arr = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 0; i++) {
     arr.push({
       _id: new mongoose.Types.ObjectId(),
       email: `user_${i + 1}@mail.com`,
