@@ -24,15 +24,18 @@ export default (app: Application) =>
             const link =
               process.env.APP_URL + '/api' + ApiUrlPath.UserDeactivate + `?${X_AUTH_TOKEN}=` + token
 
+            if (process.env.APP_ENV === Env.Test) {
+              res.setHeader(X_AUTH_TOKEN, token)
+              return res.status(200).send()
+            }
+
             sendMail({
               to: doc.email,
               subject: dict.accountDeactivationLink,
               link,
             }).then(
               () => {
-                if ([Env.Local, Env.Test].includes(process.env.APP_ENV as Env)) {
-                  res.setHeader(X_AUTH_TOKEN, token)
-                }
+                if (process.env.APP_ENV === Env.Local) res.setHeader(X_AUTH_TOKEN, token)
                 res.status(200).send()
               },
               err => res.status(400).send(err)
