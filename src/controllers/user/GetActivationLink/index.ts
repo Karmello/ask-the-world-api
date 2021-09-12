@@ -30,10 +30,7 @@ export default (app: Application) =>
               link,
             }).then(
               () => res.status(200).send(process.env.APP_ENV === Env.Local ? token : undefined),
-              err => {
-                console.log(err)
-                res.status(400).send(err)
-              }
+              err => res.status(400).send(err)
             )
           } else {
             res.status(404).send(AppError.NoSuchUser)

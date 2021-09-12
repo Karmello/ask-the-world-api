@@ -31,20 +31,6 @@ export default (app: Application) =>
     const limit = READ_QUESTIONS_MAX
     const match = {} as { text: {} }
 
-    const groupQuestionIds = {
-      $group: {
-        _id: null,
-        questionIds: { $addToSet: '$questionId' },
-      },
-    }
-
-    const finalPipeline = {
-      $facet: {
-        meta: [{ $count: 'count' }],
-        docs: [{ $sort: { createdAt: 1 } }, { $skip: Number(skip) }, { $limit: Number(limit) }],
-      },
-    }
-
     if (keywords) {
       if (keywordsMode === Filter.All) {
         match.text = {
@@ -60,28 +46,56 @@ export default (app: Application) =>
 
     switch (filter) {
       case Filter.All:
-        QuestionModel.aggregate([{ $match: { ...match } }, finalPipeline]).then(
-          endWithSuccess,
-          endWithError
-        )
+        QuestionModel.aggregate([
+          { $match: { ...match } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [
+                { $sort: { createdAt: -1 } },
+                { $skip: Number(skip) },
+                { $limit: Number(limit) },
+              ],
+            },
+          },
+        ]).then(endWithSuccess, endWithError)
         break
       case Filter.Created:
         QuestionModel.aggregate([
           { $match: { creatorId: ObjectId(userId), ...match } },
-          finalPipeline,
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [
+                { $sort: { createdAt: -1 } },
+                { $skip: Number(skip) },
+                { $limit: Number(limit) },
+              ],
+            },
+          },
         ]).then(endWithSuccess, endWithError)
         break
       case Filter.Followed:
         FollowModel.aggregate([
           { $match: { followerId: ObjectId(req.decoded?._id) } },
-          groupQuestionIds,
+          { $sort: { followedAt: -1 } },
         ]).then(results => {
           if (results.length === 0) {
             endWithSuccess(results)
           } else {
+            const ids = []
+            results.forEach(({ questionId }) => ids.push(questionId))
             QuestionModel.aggregate([
-              { $match: { _id: { $in: results[0].questionIds, ...match } } },
-              finalPipeline,
+              { $match: { _id: { $in: ids, ...match } } },
+              { $addFields: { __order: { $indexOfArray: [ids, '$_id'] } } },
+              { $sort: { __order: 1 } },
+              { $unset: '__order' },
+              {
+                $facet: {
+                  meta: [{ $count: 'count' }],
+                  docs: [{ $skip: Number(skip) }, { $limit: Number(limit) }],
+                },
+              },
             ]).then(endWithSuccess, endWithError)
           }
         }, endWithError)
@@ -89,14 +103,24 @@ export default (app: Application) =>
       case Filter.Answered:
         AnswerModel.aggregate([
           { $match: { answererId: ObjectId(req.decoded?._id) } },
-          groupQuestionIds,
+          { $sort: { answeredAt: -1 } },
         ]).then(results => {
           if (results.length === 0) {
             endWithSuccess(results)
           } else {
+            const ids = []
+            results.forEach(({ questionId }) => ids.push(questionId))
             QuestionModel.aggregate([
-              { $match: { _id: { $in: results[0].questionIds }, ...match } },
-              finalPipeline,
+              { $match: { _id: { $in: ids }, ...match } },
+              { $addFields: { __order: { $indexOfArray: [ids, '$_id'] } } },
+              { $sort: { __order: 1 } },
+              { $unset: '__order' },
+              {
+                $facet: {
+                  meta: [{ $count: 'count' }],
+                  docs: [{ $skip: Number(skip) }, { $limit: Number(limit) }],
+                },
+              },
             ]).then(endWithSuccess, endWithError)
           }
         }, endWithError)
@@ -104,12 +128,26 @@ export default (app: Application) =>
       case Filter.NotAnswered:
         AnswerModel.aggregate([
           { $match: { answererId: ObjectId(req.decoded?._id) } },
-          groupQuestionIds,
+          {
+            $group: {
+              _id: null,
+              questionIds: { $addToSet: '$questionId' },
+            },
+          },
         ]).then(results => {
           const questionIds = get(results[0], 'questionIds', [])
           QuestionModel.aggregate([
             { $match: { _id: { $nin: questionIds }, ...match } },
-            finalPipeline,
+            {
+              $facet: {
+                meta: [{ $count: 'count' }],
+                docs: [
+                  { $sort: { createdAt: -1 } },
+                  { $skip: Number(skip) },
+                  { $limit: Number(limit) },
+                ],
+              },
+            },
           ]).then(endWithSuccess, endWithError)
         }, endWithError)
         break

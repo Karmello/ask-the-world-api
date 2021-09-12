@@ -20,11 +20,12 @@ export default (req: Request, res: Response, next: NextFunction) => {
   jwt.verify(
     token,
     process.env.AUTH_SECRET,
-    (err, decoded: { _id: string; emailConfirmation?: boolean }) => {
+    (err, decoded: { _id: string; isMailToken?: boolean }) => {
       if (
         err ||
         !decoded ||
-        (req.route.path === ApiUrlPath.UserActivate && !decoded.emailConfirmation)
+        ([ApiUrlPath.UserActivate, ApiUrlPath.UserDeactivate].includes(req.route.path) &&
+          !decoded.isMailToken)
       ) {
         return res.status(401).send(AppError.AuthenticationFailed)
       }

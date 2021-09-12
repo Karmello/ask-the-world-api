@@ -63,7 +63,7 @@
 									"\tpm.expect(body.username.kind).to.eql('unique')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -73,7 +73,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -88,12 +88,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "username@email.com",
+									"value": "user1@email.com",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "Karmello",
+									"value": "user1",
 									"type": "text"
 								},
 								{
@@ -108,7 +108,7 @@
 								},
 								{
 									"key": "dateOfBirth",
-									"value": "1984-09-24",
+									"value": "1990-01-01",
 									"type": "text"
 								},
 								{
@@ -140,11 +140,11 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('user1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
-									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not expose password', () => {\r",
@@ -157,9 +157,18 @@
 									"\tpm.expect(body.config.confirmed).to.be.false\r",
 									"})\r",
 									"\r",
-									"pm.environment.set('authToken', pm.response.headers.get('atw-x-auth-token'))\r",
+									"pm.environment.set(Utils.users.user1.username + '_authToken', pm.response.headers.get('atw-x-auth-token'))\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
 									""
 								],
 								"type": "text/javascript"
@@ -177,12 +186,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "username@email.com",
+									"value": "user1@email.com",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "Karmello",
+									"value": "user1",
 									"type": "text"
 								},
 								{
@@ -202,7 +211,7 @@
 								},
 								{
 									"key": "dateOfBirth",
-									"value": "1984-09-24",
+									"value": "1990-01-01",
 									"type": "text"
 								}
 							]
@@ -324,7 +333,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Karmello",
+									"value": "user1",
 									"type": "text"
 								},
 								{
@@ -356,11 +365,11 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"\tconst body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('user1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
-									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not expose password', () => {\r",
@@ -368,7 +377,7 @@
 									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -378,7 +387,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -390,7 +399,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -420,11 +429,11 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"\tconst body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('user1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
-									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not expose password', () => {\r",
@@ -432,7 +441,7 @@
 									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -442,7 +451,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)"
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -456,7 +466,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Karmello",
+									"value": "user1",
 									"type": "text"
 								},
 								{
@@ -573,10 +583,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -589,7 +599,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -613,7 +623,7 @@
 									"  pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -623,7 +633,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -635,7 +645,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -730,7 +740,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -748,7 +758,7 @@
 									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -760,7 +770,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -780,14 +790,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -806,7 +812,7 @@
 									"  pm.response.to.have.body('\"EMAIL_ALREADY_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -818,7 +824,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{emailConfirmationToken}}",
+								"value": "{{user1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -838,10 +844,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
+									"\tUtils.getEmailToken(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -856,7 +862,7 @@
 									"    pm.response.to.have.status(302)\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -868,7 +874,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{emailConfirmationToken}}",
+								"value": "{{user1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -979,10 +985,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -995,19 +1001,19 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id=123412341234123412341234",
+							"raw": "{{API_URL}}{{userPath}}?_id={{user1_id}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
 							],
 							"query": [
 								{
 									"key": "_id",
-									"value": "123412341234123412341234"
+									"value": "{{user1_id}}"
 								}
 							]
 						}
@@ -1028,12 +1034,11 @@
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.count.questions).to.eql(0)\r",
-									"\tpm.expect(body.user.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.user.username).to.eql('Karmello')\r",
-									"\tpm.expect(body.user.email).to.eql('username@email.com')\r",
+									"\tpm.expect(body.user.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.user.username).to.eql('user1')\r",
 									"\tpm.expect(body.user.country).to.eql('PL')\r",
 									"\tpm.expect(body.user.sex).to.eql('M')\r",
-									"\tpm.expect(body.user.dateOfBirth).to.eql('1984-09-24')\r",
+									"\tpm.expect(body.user.dateOfBirth).to.eql('1990-01-01')\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not expose password', () => {\r",
@@ -1041,7 +1046,7 @@
 									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1051,7 +1056,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1063,19 +1068,19 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"raw": "{{API_URL}}{{userPath}}?_id={{user1_id}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
 							],
 							"query": [
 								{
 									"key": "_id",
-									"value": "{{userId}}"
+									"value": "{{user1_id}}"
 								}
 							]
 						}
@@ -1180,10 +1185,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -1196,20 +1201,14 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id=123412341234123412341234",
+							"raw": "{{API_URL}}{{userPath}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
-							],
-							"query": [
-								{
-									"key": "_id",
-									"value": "123412341234123412341234"
-								}
 							]
 						}
 					},
@@ -1234,7 +1233,7 @@
 									"\tpm.expect(body.sex.kind).to.eql('required')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1244,7 +1243,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1256,7 +1255,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1265,15 +1264,9 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"raw": "{{API_URL}}{{userPath}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
-							],
-							"query": [
-								{
-									"key": "_id",
-									"value": "{{userId}}"
-								}
 							]
 						}
 					},
@@ -1295,8 +1288,8 @@
 									"\tpm.expect(body.username.kind).to.eql('unique')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
-									"Utils.deleteSecondUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
+									"Utils.deleteUser(pm, Utils.users.user2)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1306,8 +1299,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
-									"Utils.registerSecondUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									"Utils.registerUser(pm, Utils.users.user2)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1319,7 +1312,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1328,12 +1321,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "TheSecondUser",
+									"value": "user2",
 									"type": "text"
 								},
 								{
 									"key": "dateOfBirth",
-									"value": "1984-09-24",
+									"value": "1990-01-01",
 									"type": "text"
 								},
 								{
@@ -1349,15 +1342,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"raw": "{{API_URL}}{{userPath}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
-							],
-							"query": [
-								{
-									"key": "_id",
-									"value": "{{userId}}"
-								}
 							]
 						}
 					},
@@ -1376,8 +1363,8 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.username).to.eql('UpdatedUsername')\r",
+									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('userOne')\r",
 									"\tpm.expect(body.country).to.eql('GB')\r",
 									"\tpm.expect(body.sex).to.eql('F')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1980-05-01')\r",
@@ -1388,7 +1375,7 @@
 									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1398,7 +1385,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1410,7 +1397,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1419,7 +1406,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "UpdatedUsername",
+									"value": "userOne",
 									"type": "text"
 								},
 								{
@@ -1440,15 +1427,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{userId}}",
+							"raw": "{{API_URL}}{{userPath}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
-							],
-							"query": [
-								{
-									"key": "_id",
-									"value": "{{userId}}"
-								}
 							]
 						}
 					},
@@ -1572,10 +1553,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -1588,7 +1569,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1621,7 +1602,7 @@
 									"\t})\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1631,7 +1612,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1643,7 +1624,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1686,7 +1667,7 @@
 									"\t})\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1696,7 +1677,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1708,7 +1689,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1737,7 +1718,7 @@
 									"  pm.expect(body.password.kind).to.eql('required')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1747,7 +1728,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1759,7 +1740,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1795,11 +1776,11 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('username@email.com')\r",
-									"\tpm.expect(body.username).to.eql('Karmello')\r",
+									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('user1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
-									"\tpm.expect(body.dateOfBirth).to.eql('1984-09-24')\r",
+									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not expose password', () => {\r",
@@ -1807,7 +1788,7 @@
 									"\tpm.expect(body.password).to.be.undefined\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1817,7 +1798,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1829,7 +1810,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1947,7 +1928,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1957,7 +1938,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -1969,7 +1950,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2005,10 +1986,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -2021,7 +2002,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2049,7 +2030,7 @@
 									"  pm.response.to.have.body('\"COULD_NOT_CONFIRM_PAYMENT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2059,15 +2040,12 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm)\r",
-									"}, 3000)"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2078,7 +2056,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2227,10 +2205,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm)\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -2243,7 +2221,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2267,7 +2245,7 @@
 									"  pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2277,7 +2255,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2289,7 +2267,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2404,7 +2382,11 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getEmailToken(pm, Utils.users.user1)\r",
+									"}, 1000)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2428,7 +2410,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -2523,7 +2505,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2541,7 +2523,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2553,7 +2535,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2573,14 +2555,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -2599,7 +2577,7 @@
 									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2611,7 +2589,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2631,7 +2609,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2665,7 +2643,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2685,7 +2663,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2718,7 +2696,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2747,7 +2725,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2780,7 +2758,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2809,7 +2787,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2842,7 +2820,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2871,7 +2849,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2904,7 +2882,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2933,7 +2911,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2967,7 +2945,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2996,7 +2974,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3030,7 +3008,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3149,7 +3127,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3167,7 +3145,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3179,7 +3157,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3199,14 +3177,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -3225,7 +3199,7 @@
 									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3237,7 +3211,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3364,10 +3338,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.createQuestion(pm)\r",
+									"\tUtils.createQuestion(pm, Utils.users.fullAccountUser)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -3436,10 +3410,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.createQuestion(pm)\r",
+									"\tUtils.createQuestion(pm, Utils.users.fullAccountUser)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -3452,7 +3426,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3518,13 +3492,13 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.authenticateFullUser(pm)\r",
+									"Utils.authenticateUser(pm, Utils.users.fullAccountUser)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.createQuestion(pm)\r",
+									"\tUtils.createQuestion(pm, Utils.users.fullAccountUser)\r",
 									"\r",
 									"\tsetTimeout(() => {\r",
-									"\t\tUtils.createAnswer(pm)\r",
+									"\t\tUtils.createAnswer(pm, Utils.users.fullAccountUser)\r",
 									"\t}, 1000)\r",
 									"}, 1000)\r",
 									""
@@ -3538,7 +3512,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{Mj23_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3569,7 +3543,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3587,7 +3561,7 @@
 									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3599,7 +3573,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3633,7 +3607,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3651,7 +3625,7 @@
 									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3663,7 +3637,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3697,7 +3671,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3715,7 +3689,7 @@
 									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3727,7 +3701,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3836,7 +3810,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3854,7 +3828,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3866,7 +3840,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3981,7 +3955,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3999,7 +3973,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4011,7 +3985,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4106,7 +4080,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4124,7 +4098,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4136,7 +4110,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4156,14 +4130,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -4182,7 +4152,7 @@
 									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4194,7 +4164,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4298,7 +4268,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4316,7 +4286,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4328,7 +4298,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4348,14 +4318,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -4374,7 +4340,7 @@
 									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4386,7 +4352,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{authToken}}",
+								"value": "{{user1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4481,7 +4447,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4499,7 +4465,7 @@
 									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4508,17 +4474,17 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{API_URL}}{{reportPath}}?atw-x-auth-token={{authToken}}",
+							"raw": "{{API_URL}}{{reportPath}}",
 							"host": [
 								"{{API_URL}}{{reportPath}}"
-							],
-							"query": [
-								{
-									"key": "atw-x-auth-token",
-									"value": "{{authToken}}"
-								}
 							]
 						}
 					},
@@ -4531,14 +4497,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"Utils.registerUser(pm)\r",
+									"Utils.registerUser(pm, Utils.users.user1)\r",
 									"\r",
 									"setTimeout(() => {\r",
-									"\tUtils.getActivationLink(pm)\r",
-									"\r",
-									"\tsetTimeout(() => {\r",
-									"\t\tUtils.activateUser(pm)\r",
-									"\t}, 2000)\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
 									"}, 1000)\r",
 									""
 								],
@@ -4557,7 +4519,7 @@
 									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
 									"})\r",
 									"\r",
-									"Utils.deleteUser(pm)\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
 									""
 								],
 								"type": "text/javascript"
@@ -4566,17 +4528,17 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{API_URL}}{{reportPath}}?atw-x-auth-token={{authToken}}",
+							"raw": "{{API_URL}}{{reportPath}}",
 							"host": [
 								"{{API_URL}}{{reportPath}}"
-							],
-							"query": [
-								{
-									"key": "atw-x-auth-token",
-									"value": "{{authToken}}"
-								}
 							]
 						}
 					},
@@ -4632,155 +4594,140 @@
 				"type": "text/javascript",
 				"exec": [
 					"Utils = {",
-					"  registerUser: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get('API_URL') + pm.variables.get('userPath'), ",
-					"      method: 'POST',",
-					"      header: {",
-					"        'Accept': 'application/json',",
-					"        'Content-Type': 'application/x-www-form-urlencoded',",
-					"      },",
-					"      body: {",
-					"          mode: 'urlencoded',",
-					"          urlencoded: [",
-					"            { key: 'email', value: 'username@email.com' },",
-					"            { key: 'username', value: 'Karmello' },",
-					"\t\t\t\t\t\t{ key: 'password', value: 'cocacola100' },",
-					"\t\t\t\t\t\t{ key: 'country', value: 'PL' },",
-					"\t\t\t\t\t\t{ key: 'sex', value: 'M' },",
-					"\t\t\t\t\t\t{ key: 'dateOfBirth', value: '1984-09-24' },",
-					"        ]",
-					"      }",
-					"\t\t}, (err, res) => {",
-					"\t\t\tpm.environment.set('authToken', res.headers.get('atw-x-auth-token'))",
-					"\t\t\tpm.environment.set('userId', res.json()._id)",
-					"\t\t})",
+					"\tusers: {",
+					"\t\tuser1: {",
+					"\t\t\temail: 'user1@email.com',",
+					"\t\t\tusername: 'user1',",
+					"\t\t\tpassword: 'cocacola100',",
+					"\t\t\tcountry: 'PL',",
+					"\t\t\tsex: 'M',",
+					"\t\t\tdateOfBirth: '1990-01-01',",
+					"\t\t},",
+					"\t\tuser2: {",
+					"\t\t\temail: 'user2@email.com',",
+					"\t\t\tusername: 'user2',",
+					"\t\t\tpassword: 'cocacola200',",
+					"\t\t\tcountry: 'US',",
+					"\t\t\tsex: 'F',",
+					"\t\t\tdateOfBirth: '1995-03-03',",
+					"\t\t},",
+					"\t\tfullAccountUser: {",
+					"\t\t\tusername: 'Mj23',",
+					"\t\t\tpassword: 'cocacola100'",
+					"\t\t}",
 					"\t},",
-					"\tregisterSecondUser: (pm) => {",
+					"\tregisterUser: (pm, user) => {",
+					"\t\tconst payload = []",
+					"\t\tObject.keys(user).forEach(key => payload.push({ key, value: user[key] }))",
 					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get('API_URL') + pm.variables.get('userPath'), ",
-					"      method: 'POST',",
-					"      header: {",
-					"        'Accept': 'application/json',",
-					"        'Content-Type': 'application/x-www-form-urlencoded',",
-					"      },",
-					"      body: {",
-					"          mode: 'urlencoded',",
-					"          urlencoded: [",
-					"            { key: 'email', value: 'username2@email.com' },",
-					"            { key: 'username', value: 'TheSecondUser' },",
-					"\t\t\t\t\t\t{ key: 'password', value: 'cocacola200' },",
-					"\t\t\t\t\t\t{ key: 'country', value: 'PL' },",
-					"\t\t\t\t\t\t{ key: 'sex', value: 'F' },",
-					"\t\t\t\t\t\t{ key: 'dateOfBirth', value: '2000-01-01' },",
-					"        ]",
-					"      }",
-					"\t\t}, (err, res) => {",
-					"\t\t\tpm.environment.set('authToken2', res.headers.get('atw-x-auth-token'))",
-					"\t\t\tpm.environment.set('userId2', res.json()._id)",
-					"\t\t})",
-					"\t},",
-					"\tdeleteUser: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'), ",
-					"      method: 'GET',",
-					"      header: {",
-					"        'atw-x-auth-token': pm.environment.get('authToken'),",
-					"      },",
-					"\t\t})",
-					"\t},",
-					"\tdeleteSecondUser: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'), ",
-					"      method: 'GET',",
-					"      header: {",
-					"        'atw-x-auth-token': pm.environment.get('authToken2'),",
-					"      },",
-					"\t\t})",
-					"\t},",
-					"\tgetActivationLink: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userActivationLinkPath'),",
-					"      method: 'GET',",
-					"      header: {",
-					"        'atw-x-auth-token': pm.environment.get('authToken'),",
-					"      },",
-					"\t\t}, (err, res) => {",
-					"\t\t\tpm.environment.set('emailConfirmationToken', res.json())",
-					"\t\t})",
-					"\t},",
-					"\tactivateUser: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userActivatePath'), ",
-					"      method: 'GET',",
-					"      header: {",
-					"        'atw-x-auth-token': pm.environment.get('emailConfirmationToken'),",
-					"      },",
-					"\t\t})",
-					"\t},",
-					"\tauthenticateFullUser: (pm) => {",
-					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get(\"API_URL\") + pm.variables.get('userAuthenticatePath'),",
-					"      method: 'POST',",
+					"\t\t\turl: pm.environment.get('API_URL') + pm.variables.get('userPath'),",
+					"\t\t\tmethod: 'POST',",
 					"\t\t\theader: {",
-					"        'Accept': 'application/json',",
-					"        'Content-Type': 'application/x-www-form-urlencoded',",
-					"      },",
-					"      body: {",
-					"          mode: 'urlencoded',",
-					"          urlencoded: [",
-					"            { key: 'username', value: 'Mj23' },",
-					"            { key: 'password', value: 'cocacola100' },",
-					"        ]",
-					"      }",
+					"\t\t\t\t'Accept': 'application/json',",
+					"\t\t\t\t'Content-Type': 'application/x-www-form-urlencoded',",
+					"\t\t\t},",
+					"\t\t\tbody: {",
+					"\t\t\t\tmode: 'urlencoded',",
+					"\t\t\t\turlencoded: payload,",
+					"\t\t\t}",
 					"\t\t}, (err, res) => {",
-					"\t\t\tpm.environment.set('authToken', res.headers.get('atw-x-auth-token'))",
-					"\t\t\tpm.environment.set('userId', res.json()._id)",
+					"\t\t\tpm.environment.set(user.username + '_authToken', res.headers.get('atw-x-auth-token'))",
+					"\t\t\tpm.environment.set(user.username + '_id', res.json()._id)",
 					"\t\t})",
 					"\t},",
-					"\tcreateQuestion: (pm) => {",
+					"\tauthenticateUser: (pm, user) => {",
+					"\t\tconst payload = []",
+					"\t\tObject.keys(user).forEach(key => payload.push({ key, value: user[key] }))",
 					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get('API_URL') + pm.variables.get('questionPath'), ",
-					"      method: 'POST',",
-					"      header: {",
-					"        'Accept': 'application/json',",
-					"        'Content-Type': 'application/x-www-form-urlencoded',",
-					"\t\t\t\t'atw-x-auth-token': pm.environment.get('authToken'),",
-					"      },",
-					"      body: {",
-					"          mode: 'urlencoded',",
-					"          urlencoded: [",
-					"            { key: 'text', value: 'Who is going to be a new president of the United States ?' },",
-					"            { key: 'answers', value: ['Donald Trump', 'Joe Biden'] },",
-					"        ]",
-					"      }",
+					"\t\t\turl: pm.environment.get(\"API_URL\") + pm.variables.get('userAuthenticatePath'),",
+					"\t\t\tmethod: 'POST',",
+					"\t\t\theader: {",
+					"\t\t\t\t'Accept': 'application/json',",
+					"\t\t\t\t'Content-Type': 'application/x-www-form-urlencoded',",
+					"\t\t\t},",
+					"\t\t\tbody: {",
+					"\t\t\t\tmode: 'urlencoded',",
+					"\t\t\t\turlencoded: payload",
+					"\t\t\t}",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set(user.username + '_authToken', res.headers.get('atw-x-auth-token'))",
+					"\t\t\tpm.environment.set(user.username + '_id', res.json()._id)",
+					"\t\t})",
+					"\t},",
+					"\tdeleteUser: (pm, user) => {",
+					"\t\tUtils.getEmailToken(pm, user, () => {",
+					"\t\t\tpm.sendRequest({",
+					"\t\t\t\turl: pm.environment.get(\"API_URL\") + pm.variables.get('userDeactivatePath'),",
+					"\t\t\t\tmethod: 'GET',",
+					"\t\t\t\theader: {",
+					"\t\t\t\t\t'atw-x-auth-token': pm.environment.get(user.username + '_emailToken'),",
+					"\t\t\t\t},",
+					"\t\t\t})",
+					"\t\t})",
+					"\t},",
+					"\tgetEmailToken: (pm, user, cb) => {",
+					"\t\tpm.sendRequest({",
+					"\t\t\turl: pm.environment.get(\"API_URL\") + pm.variables.get('userActivationLinkPath'),",
+					"\t\t\tmethod: 'GET',",
+					"\t\t\theader: {",
+					"\t\t\t\t'atw-x-auth-token': pm.environment.get(user.username + '_authToken'),",
+					"\t\t\t},",
+					"\t\t}, (err, res) => {",
+					"\t\t\tpm.environment.set(user.username + '_emailToken', res.json())",
+					"\t\t\tif (cb) cb()",
+					"\t\t})",
+					"\t},",
+					"\tactivateUser: (pm, user) => {",
+					"\t\tUtils.getEmailToken(pm, user, () => {",
+					"\t\t\tpm.sendRequest({",
+					"\t\t\t\turl: pm.environment.get(\"API_URL\") + pm.variables.get('userActivatePath'), ",
+					"\t\t\t\tmethod: 'GET',",
+					"\t\t\t\theader: {",
+					"\t\t\t\t\t'atw-x-auth-token': pm.environment.get(user.username + '_emailToken'),",
+					"\t\t\t\t},",
+					"\t\t\t})",
+					"\t\t})",
+					"\t},",
+					"\tcreateQuestion: (pm, user) => {",
+					"\t\tpm.sendRequest({",
+					"\t\t\turl: pm.environment.get('API_URL') + pm.variables.get('questionPath'),",
+					"\t\t\tmethod: 'POST',",
+					"\t\t\theader: {",
+					"\t\t\t\t'Accept': 'application/json',",
+					"\t\t\t\t'Content-Type': 'application/x-www-form-urlencoded',",
+					"\t\t\t\t'atw-x-auth-token': pm.environment.get(user.username + '_authToken'),",
+					"\t\t\t},",
+					"\t\t\tbody: {",
+					"\t\t\t\tmode: 'urlencoded',",
+					"\t\t\t\turlencoded: [",
+					"\t\t\t\t\t{ key: 'text', value: 'Who is going to be a new president of the United States ?' },",
+					"\t\t\t\t\t{ key: 'answers', value: ['Donald Trump', 'Joe Biden'] },",
+					"\t\t\t\t]",
+					"\t\t\t}",
 					"\t\t}, (err, res) => {",
 					"\t\t\tpm.environment.set('questionId', res.json()._id)",
 					"\t\t})",
 					"\t},",
-					"\tcreateAnswer: (pm) => {",
+					"\tcreateAnswer: (pm, user) => {",
 					"\t\tpm.sendRequest({",
-					"      url: pm.environment.get('API_URL') + pm.variables.get('answerPath') + '?questionId=' + pm.environment.get('questionId'),",
-					"      method: 'POST',",
-					"      header: {",
-					"        'Accept': 'application/json',",
-					"        'Content-Type': 'application/json',",
-					"\t\t\t\t'atw-x-auth-token': pm.environment.get('authToken'),",
-					"      },",
-					"      body: JSON.stringify([0])",
+					"\t\t\turl: pm.environment.get('API_URL') + pm.variables.get('answerPath') + '?questionId=' + pm.environment.get('questionId'),",
+					"\t\t\tmethod: 'POST',",
+					"\t\t\theader: {",
+					"\t\t\t\t'Accept': 'application/json',",
+					"\t\t\t\t'Content-Type': 'application/json',",
+					"\t\t\t\t'atw-x-auth-token': pm.environment.get(user.username + '_authToken'),",
+					"\t\t\t},",
+					"\t\t\tbody: JSON.stringify([0])",
 					"\t\t})",
 					"\t},",
-					"\tresetLocalVars: (pm) => {",
-					"\t\tpm.environment.set('authToken', '')",
-					"\t\tpm.environment.set('userId', '')",
-					"\t\tpm.environment.set('authToken2', '')",
-					"\t\tpm.environment.set('userId2', '')",
-					"\t\tpm.environment.set('emailConfirmationToken', '')",
-					"\t\tpm.environment.set('questionId', '')",
+					"\treset: (pm) => {",
+					"\t\tpm.environment.set('user1_authToken', '')",
+					"\t\tpm.environment.set('user1_id', '')",
+					"\t\tpm.environment.set('user1_emailToken', '')",
 					"\t}",
 					"}",
 					"",
-					"Utils.resetLocalVars(pm)",
+					"Utils.reset(pm)",
 					""
 				]
 			}

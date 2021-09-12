@@ -4,7 +4,7 @@ declare module 'express' {
   interface Request extends Request {
     decoded: {
       _id: string
-      emailConfirmation?: boolean
+      isMailToken?: boolean
     }
   }
 }
