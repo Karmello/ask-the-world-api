@@ -18,7 +18,7 @@ Bundle:
     - yarn prettier
     - yarn tslint
     - yarn unit
-    # - yarn test
+    - yarn test
     - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
     - yarn seed-remote-dev
     - mkdir api

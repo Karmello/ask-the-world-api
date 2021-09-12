@@ -29,7 +29,12 @@ export default (app: Application) =>
               subject: dict.accountActivationLink,
               link,
             }).then(
-              () => res.status(200).send(process.env.APP_ENV === Env.Local ? token : undefined),
+              () => {
+                if ([Env.Local, Env.Test].includes(process.env.APP_ENV as Env)) {
+                  res.setHeader(X_AUTH_TOKEN, token)
+                }
+                res.status(200).send()
+              },
               err => res.status(400).send(err)
             )
           } else {
