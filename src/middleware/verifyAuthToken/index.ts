@@ -8,7 +8,8 @@ export default (req: Request, res: Response, next: NextFunction) => {
   const allowWithNoToken = [
     req.route.path === ApiUrlPath.UserAuthenticate,
     req.route.path === ApiUrlPath.Question,
-    req.route.path === ApiUrlPath.Questions && req.query.filter === Filter.All,
+    req.route.path === ApiUrlPath.Questions &&
+      [Filter.All, Filter.Top].includes(req.query.filter as Filter),
   ]
 
   const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string

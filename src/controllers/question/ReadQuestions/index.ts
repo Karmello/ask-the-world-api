@@ -60,6 +60,7 @@ export default (app: Application) =>
           },
         ]).then(endWithSuccess, endWithError)
         break
+
       case Filter.Created:
         QuestionModel.aggregate([
           { $match: { creatorId: ObjectId(userId), ...match } },
@@ -75,6 +76,7 @@ export default (app: Application) =>
           },
         ]).then(endWithSuccess, endWithError)
         break
+
       case Filter.Followed:
         FollowModel.aggregate([
           { $match: { followerId: ObjectId(req.decoded?._id) } },
@@ -100,6 +102,7 @@ export default (app: Application) =>
           }
         }, endWithError)
         break
+
       case Filter.Answered:
         AnswerModel.aggregate([
           { $match: { answererId: ObjectId(req.decoded?._id) } },
@@ -125,6 +128,7 @@ export default (app: Application) =>
           }
         }, endWithError)
         break
+
       case Filter.NotAnswered:
         AnswerModel.aggregate([
           { $match: { answererId: ObjectId(req.decoded?._id) } },
@@ -151,5 +155,20 @@ export default (app: Application) =>
           ]).then(endWithSuccess, endWithError)
         }, endWithError)
         break
+
+      case Filter.Top:
+        AnswerModel.aggregate([{ $sortByCount: '$questionId' }]).then(results => {
+          const questionIds = []
+          results.forEach(item => item.count === results[0].count && questionIds.push(item._id))
+          QuestionModel.aggregate([
+            { $match: { _id: { $in: questionIds } } },
+            {
+              $facet: {
+                meta: [{ $count: 'count' }],
+                docs: [{ $sort: { createdAt: -1 } }, { $limit: Number(10) }],
+              },
+            },
+          ]).then(endWithSuccess, endWithError)
+        }, endWithError)
     }
   })
