@@ -44,8 +44,8 @@ export default (app: Application) =>
                         requestor: answer.selectedIndexes,
                       }
                       question.answers.forEach((v, i) => (voting.all[i] = 0))
-                      answers.forEach((answer: IAnswer) => {
-                        answer.selectedIndexes.forEach(v => voting.all[v]++)
+                      answers.forEach((a: IAnswer) => {
+                        a.selectedIndexes.forEach(v => voting.all[v]++)
                       })
 
                       res.status(200).send({

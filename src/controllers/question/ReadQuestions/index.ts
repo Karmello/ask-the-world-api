@@ -2,9 +2,16 @@ import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import get from 'lodash/get'
 
-import { ApiUrlPath, IRequestQuery, Filter, READ_QUESTIONS_MAX } from 'shared/utils/index'
 import { verifyAuthToken, verifyRequest } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
+
+import {
+  ApiUrlPath,
+  IRequestQuery,
+  Filter,
+  READ_QUESTIONS_MAX,
+  READ_TOP_QUESTIONS_MAX,
+} from 'shared/utils/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -157,15 +164,18 @@ export default (app: Application) =>
         break
 
       case Filter.Top:
-        AnswerModel.aggregate([{ $sortByCount: '$questionId' }]).then(results => {
+        AnswerModel.aggregate([
+          { $sortByCount: '$questionId' },
+          { $limit: Number(READ_TOP_QUESTIONS_MAX) },
+        ]).then(results => {
           const questionIds = []
-          results.forEach(item => item.count === results[0].count && questionIds.push(item._id))
+          results.forEach(item => questionIds.push(item._id))
           QuestionModel.aggregate([
             { $match: { _id: { $in: questionIds } } },
             {
               $facet: {
                 meta: [{ $count: 'count' }],
-                docs: [{ $sort: { createdAt: -1 } }, { $limit: Number(10) }],
+                docs: [{ $match: {} }],
               },
             },
           ]).then(endWithSuccess, endWithError)
