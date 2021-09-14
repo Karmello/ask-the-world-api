@@ -9,11 +9,11 @@ const questionId = mongoose.Types.ObjectId('5eeb976152c1dc555c2d676d')
 
 const username = 'user1'
 
-let authToken
-let mailToken
-
 describe('deactivateUser', () => {
   //
+  let authToken
+  let mailToken
+
   before(done => {
     //
     UserModel.collection.insertOne({
