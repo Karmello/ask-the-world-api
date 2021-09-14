@@ -78,6 +78,7 @@ describe('deactivateUser', () => {
   })
 
   it('should get deactivation token', done => {
+    console.log('>>>', authToken)
     chai
       .request(api)
       .get(ApiUrlPath.UserDeactivationLink)
