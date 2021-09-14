@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "sourceMap": false,
     "paths": {
-      "shared/*": ["src/lib/atw-shared/*"],
+      "shared/*": ["src/lib/atw-shared/src/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],

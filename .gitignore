@@ -1,7 +1,6 @@
 /node_modules
 /coverage
 /build
-/src/lib/temp
 
 env/.env.local
 
