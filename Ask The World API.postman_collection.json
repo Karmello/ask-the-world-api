@@ -661,6 +661,207 @@
 			]
 		},
 		{
+			"name": "GetDeactivationLink",
+			"item": [
+				{
+					"name": "Requesting deactivation link with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting deactivation link with bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requesting deactivation link for deleted user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 404', () => {\r",
+									"  pm.response.to.have.status(404)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
+									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid deactivation link request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivationLinkPath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "ActivateUser",
 			"item": [
 				{
@@ -858,8 +1059,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test('Should responde with 302', () => {\r",
-									"    pm.response.to.have.status(302)\r",
+									"pm.test('Should responde with 200', () => {\r",
+									"    pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
 									"Utils.deleteUser(pm, Utils.users.user1)\r",
@@ -882,6 +1083,129 @@
 							"raw": "{{API_URL}}{{userActivatePath}}",
 							"host": [
 								"{{API_URL}}{{userActivatePath}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeactivateUser",
+			"item": [
+				{
+					"name": "Removing account with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Removing account with bad token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful account removal",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.getEmailToken(pm, Utils.users.user1)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 200', () => {\r",
+									"  pm.response.to.have.status(200)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_emailToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{userDeactivatePath}}",
+							"host": [
+								"{{API_URL}}{{userDeactivatePath}}"
 							]
 						}
 					},
@@ -2102,330 +2426,6 @@
 			]
 		},
 		{
-			"name": "GetDeactivationLink",
-			"item": [
-				{
-					"name": "Requesting deactivation link with no credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Requesting deactivation link with bad token",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Requesting deactivation link for deleted user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 404', () => {\r",
-									"  pm.response.to.have.status(404)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NO_SUCH_USER error', () => {\r",
-									"  pm.response.to.have.body('\"NO_SUCH_USER\"')\r",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.deleteUser(pm, Utils.users.user1)\r",
-									"}, 1000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Valid deactivation link request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 200', () => {\r",
-									"  pm.response.to.have.status(200)\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivationLinkPath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivationLinkPath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "DeactivateUser",
-			"item": [
-				{
-					"name": "Removing account with no credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Removing account with bad token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Successful account removal",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.getEmailToken(pm, Utils.users.user1)\r",
-									"}, 1000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 301', () => {\r",
-									"  pm.response.to.have.status(301)\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_emailToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{userDeactivatePath}}",
-							"host": [
-								"{{API_URL}}{{userDeactivatePath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "CreateQuestion",
 			"item": [
 				{
@@ -3033,200 +3033,6 @@
 			]
 		},
 		{
-			"name": "DeleteQuestion",
-			"item": [
-				{
-					"name": "Deleting question with no credentials",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
-									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deleting question with bad token",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 401', () => {\r",
-									"  pm.response.to.have.status(401)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
-									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "abcd",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							],
-							"query": [
-								{
-									"key": "atw-x-auth-token",
-									"value": "abcd"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deleting question when email not confirmed",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"  pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
-									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deleting question when payment not done",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									"\r",
-									"setTimeout(() => {\r",
-									"\tUtils.activateUser(pm, Utils.users.user1)\r",
-									"}, 1000)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"  pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
-									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionPath}}",
-							"host": [
-								"{{API_URL}}{{questionPath}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "ReadQuestion",
 			"item": [
 				{
@@ -3723,6 +3529,200 @@
 									"key": "userId",
 									"value": "1234"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeleteQuestion",
+			"item": [
+				{
+					"name": "Deleting question with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NO_CREDENTIALS_PROVIDED error', () => {\r",
+									"  pm.response.to.have.body('\"NO_CREDENTIALS_PROVIDED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question with bad token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 401', () => {\r",
+									"  pm.response.to.have.status(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with AUTHENTICATION_FAILED error', () => {\r",
+									"  pm.response.to.have.body('\"AUTHENTICATION_FAILED\"')\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "abcd",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}?atw-x-auth-token=abcd",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							],
+							"query": [
+								{
+									"key": "atw-x-auth-token",
+									"value": "abcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question when email not confirmed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with EMAIL_NOT_CONFIRMED error', () => {\r",
+									"  pm.response.to.have.body('\"EMAIL_NOT_CONFIRMED\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting question when payment not done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"Utils.registerUser(pm, Utils.users.user1)\r",
+									"\r",
+									"setTimeout(() => {\r",
+									"\tUtils.activateUser(pm, Utils.users.user1)\r",
+									"}, 1000)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Should responde with 403', () => {\r",
+									"  pm.response.to.have.status(403)\r",
+									"})\r",
+									"\r",
+									"pm.test('Should responde with NOT_FULL_ACCOUNT error', () => {\r",
+									"  pm.response.to.have.body('\"NOT_FULL_ACCOUNT\"')\r",
+									"})\r",
+									"\r",
+									"Utils.deleteUser(pm, Utils.users.user1)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "atw-x-auth-token",
+								"value": "{{user1_authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}{{questionPath}}",
+							"host": [
+								"{{API_URL}}{{questionPath}}"
 							]
 						}
 					},
