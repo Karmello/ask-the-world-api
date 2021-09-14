@@ -19,7 +19,7 @@ const dict = {
     invalidCharMsg: 'contains invalid character(s)',
     invalidMsg: 'is invalid',
     incorrectMsg: 'is incorrect',
-    incorrectCredentialsMsg: 'Incorrect credentials',
+    incorrectCredentialsMsg: 'Niepoprawne dane',
     incorrectPassword: 'Niepoprawne hasło',
     alreadyTakenMsg: 'is already taken',
     getMinLengthMsg: (min: number) => `must be ${min} character${min !== 1 ? 's' : ''} at min`,
