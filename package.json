@@ -13,7 +13,7 @@
     "seed-local": "ts-node ./mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "seed-remote-dev": "yarn ts-node ./mocks/seed.ts $MONGO_URI",
     "clear-local": "ts-node ./mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
-    "pull-shared": "cmd/pull-shared.cmd"
+    "ps": "cmd/pull-shared.cmd"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
