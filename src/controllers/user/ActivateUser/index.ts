@@ -4,6 +4,7 @@ import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
+import dict from 'src/dictionary'
 
 export default (app: Application) =>
   app.get(
@@ -12,8 +13,6 @@ export default (app: Application) =>
     verifyAuthToken,
     (req: Request, res: Response) => {
       //
-      const { APP_URL } = process.env
-
       UserModel.findOne({ _id: req.decoded._id })
         .select('-password')
         .exec()
@@ -24,8 +23,7 @@ export default (app: Application) =>
           doc
             .save()
             .then(_doc => {
-              res.status(200).send('OK')
-              // res.redirect(APP_URL + '/profile?_id=' + doc._id)
+              res.status(200).send(dict.emailConfirmedMsg)
             })
             .catch(err => res.status(400).send(err.errors))
         })

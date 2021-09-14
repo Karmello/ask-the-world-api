@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { ApiUrlPath, AppError } from 'shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
+import dict from 'src/dictionary'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -14,7 +15,6 @@ export default (app: Application) =>
     verifyAuthToken,
     (req: Request, res: Response) => {
       //
-      const { APP_URL } = process.env
       const userId = ObjectId(req.decoded._id)
 
       UserModel.deleteOne({ _id: userId })
@@ -25,7 +25,7 @@ export default (app: Application) =>
               AnswerModel.deleteMany({ answererId: userId }),
             ])
               .then(() => {
-                res.redirect(301, APP_URL + '?logout')
+                res.status(200).send(dict.accountDeactivatedMsg)
               })
               .catch(err => res.status(400).send(err))
           } else {
