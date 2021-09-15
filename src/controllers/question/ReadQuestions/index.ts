@@ -4,7 +4,7 @@ import { ApiUrlPath, Filter, SortBy } from 'shared/utils/index'
 import { verifyAuthToken, verifyRequest } from 'middleware/index'
 
 import readAll from './readAll'
-import readOwn from './readOwn'
+import readCreated from './readCreated'
 import readFollowed from './readFollowed'
 import readAnswered from './readAnswered'
 import readNotAnswered from './readNotAnswered'
@@ -52,7 +52,7 @@ export default (app: Application) =>
         break
 
       case Filter.Created:
-        readOwn(helper)
+        readCreated(helper)
         break
 
       case Filter.Followed:
