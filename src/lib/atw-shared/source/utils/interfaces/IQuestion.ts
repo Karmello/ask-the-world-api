@@ -11,6 +11,7 @@ interface IQuestion {
     maxSelectable: number
   }
   voting?: {
+    answersCount: number
     all: {
       [key: number]: number
     }
