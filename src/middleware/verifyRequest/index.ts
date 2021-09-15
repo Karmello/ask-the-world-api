@@ -5,9 +5,12 @@ export default (req: Request, res: Response, next: NextFunction) => {
   //
   if (req.route.path === ApiUrlPath.Questions) {
     //
-    const { userId, filter } = req.query
-
-    if (filter !== Filter.Created && req.decoded?._id !== userId) {
+    if (
+      [Filter.Answered, Filter.Created, Filter.Followed, Filter.NotAnswered].includes(
+        req.query.filter as Filter
+      ) &&
+      !req.decoded
+    ) {
       return res.status(403).send(AppError.IllegalAction)
     }
   }
