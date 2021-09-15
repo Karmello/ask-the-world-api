@@ -1,18 +1,15 @@
 import { Application } from 'express'
 import { Env } from 'shared/utils/index'
 
+import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
+
 import {
   ActivateUser,
-  AuthenticateUser,
   DeactivateUser,
   GetActivationLink,
   GetDeactivationLink,
   MakePayment,
-  RegisterUser,
-  ReadUser,
-  UpdateUser,
-  UpdatePassword,
-} from './user/index'
+} from './account/index'
 
 import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './question/index'
 import { CreateAnswer, UpdateAnswer } from './answer/index'

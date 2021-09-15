@@ -12,11 +12,12 @@ import {
 } from './../../src/lib/atw-shared/source/utils/index'
 
 import { getRandNum } from './../../src/lib/atw-shared/source/helpers'
+import { msInDay } from './constants'
 
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(500, () => {
+  times(50, () => {
     const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
 
     const user = users[getRandNum(0, users.length - 1)]
@@ -24,7 +25,12 @@ const getQuestionMocks = (users: IUser[]) => {
     if (user.config.payment) {
       const question = {
         creatorId: user._id,
-        createdAt: new Date(faker.date.between('2015-01-01', new Date())).getTime(),
+        createdAt: new Date(
+          faker.date.between(
+            new Date(Date.now() - 15 * msInDay),
+            new Date(Date.now() - 5 * msInDay)
+          )
+        ).getTime(),
         text: faker.lorem
           .sentence(30)
           .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),

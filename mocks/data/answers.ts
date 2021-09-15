@@ -3,12 +3,14 @@ import times from 'lodash/times'
 import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/source/utils'
 import { getRandNum, getRandNums } from './../../src/lib/atw-shared/source/helpers'
 
+import { msInDay } from './constants'
+
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]
 
   times(questions.length, (i: number) => {
     //
-    const { _id, createdAt, answers, options } = questions[i]
+    const { _id, answers, options } = questions[i]
     const userIndexes = getRandNums(0, users.length - 1, getRandNum(1, users.length))
 
     times(userIndexes.length, (i: number) => {
@@ -17,7 +19,7 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
         answerMocks.push({
           questionId: _id,
           answererId: answerer._id,
-          answeredAt: createdAt + 86400000 * getRandNum(1, 100),
+          answeredAt: Date.now() - msInDay * getRandNum(1, 4),
           selectedIndexes: (() => {
             let arr
             if (!options.multipleChoice) {
