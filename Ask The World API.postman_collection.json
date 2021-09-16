@@ -1921,7 +1921,7 @@
 									"\tconst body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\t\"currentPassword\": {\r",
-									"\t\t\t\"message\": \"Incorrect password\"\r",
+									"\t\t\t\"message\": \"Niepoprawne hasło\"\r",
 									"\t\t}\r",
 									"\t})\r",
 									"})\r",
@@ -1986,7 +1986,7 @@
 									"\tconst body = pm.response.json()\r",
 									"\tpm.expect(body).to.eql({\r",
 									"\t\t\"currentPassword\": {\r",
-									"\t\t\t\"message\": \"Incorrect password\"\r",
+									"\t\t\t\"message\": \"Niepoprawne hasło\"\r",
 									"\t\t}\r",
 									"\t})\r",
 									"})\r",
@@ -3280,6 +3280,7 @@
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.false\r",
 									"\tpm.expect(body.data[0].voting).to.eql({\r",
+									"\t\t\"answersCount\": 1,\r",
 									"\t\t\"all\": {\r",
 									"\t\t\t\"0\": 1,\r",
 									"\t\t\t\"1\": 0\r",
@@ -3341,200 +3342,7 @@
 		},
 		{
 			"name": "ReadQuestions",
-			"item": [
-				{
-					"name": "Requesting another user's answered questions",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"  pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionsPath}}?filter=ANSWERED&pageNo=1&userId=1234",
-							"host": [
-								"{{API_URL}}{{questionsPath}}"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "ANSWERED"
-								},
-								{
-									"key": "pageNo",
-									"value": "1"
-								},
-								{
-									"key": "userId",
-									"value": "1234"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Requesting another user's not answered questions",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"  pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionsPath}}?filter=NOT_ANSWERED&pageNo=1&userId=1234",
-							"host": [
-								"{{API_URL}}{{questionsPath}}"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "NOT_ANSWERED"
-								},
-								{
-									"key": "pageNo",
-									"value": "1"
-								},
-								{
-									"key": "userId",
-									"value": "1234"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Requesting another user's followed questions",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"Utils.registerUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Should responde with 403', () => {\r",
-									"  pm.response.to.have.status(403)\r",
-									"})\r",
-									"\r",
-									"pm.test('Should responde with ILLEGAL_ACTION error', () => {\r",
-									"  pm.response.to.have.body('\"ILLEGAL_ACTION\"')\r",
-									"})\r",
-									"\r",
-									"Utils.deleteUser(pm, Utils.users.user1)\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{API_URL}}{{questionsPath}}?filter=FOLLOWED&pageNo=1&userId=1234",
-							"host": [
-								"{{API_URL}}{{questionsPath}}"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "FOLLOWED"
-								},
-								{
-									"key": "pageNo",
-									"value": "1"
-								},
-								{
-									"key": "userId",
-									"value": "1234"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "DeleteQuestion",
