@@ -1,3 +1,4 @@
+import faker from 'faker'
 import times from 'lodash/times'
 
 import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/source/utils'
@@ -19,7 +20,12 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
         answerMocks.push({
           questionId: _id,
           answererId: answerer._id,
-          answeredAt: Date.now() - msInDay * getRandNum(1, 4),
+          answeredAt: new Date(
+            faker.date.between(
+              new Date(Date.now() - 4 * msInDay),
+              new Date(Date.now() - 1 * msInDay)
+            )
+          ).getTime(),
           selectedIndexes: (() => {
             let arr
             if (!options.multipleChoice) {
