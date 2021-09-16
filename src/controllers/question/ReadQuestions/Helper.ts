@@ -29,10 +29,10 @@ class Helper {
     //
     this.req = req
     this.res = res
-    this.userId = userId || ''
-    this.filter = filter || Filter.All
-    this.sortBy = sortBy || SortBy.DateCreated
-    this.skip = (Number(pageNo || '1') - 1) * READ_QUESTIONS_MAX
+    this.userId = userId
+    this.filter = filter
+    this.sortBy = sortBy
+    this.skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
     this.limit = READ_QUESTIONS_MAX
     this.limitTop = READ_TOP_QUESTIONS_MAX
     this.match = {}

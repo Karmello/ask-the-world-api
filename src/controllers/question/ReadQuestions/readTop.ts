@@ -9,9 +9,7 @@ export default (helper: Helper) => {
       $group: {
         _id: '$questionId',
         lastAnsweredAt: { $max: '$answeredAt' },
-        answeredTimes: {
-          $count: {},
-        },
+        answeredTimes: { $sum: 1 },
       },
     },
     {

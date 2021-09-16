@@ -23,7 +23,6 @@ export default (helper: Helper) => {
         },
       ]).then(results1 => {
         //
-        console.log('results1', results1)
         const userQuestionIds = results1[0].questionIds
 
         AnswerModel.aggregate([
@@ -36,7 +35,7 @@ export default (helper: Helper) => {
             $group: {
               _id: '$questionId',
               lastAnsweredAt: { $max: '$answeredAt' },
-              answeredTimes: { $count: {} },
+              answeredTimes: { $sum: 1 },
             },
           },
           {
@@ -44,7 +43,6 @@ export default (helper: Helper) => {
           },
         ]).then(results2 => {
           //
-          console.log('results2', results2)
           const topQuestionIds = []
           results2.forEach(item => topQuestionIds.push(item._id))
 
