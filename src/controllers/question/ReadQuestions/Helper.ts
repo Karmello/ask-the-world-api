@@ -22,7 +22,7 @@ class Helper {
     userId: string,
     filter: Filter,
     sortBy: SortBy,
-    pageNo: number,
+    pageNo: string,
     keywords: string,
     keywordsMode: Filter
   ) {
@@ -32,7 +32,7 @@ class Helper {
     this.userId = userId
     this.filter = filter
     this.sortBy = sortBy
-    this.skip = (pageNo - 1) * READ_QUESTIONS_MAX
+    this.skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
     this.limit = READ_QUESTIONS_MAX
     this.limitTop = READ_TOP_QUESTIONS_MAX
     this.match = {}

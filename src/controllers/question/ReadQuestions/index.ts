@@ -26,16 +26,7 @@ export default (app: Application) =>
     //
     const { userId, filter, sortBy, pageNo, keywords, keywordsMode } = req.query as TQuery
 
-    const helper = new Helper(
-      req,
-      res,
-      userId,
-      filter,
-      sortBy,
-      Number(pageNo),
-      keywords,
-      keywordsMode
-    )
+    const helper = new Helper(req, res, userId, filter, sortBy, pageNo, keywords, keywordsMode)
 
     switch (filter) {
       //
