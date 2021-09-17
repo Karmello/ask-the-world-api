@@ -154,7 +154,7 @@ const defaultUsers = (() => {
     arr.push({
       _id: new mongoose.Types.ObjectId(),
       email: `user_${i + 1}@mail.com`,
-      username: `user_${i + 1}`,
+      username: `username_${i + 1}`,
       password,
       dateOfBirth: '2000-01-01',
       country: COUNTRIES[getRandNum(0, COUNTRIES.length - 1)].value,
