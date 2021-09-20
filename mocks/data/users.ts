@@ -11,7 +11,7 @@ const basicUsers = [
   {
     _id: mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
     email: 'michael.jordan@gmail.com',
-    username: 'Mj23',
+    username: 'MichaelJordan',
     password,
     dateOfBirth: '1963-02-17',
     country: 'US',
