@@ -1,6 +1,8 @@
 import { expect } from 'chai'
 import { UserModel } from 'models/index'
 
+import { PASSWORD_MAX_LENGTH } from 'shared/utils/index'
+
 describe('user password validation', () => {
   //
   it('none => required', () => {
@@ -34,7 +36,7 @@ describe('user password validation', () => {
   })
 
   it('too long => checkMaxLength', () => {
-    const user = new UserModel({ password: 'thisisverylongpasswordthisisverylongpassword' })
+    const user = new UserModel({ password: 'a'.repeat(PASSWORD_MAX_LENGTH + 1) })
     const err = user.validateSync()
     expect(err.errors.password.kind).to.eql('checkMaxLength')
   })

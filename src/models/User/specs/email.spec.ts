@@ -1,6 +1,8 @@
 import { expect } from 'chai'
 import { UserModel } from 'models/index'
 
+import { EMAIL_MAX_LENGTH } from 'shared/utils/index'
+
 describe('user email validation', () => {
   //
   it('none => required', () => {
@@ -46,7 +48,7 @@ describe('user email validation', () => {
   })
 
   it('too long => checkMaxLength', () => {
-    const user = new UserModel({ email: 'username_username_username@gmail.com' })
+    const user = new UserModel({ email: 'a'.repeat(EMAIL_MAX_LENGTH) + '@gmail.com' })
     const err = user.validateSync()
     expect(err.errors.email.kind).to.eql('checkMaxLength')
   })

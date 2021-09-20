@@ -18,7 +18,7 @@ describe('deactivateUser', () => {
     //
     UserModel.collection.insertOne({
       _id: userId,
-      email: 'user1@email.com',
+      email: 'username1@email.com',
       username,
       password: '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2',
       dateOfBirth: '1995-02-15',
