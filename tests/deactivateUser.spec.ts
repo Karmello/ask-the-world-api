@@ -7,7 +7,7 @@ import { UserModel, QuestionModel, AnswerModel } from './../src/models/index'
 const userId = mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c')
 const questionId = mongoose.Types.ObjectId('5eeb976152c1dc555c2d676d')
 
-const username = 'user1'
+const username = 'username1'
 
 describe('deactivateUser', () => {
   //

@@ -34,6 +34,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -88,12 +91,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "user1@email.com",
+									"value": "username1@email.com",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "user1",
+									"value": "username1",
 									"type": "text"
 								},
 								{
@@ -140,8 +143,8 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
-									"\tpm.expect(body.username).to.eql('user1')\r",
+									"\tpm.expect(body.email).to.eql('username1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('username1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
@@ -186,12 +189,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "user1@email.com",
+									"value": "username1@email.com",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "user1",
+									"value": "username1",
 									"type": "text"
 								},
 								{
@@ -365,8 +368,8 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"\tconst body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
-									"\tpm.expect(body.username).to.eql('user1')\r",
+									"\tpm.expect(body.email).to.eql('username1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('username1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
@@ -399,7 +402,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -429,8 +432,8 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"\tconst body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
-									"\tpm.expect(body.username).to.eql('user1')\r",
+									"\tpm.expect(body.email).to.eql('username1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('username1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
@@ -466,7 +469,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "user1",
+									"value": "username1",
 									"type": "text"
 								},
 								{
@@ -599,7 +602,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -645,7 +648,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -780,7 +783,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -826,7 +829,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1025,7 +1028,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_emailToken}}",
+								"value": "{{username1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -1075,7 +1078,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_emailToken}}",
+								"value": "{{username1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -1198,7 +1201,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_emailToken}}",
+								"value": "{{username1_emailToken}}",
 								"type": "text"
 							}
 						],
@@ -1325,19 +1328,19 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{user1_id}}",
+							"raw": "{{API_URL}}{{userPath}}?_id={{username1_id}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
 							],
 							"query": [
 								{
 									"key": "_id",
-									"value": "{{user1_id}}"
+									"value": "{{username1_id}}"
 								}
 							]
 						}
@@ -1358,8 +1361,8 @@
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
 									"\tpm.expect(body.count.questions).to.eql(0)\r",
-									"\tpm.expect(body.user.email).to.eql('user1@email.com')\r",
-									"\tpm.expect(body.user.username).to.eql('user1')\r",
+									"\tpm.expect(body.user.email).to.eql('username1@email.com')\r",
+									"\tpm.expect(body.user.username).to.eql('username1')\r",
 									"\tpm.expect(body.user.country).to.eql('PL')\r",
 									"\tpm.expect(body.user.sex).to.eql('M')\r",
 									"\tpm.expect(body.user.dateOfBirth).to.eql('1990-01-01')\r",
@@ -1392,19 +1395,19 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URL}}{{userPath}}?_id={{user1_id}}",
+							"raw": "{{API_URL}}{{userPath}}?_id={{username1_id}}",
 							"host": [
 								"{{API_URL}}{{userPath}}"
 							],
 							"query": [
 								{
 									"key": "_id",
-									"value": "{{user1_id}}"
+									"value": "{{username1_id}}"
 								}
 							]
 						}
@@ -1525,7 +1528,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1579,7 +1582,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1636,7 +1639,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1645,7 +1648,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "user2",
+									"value": "username2",
 									"type": "text"
 								},
 								{
@@ -1687,7 +1690,7 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
+									"\tpm.expect(body.email).to.eql('username1@email.com')\r",
 									"\tpm.expect(body.username).to.eql('userOne')\r",
 									"\tpm.expect(body.country).to.eql('GB')\r",
 									"\tpm.expect(body.sex).to.eql('F')\r",
@@ -1721,7 +1724,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1893,7 +1896,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -1948,7 +1951,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2013,7 +2016,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2064,7 +2067,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2100,8 +2103,8 @@
 									"\r",
 									"pm.test('Should responde with proper User doc', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.email).to.eql('user1@email.com')\r",
-									"\tpm.expect(body.username).to.eql('user1')\r",
+									"\tpm.expect(body.email).to.eql('username1@email.com')\r",
+									"\tpm.expect(body.username).to.eql('username1')\r",
 									"\tpm.expect(body.country).to.eql('PL')\r",
 									"\tpm.expect(body.sex).to.eql('M')\r",
 									"\tpm.expect(body.dateOfBirth).to.eql('1990-01-01')\r",
@@ -2134,7 +2137,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2274,7 +2277,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2326,7 +2329,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2380,7 +2383,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2535,7 +2538,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2589,7 +2592,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2643,7 +2646,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2696,7 +2699,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2758,7 +2761,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2820,7 +2823,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2882,7 +2885,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -2945,7 +2948,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3008,7 +3011,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3174,7 +3177,7 @@
 					"response": []
 				},
 				{
-					"name": "Requesting question when authenticated",
+					"name": "Requesting own question when authenticated",
 					"event": [
 						{
 							"listen": "test",
@@ -3198,9 +3201,9 @@
 									"\t})\r",
 									"})\r",
 									"\r",
-									"pm.test('Should include isFollowedByRequestor', () => {\r",
+									"pm.test('Should not include isFollowedByRequestor', () => {\r",
 									"  const body = pm.response.json()\r",
-									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.false\r",
+									"\tpm.expect(body.data[0].isFollowedByRequestor).to.be.undefined\r",
 									"})\r",
 									"\r",
 									"pm.test('Should not include voting', () => {\r",
@@ -3231,8 +3234,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"key": "",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3319,7 +3322,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{Mj23_authToken}}",
+								"value": "{{MichaelJordan_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3469,7 +3472,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3523,7 +3526,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3648,7 +3651,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3793,7 +3796,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3918,7 +3921,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -3972,7 +3975,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4106,7 +4109,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4160,7 +4163,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4285,7 +4288,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4339,7 +4342,7 @@
 						"header": [
 							{
 								"key": "atw-x-auth-token",
-								"value": "{{user1_authToken}}",
+								"value": "{{username1_authToken}}",
 								"type": "text"
 							}
 						],
@@ -4404,23 +4407,23 @@
 					"Utils = {",
 					"\tusers: {",
 					"\t\tuser1: {",
-					"\t\t\temail: 'user1@email.com',",
-					"\t\t\tusername: 'user1',",
+					"\t\t\temail: 'username1@email.com',",
+					"\t\t\tusername: 'username1',",
 					"\t\t\tpassword: 'cocacola100',",
 					"\t\t\tcountry: 'PL',",
 					"\t\t\tsex: 'M',",
 					"\t\t\tdateOfBirth: '1990-01-01',",
 					"\t\t},",
 					"\t\tuser2: {",
-					"\t\t\temail: 'user2@email.com',",
-					"\t\t\tusername: 'user2',",
+					"\t\t\temail: 'username2@email.com',",
+					"\t\t\tusername: 'username2',",
 					"\t\t\tpassword: 'cocacola200',",
 					"\t\t\tcountry: 'US',",
 					"\t\t\tsex: 'F',",
 					"\t\t\tdateOfBirth: '1995-03-03',",
 					"\t\t},",
 					"\t\tfullAccountUser: {",
-					"\t\t\tusername: 'Mj23',",
+					"\t\t\tusername: 'MichaelJordan',",
 					"\t\t\tpassword: 'cocacola100'",
 					"\t\t}",
 					"\t},",
@@ -4529,14 +4532,14 @@
 					"\t\t})",
 					"\t},",
 					"\treset: (pm) => {",
-					"\t\tpm.environment.set('user1_authToken', '')",
-					"\t\tpm.environment.set('user1_id', '')",
-					"\t\tpm.environment.set('user1_emailToken', '')",
-					"\t\tpm.environment.set('user2_authToken', '')",
-					"\t\tpm.environment.set('user2_id', '')",
-					"\t\tpm.environment.set('user2_emailToken', '')",
-					"\t\tpm.environment.set('Mj23_authToken', '')",
-					"\t\tpm.environment.set('Mj23_id', '')",
+					"\t\tpm.environment.set('username1_authToken', '')",
+					"\t\tpm.environment.set('username1_id', '')",
+					"\t\tpm.environment.set('username1_emailToken', '')",
+					"\t\tpm.environment.set('username2_authToken', '')",
+					"\t\tpm.environment.set('username2_id', '')",
+					"\t\tpm.environment.set('username2_emailToken', '')",
+					"\t\tpm.environment.set('MichaelJordan_authToken', '')",
+					"\t\tpm.environment.set('MichaelJordan_id', '')",
 					"\t\tpm.environment.set('questionId', '')",
 					"\t}",
 					"}",
