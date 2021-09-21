@@ -4,7 +4,7 @@ import times from 'lodash/times'
 import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/source/utils'
 import { getRandNum, getRandNums } from './../../src/lib/atw-shared/source/helpers'
 
-import { msInDay } from './constants'
+import { msInDay } from './_constants'
 
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]

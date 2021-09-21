@@ -31,7 +31,7 @@ export default (app: Application) =>
 
           follow
             .save()
-            .then(doc => res.status(200).send(doc))
+            .then(_doc => res.status(200).send(_doc))
             .catch(err => res.status(400).send(err))
         })
         .catch(err => res.status(400).send(err))

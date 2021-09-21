@@ -12,12 +12,12 @@ import {
 } from './../../src/lib/atw-shared/source/utils/index'
 
 import { getRandNum } from './../../src/lib/atw-shared/source/helpers'
-import { msInDay } from './constants'
+import { msInDay } from './_constants'
 
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(500, () => {
+  times(5000, () => {
     const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
 
     const user = users[getRandNum(0, users.length - 1)]
