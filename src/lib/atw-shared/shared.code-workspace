@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "source"
+    }
+  ],
+  "settings": {
+    "editor.fontFamily": "Consolas",
+    "editor.fontSize": 17
+  }
+}

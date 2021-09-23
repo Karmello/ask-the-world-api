@@ -1,8 +1,5 @@
-export { default as ActivateUser } from './ActivateUser/index'
 export { default as AuthenticateUser } from './AuthenticateUser/index'
-export { default as DeactivateUser } from './DeactivateUser/index'
 export { default as ReadUser } from './ReadUser/index'
 export { default as RegisterUser } from './RegisterUser/index'
 export { default as UpdatePassword } from './UpdatePassword/index'
-export { default as UpdatePayment } from './UpdatePayment/index'
 export { default as UpdateUser } from './UpdateUser/index'

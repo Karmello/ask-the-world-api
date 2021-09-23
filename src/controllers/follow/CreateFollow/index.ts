@@ -1,14 +1,22 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppError } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { FollowModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+  verifyPaymentStatus,
+} from 'middleware/index'
 
 export default (app: Application) =>
   app.post(
-    ApiUrlPath.FollowQuestion,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    ApiUrlPath.Follow,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
+    verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
       FollowModel.findOne({ questionId: req.query._id, followerId: req.decoded._id })
@@ -23,7 +31,7 @@ export default (app: Application) =>
 
           follow
             .save()
-            .then(doc => res.status(200).send(doc))
+            .then(_doc => res.status(200).send(_doc))
             .catch(err => res.status(400).send(err))
         })
         .catch(err => res.status(400).send(err))

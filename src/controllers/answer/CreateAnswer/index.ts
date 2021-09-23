@@ -3,16 +3,22 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, IAnswer } from 'shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { AnswerModel, FollowModel, QuestionModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+} from 'middleware/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
   app.post(
-    ApiUrlPath.CreateAnswer,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    ApiUrlPath.Answer,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
     (req: Request, res: Response) => {
       //
       const newAnswer = new AnswerModel({
@@ -38,8 +44,8 @@ export default (app: Application) =>
                         requestor: answer.selectedIndexes,
                       }
                       question.answers.forEach((v, i) => (voting.all[i] = 0))
-                      answers.forEach((answer: IAnswer) => {
-                        answer.selectedIndexes.forEach(v => voting.all[v]++)
+                      answers.forEach((a: IAnswer) => {
+                        a.selectedIndexes.forEach(v => voting.all[v]++)
                       })
 
                       res.status(200).send({

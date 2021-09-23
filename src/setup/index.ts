@@ -6,8 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
 import { format } from 'date-fns'
 
-import { ApiUrlPath, Env, DATE_TIME_FORMAT } from 'shared/utils/index'
-import { X_AUTH_TOKEN } from 'shared/utils/constants'
+import { ApiUrlPath, Env, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'shared/utils/index'
 
 const { NODE_ENV, APP_ENV } = process.env
 
@@ -43,7 +42,7 @@ export default (app: Application, logs: {}[]) => {
           })
           data = { errors: data.errors }
         }
-        if (![ApiUrlPath.ReadLogs, '/favicon.ico'].includes(req.path)) {
+        if (![ApiUrlPath.Logs, '/favicon.ico'].includes(req.path)) {
           const token = req.headers[X_AUTH_TOKEN]
           logs.push({
             log_time: format(Date.now(), DATE_TIME_FORMAT),

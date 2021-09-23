@@ -1,14 +1,22 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppError } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { QuestionModel, AnswerModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+  verifyPaymentStatus,
+} from 'middleware/index'
 
 export default (app: Application) =>
   app.delete(
-    ApiUrlPath.DeleteQuestion,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    ApiUrlPath.Question,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
+    verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
       QuestionModel.deleteOne({ _id: req.query._id })

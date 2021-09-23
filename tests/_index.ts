@@ -3,6 +3,14 @@ import chaiHttp from 'chai-http'
 
 import _api from './../src/index'
 
+import {
+  UserModel,
+  QuestionModel,
+  AnswerModel,
+  FollowModel,
+  ReportModel,
+} from './../src/models/index'
+
 _chai.use(should)
 _chai.use(chaiHttp)
 
@@ -13,7 +21,14 @@ export const api = _api
 describe('\nAPI integration testing\n', () => {
   it('Server ready', done => {
     setTimeout(() => {
-      require('./newUser.spec')
+      //
+      UserModel.collection.deleteMany({})
+      QuestionModel.collection.deleteMany({})
+      AnswerModel.collection.deleteMany({})
+      FollowModel.collection.deleteMany({})
+      ReportModel.collection.deleteMany({})
+
+      require('./deactivateUser.spec')
       done()
     }, 3000)
   })

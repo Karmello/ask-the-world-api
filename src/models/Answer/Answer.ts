@@ -34,4 +34,6 @@ const answerSchema = new Schema(
   }
 )
 
+answerSchema.index({ questionId: 1, answererId: 1 }, { unique: true })
+
 export default model<IAnswerDoc>(ModelName.Answer, answerSchema)

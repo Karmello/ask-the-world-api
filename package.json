@@ -8,12 +8,12 @@
     "start-local": "cross-env dotenv_config_path=env/.env.local NODE_ENV=development APP_ENV=local nodemon --exec ts-node -r dotenv/config -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "tslint": "tslint src/**/*.{ts,tsx}",
-    "unit": "cross-env NODE_ENV=test APP_ENV=test PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
-    "test": "cross-env dotenv_config_path=env/.env.local NODE_ENV=test APP_ENV=test PORT=10000 mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
+    "unit": "cross-env NODE_ENV=test APP_ENV=test APP_LANG=PL PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
+    "test": "cross-env dotenv_config_path=env/.env.test NODE_ENV=test APP_ENV=test PORT=10000 mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
     "seed-local": "ts-node ./mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
     "seed-remote-dev": "yarn ts-node ./mocks/seed.ts $MONGO_URI",
     "clear-local": "ts-node ./mocks/clear.ts mongodb://localhost:27017/ask-the-world-local",
-    "pull-shared": "cmd/pull-shared.cmd"
+    "ps": "cmd/pull-shared.cmd"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -33,6 +33,7 @@
     "@types/mongoose-unique-validator": "^1.0.4",
     "@types/morgan": "^1.9.1",
     "@types/nodemailer": "^6.4.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "bcryptjs": "^2.4.3",

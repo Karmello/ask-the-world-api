@@ -1,14 +1,17 @@
+import faker from 'faker'
 import times from 'lodash/times'
 
-import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/utils'
-import { getRandNum, getRandNums } from './../../src/lib/atw-shared/helpers'
+import { IUser, IQuestion, IAnswer } from './../../src/lib/atw-shared/source/utils'
+import { getRandNum, getRandNums } from './../../src/lib/atw-shared/source/helpers'
+
+import { msInDay } from './_constants'
 
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]
 
   times(questions.length, (i: number) => {
     //
-    const { _id, createdAt, answers, options } = questions[i]
+    const { _id, answers, options } = questions[i]
     const userIndexes = getRandNums(0, users.length - 1, getRandNum(1, users.length))
 
     times(userIndexes.length, (i: number) => {
@@ -17,7 +20,12 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
         answerMocks.push({
           questionId: _id,
           answererId: answerer._id,
-          answeredAt: createdAt + 86400000 * getRandNum(1, 100),
+          answeredAt: new Date(
+            faker.date.between(
+              new Date(Date.now() - 4 * msInDay),
+              new Date(Date.now() - 1 * msInDay)
+            )
+          ).getTime(),
           selectedIndexes: (() => {
             let arr
             if (!options.multipleChoice) {

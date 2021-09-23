@@ -1,26 +1,17 @@
 import mongoose from 'mongoose'
 import faker from 'faker'
 
-import COUNTRIES from './../../src/lib/atw-shared/utils/constants/countries'
-import { getRandNum } from './../../src/lib/atw-shared/helpers/index'
+import COUNTRIES from './../../src/lib/atw-shared/source/utils/constants/countries'
+import { getRandNum } from './../../src/lib/atw-shared/source/helpers/index'
+import payment from './payment'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'
-
-const payment = {
-  amount: {
-    currency_code: 'PLN',
-    value: '15.00',
-  },
-  orderID: '5XC846163M632145K',
-  status: 'COMPLETED',
-  update_time: '2021-08-17T08:33:31Z',
-}
 
 const basicUsers = [
   {
     _id: mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
     email: 'michael.jordan@gmail.com',
-    username: 'Mj23',
+    username: 'MichaelJordan',
     password,
     dateOfBirth: '1963-02-17',
     country: 'US',
@@ -159,11 +150,11 @@ const basicUsers = [
 
 const defaultUsers = (() => {
   const arr = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 0; i++) {
     arr.push({
       _id: new mongoose.Types.ObjectId(),
       email: `user_${i + 1}@mail.com`,
-      username: `user_${i + 1}`,
+      username: `username_${i + 1}`,
       password,
       dateOfBirth: '2000-01-01',
       country: COUNTRIES[getRandNum(0, COUNTRIES.length - 1)].value,

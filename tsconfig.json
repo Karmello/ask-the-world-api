@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "sourceMap": false,
     "paths": {
-      "shared/*": ["src/lib/atw-shared/*"],
+      "shared/*": ["src/lib/atw-shared/source/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
@@ -24,5 +24,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "coverage", "env", "dist"]
+  "exclude": ["node_modules", "build", "coverage", "env", "dist", "src/**/spec.ts"]
 }

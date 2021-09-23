@@ -8,7 +8,17 @@ import { Env } from 'shared/utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
-const { NODE_ENV, APP_ENV, APP_URL, API_URL, PORT, MONGO_URI, MONGO_URI_TEST } = process.env
+const {
+  NODE_ENV,
+  APP_ENV,
+  APP_LANG,
+  APP_URL,
+  API_URL,
+  PORT,
+  MONGO_URI,
+  MONGO_URI_TEST,
+} = process.env
+
 const app = express()
 const logs = [] as {}[]
 
@@ -31,7 +41,7 @@ mongoose
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
-          { NODE_ENV, APP_ENV, APP_URL, API_URL, dbConnectionString },
+          { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString },
           '\n'
         )
       }

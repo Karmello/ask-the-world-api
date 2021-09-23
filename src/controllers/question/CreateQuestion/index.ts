@@ -1,31 +1,38 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'shared/utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { QuestionModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+  verifyPaymentStatus,
+} from 'middleware/index'
 
 export default (app: Application) =>
   //
   app.post(
-    ApiUrlPath.CreateQuestion,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    ApiUrlPath.Question,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
+    verifyPaymentStatus,
     (req: Request, res: Response) => {
       //
-      try {
-        const newQuestion = new QuestionModel({
-          creatorId: req.decoded._id,
-          text: req.body.text,
-          answers: req.body.answers,
-          options: req.body.options,
-        })
+      const creatorId = req.decoded._id
+      const { text, answers, options } = req.body
 
-        newQuestion
-          .save()
-          .then(doc => res.status(201).send(doc.toObject()))
-          .catch(err => res.status(400).send(err))
-      } catch (ex) {
-        res.status(400).send(ex.message)
-      }
+      const newQuestion = new QuestionModel({
+        creatorId,
+        text,
+        answers,
+        options,
+      })
+
+      newQuestion
+        .save()
+        .then(doc => res.status(201).send(doc.toObject()))
+        .catch(err => res.status(400).send(err))
     }
   )

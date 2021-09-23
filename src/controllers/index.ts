@@ -1,44 +1,37 @@
 import { Application } from 'express'
-
 import { Env } from 'shared/utils/index'
-import { ReadInfo, ReadStats, GetActivationLink, GetDeactivationLink } from './other/index'
-import { GetLogs } from './log/index'
 
-import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './question/index'
-
-import { CreateAnswer, UpdateAnswer } from './answer/index'
-import { CreateFollow, DeleteFollow } from './follow/index'
-import { CreateReport } from './report/index'
+import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 
 import {
   ActivateUser,
-  AuthenticateUser,
   DeactivateUser,
-  RegisterUser,
-  ReadUser,
-  UpdateUser,
-  UpdatePassword,
-  UpdatePayment,
-} from './user/index'
+  GetActivationLink,
+  GetDeactivationLink,
+  MakePayment,
+} from './account/index'
+
+import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './question/index'
+import { CreateAnswer, UpdateAnswer } from './answer/index'
+import { CreateFollow, DeleteFollow } from './follow/index'
+import { CreateReport } from './report/index'
+import { ReadStats } from './other/index'
+import { GetLogs, ReadInfo } from './utils/index'
 
 const { APP_ENV } = process.env
 
 const registerControllers = (app: Application, logs: {}[]) => {
-  // misc
-  GetActivationLink(app)
-  GetDeactivationLink(app)
-  ReadInfo(app)
-  ReadStats(app)
-
   // user
   ActivateUser(app)
   AuthenticateUser(app)
   DeactivateUser(app)
-  RegisterUser(app)
+  GetActivationLink(app)
+  GetDeactivationLink(app)
+  MakePayment(app)
   ReadUser(app)
-  UpdateUser(app)
+  RegisterUser(app)
   UpdatePassword(app)
-  UpdatePayment(app)
+  UpdateUser(app)
 
   // question
   CreateQuestion(app)
@@ -57,6 +50,11 @@ const registerControllers = (app: Application, logs: {}[]) => {
   // report
   CreateReport(app)
 
+  // other
+  ReadStats(app)
+
+  // utils
+  if (APP_ENV !== Env.RemoteProd) ReadInfo(app)
   if (APP_ENV === Env.Local) GetLogs(app, logs)
 }
 

@@ -3,16 +3,22 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, IAnswer } from 'shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
-import { userAuthMiddleware, checkAccountStatusMiddleware } from 'middleware/index'
 import { AnswerModel, QuestionModel, FollowModel } from 'models/index'
+
+import {
+  verifyCredentialsPresence,
+  verifyAuthToken,
+  verifyEmailConfirmation,
+} from 'middleware/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
 export default (app: Application) =>
   app.put(
-    ApiUrlPath.UpdateAnswer,
-    userAuthMiddleware,
-    checkAccountStatusMiddleware,
+    ApiUrlPath.Answer,
+    verifyCredentialsPresence,
+    verifyAuthToken,
+    verifyEmailConfirmation,
     (req: Request, res: Response) => {
       //
       AnswerModel.findOneAndUpdate(
