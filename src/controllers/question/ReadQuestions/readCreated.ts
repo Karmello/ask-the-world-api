@@ -61,12 +61,10 @@ export default (helper: Helper) => {
             },
             { $sort: { __order: 1 } },
             { $unset: '__order' },
-            { $skip: helper.skip },
-            { $limit: helper.limit },
             {
               $facet: {
                 meta: [{ $count: 'count' }],
-                docs: [{ $match: {} }],
+                docs: [{ $match: {} }, { $skip: helper.skip }, { $limit: helper.limit }],
               },
             },
           ]).then(helper.endWithSuccess, helper.endWithError)
