@@ -13,7 +13,7 @@ interface IUser {
   config: {
     registeredAt: number
     confirmed: boolean
-    payment?: IPayment
+    payment?: IPayment | boolean
   }
 }
 
