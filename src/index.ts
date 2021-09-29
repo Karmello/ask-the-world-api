@@ -17,6 +17,7 @@ const {
   PORT,
   MONGO_URI,
   MONGO_URI_TEST,
+  DISABLE_PAYMENT,
 } = process.env
 
 const app = express()
@@ -41,7 +42,7 @@ mongoose
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
-          { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString },
+          { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString, DISABLE_PAYMENT },
           '\n'
         )
       }
