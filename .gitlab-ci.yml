@@ -8,7 +8,8 @@ stages:
 Bundle:
   only:
     - master
-    - '/^milestone#.*$/'
+    - /^milestone#.*$/
+    - /^feature.*$/
   stage: Node.js image
   artifacts:
     paths:
@@ -44,7 +45,8 @@ Deploy (master):
     - aws deploy wait deployment-successful --deployment-id $deploymentId
 Deploy (feature):
   only:
-    - '/^milestone#.*$/'
+    - /^milestone#.*$/
+    - /^feature.*$/
   stage: AWS image
   environment:
     name: Feature
