@@ -19,12 +19,8 @@ export default (app: Application) =>
     newUser
       .save()
       .then(doc => {
-        console.log('!!!')
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
         res.status(201).send(doc)
       })
-      .catch(err => {
-        console.log('err', err)
-        res.status(400).send(err.errors)
-      })
+      .catch(err => res.status(400).send(err.errors))
   })
