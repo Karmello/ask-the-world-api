@@ -19,6 +19,7 @@ export default (app: Application) =>
     newUser
       .save()
       .then(doc => {
+        console.log('!!!')
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
         res.status(201).send(doc)
       })
