@@ -1,3 +1,4 @@
+export { default as AccountStatus } from './enums/AccountStatus'
 export { default as ApiUrlPath } from './enums/ApiUrlPath'
 export { default as AppError } from './enums/AppError'
 export { default as Env } from './enums/Env'
