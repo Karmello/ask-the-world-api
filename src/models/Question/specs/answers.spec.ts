@@ -58,6 +58,7 @@ describe('question answers validation', () => {
         'answer8',
         'answer9',
         'answer10',
+        'answer11',
       ],
     })
     const err = question.validateSync()

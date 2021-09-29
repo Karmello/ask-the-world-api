@@ -20,7 +20,7 @@ Bundle:
     - yarn unit
     - yarn test
     - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
-    - yarn seed-remote-dev
+    # - yarn seed-remote-dev
     - mkdir api
     - cp -r aws/. build api
     - cp env/ecosystem.config.js api/build

@@ -8,7 +8,10 @@ export default (app: Application) =>
   //
   app.post(ApiUrlPath.User, (req: Request, res: Response) => {
     //
-    const newUser = new UserModel(req.body)
+    const newDoc = { ...req.body }
+    if (process.env.DISABLE_PAYMENT === 'yes') newDoc.config = { payment: {} }
+
+    const newUser = new UserModel(newDoc)
 
     newUser
       .save()
