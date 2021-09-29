@@ -9,6 +9,7 @@ Bundle:
   only:
     - master
     - '/^milestone#.*$/'
+    - '/^feature.*$/'
   stage: Node.js image
   artifacts:
     paths:
