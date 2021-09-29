@@ -17,8 +17,8 @@ const dict = {
   [Lang.PL]: {
     requiredMsg: 'jest polem wymaganym',
     invalidCharMsg: 'ma niedozwolone znaki',
-    invalidMsg: 'is invalid',
-    incorrectMsg: 'is incorrect',
+    invalidMsg: 'ma niewłaściwą wartość',
+    incorrectMsg: 'ma niewłaściwą wartość',
     incorrectCredentialsMsg: 'Niepoprawne dane',
     incorrectPassword: 'Niepoprawne hasło',
     alreadyTakenMsg: 'jest w użyciu',
