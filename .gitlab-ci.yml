@@ -31,7 +31,7 @@ Deploy (master):
   stage: AWS image
   environment:
     name: Master
-    url: https://ec2-18-194-139-71.eu-central-1.compute.amazonaws.com:8000/api/
+    url: https://ec2-18-194-139-71.eu-central-1.compute.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
@@ -50,7 +50,7 @@ Deploy (feature):
   stage: AWS image
   environment:
     name: Feature
-    url: https://ec2-18-196-70-139.eu-central-1.compute.amazonaws.com:8000/api/
+    url: https://ec2-18-196-70-139.eu-central-1.compute.amazonaws.com/api/
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   dependencies:
     - Bundle
