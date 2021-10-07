@@ -47,7 +47,7 @@ mongoose
         )
       }
 
-      if (![Env.Local, Env.Test].includes(APP_ENV as Env)) {
+      if ([Env.RemotePreProd, Env.RemoteProd].includes(APP_ENV as Env)) {
         createServer(
           {
             key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
