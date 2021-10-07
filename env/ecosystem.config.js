@@ -27,7 +27,9 @@ module.exports = {
         PAYPAL_API_URL: 'https://api-m.paypal.com',
         DISABLE_PAYMENT: 'no',
       },
-      env_prod: {},
+      env_prod: {
+        APP_ENV: 'remote-prod',
+      },
     },
   ],
 }
