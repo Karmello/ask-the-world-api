@@ -7,6 +7,7 @@ stages:
   - AWS image
 Bundle:
   only:
+    - /^release.*$/
     - master
     - /^milestone#.*$/
     - /^feature.*$/
@@ -21,10 +22,27 @@ Bundle:
     - yarn unit
     - yarn test
     - CI_COMMIT_SHA=$CI_COMMIT_SHA CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME yarn build
-    # - yarn seed-remote-dev
     - mkdir api
     - cp -r aws/. build api
     - cp env/ecosystem.config.js api/build
+Deploy (uat):
+  only:
+    - /^release.*$/
+  stage: AWS image
+  environment:
+    name: Uat
+    url: https://18.159.126.80/api/
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  dependencies:
+    - Bundle
+  script:
+    - cd api
+    - tar -cvf api.tar build scripts appspec.yml
+    - aws s3 cp api.tar s3://ask-the-world-dev-release/uat/
+    - deploymentId=`aws deploy create-deployment --application-name ask-the-world-api-uat
+      --s3-location bucket=ask-the-world-dev-release,key=uat/api.tar,bundleType=tar
+      --deployment-group-name ask-the-world-api-uat --file-exists-behavior OVERWRITE --output text`
+    - aws deploy wait deployment-successful --deployment-id $deploymentId
 Deploy (master):
   only:
     - master
