@@ -1,5 +1,8 @@
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
+import { createServer } from 'https'
+import { readFileSync } from 'fs'
+import path from 'path'
 
 import { Env } from 'shared/utils/index'
 import registerControllers from 'controllers/index'
@@ -35,14 +38,20 @@ mongoose
   .then(
     () => {
       //
-      app.listen(PORT, (err?: Errback) => {
+      const onStarted = (err?: Errback) => {
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
           { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString, DISABLE_PAYMENT },
           '\n'
         )
-      })
+      }
+
+      if (![Env.Local, Env.Test].includes(APP_ENV as Env)) {
+        createServer({}, app).listen(PORT, onStarted)
+      } else {
+        app.listen(PORT, onStarted)
+      }
     },
     err => console.log(err)
   )
