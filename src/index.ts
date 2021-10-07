@@ -1,8 +1,5 @@
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
-import { createServer } from 'https'
-import { readFileSync } from 'fs'
-import path from 'path'
 
 import { Env } from 'shared/utils/index'
 import registerControllers from 'controllers/index'
@@ -38,28 +35,14 @@ mongoose
   .then(
     () => {
       //
-      const onStarted = (err?: Errback) => {
+      app.listen(PORT, (err?: Errback) => {
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
           { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString, DISABLE_PAYMENT },
           '\n'
         )
-      }
-
-      if (![Env.Local, Env.Test].includes(APP_ENV as Env)) {
-        createServer(
-          {
-            key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
-            cert: readFileSync(path.resolve('./../ssl/cert.pem'), { encoding: 'utf-8' }),
-            ca: readFileSync(path.resolve('./../ssl/ca.pem'), { encoding: 'utf-8' }),
-            passphrase: 'zH3N3K4DKY',
-          },
-          app
-        ).listen(PORT, onStarted)
-      } else {
-        app.listen(PORT, onStarted)
-      }
+      })
     },
     err => console.log(err)
   )
