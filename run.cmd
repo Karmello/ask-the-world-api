@@ -7,8 +7,9 @@ SET ATW_FE_PATH="C:/Dev/ask-the-world-fe"
 SET ATW_SHARED_PATH="C:/Dev/ask-the-world-shared"
 
 if %1 == app (
-  cmd /k -new_console:t:"ec2-master":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.194.139.71
-  cmd /k -new_console:t:"ec2-feature":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.196.70.139
+  cmd /k -new_console:t:"ec2-uat":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@18.159.126.80
+  cmd /k -new_console:t:"ec2-master":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@3.126.86.4
+  cmd /k -new_console:t:"ec2-feature":d:%ATW_CERTS_PATH% ssh -i ask-the-world-dev.pem ubuntu@3.69.212.40
   cmd /k -new_console:t:"mongo" mongod
   cmd /k -new_console:t:"api":d:%ATW_API_PATH% yarn start-local
   cmd /k -new_console:t:"server":d:%ATW_FE_PATH% yarn dev-server
