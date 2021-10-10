@@ -17,10 +17,6 @@ export default (options: TOptions) =>
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
-      secure: true,
-      tls: {
-        rejectUnauthorized: false,
-      },
     })
 
     const { to, subject, link } = options
