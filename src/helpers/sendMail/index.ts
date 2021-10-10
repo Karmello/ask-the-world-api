@@ -12,12 +12,13 @@ export default (options: TOptions) =>
     const { EMAIL_USER, EMAIL_PASS } = process.env
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 25,
+      secure: true,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
-      secure: true,
     })
 
     const { to, subject, link } = options
