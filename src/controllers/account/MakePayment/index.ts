@@ -34,8 +34,8 @@ export default (app: Application) =>
               undefined,
               {
                 auth: {
-                  username: process.env.PAYPAL_USERNAME,
-                  password: process.env.PAYPAL_PASSWORD,
+                  username: process.env.PAYPAL_CLIENT_ID,
+                  password: process.env.PAYPAL_SECRET,
                 },
                 headers: {
                   'content-type': 'application/json',
