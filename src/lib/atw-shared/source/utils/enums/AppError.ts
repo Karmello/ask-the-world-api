@@ -10,6 +10,7 @@ enum AppError {
   NoSuchQuestion = 'NO_SUCH_QUESTION',
   AlreadyFollowing = 'ALREADY_FOLLOWING',
   CountNotConfirmPayment = 'COULD_NOT_CONFIRM_PAYMENT',
+  PaymentAlreadyMade = 'PAYMENT_ALREADY_MADE',
 }
 
 export default AppError
