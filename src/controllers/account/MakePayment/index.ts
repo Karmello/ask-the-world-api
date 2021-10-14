@@ -10,7 +10,9 @@ export default (app: Application) =>
   //
   app.post(ApiUrlPath.UserPayment, (req: Request, res: Response) => {
     //
-    UserModel.findOne({ email: get(req, 'body.data.object.email', '') })
+    if (req.body.type !== 'charge.succeeded') return res.status(403).send(AppError.IllegalAction)
+
+    UserModel.findOne({ email: get(req, 'body.data.object.billing_details.email', '') })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
@@ -19,18 +21,15 @@ export default (app: Application) =>
         if (!doc.config.confirmed) return res.status(403).send(AppError.EmailNotConfirmed)
         if (doc.config.payment) return res.status(400).send(AppError.PaymentAlreadyMade)
 
-        if (req.body.type === 'charge.succeeded') {
-          doc.set({ config: { payment: req.body } })
+        doc.set({ config: { payment: req.body } })
 
-          doc
-            .save()
-            .then(_doc => {
-              res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
-              res.status(200).send(_doc)
-            })
-            .catch(err => res.status(400).send(err.errors))
-        } else {
-        }
+        doc
+          .save()
+          .then(_doc => {
+            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
+            res.status(200).send(_doc)
+          })
+          .catch(err => res.status(400).send(err.errors))
       })
       .catch(err => res.status(400).send(err.errors))
   })
