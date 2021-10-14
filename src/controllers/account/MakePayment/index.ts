@@ -1,5 +1,4 @@
 import { Application, Request, Response } from 'express'
-import axios from 'axios'
 import get from 'lodash/get'
 
 import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'shared/utils/index'
@@ -18,10 +17,20 @@ export default (app: Application) =>
         //
         if (!doc) return res.status(404).send(AppError.NoSuchUser)
         if (!doc.config.confirmed) return res.status(403).send(AppError.EmailNotConfirmed)
+        if (doc.config.payment) return res.status(400).send(AppError.PaymentAlreadyMade)
 
-        console.log(req.body)
+        if (req.body.type === 'charge.succeeded') {
+          doc.set({ config: { payment: req.body } })
 
-        res.status(200).send()
+          doc
+            .save()
+            .then(_doc => {
+              res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
+              res.status(200).send(_doc)
+            })
+            .catch(err => res.status(400).send(err.errors))
+        } else {
+        }
       })
       .catch(err => res.status(400).send(err.errors))
   })
