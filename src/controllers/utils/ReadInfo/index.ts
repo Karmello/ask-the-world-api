@@ -9,6 +9,8 @@ export default (app: Application) =>
       status: 'OK',
       branch: process.env.CI_COMMIT_REF_NAME,
       commit: process.env.CI_COMMIT_SHA,
-      buildTime: format(Number(process.env.BUILD_TIMESTAMP), DATE_TIME_FORMAT),
+      buildTime: process.env.BUILD_TIMESTAMP
+        ? format(Number(process.env.BUILD_TIMESTAMP), DATE_TIME_FORMAT)
+        : undefined,
     })
   )

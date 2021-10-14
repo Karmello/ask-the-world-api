@@ -47,7 +47,17 @@ mongoose
         )
       }
 
-      if ([Env.RemotePreProd, Env.RemoteProd].includes(APP_ENV as Env)) {
+      if (APP_ENV === Env.Local) {
+        createServer(
+          {
+            key: readFileSync(path.resolve('./../ssl/local/localhost.decrypted.key'), {
+              encoding: 'utf-8',
+            }),
+            cert: readFileSync(path.resolve('./../ssl/local/localhost.crt'), { encoding: 'utf-8' }),
+          },
+          app
+        ).listen(PORT, onStarted)
+      } else {
         createServer(
           {
             key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
@@ -57,8 +67,6 @@ mongoose
           },
           app
         ).listen(PORT, onStarted)
-      } else {
-        app.listen(PORT, onStarted)
       }
     },
     err => console.log(err)
