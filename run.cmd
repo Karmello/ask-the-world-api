@@ -1,7 +1,7 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
-SET ATW_CERTS_PATH="C:/Dev/certs"
+SET ATW_CERTS_PATH="C:/Dev/ssl"
 SET ATW_API_PATH="C:/Dev/ask-the-world-api"
 SET ATW_FE_PATH="C:/Dev/ask-the-world-fe"
 SET ATW_SHARED_PATH="C:/Dev/ask-the-world-shared"
