@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
 import path from 'path'
+import { Server } from 'socket.io'
 
 import { Env } from 'shared/utils/index'
 import registerControllers from 'controllers/index'
@@ -47,8 +48,10 @@ mongoose
         )
       }
 
+      let server
+
       if (APP_ENV === Env.Local) {
-        createServer(
+        server = createServer(
           {
             key: readFileSync(path.resolve('./../ssl/local/localhost.decrypted.key'), {
               encoding: 'utf-8',
@@ -56,9 +59,9 @@ mongoose
             cert: readFileSync(path.resolve('./../ssl/local/localhost.crt'), { encoding: 'utf-8' }),
           },
           app
-        ).listen(PORT, onStarted)
+        )
       } else {
-        createServer(
+        server = createServer(
           {
             key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
             cert: readFileSync(path.resolve('./../ssl/cert.pem'), { encoding: 'utf-8' }),
@@ -66,8 +69,18 @@ mongoose
             passphrase: 'zH3N3K4DKY',
           },
           app
-        ).listen(PORT, onStarted)
+        )
       }
+
+      const io = new Server(server, {
+        cors: {
+          origin: APP_URL,
+          methods: ['GET', 'POST'],
+        },
+      })
+
+      app.set('io', io)
+      server.listen(PORT, onStarted)
     },
     err => console.log(err)
   )

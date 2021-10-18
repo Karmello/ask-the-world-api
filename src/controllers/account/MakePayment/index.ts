@@ -28,6 +28,7 @@ export default (app: Application) =>
         doc
           .save()
           .then(updatedDoc => {
+            req.app.get('io').socket.emit('payment_done', { x: 100 })
             res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
             res.status(200).send(updatedDoc)
           })
