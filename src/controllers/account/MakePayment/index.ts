@@ -10,7 +10,9 @@ export default (app: Application) =>
   //
   app.post(ApiUrlPath.UserPayment, (req: Request, res: Response) => {
     //
-    if (req.body.type !== 'charge.succeeded') return res.status(403).send(AppError.IllegalAction)
+    if (get(req, 'body.type', '') !== 'charge.succeeded') {
+      return res.status(403).send(AppError.IllegalAction)
+    }
 
     UserModel.findOne({ email: get(req, 'body.data.object.billing_details.email', '') })
       .select('-password')
@@ -25,9 +27,9 @@ export default (app: Application) =>
 
         doc
           .save()
-          .then(_doc => {
-            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
-            res.status(200).send(_doc)
+          .then(updatedDoc => {
+            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
+            res.status(200).send(updatedDoc)
           })
           .catch(err => res.status(400).send(err.errors))
       })
