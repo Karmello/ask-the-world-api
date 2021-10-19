@@ -1,8 +1,8 @@
 import { Application, Request, Response } from 'express'
 import get from 'lodash/get'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'shared/utils/index'
-import { IUserDoc } from 'utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError, SocketEvent } from 'shared/utils/index'
+import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
@@ -28,7 +28,7 @@ export default (app: Application) =>
         doc
           .save()
           .then(updatedDoc => {
-            req.app.get('io').emit('update_settings_page', updatedDoc)
+            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.SettingsPageUpdate, updatedDoc)
             res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
             res.status(200).send(updatedDoc)
           })

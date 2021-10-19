@@ -6,6 +6,7 @@ import path from 'path'
 import { Server } from 'socket.io'
 
 import { Env } from 'shared/utils/index'
+import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
@@ -79,7 +80,7 @@ mongoose
         },
       })
 
-      app.set('io', io)
+      app.set(SOCKET_FIELD_NAME, io)
       server.listen(PORT, onStarted)
     },
     err => console.log(err)
