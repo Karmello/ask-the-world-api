@@ -23,6 +23,7 @@ export default (app: Application) =>
           doc
             .save()
             .then(_doc => {
+              req.app.get('io').emit('reload')
               res.status(200).send(dict.emailConfirmedMsg)
             })
             .catch(err => res.status(400).send(err.errors))

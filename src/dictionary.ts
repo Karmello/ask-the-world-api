@@ -6,14 +6,14 @@ const dict = {
   [Lang.PL]: {
     accountActivationLink: 'Link aktywacyjny',
     accountDeactivationLink: 'Link deaktywacyjny',
-    emailConfirmedMsg: 'Email potwierdzony. Proszę odśwież okno z aplikacją Ask The World.',
+    emailConfirmedMsg: 'Twój email został potwierdzony. Możesz zamknąć to okno.',
     accountDeactivatedMsg: 'Twoje konto zostało usunięte.',
   },
   [Lang.EN]: {
     accountActivationLink: 'Account activation link',
     accountDeactivationLink: 'Account deactivation link',
     emailConfirmedMsg:
-      'Email has been confirmed successfully. Please refresh Ask The World application window.',
+      'Your email address has been confirmed successfully. You may close this window.',
     accountDeactivatedMsg: 'Your account has been deactivated successfully.',
   },
 }
