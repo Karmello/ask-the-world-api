@@ -13,19 +13,16 @@ module.exports = {
         APP_ENV: 'remote-dev',
         API_URL: 'http://localhost:9000',
         APP_URL: 'http://feature.ask-the-world.com',
-        PAYPAL_API_URL: 'https://api-m.sandbox.paypal.com',
       },
       env_master: {
         APP_ENV: 'remote-dev',
         API_URL: 'http://localhost:9000',
         APP_URL: 'http://master.ask-the-world.com',
-        PAYPAL_API_URL: 'https://api-m.sandbox.paypal.com',
       },
       env_uat: {
         APP_ENV: 'remote-pre-prod',
         API_URL: 'https://localhost:9000',
         APP_URL: 'https://uat.ask-the-world.com',
-        PAYPAL_API_URL: 'https://api-m.paypal.com',
       },
       env_prod: {
         APP_ENV: 'remote-prod',
