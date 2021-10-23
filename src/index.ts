@@ -54,19 +54,16 @@ mongoose
       if (APP_ENV === Env.Local) {
         server = createServer(
           {
-            key: readFileSync(path.resolve('./../ssl/local/localhost.decrypted.key'), {
-              encoding: 'utf-8',
-            }),
-            cert: readFileSync(path.resolve('./../ssl/local/localhost.crt'), { encoding: 'utf-8' }),
+            key: readFileSync(path.resolve('./../ssl/localhost.key'), { encoding: 'utf-8' }),
+            cert: readFileSync(path.resolve('./../ssl/localhost.crt'), { encoding: 'utf-8' }),
           },
           app
         )
       } else {
         server = createServer(
           {
-            key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
-            cert: readFileSync(path.resolve('./../ssl/cert.pem'), { encoding: 'utf-8' }),
-            ca: readFileSync(path.resolve('./../ssl/ca.pem'), { encoding: 'utf-8' }),
+            key: readFileSync(path.resolve('./../ssl/remote.key'), { encoding: 'utf-8' }),
+            cert: readFileSync(path.resolve('./../ssl/remote.crt'), { encoding: 'utf-8' }),
             passphrase: 'zH3N3K4DKY',
           },
           app
