@@ -20,6 +20,7 @@ const {
   MONGO_URI,
   MONGO_URI_TEST,
   DISABLE_PAYMENT,
+  SSL_PASSPHRASE,
 } = process.env
 
 const app = express()
@@ -64,7 +65,7 @@ mongoose
           {
             key: readFileSync(path.resolve('./../ssl/remote.key'), { encoding: 'utf-8' }),
             cert: readFileSync(path.resolve('./../ssl/remote.crt'), { encoding: 'utf-8' }),
-            passphrase: 'zH3N3K4DKY',
+            passphrase: SSL_PASSPHRASE,
           },
           app
         )
