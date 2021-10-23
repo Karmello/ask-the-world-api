@@ -6,22 +6,20 @@ module.exports = {
       env: {
         PORT: 9000,
         NODE_ENV: 'production',
+        API_URL: 'https://localhost:9000',
         EMAIL_USER: 'app.ask.the.world@gmail.com',
         DISABLE_PAYMENT: 'no',
       },
       env_feature: {
         APP_ENV: 'remote-dev',
-        API_URL: 'http://localhost:9000',
-        APP_URL: 'http://feature.ask-the-world.com',
+        APP_URL: 'https://feature.ask-the-world.com',
       },
       env_master: {
         APP_ENV: 'remote-dev',
-        API_URL: 'http://localhost:9000',
-        APP_URL: 'http://master.ask-the-world.com',
+        APP_URL: 'https://master.ask-the-world.com',
       },
       env_uat: {
         APP_ENV: 'remote-pre-prod',
-        API_URL: 'https://localhost:9000',
         APP_URL: 'https://uat.ask-the-world.com',
       },
       env_prod: {
