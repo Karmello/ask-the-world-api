@@ -6,7 +6,6 @@ module.exports = {
       env: {
         PORT: 9000,
         NODE_ENV: 'production',
-        API_URL: 'https://localhost:9000',
         EMAIL_USER: 'app.ask.the.world@gmail.com',
         DISABLE_PAYMENT: 'no',
       },

@@ -15,7 +15,6 @@ const {
   APP_ENV,
   APP_LANG,
   APP_URL,
-  API_URL,
   PORT,
   MONGO_URI,
   MONGO_URI_TEST,
@@ -45,7 +44,14 @@ mongoose
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
-          { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString, DISABLE_PAYMENT },
+          {
+            NODE_ENV,
+            APP_ENV,
+            APP_LANG,
+            APP_URL,
+            DISABLE_PAYMENT,
+            dbConnectionString,
+          },
           '\n'
         )
       }
