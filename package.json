@@ -58,6 +58,7 @@
     "nodemailer": "^6.5.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.4",
+    "socket.io": "^4.3.1",
     "ts-loader": "^8.0.1",
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^3.9.0",

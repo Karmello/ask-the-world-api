@@ -7,6 +7,7 @@ export { default as HttpMethod } from './enums/HttpMethod'
 export { default as Lang } from './enums/Lang'
 export { default as ReportReason } from './enums/ReportReason'
 export { default as Sex } from './enums/Sex'
+export { default as SocketEvent } from './enums/SocketEvent'
 export { default as SortBy } from './enums/SortBy'
 
 export { default as IUser } from './interfaces/IUser'

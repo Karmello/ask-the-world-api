@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppError } from 'shared/utils/index'
-import { IUserDoc } from 'utils/index'
+import { ApiUrlPath, AppError, SocketEvent } from 'shared/utils/index'
+import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import dict from 'src/dictionary'
@@ -23,6 +23,7 @@ export default (app: Application) =>
           doc
             .save()
             .then(_doc => {
+              req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
               res.status(200).send(dict.emailConfirmedMsg)
             })
             .catch(err => res.status(400).send(err.errors))

@@ -3,8 +3,10 @@ import mongoose from 'mongoose'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
 import path from 'path'
+import { Server } from 'socket.io'
 
 import { Env } from 'shared/utils/index'
+import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
@@ -12,12 +14,11 @@ const {
   NODE_ENV,
   APP_ENV,
   APP_LANG,
-  APP_URL,
-  API_URL,
+  DOMAIN,
   PORT,
   MONGO_URI,
   MONGO_URI_TEST,
-  DISABLE_PAYMENT,
+  SSL_PASSPHRASE,
 } = process.env
 
 const app = express()
@@ -42,24 +43,47 @@ mongoose
         if (err) return console.log(err)
         console.log(
           `API listening on port ${PORT}`,
-          { NODE_ENV, APP_ENV, APP_LANG, APP_URL, API_URL, dbConnectionString, DISABLE_PAYMENT },
+          {
+            NODE_ENV,
+            APP_ENV,
+            APP_LANG,
+            DOMAIN,
+            dbConnectionString,
+          },
           '\n'
         )
       }
 
-      if ([Env.RemotePreProd, Env.RemoteProd].includes(APP_ENV as Env)) {
-        createServer(
+      let server
+
+      if (APP_ENV === Env.Local) {
+        server = createServer(
           {
-            key: readFileSync(path.resolve('./../ssl/key.pem'), { encoding: 'utf-8' }),
-            cert: readFileSync(path.resolve('./../ssl/cert.pem'), { encoding: 'utf-8' }),
-            ca: readFileSync(path.resolve('./../ssl/ca.pem'), { encoding: 'utf-8' }),
-            passphrase: 'zH3N3K4DKY',
+            key: readFileSync(path.resolve('./../ssl/localhost.key'), { encoding: 'utf-8' }),
+            cert: readFileSync(path.resolve('./../ssl/localhost.crt'), { encoding: 'utf-8' }),
           },
           app
-        ).listen(PORT, onStarted)
+        )
       } else {
-        app.listen(PORT, onStarted)
+        server = createServer(
+          {
+            key: readFileSync(path.resolve('./../ssl/remote.key'), { encoding: 'utf-8' }),
+            cert: readFileSync(path.resolve('./../ssl/remote.crt'), { encoding: 'utf-8' }),
+            passphrase: SSL_PASSPHRASE,
+          },
+          app
+        )
       }
+
+      const io = new Server(server, {
+        cors: {
+          origin: DOMAIN,
+          methods: ['GET', 'POST'],
+        },
+      })
+
+      app.set(SOCKET_FIELD_NAME, io)
+      server.listen(PORT, onStarted)
     },
     err => console.log(err)
   )
