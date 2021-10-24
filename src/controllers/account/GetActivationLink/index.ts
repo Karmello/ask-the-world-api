@@ -22,7 +22,7 @@ export default (app: Application) =>
             const token = getFreshAuthToken(doc, true)
 
             const link =
-              process.env.APP_URL + '/api' + ApiUrlPath.UserActivate + `?${X_AUTH_TOKEN}=` + token
+              process.env.DOMAIN + '/api' + ApiUrlPath.UserActivate + `?${X_AUTH_TOKEN}=` + token
 
             if (process.env.APP_ENV === Env.Test) {
               res.setHeader(X_AUTH_TOKEN, token)

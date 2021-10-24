@@ -11,15 +11,15 @@ module.exports = {
       },
       env_feature: {
         APP_ENV: 'remote-dev',
-        APP_URL: 'https://feature.ask-the-world.com',
+        DOMAIN: 'https://feature.ask-the-world.com',
       },
       env_master: {
         APP_ENV: 'remote-dev',
-        APP_URL: 'https://master.ask-the-world.com',
+        DOMAIN: 'https://master.ask-the-world.com',
       },
       env_uat: {
         APP_ENV: 'remote-pre-prod',
-        APP_URL: 'https://uat.ask-the-world.com',
+        DOMAIN: 'https://uat.ask-the-world.com',
       },
       env_prod: {
         APP_ENV: 'remote-prod',

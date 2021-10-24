@@ -14,7 +14,7 @@ const {
   NODE_ENV,
   APP_ENV,
   APP_LANG,
-  APP_URL,
+  DOMAIN,
   PORT,
   MONGO_URI,
   MONGO_URI_TEST,
@@ -48,7 +48,7 @@ mongoose
             NODE_ENV,
             APP_ENV,
             APP_LANG,
-            APP_URL,
+            DOMAIN,
             DISABLE_PAYMENT,
             dbConnectionString,
           },
@@ -79,7 +79,7 @@ mongoose
 
       const io = new Server(server, {
         cors: {
-          origin: APP_URL,
+          origin: DOMAIN,
           methods: ['GET', 'POST'],
         },
       })
