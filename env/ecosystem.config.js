@@ -12,7 +12,6 @@ module.exports = {
       env_feature: {
         APP_ENV: 'remote-dev',
         DOMAIN: 'https://feature.ask-the-world.com',
-        DEBUG: 'engine,socket.io*',
       },
       env_master: {
         APP_ENV: 'remote-dev',
