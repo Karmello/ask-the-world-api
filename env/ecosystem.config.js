@@ -7,7 +7,6 @@ module.exports = {
         PORT: 9000,
         NODE_ENV: 'production',
         EMAIL_USER: 'app.ask.the.world@gmail.com',
-        DISABLE_PAYMENT: 'no',
       },
       env_feature: {
         APP_ENV: 'remote-dev',

@@ -18,7 +18,6 @@ const {
   PORT,
   MONGO_URI,
   MONGO_URI_TEST,
-  DISABLE_PAYMENT,
   SSL_PASSPHRASE,
 } = process.env
 
@@ -49,7 +48,6 @@ mongoose
             APP_ENV,
             APP_LANG,
             DOMAIN,
-            DISABLE_PAYMENT,
             dbConnectionString,
           },
           '\n'
