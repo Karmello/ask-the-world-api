@@ -79,7 +79,7 @@ mongoose
 
       const io = new Server(server, {
         cors: {
-          origin: '*',
+          origin: '*:*',
           methods: ['GET', 'POST'],
         },
       })
