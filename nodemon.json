@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "watch": "src",
-  "ignore": "src/**/*.spec.ts",
+  "watch": "./src",
+  "ignore": "./src/**/*.spec.ts",
   "ext": "ts"
 }
