@@ -15,7 +15,7 @@ export default (app: Application) =>
     verifyAuthToken,
     (req: Request, res: Response) => {
       //
-      const userId = ObjectId(req.decoded._id)
+      const userId = new ObjectId(req.decoded._id)
 
       UserModel.deleteOne({ _id: userId })
         .then(({ deletedCount }) => {

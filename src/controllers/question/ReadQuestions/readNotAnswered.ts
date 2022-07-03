@@ -9,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId
 export default (helper: Helper) => {
   //
   AnswerModel.aggregate([
-    { $match: { answererId: ObjectId(helper.req.decoded?._id) } },
+    { $match: { answererId: new ObjectId(helper.req.decoded?._id) } },
     {
       $group: {
         _id: null,

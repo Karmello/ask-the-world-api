@@ -7,7 +7,7 @@ const ObjectId = mongoose.Types.ObjectId
 export default (helper: Helper) => {
   //
   FollowModel.aggregate([
-    { $match: { followerId: ObjectId(helper.req.decoded?._id) } },
+    { $match: { followerId: new ObjectId(helper.req.decoded?._id) } },
     { $sort: { followedAt: -1 } },
   ]).then(results => {
     if (results.length === 0) {

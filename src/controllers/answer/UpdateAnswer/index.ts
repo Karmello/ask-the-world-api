@@ -34,8 +34,8 @@ export default (app: Application) =>
       )
         .then(answer => {
           //
-          const requestorId = ObjectId(req.decoded._id as string)
-          const questionId = ObjectId(req.query.questionId as string)
+          const requestorId = new ObjectId(req.decoded._id as string)
+          const questionId = new ObjectId(req.query.questionId as string)
 
           QuestionModel.findOne({ _id: questionId })
             .then((question: IQuestionDoc) => {
@@ -48,8 +48,8 @@ export default (app: Application) =>
                         requestor: answer.selectedIndexes,
                       }
                       question.answers.forEach((v, i) => (voting.all[i] = 0))
-                      answers.forEach((answer: IAnswer) => {
-                        answer.selectedIndexes.forEach(v => voting.all[v]++)
+                      answers.forEach((_answer: IAnswer) => {
+                        _answer.selectedIndexes.forEach(v => voting.all[v]++)
                       })
 
                       res.status(200).send({

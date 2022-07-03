@@ -13,7 +13,7 @@ export default (helper: Helper) => {
     case SortBy.MostPopular:
       QuestionModel.aggregate([
         {
-          $match: { creatorId: ObjectId(helper.userId) },
+          $match: { creatorId: new ObjectId(helper.userId) },
         },
         {
           $group: {
@@ -74,7 +74,7 @@ export default (helper: Helper) => {
 
     default:
       QuestionModel.aggregate([
-        { $match: { creatorId: ObjectId(helper.userId), ...helper.match } },
+        { $match: { creatorId: new ObjectId(helper.userId), ...helper.match } },
         {
           $facet: {
             meta: [{ $count: 'count' }],

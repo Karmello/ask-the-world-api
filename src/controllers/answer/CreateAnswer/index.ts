@@ -27,8 +27,8 @@ export default (app: Application) =>
         selectedIndexes: req.body,
       })
 
-      const requestorId = ObjectId(req.decoded._id as string)
-      const questionId = ObjectId(req.query.questionId as string)
+      const requestorId = new ObjectId(req.decoded._id as string)
+      const questionId = new ObjectId(req.query.questionId as string)
 
       newAnswer
         .save()

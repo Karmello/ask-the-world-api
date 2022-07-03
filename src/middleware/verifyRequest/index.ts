@@ -22,7 +22,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
     if (filter === Filter.Created) {
       try {
-        ObjectId(userId as any)
+        const id = new ObjectId(userId as any)
       } catch (ex) {
         return res.status(403).send(AppError.IllegalAction)
       }

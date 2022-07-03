@@ -23,7 +23,7 @@ import {
   checkSex,
 } from 'validation/index'
 
-import { USER_MIN_AGE, DATE_FORMAT } from 'shared/utils/index'
+import { USER_MIN_AGE, DATE_FORMAT, IUser } from 'shared/utils/index'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
 import dict from 'shared/validation/dictionary'
 
@@ -97,12 +97,12 @@ userSchema.plugin(uniqueValidator, { message: dict.alreadyTakenMsg })
 
 userSchema.methods = {
   toJSON() {
-    const user = this.toObject() as IUserDoc
+    const user = this.toObject() as IUser
     delete user.password
     return user
   },
   hashPassword(next: NextFunction) {
-    const doc = this as IUserDoc
+    const doc = this
     if (!doc.isModified('password')) {
       next()
     } else {
@@ -118,7 +118,7 @@ userSchema.methods = {
 }
 
 userSchema.pre('save', function (next: NextFunction) {
-  const doc = this as IUserDoc
+  const doc = (this as unknown) as IUserDoc
   doc.hashPassword(next)
 })
 
