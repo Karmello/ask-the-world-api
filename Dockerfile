@@ -1,14 +1,14 @@
 FROM node:16
 
-# Create app directory
-WORKDIR /usr/src/api
+WORKDIR /usr/src/app
 
-COPY package.json .
-COPY yarn.lock .
-COPY nodemon.json .
-COPY tsconfig.json .
-COPY env env
-COPY src src
+COPY certs certs 
+COPY apps/ask-the-world-api/package.json .
+COPY apps/ask-the-world-api/yarn.lock .
+COPY apps/ask-the-world-api/nodemon.json .
+COPY apps/ask-the-world-api/tsconfig.json .
+COPY apps/ask-the-world-api/env env
+COPY apps/ask-the-world-api/src src
 
 RUN yarn
 

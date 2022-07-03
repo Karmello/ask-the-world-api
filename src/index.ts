@@ -54,8 +54,8 @@ mongoose.connect(dbConnectionString, {}).then(
     if (APP_ENV === Env.Local) {
       server = createServer(
         {
-          key: readFileSync(path.resolve('./../../certs/localhost.key'), { encoding: 'utf-8' }),
-          cert: readFileSync(path.resolve('./../../certs/localhost.crt'), { encoding: 'utf-8' }),
+          key: readFileSync(path.resolve('./certs/localhost.key'), { encoding: 'utf-8' }),
+          cert: readFileSync(path.resolve('./certs/localhost.crt'), { encoding: 'utf-8' }),
         },
         app
       )
