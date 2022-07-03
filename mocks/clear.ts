@@ -14,7 +14,7 @@ const clearDb = async (client: MongoClient) => {
 }
 
 const main = async () => {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  const client = new MongoClient(uri)
 
   try {
     await client.connect()

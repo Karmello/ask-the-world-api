@@ -29,63 +29,56 @@ registerControllers(app, logs)
 
 const dbConnectionString = NODE_ENV !== Env.Test ? MONGO_URI : MONGO_URI_TEST
 
-mongoose
-  .connect(dbConnectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(
-    () => {
-      //
-      const onStarted = (err?: Errback) => {
-        if (err) return console.log(err)
-        console.log(
-          `API listening on port ${PORT}`,
-          {
-            NODE_ENV,
-            APP_ENV,
-            APP_LANG,
-            DOMAIN,
-            dbConnectionString,
-          },
-          '\n'
-        )
-      }
-
-      let server
-
-      if (APP_ENV === Env.Local) {
-        server = createServer(
-          {
-            key: readFileSync(path.resolve('./../ssl/localhost.key'), { encoding: 'utf-8' }),
-            cert: readFileSync(path.resolve('./../ssl/localhost.crt'), { encoding: 'utf-8' }),
-          },
-          app
-        )
-      } else {
-        server = createServer(
-          {
-            key: readFileSync(path.resolve('./../ssl/remote.key'), { encoding: 'utf-8' }),
-            cert: readFileSync(path.resolve('./../ssl/remote.crt'), { encoding: 'utf-8' }),
-            passphrase: SSL_PASSPHRASE,
-          },
-          app
-        )
-      }
-
-      const io = new Server(server, {
-        cors: {
-          origin: DOMAIN,
-          methods: ['GET', 'POST'],
+mongoose.connect(dbConnectionString, {}).then(
+  () => {
+    //
+    const onStarted = (err?: Errback) => {
+      if (err) return console.log(err)
+      console.log(
+        `API listening on port ${PORT}`,
+        {
+          NODE_ENV,
+          APP_ENV,
+          APP_LANG,
+          DOMAIN,
+          dbConnectionString,
         },
-      })
+        '\n'
+      )
+    }
 
-      app.set(SOCKET_FIELD_NAME, io)
-      server.listen(PORT, onStarted)
-    },
-    err => console.log(err)
-  )
+    let server
+
+    if (APP_ENV === Env.Local) {
+      server = createServer(
+        {
+          key: readFileSync(path.resolve('./../ssl/localhost.key'), { encoding: 'utf-8' }),
+          cert: readFileSync(path.resolve('./../ssl/localhost.crt'), { encoding: 'utf-8' }),
+        },
+        app
+      )
+    } else {
+      server = createServer(
+        {
+          key: readFileSync(path.resolve('./../ssl/remote.key'), { encoding: 'utf-8' }),
+          cert: readFileSync(path.resolve('./../ssl/remote.crt'), { encoding: 'utf-8' }),
+          passphrase: SSL_PASSPHRASE,
+        },
+        app
+      )
+    }
+
+    const io = new Server(server, {
+      cors: {
+        origin: DOMAIN,
+        methods: ['GET', 'POST'],
+      },
+    })
+
+    app.set(SOCKET_FIELD_NAME, io)
+    server.listen(PORT, onStarted)
+  },
+  err => console.log(err)
+)
 
 export default app
