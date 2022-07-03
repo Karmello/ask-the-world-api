@@ -1,3 +1,5 @@
+require('dotenv').config({ path: 'env/env' })
+
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
 import { createServer } from 'https'
