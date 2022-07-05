@@ -1,4 +1,5 @@
 enum AppEnv {
+  Local = 'local',
   Dev = 'development',
   Stag = 'staging',
   Prod = 'production',
