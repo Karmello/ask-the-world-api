@@ -23,12 +23,12 @@ module.exports = {
       {
         test: /\.ts$/,
         include: path.resolve(__dirname, './../src'),
-        loader: ['babel-loader', 'ts-loader'],
+        use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
       },
       {
         test: /\.js$/,
         include: path.resolve(__dirname, './../src'),
-        loader: 'babel-loader',
+        use: [{ loader: 'babel-loader' }],
       },
     ],
   },
