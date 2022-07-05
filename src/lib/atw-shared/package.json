@@ -1,21 +1,20 @@
 {
   "name": "ask-the-world-shared",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Stuff shared between FE and API",
-  "main": "run.cmd",
   "scripts": {
     "test": "jest --watch --verbose"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/ask-the-world/ask-the-world-shared.git"
+    "url": "git+https://github.com/Karmello/ask-the-world-shared.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/ask-the-world/ask-the-world-shared/issues"
+    "url": "https://github.com/Karmello/ask-the-world-shared/issues"
   },
-  "homepage": "https://gitlab.com/ask-the-world/ask-the-world-shared#readme",
+  "homepage": "https://github.com/Karmello/ask-the-world-shared#readme",
   "dependencies": {
     "@types/jest": "^26.0.22",
     "jest": "^26.6.3",
