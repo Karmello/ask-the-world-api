@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError, Env } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError, AppEnv } from 'shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
@@ -24,7 +24,7 @@ export default (app: Application) =>
             const link =
               process.env.DOMAIN + '/api' + ApiUrlPath.UserDeactivate + `?${X_AUTH_TOKEN}=` + token
 
-            if (process.env.APP_ENV === Env.Test) {
+            if (process.env.APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
               return res.status(200).send()
             }
@@ -35,7 +35,7 @@ export default (app: Application) =>
               link,
             }).then(
               () => {
-                if (process.env.APP_ENV === Env.Local) res.setHeader(X_AUTH_TOKEN, token)
+                if (process.env.APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
                 res.status(200).send()
               },
               err => res.status(400).send(err)

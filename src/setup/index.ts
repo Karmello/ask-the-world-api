@@ -6,13 +6,13 @@ import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
 import { format } from 'date-fns'
 
-import { ApiUrlPath, Env, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, AppEnv, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'shared/utils/index'
 
 const { NODE_ENV, APP_ENV } = process.env
 
 export default (app: Application, logs: {}[]) => {
   //
-  if (NODE_ENV !== Env.Test) app.use(morgan('dev'))
+  if (NODE_ENV !== AppEnv.Test) app.use(morgan('dev'))
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
@@ -32,7 +32,7 @@ export default (app: Application, logs: {}[]) => {
     next()
   })
 
-  if (APP_ENV === Env.Local) {
+  if (APP_ENV === AppEnv.Local) {
     app.use((req: Request, res: Response, next: NextFunction) => {
       const _send = res.send
       res.send = data => {

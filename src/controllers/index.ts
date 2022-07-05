@@ -1,5 +1,5 @@
 import { Application } from 'express'
-import { Env } from 'shared/utils/index'
+import { AppEnv } from 'shared/utils/index'
 
 import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 
@@ -54,8 +54,8 @@ const registerControllers = (app: Application, logs: {}[]) => {
   ReadStats(app)
 
   // utils
-  if (APP_ENV !== Env.RemoteProd) ReadInfo(app)
-  if (APP_ENV === Env.Local) GetLogs(app, logs)
+  if (APP_ENV !== AppEnv.Prod) ReadInfo(app)
+  if (APP_ENV === AppEnv.Local) GetLogs(app, logs)
 }
 
 export default registerControllers

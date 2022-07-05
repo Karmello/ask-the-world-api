@@ -8,7 +8,7 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import { Server } from 'socket.io'
 
-import { Env } from 'shared/utils/index'
+import { AppEnv } from 'shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
@@ -22,7 +22,7 @@ const logs = [] as {}[]
 setup(app, logs)
 registerControllers(app, logs)
 
-const dbConnectionString = NODE_ENV !== Env.Test ? MONGO_URI : MONGO_URI_TEST
+const dbConnectionString = NODE_ENV !== AppEnv.Test ? MONGO_URI : MONGO_URI_TEST
 
 mongoose.connect(dbConnectionString, {}).then(
   () => {
@@ -44,7 +44,7 @@ mongoose.connect(dbConnectionString, {}).then(
 
     let server
 
-    if (APP_ENV === Env.Local) {
+    if (APP_ENV === AppEnv.Local) {
       server = createSecuredServer(
         {
           key: readFileSync(path.resolve('../certs/localhost.key'), { encoding: 'utf-8' }),
