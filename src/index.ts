@@ -1,4 +1,4 @@
-require('dotenv').config({ path: 'env/env' })
+require('dotenv').config({ path: 'env/.env' })
 
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
