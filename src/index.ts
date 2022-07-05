@@ -2,7 +2,8 @@ require('dotenv').config({ path: 'env/.env' })
 
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
-import { createServer } from 'https'
+import { createServer as createSecuredServer } from 'https'
+import { createServer } from 'http'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { Server } from 'socket.io'
@@ -44,7 +45,7 @@ mongoose.connect(dbConnectionString, {}).then(
     let server
 
     if (APP_ENV === Env.Local) {
-      server = createServer(
+      server = createSecuredServer(
         {
           key: readFileSync(path.resolve('../certs/localhost.key'), { encoding: 'utf-8' }),
           cert: readFileSync(path.resolve('../certs/localhost.crt'), { encoding: 'utf-8' }),
@@ -53,11 +54,11 @@ mongoose.connect(dbConnectionString, {}).then(
       )
     } else {
       server = createServer(
-        {
-          // key: readFileSync(path.resolve('../certs/remote.key'), { encoding: 'utf-8' }),
-          // cert: readFileSync(path.resolve('../certs/remote.crt'), { encoding: 'utf-8' }),
-          // passphrase: SSL_PASSPHRASE,
-        },
+        // {
+        //   key: readFileSync(path.resolve('../certs/remote.key'), { encoding: 'utf-8' }),
+        //   cert: readFileSync(path.resolve('../certs/remote.crt'), { encoding: 'utf-8' }),
+        //   passphrase: SSL_PASSPHRASE,
+        // },
         app
       )
     }
