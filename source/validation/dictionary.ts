@@ -1,6 +1,6 @@
 import Lang from '../utils/enums/Lang'
 
-const APP_LANG = process.env.APP_LANG
+const APP_LANG = process.env.APP_LANG || 'PL'
 
 const dict = {
   [Lang.EN]: {

@@ -1,6 +1,6 @@
 # Ask The World Shared Repo
 
-#### EC2 environment variables
+#### Environment variables
 
 | Name                   | Description                                                 |
 | ---------------------- | ----------------------------------------------------------- |
@@ -11,5 +11,3 @@
 | STRIPE_SECRET_KEY      | Stripe credentials                                          |
 | AWS_ACCESS_KEY_ID      | Used on client side to authenticate before uploading avatar |
 | AWS_SECRET_ACCESS_KEY  | Used on client side to authenticate before uploading avatar |
-
-- to display - `sudo cat /etc/environment`
