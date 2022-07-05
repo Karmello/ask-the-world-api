@@ -12,16 +12,8 @@ import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
-const {
-  NODE_ENV,
-  APP_ENV,
-  APP_LANG,
-  DOMAIN,
-  PORT,
-  MONGO_URI,
-  MONGO_URI_TEST,
-  SSL_PASSPHRASE,
-} = process.env
+const { NODE_ENV, APP_ENV, APP_LANG, DOMAIN, PORT, MONGO_URI, MONGO_URI_TEST, SSL_PASSPHRASE } =
+  process.env
 
 const app = express()
 const logs = [] as {}[]
@@ -62,9 +54,9 @@ mongoose.connect(dbConnectionString, {}).then(
     } else {
       server = createServer(
         {
-          key: readFileSync(path.resolve('../certs/remote.key'), { encoding: 'utf-8' }),
-          cert: readFileSync(path.resolve('../certs/remote.crt'), { encoding: 'utf-8' }),
-          passphrase: SSL_PASSPHRASE,
+          // key: readFileSync(path.resolve('../certs/remote.key'), { encoding: 'utf-8' }),
+          // cert: readFileSync(path.resolve('../certs/remote.crt'), { encoding: 'utf-8' }),
+          // passphrase: SSL_PASSPHRASE,
         },
         app
       )
