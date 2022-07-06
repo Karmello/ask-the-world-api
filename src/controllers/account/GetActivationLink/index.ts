@@ -8,6 +8,8 @@ import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
 
+const { APP_ENV, FE_URL } = process.env
+
 export default (app: Application) =>
   app.get(
     ApiUrlPath.UserActivationLink,
@@ -22,9 +24,13 @@ export default (app: Application) =>
             const token = getFreshAuthToken(doc, true)
 
             const link =
-              process.env.DOMAIN + '/api' + ApiUrlPath.UserActivate + `?${X_AUTH_TOKEN}=` + token
+              (FE_URL || `${req.protocol}${req.hostname}`) +
+              '/api' +
+              ApiUrlPath.UserActivate +
+              `?${X_AUTH_TOKEN}=` +
+              token
 
-            if (process.env.APP_ENV === AppEnv.Test) {
+            if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
               return res.status(200).send()
             }
@@ -35,7 +41,7 @@ export default (app: Application) =>
               link,
             }).then(
               () => {
-                if (process.env.APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
+                if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
                 res.status(200).send()
               },
               err => res.status(400).send(err)
