@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const { CI_COMMIT_REF_NAME, CI_COMMIT_SHA, APP_LANG = 'PL' } = process.env
+const { APP_LANG = 'PL' } = process.env
 
 module.exports = {
   name: 'bundle',
@@ -34,8 +34,6 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.CI_COMMIT_REF_NAME': JSON.stringify(CI_COMMIT_REF_NAME),
-      'process.env.CI_COMMIT_SHA': JSON.stringify(CI_COMMIT_SHA),
       'process.env.BUILD_TIMESTAMP': JSON.stringify(Date.now()),
       'process.env.APP_LANG': JSON.stringify(APP_LANG),
     }),
