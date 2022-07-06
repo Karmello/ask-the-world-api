@@ -64,6 +64,10 @@ mongoose.connect(dbConnectionString, {}).then(
       })
 
       app.set(SOCKET_FIELD_NAME, io)
+
+      server.on('close', () => {
+        io.close()
+      })
     }
 
     server.listen(PORT, onStarted)
