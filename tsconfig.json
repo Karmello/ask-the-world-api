@@ -13,6 +13,7 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "sourceMap": false,
+    "skipLibCheck": true,
     "paths": {
       "shared/*": ["src/lib/atw-shared/source/*"],
       "controllers/*": ["src/controllers/*"],
@@ -24,5 +25,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "coverage", "env", "dist", "src/**/spec.ts"]
+  "exclude": ["src/lib"]
 }

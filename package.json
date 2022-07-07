@@ -8,6 +8,7 @@
     "start-local": "cross-env nodemon -L --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
     "lint": "eslint src/**/*.{ts,tsx}",
+    "typecheck": "tsc --noEmit",
     "unit": "cross-env NODE_ENV=test APP_ENV=test APP_LANG=PL PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
     "test": "cross-env dotenv_config_path=env/.env.test NODE_ENV=test APP_ENV=test PORT=10000 mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
     "seed-local": "ts-node ./mocks/seed.ts mongodb://localhost:27017/ask-the-world-local",
