@@ -33,7 +33,7 @@ export default (app: Application) =>
         doc
           .save()
           .then(updatedDoc => {
-            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.SettingsPageUpdate, updatedDoc)
+            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.FullAccountUpdate, updatedDoc)
             res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
             res.status(200).send(updatedDoc)
           })
