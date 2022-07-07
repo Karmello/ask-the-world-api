@@ -10,7 +10,7 @@ import { ApiUrlPath, AppEnv, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'shared/utils
 
 const { NODE_ENV, APP_ENV } = process.env
 
-export default (app: Application, logs: {}[]) => {
+export default (app: Application, logs: Array<{}>) => {
   //
   if (NODE_ENV !== AppEnv.Test) app.use(morgan('dev'))
 

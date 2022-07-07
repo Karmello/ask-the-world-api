@@ -24,7 +24,7 @@ export default (app: Application) =>
           if (deletedCount > 0) {
             AnswerModel.deleteMany({ questionId: req.query._id })
               .then(() => res.status(204).send())
-              .catch(err => res.status(400).send(AppError.SomethingWentWrong))
+              .catch(() => res.status(400).send(AppError.SomethingWentWrong))
           } else {
             res.status(400).send(AppError.SomethingWentWrong)
           }

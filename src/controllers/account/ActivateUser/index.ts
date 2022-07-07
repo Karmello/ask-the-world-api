@@ -22,7 +22,7 @@ export default (app: Application) =>
           doc.set({ config: { confirmed: true } })
           doc
             .save()
-            .then(_doc => {
+            .then(() => {
               req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
               res.status(200).send(dict.emailConfirmedMsg)
             })
