@@ -1,6 +1,6 @@
 enum SocketEvent {
   AppReload = 'APP_RELOAD',
-  SettingsPageUpdate = 'SETTINGS_PAGE_UPDATE',
+  FullAccountUpdate = 'FULL_ACCOUNT_UPDATE',
 }
 
 export default SocketEvent
