@@ -236,7 +236,7 @@ export default [
     value: 'CZ',
   },
   {
-    label: 'Côte d\'Ivoire',
+    label: "Côte d'Ivoire",
     value: 'CI',
   },
   {
@@ -468,7 +468,7 @@ export default [
     value: 'KI',
   },
   {
-    label: 'Korea (Democratic People\'s Republic of)',
+    label: "Korea (Democratic People's Republic of)",
     value: 'KP',
   },
   {
@@ -484,7 +484,7 @@ export default [
     value: 'KG',
   },
   {
-    label: 'Lao People\'s Democratic Republic',
+    label: "Lao People's Democratic Republic",
     value: 'LA',
   },
   {

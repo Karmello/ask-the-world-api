@@ -1,6 +1,5 @@
 import { ObjectId } from 'mongodb'
 
-
 import { ReportReason } from './../index'
 
 interface IReport {

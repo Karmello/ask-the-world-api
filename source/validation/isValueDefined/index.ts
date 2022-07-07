@@ -1,1 +1,1 @@
-export default (value?: string): boolean => Boolean(value)
+export default (value?: unknown): boolean => Boolean(value)

@@ -2,14 +2,6 @@ import isEmailValid from './'
 
 describe('isEmailValid', () => {
   //
-  it('undefined => false', () => {
-    expect(isEmailValid(undefined)).toBeFalsy()
-  })
-
-  it('null => false', () => {
-    expect(isEmailValid(null)).toBeFalsy()
-  })
-
   it('empty string => false', () => {
     expect(isEmailValid('')).toBeFalsy()
   })
