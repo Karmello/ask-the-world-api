@@ -102,7 +102,7 @@ userSchema.methods = {
     return user
   },
   hashPassword(next: NextFunction) {
-    const doc = this
+    const doc = this as unknown as IUserDoc
     if (!doc.isModified('password')) {
       next()
     } else {
@@ -118,7 +118,7 @@ userSchema.methods = {
 }
 
 userSchema.pre('save', function (next: NextFunction) {
-  const doc = (this as unknown) as IUserDoc
+  const doc = this as unknown as IUserDoc
   doc.hashPassword(next)
 })
 

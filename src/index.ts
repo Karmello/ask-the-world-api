@@ -14,7 +14,7 @@ import setup from './setup/index'
 const { NODE_ENV, APP_ENV, APP_LANG, PORT, MONGO_URI, MONGO_URI_TEST, FE_URL } = process.env
 
 const app = express()
-const logs = [] as {}[]
+const logs = [] as { [key: string]: unknown }[]
 
 setup(app, logs)
 registerControllers(app, logs)
@@ -39,8 +39,7 @@ mongoose.connect(dbConnectionString, {}).then(
       )
     }
 
-    let server
-    server = createServer(app)
+    const server = createServer(app)
 
     if (FE_URL) {
       const io = new Server(server, {

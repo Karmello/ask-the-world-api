@@ -14,7 +14,7 @@ class Helper {
   readonly skip: number
   readonly limit: number
   readonly limitTop: number
-  readonly match: { text?: {} }
+  readonly match: { text?: { [key: string]: RegExp[] | string } }
 
   constructor(
     req: Request,

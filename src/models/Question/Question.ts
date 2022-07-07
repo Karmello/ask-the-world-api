@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'shared/utils/index'
-import { ModelName, IQuestionDoc, IQuestionModel } from 'utils/index'
+import { ModelName, IQuestionDoc } from 'utils/index'
 
 import {
   checkMinLength,
@@ -59,4 +59,4 @@ const questionSchema = new Schema(
 
 questionSchema.path('answers').validate(checkAnswers)
 
-export default model<IQuestionDoc, IQuestionModel>(ModelName.Question, questionSchema)
+export default model<IQuestionDoc>(ModelName.Question, questionSchema)

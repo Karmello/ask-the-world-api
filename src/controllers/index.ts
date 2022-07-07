@@ -20,7 +20,7 @@ import { GetLogs, ReadInfo } from './utils/index'
 
 const { APP_ENV } = process.env
 
-const registerControllers = (app: Application, logs: Array<any>) => {
+const registerControllers = (app: Application, logs: { [key: string]: unknown }[]) => {
   // user
   ActivateUser(app)
   AuthenticateUser(app)
