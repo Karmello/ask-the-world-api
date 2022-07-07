@@ -23,7 +23,12 @@ export default (app: Application) =>
         if (!doc.config.confirmed) return res.status(403).send(AppError.EmailNotConfirmed)
         if (doc.config.payment) return res.status(400).send(AppError.PaymentAlreadyMade)
 
-        doc.set({ config: { payment: req.body } })
+        doc.set({
+          config: {
+            ...doc.config,
+            payment: req.body,
+          },
+        })
 
         doc
           .save()

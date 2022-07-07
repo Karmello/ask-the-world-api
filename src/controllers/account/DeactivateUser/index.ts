@@ -1,7 +1,8 @@
 import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import { ApiUrlPath, AppError } from 'shared/utils/index'
+import { ApiUrlPath, AppError, SocketEvent } from 'shared/utils/index'
+import { SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import dict from 'src/dictionary'
@@ -25,6 +26,7 @@ export default (app: Application) =>
               AnswerModel.deleteMany({ answererId: userId }),
             ])
               .then(() => {
+                req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
                 res.status(200).send(dict.accountDeactivatedMsg)
               })
               .catch(err => res.status(400).send(err))
