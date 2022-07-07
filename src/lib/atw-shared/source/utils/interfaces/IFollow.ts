@@ -1,7 +1,9 @@
+import { ObjectId } from 'mongodb'
+
 interface IFollow {
-  _id: any
-  questionId: any
-  followerId: any
+  _id: ObjectId | string
+  questionId: ObjectId | string
+  followerId: ObjectId | string
   followedAt: number
 }
 

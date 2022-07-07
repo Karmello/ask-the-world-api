@@ -1,8 +1,8 @@
-import IAnswer from './IAnswer'
+import { ObjectId } from 'mongodb'
 
 interface IQuestion {
-  _id: any
-  creatorId: any
+  _id: ObjectId | string
+  creatorId: ObjectId | string
   createdAt: number
   text: string
   answers: string[]

@@ -1,7 +1,9 @@
+import { ObjectId } from 'mongodb'
+
 interface IAnswer {
-  _id: any
-  questionId: any
-  answererId: any
+  _id: ObjectId | string
+  questionId: ObjectId | string
+  answererId: ObjectId | string
   answeredAt: number
   selectedIndexes: number[]
 }

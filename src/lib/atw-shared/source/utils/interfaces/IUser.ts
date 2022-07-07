@@ -1,9 +1,10 @@
-import { Sex } from './../index'
+import { ObjectId } from 'mongodb'
 
+import { Sex } from './../index'
 import IPayment from './IPayment'
 
 interface IUser {
-  _id: any
+  _id: ObjectId | string
   email: string
   username: string
   password: string
