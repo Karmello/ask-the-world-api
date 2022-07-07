@@ -2,14 +2,6 @@ import isDateFormatValid from './'
 
 describe('isDateFormatValid', () => {
   //
-  it('undefined => false', () => {
-    expect(isDateFormatValid(undefined)).toBeFalsy()
-  })
-
-  it('null => false', () => {
-    expect(isDateFormatValid(null)).toBeFalsy()
-  })
-
   it('empty string => false', () => {
     expect(isDateFormatValid('')).toBeFalsy()
   })

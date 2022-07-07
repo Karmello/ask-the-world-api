@@ -1,9 +1,9 @@
 import Lang from '../utils/enums/Lang'
 
-const APP_LANG = process.env.APP_LANG || 'PL'
+const APP_LANG = process.env.APP_LANG || Lang.PL
 
 const dict = {
-  [Lang.EN]: {
+  [Lang.EN as string]: {
     requiredMsg: 'is required',
     invalidCharMsg: 'contains invalid character(s)',
     invalidMsg: 'is invalid',
@@ -14,7 +14,7 @@ const dict = {
     getMinLengthMsg: (min: number) => `must be ${min} character${min !== 1 ? 's' : ''} at min`,
     getMaxLengthMsg: (max: number) => `must be ${max} character${max !== 1 ? 's' : ''} at max`,
   },
-  [Lang.PL]: {
+  [Lang.PL as string]: {
     requiredMsg: 'jest polem wymaganym',
     invalidCharMsg: 'ma niedozwolone znaki',
     invalidMsg: 'ma niewłaściwą wartość',

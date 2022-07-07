@@ -3,7 +3,7 @@ enum AppEnv {
   Dev = 'development',
   Stag = 'staging',
   Prod = 'production',
-  Test = 'test'
+  Test = 'test',
 }
 
 export default AppEnv
