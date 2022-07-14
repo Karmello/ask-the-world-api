@@ -3,13 +3,14 @@ import faker from 'faker'
 
 import COUNTRIES from './../../src/lib/atw-shared/source/utils/constants/countries'
 import { getRandNum } from './../../src/lib/atw-shared/source/helpers/index'
+import { IUser, Sex } from './../../src/lib/atw-shared/source/utils'
 import payment from './payment'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'
 
 const basicUsers = [
   {
-    _id: mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
+    _id: new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
     email: 'michael.jordan@gmail.com',
     username: 'MichaelJordan',
     password,
@@ -23,7 +24,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5f5fa30b3007ef1388d93483'),
+    _id: new mongoose.Types.ObjectId('5f5fa30b3007ef1388d93483'),
     email: 'sasha_grey@gmail.com',
     username: 'SashaGrey',
     password,
@@ -36,7 +37,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
+    _id: new mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
     email: 'sophie.dee@gmail.com',
     username: 'SophieDee',
     password,
@@ -49,7 +50,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5eeb97db52c1dc555c2d676d'),
+    _id: new mongoose.Types.ObjectId('5eeb97db52c1dc555c2d676d'),
     email: 'donald.trump@gmail.com',
     username: 'Donald_Trump',
     password,
@@ -63,7 +64,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5eeb992452c1dc555c2d676f'),
+    _id: new mongoose.Types.ObjectId('5eeb992452c1dc555c2d676f'),
     email: 'christian.bale@gmail.com',
     username: 'Christian_Bale',
     password,
@@ -77,7 +78,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5eeb997a52c1dc555c2d6770'),
+    _id: new mongoose.Types.ObjectId('5eeb997a52c1dc555c2d6770'),
     email: 'pamela.anderson@gmail.com',
     username: 'PamAnderson',
     password,
@@ -91,7 +92,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
+    _id: new mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
     email: 'batman@gotham.com',
     username: 'Batman',
     password,
@@ -105,7 +106,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5f5fa221fd74bf1121704a85'),
+    _id: new mongoose.Types.ObjectId('5f5fa221fd74bf1121704a85'),
     email: 'marshall@eminem.com',
     username: 'Eminem',
     password,
@@ -119,7 +120,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5f5fa29b49a6a31058a6f57f'),
+    _id: new mongoose.Types.ObjectId('5f5fa29b49a6a31058a6f57f'),
     email: 'benny_hill@gmail.uk',
     username: 'BennyHill',
     password,
@@ -133,7 +134,7 @@ const basicUsers = [
     },
   },
   {
-    _id: mongoose.Types.ObjectId('5f5fa3e93e9cb7f1c82739da'),
+    _id: new mongoose.Types.ObjectId('5f5fa3e93e9cb7f1c82739da'),
     email: 'picasso@gmail.com',
     username: 'Picasso',
     password,
@@ -149,7 +150,7 @@ const basicUsers = [
 ]
 
 const defaultUsers = (() => {
-  const arr = []
+  const arr = [] as IUser[]
   for (let i = 0; i < 0; i++) {
     arr.push({
       _id: new mongoose.Types.ObjectId(),
@@ -158,11 +159,11 @@ const defaultUsers = (() => {
       password,
       dateOfBirth: '2000-01-01',
       country: COUNTRIES[getRandNum(0, COUNTRIES.length - 1)].value,
-      sex: ['M', 'F'][getRandNum(0, 1)],
+      sex: ['M', 'F'][getRandNum(0, 1)] as Sex,
       config: {
         registeredAt: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
         confirmed: true,
-        payment,
+        payment: payment,
       },
     })
   }
