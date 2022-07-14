@@ -163,7 +163,7 @@ const defaultUsers = (() => {
       config: {
         registeredAt: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
         confirmed: true,
-        payment: payment,
+        payment,
       },
     })
   }
