@@ -18,10 +18,6 @@ interface IQuestion {
     requestor: number[]
   }
   isFollowedByRequestor?: boolean
-  ui?: {
-    no: number
-    visible: boolean
-  }
 }
 
 export default IQuestion

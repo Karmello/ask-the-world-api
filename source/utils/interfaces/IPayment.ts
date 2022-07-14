@@ -3,9 +3,9 @@ interface IPayment {
   data: {
     object: {
       receipt_url: string
-    }
-    billing_details: {
-      email: string
+      billing_details: {
+        email: string
+      }
     }
   }
 }
