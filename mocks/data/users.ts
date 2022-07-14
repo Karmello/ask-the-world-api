@@ -170,4 +170,4 @@ const defaultUsers = (() => {
   return arr
 })()
 
-export default [...basicUsers, ...defaultUsers]
+export default [...basicUsers, ...defaultUsers] as IUser[]

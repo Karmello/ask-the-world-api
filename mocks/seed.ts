@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb'
 
+import { IUser, IQuestion, IAnswer, IFollow } from './../src/lib/atw-shared/source/utils'
+
 import userMocks from './data/users'
 import getQuestionMocks from './data/questions'
 import getAnswerMocks from './data/answers'
@@ -7,10 +9,10 @@ import getAnswerMocks from './data/answers'
 const uri = process.argv[2]
 
 const clearAndSeedDb = async (client: MongoClient) => {
-  const usersCollection = client.db().collection('users')
-  const questionsCollection = client.db().collection('questions')
-  const answersCollection = client.db().collection('answers')
-  const followsCollection = client.db().collection('follows')
+  const usersCollection = client.db().collection<IUser>('users')
+  const questionsCollection = client.db().collection<IQuestion>('questions')
+  const answersCollection = client.db().collection<IAnswer>('answers')
+  const followsCollection = client.db().collection<IFollow>('follows')
 
   usersCollection.deleteMany({})
   questionsCollection.deleteMany({})
