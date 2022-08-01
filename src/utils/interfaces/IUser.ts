@@ -1,6 +1,6 @@
 import { Document } from 'mongoose'
 import { NextFunction } from 'express'
-import { IUser } from 'shared/utils/index'
+import { IUser } from 'atw-shared/utils/index'
 
 export interface IUserDoc extends IUser, Document {
   _id: string

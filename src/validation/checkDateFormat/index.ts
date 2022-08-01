@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { isDateFormatValid } from 'shared/validation/index'
+import dict from 'atw-shared/validation/dictionary'
+import { isDateFormatValid } from 'atw-shared/validation/index'
 
 export default {
   type: 'checkDateFormat',

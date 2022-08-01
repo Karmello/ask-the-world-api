@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 import get from 'lodash/get'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError, SocketEvent } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'

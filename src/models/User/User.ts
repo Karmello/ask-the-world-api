@@ -10,7 +10,7 @@ import {
   USERNAME_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_MAX_LENGTH,
-} from 'shared/utils/index'
+} from 'atw-shared/utils/index'
 
 import {
   checkEmail,
@@ -23,9 +23,9 @@ import {
   checkSex,
 } from 'validation/index'
 
-import { USER_MIN_AGE, DATE_FORMAT, IUser } from 'shared/utils/index'
+import { USER_MIN_AGE, DATE_FORMAT, IUser } from 'atw-shared/utils/index'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
-import dict from 'shared/validation/dictionary'
+import dict from 'atw-shared/validation/dictionary'
 
 const { model, Schema } = mongoose
 

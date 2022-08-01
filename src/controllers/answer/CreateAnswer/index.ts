@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import { ApiUrlPath, IAnswer } from 'shared/utils/index'
+import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
 import { AnswerModel, FollowModel, QuestionModel } from 'models/index'
 

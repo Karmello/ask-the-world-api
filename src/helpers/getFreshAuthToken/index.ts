@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { X_AUTH_TOKEN_EXPIRES_IN } from 'shared/utils/index'
+import { X_AUTH_TOKEN_EXPIRES_IN } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 
 export default (user: IUserDoc, isMailToken?: boolean) =>

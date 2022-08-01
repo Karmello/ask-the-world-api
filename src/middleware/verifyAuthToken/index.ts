@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { X_AUTH_TOKEN, AppError, ApiUrlPath, Filter } from 'shared/utils/index'
+import { X_AUTH_TOKEN, AppError, ApiUrlPath, Filter } from 'atw-shared/utils/index'
 
 export default (req: Request, res: Response, next: NextFunction) => {
   //

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { AppError, IUser } from 'shared/utils/index'
+import { AppError, IUser } from 'atw-shared/utils/index'
 
 import { UserModel } from 'models/index'
 

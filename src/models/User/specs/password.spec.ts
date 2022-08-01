@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { UserModel } from 'models/index'
 
-import { PASSWORD_MAX_LENGTH } from 'shared/utils/index'
+import { PASSWORD_MAX_LENGTH } from 'atw-shared/utils/index'
 
 describe('user password validation', () => {
   //

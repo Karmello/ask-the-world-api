@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { Sex } from 'shared/utils/index'
+import dict from 'atw-shared/validation/dictionary'
+import { Sex } from 'atw-shared/utils/index'
 
 export default {
   type: 'checkSex',

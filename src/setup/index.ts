@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
 import { format } from 'date-fns'
 
-import { ApiUrlPath, AppEnv, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, AppEnv, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 
 const { NODE_ENV, APP_ENV } = process.env
 

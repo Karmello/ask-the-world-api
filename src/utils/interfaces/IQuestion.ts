@@ -1,5 +1,5 @@
 import { Document } from 'mongoose'
-import { IQuestion } from 'shared/utils/index'
+import { IQuestion } from 'atw-shared/utils/index'
 
 export interface IQuestionDoc extends IQuestion, Document {
   _id: string

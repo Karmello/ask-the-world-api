@@ -15,7 +15,7 @@
     "sourceMap": false,
     "skipLibCheck": true,
     "paths": {
-      "shared/*": ["src/lib/atw-shared/source/*"],
+      "atw-shared/*": ["src/ext/atw-shared/source/*"],
       "controllers/*": ["src/controllers/*"],
       "utils/*": ["src/utils/*"],
       "models/*": ["src/models/*"],
@@ -25,5 +25,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["src/lib"]
+  "exclude": ["src/ext"]
 }

@@ -1,4 +1,4 @@
-import { Lang } from 'shared/utils/index'
+import { Lang } from 'atw-shared/utils/index'
 
 const APP_LANG = process.env.APP_LANG
 

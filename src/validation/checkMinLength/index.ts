@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { isStringTooShort } from 'shared/validation/index'
+import dict from 'atw-shared/validation/dictionary'
+import { isStringTooShort } from 'atw-shared/validation/index'
 
 export default (min: number) => ({
   type: 'checkMinLength',

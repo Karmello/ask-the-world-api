@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-import { ReportReason } from 'shared/utils/index'
+import { ReportReason } from 'atw-shared/utils/index'
 import { ModelName, IReportDoc } from 'utils/index'
 
 const { model, Schema } = mongoose

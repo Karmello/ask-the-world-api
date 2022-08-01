@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-import { SortBy } from 'shared/utils'
+import { SortBy } from 'atw-shared/utils'
 import { QuestionModel, AnswerModel } from 'models/index'
 import Helper from './Helper'
 

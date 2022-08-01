@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { UserModel } from 'models/index'
 
-import { EMAIL_MAX_LENGTH } from 'shared/utils/index'
+import { EMAIL_MAX_LENGTH } from 'atw-shared/utils/index'
 
 describe('user email validation', () => {
   //

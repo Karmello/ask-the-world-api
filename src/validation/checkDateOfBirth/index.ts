@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { isDateLessOrEqualMax } from 'shared/validation/index'
+import dict from 'atw-shared/validation/dictionary'
+import { isDateLessOrEqualMax } from 'atw-shared/validation/index'
 
 export default (maxDate: string) => ({
   type: 'checkDateOfBirth',

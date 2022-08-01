@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 

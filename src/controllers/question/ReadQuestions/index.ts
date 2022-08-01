@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, Filter, SortBy } from 'shared/utils/index'
+import { ApiUrlPath, Filter, SortBy } from 'atw-shared/utils/index'
 import { verifyAuthToken, verifyRequest } from 'middleware/index'
 
 import readAll from './readAll'

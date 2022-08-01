@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { hasCredentialAllCharsValid } from 'shared/validation/index'
+import dict from 'atw-shared/validation/dictionary'
+import { hasCredentialAllCharsValid } from 'atw-shared/validation/index'
 
 export default (isPassword?: boolean) => ({
   type: 'checkCredentialChars',

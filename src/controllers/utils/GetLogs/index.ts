@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
 
 export default (app: Application, logs: { [key: string]: unknown }[]) =>
   app.get(ApiUrlPath.Logs, (req: Request, res: Response) => {

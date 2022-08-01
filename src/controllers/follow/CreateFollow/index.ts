@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppError } from 'shared/utils/index'
+import { ApiUrlPath, AppError } from 'atw-shared/utils/index'
 import { FollowModel } from 'models/index'
 
 import {

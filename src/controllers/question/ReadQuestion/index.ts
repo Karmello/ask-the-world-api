@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppError, IAnswer } from 'shared/utils/index'
+import { ApiUrlPath, AppError, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
 import { verifyAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'

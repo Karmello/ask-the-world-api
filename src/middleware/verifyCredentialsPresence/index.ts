@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { AppError, X_AUTH_TOKEN } from 'shared/utils/index'
+import { AppError, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 
 export default (req: Request, res: Response, next: NextFunction) => {
   //

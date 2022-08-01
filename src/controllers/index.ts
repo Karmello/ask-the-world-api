@@ -1,5 +1,5 @@
 import { Application } from 'express'
-import { AppEnv } from 'shared/utils/index'
+import { AppEnv } from 'atw-shared/utils/index'
 
 import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
 

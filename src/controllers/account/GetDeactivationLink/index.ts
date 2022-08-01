@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError, AppEnv } from 'shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError, AppEnv } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'

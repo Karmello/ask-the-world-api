@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { COUNTRIES } from 'shared/utils/index'
+import dict from 'atw-shared/validation/dictionary'
+import { COUNTRIES } from 'atw-shared/utils/index'
 
 export default {
   type: 'checkCountry',

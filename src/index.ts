@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
-import { AppEnv } from 'shared/utils/index'
+import { AppEnv } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'

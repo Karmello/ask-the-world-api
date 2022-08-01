@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import get from 'lodash/get'
 
-import { Filter, READ_QUESTIONS_MAX, READ_TOP_QUESTIONS_MAX, SortBy } from 'shared/utils/index'
+import { Filter, READ_QUESTIONS_MAX, READ_TOP_QUESTIONS_MAX, SortBy } from 'atw-shared/utils/index'
 
 class Helper {
   //

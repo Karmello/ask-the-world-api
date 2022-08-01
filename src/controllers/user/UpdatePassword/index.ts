@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
-import validationDict from 'shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'shared/utils/index'
+import validationDict from 'atw-shared/validation/dictionary'
+import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'

@@ -1,5 +1,5 @@
-import dict from 'shared/validation/dictionary'
-import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from 'shared/utils/index'
+import dict from 'atw-shared/validation/dictionary'
+import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from 'atw-shared/utils/index'
 
 export default {
   type: 'checkAnswers',

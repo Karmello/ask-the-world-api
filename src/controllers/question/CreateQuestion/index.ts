@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'shared/utils/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
 
 import {

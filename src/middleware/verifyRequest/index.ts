@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
 
-import { Filter, AppError, ApiUrlPath } from 'shared/utils/index'
+import { Filter, AppError, ApiUrlPath } from 'atw-shared/utils/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
