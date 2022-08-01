@@ -42,6 +42,7 @@ export default (app: Application) =>
                 data: [
                   {
                     ...question.toObject(),
+                    voting: {},
                     isFollowedByRequestor: Boolean(requestorFollow),
                   },
                 ],
