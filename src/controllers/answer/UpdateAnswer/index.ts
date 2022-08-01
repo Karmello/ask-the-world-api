@@ -44,6 +44,7 @@ export default (app: Application) =>
                   AnswerModel.find({ questionId })
                     .then((answers: IAnswer[]) => {
                       const voting = {
+                        answersCount: answers.length,
                         all: {},
                         requestor: answer.selectedIndexes,
                       }
