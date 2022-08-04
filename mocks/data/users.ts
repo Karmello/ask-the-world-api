@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import faker from 'faker'
 
-import COUNTRIES from './../../src/lib/atw-shared/source/utils/constants/countries'
-import { getRandNum } from './../../src/lib/atw-shared/source/helpers/index'
-import { IUser, Sex } from './../../src/lib/atw-shared/source/utils'
+import COUNTRIES from './../../src/ext/atw-shared/source/utils/constants/countries'
+import { getRandNum } from './../../src/ext/atw-shared/source/helpers/index'
+import { IUser, Sex } from './../../src/ext/atw-shared/source/utils'
 import payment from './payment'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'

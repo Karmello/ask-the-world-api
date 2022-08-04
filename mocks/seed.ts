@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-import { IUser, IQuestion, IAnswer, IFollow } from './../src/lib/atw-shared/source/utils'
+import { IUser, IQuestion, IAnswer, IFollow } from './../src/ext/atw-shared/source/utils'
 
 import userMocks from './data/users'
 import getQuestionMocks from './data/questions'

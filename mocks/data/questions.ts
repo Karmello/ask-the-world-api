@@ -9,9 +9,9 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
   IUser,
   IQuestion,
-} from './../../src/lib/atw-shared/source/utils/index'
+} from './../../src/ext/atw-shared/source/utils/index'
 
-import { getRandNum } from './../../src/lib/atw-shared/source/helpers'
+import { getRandNum } from './../../src/ext/atw-shared/source/helpers'
 import { msInDay } from './_constants'
 
 const getQuestionMocks = (users: IUser[]) => {
