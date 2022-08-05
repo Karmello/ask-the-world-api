@@ -1,5 +1,4 @@
 module.exports = function (api) {
-  //
   api.cache(true)
 
   const presets = ['@babel/preset-env', '@babel/preset-typescript']
@@ -9,7 +8,7 @@ module.exports = function (api) {
       'module-resolver',
       {
         alias: {
-          '^shared(.+)': './src/lib/atw-shared/source/\\1',
+          '^atw-shared(.+)': './src/ext/atw-shared/source/\\1',
           '^src(.+)': './src/\\1',
           '^(controllers|utils|models|mocks|validation|middleware|helpers)(.+)': './src/\\1/\\2',
         },

@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const { APP_LANG = 'PL' } = process.env
+const { APP_LANG = 'EN' } = process.env
 
 module.exports = {
   name: 'bundle',
