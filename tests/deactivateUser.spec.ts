@@ -1,21 +1,18 @@
 import mongoose from 'mongoose'
-import { api, chai, expect } from './_index'
 
-import { X_AUTH_TOKEN, ApiUrlPath } from './../src/lib/atw-shared/source/utils/index'
+import { api, chai, expect } from './'
+import { X_AUTH_TOKEN, ApiUrlPath } from './../src/ext/atw-shared/source/utils/index'
 import { UserModel, QuestionModel, AnswerModel } from './../src/models/index'
 
-const userId = mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c')
-const questionId = mongoose.Types.ObjectId('5eeb976152c1dc555c2d676d')
-
+const userId = new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c')
+const questionId = new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676d')
 const username = 'username1'
 
 describe('deactivateUser', () => {
-  //
-  let authToken
-  let mailToken
+  let authToken: string
+  let mailToken: string
 
   before(done => {
-    //
     UserModel.collection.insertOne({
       _id: userId,
       email: 'username1@email.com',
@@ -45,21 +42,21 @@ describe('deactivateUser', () => {
 
   it('user exists', done => {
     UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc._id).to.eql(userId)
+      expect(doc?._id).to.eql(userId)
       done()
     })
   })
 
   it('question exists', done => {
     QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs.length).to.eql(1)
+      expect(docs?.length).to.eql(1)
       done()
     })
   })
 
   it('answer exists', done => {
     AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs.length).to.eql(1)
+      expect(docs?.length).to.eql(1)
       done()
     })
   })
@@ -110,14 +107,14 @@ describe('deactivateUser', () => {
 
   it('question removed', done => {
     QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs.length).to.eql(0)
+      expect(docs?.length).to.eql(0)
       done()
     })
   })
 
   it('answer removed', done => {
     AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs.length).to.eql(0)
+      expect(docs?.length).to.eql(0)
       done()
     })
   })
