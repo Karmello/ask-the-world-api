@@ -10,10 +10,9 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "typecheck": "tsc --noEmit",
     "test": "cross-env NODE_ENV=test APP_ENV=test APP_LANG=EN PORT=10000 mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
-    "test-int": "cross-env dotenv_config_path=env/.env.test NODE_ENV=test APP_ENV=test PORT=10000 mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register tests/_index.ts --timeout 10000 --exit",
-    "seed-local": "ts-node ./mocks/seed.ts mongodb://db:27017/ask-the-world-local",
-    "seed-remote-dev": "yarn ts-node ./mocks/seed.ts $MONGO_URI",
-    "clear-local": "ts-node ./mocks/clear.ts mongodb://db:27017/ask-the-world-local",
+    "test-int": "cross-env dotenv_config_path=env/.env.test NODE_ENV=test APP_ENV=test PORT=10000 mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register tests/index.ts --timeout 10000 --exit",
+    "db-seed": "ts-node ./mocks/seed.ts",
+    "db-clear": "ts-node ./mocks/clear.ts",
     "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash"
   },
   "dependencies": {
