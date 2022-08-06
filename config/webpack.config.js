@@ -48,7 +48,6 @@ module.exports = {
     'mongodb-client-encryption': 'mongodb-client-encryption',
     aws4: 'aws4',
     snappy: 'snappy',
-    'snappy/package.json': 'snappy/package.json',
     kerberos: 'kerberos',
     'bson-ext': 'bson-ext'
   },

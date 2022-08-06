@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config",
+    "build": "rimraf build && cross-env NODE_ENV=production webpack --config config/webpack.config",
     "start": "cross-env NODE_ENV=production node build/index.js",
     "start-local": "cross-env nodemon -L --exec ts-node -r tsconfig-paths/register src/index.ts",
     "prettier": "prettier --check src/**/*.ts",
