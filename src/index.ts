@@ -1,17 +1,18 @@
 import { config as dotenvConfig } from 'dotenv'
-dotenvConfig({ path: 'env/.env' })
+import { AppEnv } from 'atw-shared/utils/index'
+
+dotenvConfig({ path: process.env.NODE_ENV === AppEnv.Test ? 'env/.env.test' : 'env/.env' })
 
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
-import { AppEnv } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
-const { NODE_ENV, APP_ENV, APP_LANG, PORT, MONGO_URI, MONGO_URI_TEST, FE_URL } = process.env
+const { NODE_ENV, APP_ENV, APP_LANG, PORT, MONGO_URI, FE_URL } = process.env
 
 const app = express()
 const logs = [] as { [key: string]: unknown }[]
@@ -19,11 +20,8 @@ const logs = [] as { [key: string]: unknown }[]
 setup(app, logs)
 registerControllers(app, logs)
 
-const dbConnectionString = NODE_ENV !== AppEnv.Test ? MONGO_URI : MONGO_URI_TEST
-
-mongoose.connect(dbConnectionString, {}).then(
+mongoose.connect(MONGO_URI, {}).then(
   () => {
-    //
     const onStarted = (err?: Errback) => {
       if (err) return console.log(err)
       console.log(
@@ -32,8 +30,8 @@ mongoose.connect(dbConnectionString, {}).then(
           NODE_ENV,
           APP_ENV,
           APP_LANG,
+          MONGO_URI,
           FE_URL,
-          dbConnectionString,
         },
         '\n'
       )
