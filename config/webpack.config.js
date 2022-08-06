@@ -7,6 +7,8 @@ module.exports = {
   name: 'bundle',
   target: 'node',
   mode: process.env.NODE_ENV,
+  cache: true,
+  devtool: false,
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './../build'),
@@ -17,6 +19,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    symlinks: false,
+    cacheWithContext: false,
   },
   module: {
     rules: [
@@ -41,5 +45,11 @@ module.exports = {
   externals: {
     bufferutil: 'bufferutil',
     'utf-8-validate': 'utf-8-validate',
+    'mongodb-client-encryption': 'mongodb-client-encryption',
+    aws4: 'aws4',
+    snappy: 'snappy',
+    'snappy/package.json': 'snappy/package.json',
+    kerberos: 'kerberos',
+    'bson-ext': 'bson-ext'
   },
 }
