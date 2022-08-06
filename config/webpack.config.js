@@ -38,4 +38,8 @@ module.exports = {
       'process.env.APP_LANG': JSON.stringify(APP_LANG),
     }),
   ],
+  externals: {
+    bufferutil: 'bufferutil',
+    'utf-8-validate': 'utf-8-validate',
+  },
 }
