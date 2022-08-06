@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "ask-the-world-api",
+			"path": "."
+		},
+		{
+			"name": "tests",
+			"path": "tests"
+		},
+		{
+			"name": "mocks",
+			"path": "mocks"
+		},
+		{
+			"name": "src",
+			"path": "src"
+		}
+	],
+	"settings": {}
+}
