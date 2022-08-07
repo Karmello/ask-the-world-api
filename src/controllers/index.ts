@@ -54,7 +54,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
   ReadStats(app)
 
   // utils
-  if (APP_ENV !== AppEnv.Prod) ReadInfo(app)
+  ReadInfo(app)
   if (APP_ENV === AppEnv.Local) GetLogs(app, logs)
 }
 
