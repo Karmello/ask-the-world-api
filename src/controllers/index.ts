@@ -1,7 +1,13 @@
 import { Application } from 'express'
 import { AppEnv } from 'atw-shared/utils/index'
 
-import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
+import {
+  AuthenticateUser,
+  RegisterUser,
+  ReadUser,
+  UpdateUser,
+  UpdatePassword,
+} from './user/index'
 
 import {
   ActivateUser,
@@ -11,11 +17,16 @@ import {
   MakePayment,
 } from './account/index'
 
-import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './question/index'
+import {
+  CreateQuestion,
+  DeleteQuestion,
+  ReadQuestion,
+  ReadQuestions,
+} from './question/index'
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
-import { ReadStats } from './other/index'
+import { ReadStats, ReadCountries } from './other/index'
 import { GetLogs, ReadInfo } from './utils/index'
 
 const { APP_ENV } = process.env
@@ -52,6 +63,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
 
   // other
   ReadStats(app)
+  ReadCountries(app)
 
   // utils
   ReadInfo(app)

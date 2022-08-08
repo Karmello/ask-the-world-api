@@ -27,18 +27,6 @@ describe('user country validation', () => {
     expect(err.errors.country.kind).to.eql('required')
   })
 
-  it('wrong => checkCredentialChars', () => {
-    const user = new UserModel({ country: 'poland' })
-    const err = user.validateSync()
-    expect(err.errors.country.kind).to.eql('checkCountry')
-  })
-
-  it('wrong => checkCredentialChars', () => {
-    const user = new UserModel({ country: 'pl' })
-    const err = user.validateSync()
-    expect(err.errors.country.kind).to.eql('checkCountry')
-  })
-
   it('valid => no error', () => {
     const user = new UserModel({ country: 'PL' })
     const err = user.validateSync()

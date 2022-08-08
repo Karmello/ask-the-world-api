@@ -19,9 +19,8 @@ export { default as IPayment } from './interfaces/IPayment'
 export { default as IReport } from './interfaces/IReport'
 export { default as IRequestQuery } from './interfaces/IRequestQuery'
 export { default as IStats } from './interfaces/IStats'
+export { default as ICountry } from './interfaces/ICountry'
 
 export * from './constants/app'
 export * from './constants/user'
 export * from './constants/question'
-
-export { default as COUNTRIES } from './constants/countries'
