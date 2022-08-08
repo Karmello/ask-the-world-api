@@ -19,8 +19,9 @@ enum ApiUrlPath {
   Report = '/report',
   // other
   Stats = '/stats',
+  Countries = '/countries',
   // utils
-  Info = '/info',
+  Info = '/',
   Logs = '/logs',
 }
 
