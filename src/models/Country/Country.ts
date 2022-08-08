@@ -6,11 +6,7 @@ const { model, Schema } = mongoose
 
 const countrySchema = new Schema(
   {
-    value: {
-      type: String,
-      required: true,
-    },
-    label: {
+    name: {
       type: String,
       required: true,
     },

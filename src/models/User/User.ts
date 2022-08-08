@@ -64,6 +64,7 @@ const userSchema = new Schema(
       ],
     },
     country: {
+      ref: ModelName.Country,
       type: String,
       required: true,
     },
