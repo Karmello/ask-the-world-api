@@ -15,7 +15,7 @@ import { CreateQuestion, DeleteQuestion, ReadQuestion, ReadQuestions } from './q
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
-import { ReadStats } from './other/index'
+import { ReadStats, ReadCountries } from './other/index'
 import { GetLogs, ReadInfo } from './utils/index'
 
 const { APP_ENV } = process.env
@@ -52,6 +52,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
 
   // other
   ReadStats(app)
+  ReadCountries(app)
 
   // utils
   ReadInfo(app)
