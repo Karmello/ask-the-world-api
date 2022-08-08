@@ -23,5 +23,3 @@ export { default as IStats } from './interfaces/IStats'
 export * from './constants/app'
 export * from './constants/user'
 export * from './constants/question'
-
-export { default as COUNTRIES } from './constants/countries'
