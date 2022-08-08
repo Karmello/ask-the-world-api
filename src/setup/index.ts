@@ -6,7 +6,12 @@ import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
 import { format } from 'date-fns'
 
-import { ApiUrlPath, AppEnv, DATE_TIME_FORMAT, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import {
+  ApiUrlPath,
+  AppEnv,
+  DATE_TIME_FORMAT,
+  X_AUTH_TOKEN,
+} from 'atw-shared/utils/index'
 
 const { NODE_ENV, APP_ENV } = process.env
 
@@ -22,7 +27,10 @@ export default (app: Application, logs: { [key: string]: unknown }[]) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Credentials', 1)
-    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH, OPTIONS')
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET, PUT, POST, DELETE, PATCH, OPTIONS'
+    )
     res.setHeader(
       'Access-Control-Allow-Headers',
       `Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, ${X_AUTH_TOKEN}`

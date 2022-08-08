@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { ApiUrlPath, DATE_TIME_FORMAT } from 'atw-shared/utils/index'
 
 export default (app: Application) =>
-  app.get('/', (req: Request, res: Response) =>
+  app.get(ApiUrlPath.Info, (req: Request, res: Response) =>
     res.status(200).send({
       status: 'OK',
       buildTime: process.env.BUILD_TIMESTAMP
