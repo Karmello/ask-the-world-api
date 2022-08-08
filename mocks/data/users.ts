@@ -1,10 +1,11 @@
 import mongoose from 'mongoose'
 import faker from 'faker'
 
-import COUNTRIES from './../../src/ext/atw-shared/source/utils/constants/countries'
 import { getRandNum } from './../../src/ext/atw-shared/source/helpers/index'
 import { IUser, Sex } from './../../src/ext/atw-shared/source/utils'
+
 import payment from './payment'
+import countries from './countries'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'
 
@@ -158,7 +159,7 @@ const defaultUsers = (() => {
       username: `username_${i + 1}`,
       password,
       dateOfBirth: '2000-01-01',
-      country: COUNTRIES[getRandNum(0, COUNTRIES.length - 1)].value,
+      country: countries[getRandNum(0, countries.length - 1)].value,
       sex: ['M', 'F'][getRandNum(0, 1)] as Sex,
       config: {
         registeredAt: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),

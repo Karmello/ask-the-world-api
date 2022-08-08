@@ -19,7 +19,6 @@ import {
   checkMaxLength,
   checkDateOfBirth,
   checkDateFormat,
-  checkCountry,
   checkSex,
 } from 'validation/index'
 
@@ -67,7 +66,6 @@ const userSchema = new Schema(
     country: {
       type: String,
       required: true,
-      validate: [checkCountry],
     },
     sex: {
       type: String,

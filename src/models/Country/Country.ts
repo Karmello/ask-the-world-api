@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-import { ModelName, IReportDoc } from 'utils/index'
+import { ModelName, ICountryDoc } from 'utils/index'
 
 const { model, Schema } = mongoose
 
@@ -20,4 +20,4 @@ const countrySchema = new Schema(
   }
 )
 
-export default model<IReportDoc>(ModelName.Country, countrySchema)
+export default model<ICountryDoc>(ModelName.Country, countrySchema)
