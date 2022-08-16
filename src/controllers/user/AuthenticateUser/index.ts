@@ -13,7 +13,6 @@ type TQuery = {
 }
 
 export default (app: Application) =>
-  //
   app.post(
     ApiUrlPath.UserAuthenticate,
     verifyCredentialsPresence,
@@ -31,7 +30,6 @@ export default (app: Application) =>
 
       UserModel.findOne(query)
         .then((doc: IUserDoc) => {
-          //
           if (username && password) {
             if (doc) {
               doc.comparePasswords(password, (err, isMatch) => {
