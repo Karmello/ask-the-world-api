@@ -22,36 +22,51 @@ type TQuery = {
 }
 
 export default (app: Application) =>
-  app.get(ApiUrlPath.Questions, verifyAuthToken, verifyRequest, (req: Request, res: Response) => {
-    //
-    const { userId, filter, sortBy, pageNo, keywords, keywordsMode } = req.query as TQuery
-
-    const helper = new Helper(req, res, userId, filter, sortBy, pageNo, keywords, keywordsMode)
-
-    switch (filter) {
+  app.get(
+    ApiUrlPath.Questions,
+    verifyAuthToken,
+    verifyRequest,
+    (req: Request, res: Response) => {
       //
-      case Filter.All:
-        readAll(helper)
-        break
+      const { userId, filter, sortBy, pageNo, keywords, keywordsMode } =
+        req.query as TQuery
 
-      case Filter.NotAnswered:
-        readNotAnswered(helper)
-        break
+      const helper = new Helper(
+        req,
+        res,
+        userId,
+        filter,
+        sortBy,
+        pageNo,
+        keywords,
+        keywordsMode
+      )
 
-      case Filter.Answered:
-        readAnswered(helper)
-        break
+      switch (filter) {
+        //
+        case Filter.All:
+          readAll(helper)
+          break
 
-      case Filter.Created:
-        readCreated(helper)
-        break
+        case Filter.NotAnswered:
+          readNotAnswered(helper)
+          break
 
-      case Filter.Followed:
-        readFollowed(helper)
-        break
+        case Filter.Answered:
+          readAnswered(helper)
+          break
 
-      case Filter.Top:
-        readTop(helper)
-        break
+        case Filter.Created:
+          readCreated(helper)
+          break
+
+        case Filter.Followed:
+          readFollowed(helper)
+          break
+
+        case Filter.Top:
+          readTop(helper)
+          break
+      }
     }
-  })
+  )
