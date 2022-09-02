@@ -1,4 +1,4 @@
-enum AppResCode {
+enum AppMsgCode {
   NoCredentialsProvided = 'NO_CREDENTIALS_PROVIDED',
   AuthenticationFailed = 'AUTHENTICATION_FAILED',
   EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
@@ -14,4 +14,4 @@ enum AppResCode {
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
 }
 
-export default AppResCode
+export default AppMsgCode
