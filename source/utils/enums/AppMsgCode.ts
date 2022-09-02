@@ -13,6 +13,7 @@ enum AppMsgCode {
   PaymentAlreadyMade = 'PAYMENT_ALREADY_MADE',
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
   SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
+  EmailSuccessfullyConfirmed = 'EMAIL_SUCCESSFULLY_CONFIRMED',
 }
 
 export default AppMsgCode
