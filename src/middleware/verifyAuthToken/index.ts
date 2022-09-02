@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
 import { X_AUTH_TOKEN, AppError, ApiUrlPath, Filter } from 'atw-shared/utils/index'
+import errors from 'utils/errors'
 
 export default (req: Request, res: Response, next: NextFunction) => {
-  //
   const allowWithNoToken = [
     req.route.path === ApiUrlPath.UserAuthenticate,
     req.route.path === ApiUrlPath.Question,
@@ -28,7 +28,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         ([ApiUrlPath.UserActivate, ApiUrlPath.UserDeactivate].includes(req.route.path) &&
           !decoded.isMailToken)
       ) {
-        return res.status(401).send(AppError.AuthenticationFailed)
+        return res.status(401).send(errors.AUTHENTICATION_FAILED)
       }
       req.decoded = decoded
       next()

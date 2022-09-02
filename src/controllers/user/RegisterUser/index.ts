@@ -4,10 +4,8 @@ import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.post(ApiUrlPath.User, (req: Request, res: Response) => {
-    //
     const newUser = new UserModel({ ...req.body })
 
     newUser
@@ -16,5 +14,8 @@ export default (app: Application) =>
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
         res.status(201).send(doc)
       })
-      .catch(err => res.status(400).send(err.errors))
+      .catch(err => {
+        res.status(400).send(err.errors)
+      })
   })
+}

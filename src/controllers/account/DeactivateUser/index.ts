@@ -9,13 +9,12 @@ import dict from 'src/dictionary'
 
 const ObjectId = mongoose.Types.ObjectId
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(
     ApiUrlPath.UserDeactivate,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       const userId = new ObjectId(req.decoded._id)
 
       UserModel.deleteOne({ _id: userId })
@@ -29,11 +28,16 @@ export default (app: Application) =>
                 req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
                 res.status(200).send(dict.accountDeactivatedMsg)
               })
-              .catch(err => res.status(400).send(err))
+              .catch(err => {
+                res.status(400).send(err)
+              })
           } else {
             res.status(404).send(AppError.NoSuchUser)
           }
         })
-        .catch(err => res.status(400).send(err))
+        .catch(err => {
+          res.status(400).send(err)
+        })
     }
   )
+}

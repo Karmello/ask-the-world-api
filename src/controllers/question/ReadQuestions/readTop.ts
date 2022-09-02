@@ -3,7 +3,6 @@ import { AnswerModel, QuestionModel } from 'models/index'
 import Helper from './Helper'
 
 export default (helper: Helper) => {
-  //
   AnswerModel.aggregate([
     {
       $group: {
@@ -22,9 +21,7 @@ export default (helper: Helper) => {
       $limit: helper.limitTop,
     },
   ]).then(results => {
-    //
     const questionIds = []
-
     results.forEach(item => questionIds.push(item._id))
 
     QuestionModel.aggregate([

@@ -1,25 +1,29 @@
 import { Application, Request, Response } from 'express'
 
-import dict from 'atw-shared/validation/dictionary'
-import { ApiUrlPath, AppError, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
+import errors from 'utils/errors'
 
 type TQuery = {
   _id?: string
   username?: string
 }
 
-export default (app: Application) =>
+const respondeWithAuthError = (res: Response) => {
+  res.status(401).send(errors.AUTHENTICATION_FAILED)
+}
+
+export default (app: Application) => {
   app.post(
     ApiUrlPath.UserAuthenticate,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       const query = {} as TQuery
+
       const {
         decoded,
         body: { username, password },
@@ -34,24 +38,27 @@ export default (app: Application) =>
             if (doc) {
               doc.comparePasswords(password, (err, isMatch) => {
                 if (err || !isMatch) {
-                  res.status(401).send(dict.incorrectCredentialsMsg)
+                  respondeWithAuthError(res)
                 } else {
                   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
                   res.status(200).send(doc)
                 }
               })
             } else {
-              res.status(401).send(dict.incorrectCredentialsMsg)
+              respondeWithAuthError(res)
             }
           } else {
             if (doc) {
               res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
               res.status(200).send(doc)
             } else {
-              res.status(401).send(AppError.AuthenticationFailed)
+              respondeWithAuthError(res)
             }
           }
         })
-        .catch(() => res.status(401).send(AppError.AuthenticationFailed))
+        .catch(() => {
+          respondeWithAuthError(res)
+        })
     }
   )
+}

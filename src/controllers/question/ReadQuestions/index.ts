@@ -27,7 +27,6 @@ export default (app: Application) =>
     verifyAuthToken,
     verifyRequest,
     (req: Request, res: Response) => {
-      //
       const { userId, filter, sortBy, pageNo, keywords, keywordsMode } =
         req.query as TQuery
 
@@ -43,7 +42,6 @@ export default (app: Application) =>
       )
 
       switch (filter) {
-        //
         case Filter.All:
           readAll(helper)
           break
