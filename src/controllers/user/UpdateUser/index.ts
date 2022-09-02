@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppResCode } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -20,7 +20,7 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) res.status(404).send(AppError.NoSuchUser)
+          if (!doc) res.status(404).send(AppResCode.NoSuchUser)
           doc.set({ username, dateOfBirth, country, sex })
           doc
             .save()

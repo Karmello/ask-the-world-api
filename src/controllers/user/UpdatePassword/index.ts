@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import validationDict from 'atw-shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN, AppError } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppResCode } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -27,7 +27,7 @@ export default (app: Application) =>
       UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppError.NoSuchUser)
+          if (!doc) return res.status(404).send(AppResCode.NoSuchUser)
           doc.comparePasswords(currentPassword, (err, isMatch) => {
             if (err || !isMatch) {
               respondWithIncorrectPassword(res)

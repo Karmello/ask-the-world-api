@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppError, AppEnv } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppResCode, AppEnv } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
@@ -47,7 +47,7 @@ export default (app: Application) =>
               err => res.status(400).send(err)
             )
           } else {
-            res.status(404).send(AppError.NoSuchUser)
+            res.status(404).send(AppResCode.NoSuchUser)
           }
         })
         .catch(err => res.status(400).send(err))

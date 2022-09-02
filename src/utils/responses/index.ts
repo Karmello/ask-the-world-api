@@ -1,28 +1,28 @@
-import { AppError } from 'atw-shared/utils/index'
+import { AppResCode } from 'atw-shared/utils/index'
 
 export default {
-  [AppError.AuthenticationFailed]: {
-    code: AppError.AuthenticationFailed,
+  [AppResCode.AuthenticationFailed]: {
+    code: AppResCode.AuthenticationFailed,
     message: 'Authentication failed',
   },
-  [AppError.NoCredentialsProvided]: {
-    code: AppError.NoCredentialsProvided,
+  [AppResCode.NoCredentialsProvided]: {
+    code: AppResCode.NoCredentialsProvided,
     message: 'No credentials provided',
   },
-  [AppError.NoSuchUser]: {
-    code: AppError.NoSuchUser,
+  [AppResCode.NoSuchUser]: {
+    code: AppResCode.NoSuchUser,
     message: 'No such user',
   },
-  [AppError.EmailNotConfirmed]: {
-    code: AppError.EmailNotConfirmed,
+  [AppResCode.EmailNotConfirmed]: {
+    code: AppResCode.EmailNotConfirmed,
     message: 'Email not confirmed',
   },
-  [AppError.NotFullAccount]: {
-    code: AppError.NotFullAccount,
+  [AppResCode.NotFullAccount]: {
+    code: AppResCode.NotFullAccount,
     message: 'Not a full account',
   },
-  [AppError.IllegalAction]: {
-    code: AppError.IllegalAction,
+  [AppResCode.IllegalAction]: {
+    code: AppResCode.IllegalAction,
     message: 'Illegal action performed',
   },
 }

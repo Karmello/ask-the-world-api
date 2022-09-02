@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppError } from 'atw-shared/utils/index'
+import { ApiUrlPath, AppResCode } from 'atw-shared/utils/index'
 import { FollowModel } from 'models/index'
 
 import {
@@ -22,7 +22,7 @@ export default (app: Application) =>
       FollowModel.findOne({ questionId: req.query._id, followerId: req.decoded._id })
         .then(doc => {
           // already following
-          if (doc) return res.status(400).send(AppError.AlreadyFollowing)
+          if (doc) return res.status(400).send(AppResCode.AlreadyFollowing)
 
           const follow = new FollowModel({
             questionId: req.query._id,
