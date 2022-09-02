@@ -27,13 +27,19 @@ export default (app: Application) => {
           const user = results[2]
 
           if (user) {
-            res.status(200).send({ count, user })
+            res.status(200).send({
+              data: { count, user },
+            })
           } else {
-            res.status(404).send(msgs.NO_SUCH_USER)
+            res.status(404).send({
+              msg: msgs.NO_SUCH_USER,
+            })
           }
         })
         .catch(() => {
-          res.status(404).send(msgs.NO_SUCH_USER)
+          res.status(404).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
         })
     }
   )
