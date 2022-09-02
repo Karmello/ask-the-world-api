@@ -41,4 +41,9 @@ export default {
     message: 'Activation link sent. Please check your mailbox.',
     type: AppMsgType.Info,
   },
+  [AppMsgCode.SuccessfullyUpdated]: {
+    code: AppMsgCode.SuccessfullyUpdated,
+    message: 'Successfully updated',
+    type: AppMsgType.Success,
+  },
 }

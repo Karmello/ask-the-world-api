@@ -27,7 +27,11 @@ export default (app: Application) => {
             .save()
             .then(updatedDoc => {
               res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
-              res.status(200).send(updatedDoc)
+
+              res.status(200).send({
+                user: updatedDoc,
+                msg: msgs.SUCCESSFULLY_UPDATED,
+              })
             })
             .catch(err => {
               res.status(400).send(err.errors)

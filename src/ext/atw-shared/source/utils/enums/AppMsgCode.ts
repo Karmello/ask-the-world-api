@@ -12,6 +12,7 @@ enum AppMsgCode {
   CouldNotConfirmPayment = 'COULD_NOT_CONFIRM_PAYMENT',
   PaymentAlreadyMade = 'PAYMENT_ALREADY_MADE',
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
+  SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
 }
 
 export default AppMsgCode
