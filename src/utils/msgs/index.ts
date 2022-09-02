@@ -61,4 +61,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Email successfully confirmed',
   },
+  [AppMsgCode.AccountSuccessfullyRemoved]: {
+    code: AppMsgCode.AccountSuccessfullyRemoved,
+    type: AppMsgType.Success,
+    text: 'Account successfully removed',
+  },
 }
