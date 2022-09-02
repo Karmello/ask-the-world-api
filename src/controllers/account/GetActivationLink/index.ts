@@ -31,7 +31,7 @@ export default (app: Application) => {
 
             if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
-              return res.status(200).send()
+              return res.status(200).send(responses.ACTIVATION_LINK_SENT)
             }
 
             sendMail({
@@ -41,18 +41,18 @@ export default (app: Application) => {
             }).then(
               () => {
                 if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
-                res.status(200).send()
+                res.status(200).send(responses.ACTIVATION_LINK_SENT)
               },
-              err => {
-                res.status(400).send(err)
+              () => {
+                res.status(400).send(responses.SOMETHING_WENT_WRONG)
               }
             )
           } else {
             res.status(404).send(responses.NO_SUCH_USER)
           }
         })
-        .catch(err => {
-          res.status(400).send(err)
+        .catch(() => {
+          res.status(400).send(responses.SOMETHING_WENT_WRONG)
         })
     }
   )
