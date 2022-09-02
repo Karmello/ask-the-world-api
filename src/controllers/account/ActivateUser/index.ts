@@ -5,7 +5,6 @@ import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
-import dict from 'src/dictionary'
 
 export default (app: Application) => {
   app.get(
@@ -17,15 +16,11 @@ export default (app: Application) => {
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc)
-            return res.status(404).send({
-              msg: msgs.NO_SUCH_USER,
-            })
+          if (!doc) return res.status(404).send(msgs.NO_SUCH_USER.text)
 
-          if (doc.config.confirmed)
-            return res.status(403).send({
-              msg: msgs.EMAIL_ALREADY_CONFIRMED,
-            })
+          if (doc.config.confirmed) {
+            return res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
+          }
 
           doc.set({ config: { confirmed: true } })
 
@@ -33,14 +28,14 @@ export default (app: Application) => {
             .save()
             .then(() => {
               req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
-              res.status(200).send(dict.emailConfirmedMsg)
+              res.status(200).send(msgs.EMAIL_SUCCESSFULLY_CONFIRMED.text)
             })
-            .catch(err => {
-              res.status(400).send(err.errors)
+            .catch(() => {
+              res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
             })
         })
-        .catch(err => {
-          res.status(400).send(err.errors)
+        .catch(() => {
+          res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
         })
     }
   )

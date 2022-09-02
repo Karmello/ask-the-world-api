@@ -51,4 +51,9 @@ export default {
     type: AppMsgType.Info,
     text: 'Email already confirmed',
   },
+  [AppMsgCode.EmailSuccessfullyConfirmed]: {
+    code: AppMsgCode.EmailSuccessfullyConfirmed,
+    type: AppMsgType.Success,
+    text: 'Email successfully confirmed',
+  },
 }
