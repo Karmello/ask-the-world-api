@@ -15,6 +15,7 @@ enum AppMsgCode {
   DeactivationLinkSent = 'DEACTIVATION_LINK_SENT',
   SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
   EmailSuccessfullyConfirmed = 'EMAIL_SUCCESSFULLY_CONFIRMED',
+  AccountSuccessfullyRemoved = 'ACCOUNT_SUCCESSFULLY_REMOVED',
 }
 
 export default AppMsgCode
