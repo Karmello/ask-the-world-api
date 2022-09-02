@@ -8,27 +8,27 @@ export default {
   },
   [AppMsgCode.AuthenticationFailed]: {
     code: AppMsgCode.AuthenticationFailed,
-    type: AppMsgType.Error,
+    type: AppMsgType.Warning,
     text: 'Authentication failed',
   },
   [AppMsgCode.NoCredentialsProvided]: {
     code: AppMsgCode.NoCredentialsProvided,
-    type: AppMsgType.Error,
+    type: AppMsgType.Warning,
     text: 'No credentials provided',
   },
   [AppMsgCode.NoSuchUser]: {
     code: AppMsgCode.NoSuchUser,
-    type: AppMsgType.Error,
+    type: AppMsgType.Warning,
     text: 'No such user',
   },
   [AppMsgCode.EmailNotConfirmed]: {
     code: AppMsgCode.EmailNotConfirmed,
-    type: AppMsgType.Error,
+    type: AppMsgType.Warning,
     text: 'Email not confirmed',
   },
   [AppMsgCode.NotFullAccount]: {
     code: AppMsgCode.NotFullAccount,
-    type: AppMsgType.Error,
+    type: AppMsgType.Warning,
     text: 'Not a full account',
   },
   [AppMsgCode.IllegalAction]: {
@@ -53,7 +53,7 @@ export default {
   },
   [AppMsgCode.EmailAlreadyConfirmed]: {
     code: AppMsgCode.EmailAlreadyConfirmed,
-    type: AppMsgType.Info,
+    type: AppMsgType.Warning,
     text: 'Email already confirmed',
   },
   [AppMsgCode.EmailSuccessfullyConfirmed]: {
@@ -64,6 +64,11 @@ export default {
   [AppMsgCode.AccountSuccessfullyRemoved]: {
     code: AppMsgCode.AccountSuccessfullyRemoved,
     type: AppMsgType.Success,
+    text: 'Account successfully removed',
+  },
+  [AppMsgCode.PaymentAlreadyMade]: {
+    code: AppMsgCode.PaymentAlreadyMade,
+    type: AppMsgType.Warning,
     text: 'Account successfully removed',
   },
 }
