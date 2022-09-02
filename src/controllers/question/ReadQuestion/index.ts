@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppResCode, IAnswer } from 'atw-shared/utils/index'
+import { ApiUrlPath, AppMsgCode, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
 import { verifyAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
@@ -14,7 +14,7 @@ export default (app: Application) =>
     QuestionModel.findOne({ _id: questionId })
       .then((question: IQuestionDoc) => {
         //
-        if (!question) return res.status(400).send(AppResCode.NoSuchQuestion)
+        if (!question) return res.status(400).send(AppMsgCode.NoSuchQuestion)
 
         if (!requestorId) {
           return res.status(200).send({
@@ -76,5 +76,5 @@ export default (app: Application) =>
           })
           .catch(err => res.status(400).send(err))
       })
-      .catch(() => res.status(400).send(AppResCode.NoSuchQuestion))
+      .catch(() => res.status(400).send(AppMsgCode.NoSuchQuestion))
   })

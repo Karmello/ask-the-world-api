@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
 
 import { Filter, ApiUrlPath } from 'atw-shared/utils/index'
-import responses from 'utils/responses'
+import msgs from 'utils/msgs'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -16,14 +16,14 @@ export default (req: Request, res: Response, next: NextFunction) => {
       ) &&
       !req.decoded
     ) {
-      return res.status(403).send(responses.ILLEGAL_ACTION)
+      return res.status(403).send(msgs.ILLEGAL_ACTION)
     }
 
     if (filter === Filter.Created) {
       try {
         new ObjectId(userId.toString())
       } catch (ex) {
-        return res.status(403).send(responses.ILLEGAL_ACTION)
+        return res.status(403).send(msgs.ILLEGAL_ACTION)
       }
     }
   }

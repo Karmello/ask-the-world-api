@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from 'express'
-import { IUser } from 'atw-shared/utils/index'
 
-import responses from 'utils/responses'
+import { IUser } from 'atw-shared/utils/index'
+import msgs from 'utils/msgs'
 import { UserModel } from 'models/index'
 
 export default (req: Request, res: Response, next: NextFunction) => {
   UserModel.findOne({ _id: req.decoded._id })
     .then((user: IUser) => {
-      if (!user) return res.status(404).send(responses.NO_SUCH_USER)
+      if (!user) return res.status(404).send(msgs.NO_SUCH_USER)
 
       if (!user.config.payment) {
-        return res.status(403).send(responses.NOT_FULL_ACCOUNT)
+        return res.status(403).send(msgs.NOT_FULL_ACCOUNT)
       }
 
       next()

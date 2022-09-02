@@ -7,7 +7,7 @@ import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
-import responses from 'utils/responses'
+import msgs from 'utils/msgs'
 
 const { APP_ENV, FE_URL } = process.env
 
@@ -31,7 +31,7 @@ export default (app: Application) => {
 
             if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
-              return res.status(200).send(responses.ACTIVATION_LINK_SENT)
+              return res.status(200).send(msgs.ACTIVATION_LINK_SENT)
             }
 
             sendMail({
@@ -41,18 +41,18 @@ export default (app: Application) => {
             }).then(
               () => {
                 if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
-                res.status(200).send(responses.ACTIVATION_LINK_SENT)
+                res.status(200).send(msgs.ACTIVATION_LINK_SENT)
               },
               () => {
-                res.status(400).send(responses.SOMETHING_WENT_WRONG)
+                res.status(400).send(msgs.SOMETHING_WENT_WRONG)
               }
             )
           } else {
-            res.status(404).send(responses.NO_SUCH_USER)
+            res.status(404).send(msgs.NO_SUCH_USER)
           }
         })
         .catch(() => {
-          res.status(400).send(responses.SOMETHING_WENT_WRONG)
+          res.status(400).send(msgs.SOMETHING_WENT_WRONG)
         })
     }
   )

@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppResCode, SocketEvent } from 'atw-shared/utils/index'
+import { ApiUrlPath, AppMsgCode, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
@@ -16,10 +16,10 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppResCode.NoSuchUser)
+          if (!doc) return res.status(404).send(AppMsgCode.NoSuchUser)
 
           if (doc.config.confirmed)
-            return res.status(403).send(AppResCode.EmailAlreadyConfirmed)
+            return res.status(403).send(AppMsgCode.EmailAlreadyConfirmed)
 
           doc.set({ config: { confirmed: true } })
           doc

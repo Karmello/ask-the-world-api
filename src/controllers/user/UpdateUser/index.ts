@@ -5,7 +5,7 @@ import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
-import responses from 'utils/responses'
+import msgs from 'utils/msgs'
 
 export default (app: Application) => {
   app.put(
@@ -19,7 +19,7 @@ export default (app: Application) => {
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) res.status(404).send(responses.NO_SUCH_USER)
+          if (!doc) res.status(404).send(msgs.NO_SUCH_USER)
 
           doc.set({ username, dateOfBirth, country, sex })
 
