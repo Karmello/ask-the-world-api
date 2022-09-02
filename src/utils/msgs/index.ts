@@ -3,47 +3,47 @@ import { AppMsgCode, AppMsgType } from 'atw-shared/utils/index'
 export default {
   [AppMsgCode.SomethingWentWrong]: {
     code: AppMsgCode.SomethingWentWrong,
-    message: 'Something went wrong. Please refresh or try later.',
     type: AppMsgType.Error,
+    text: 'Something went wrong. Please refresh or try later.',
   },
   [AppMsgCode.AuthenticationFailed]: {
     code: AppMsgCode.AuthenticationFailed,
-    message: 'Authentication failed',
     type: AppMsgType.Error,
+    text: 'Authentication failed',
   },
   [AppMsgCode.NoCredentialsProvided]: {
     code: AppMsgCode.NoCredentialsProvided,
-    message: 'No credentials provided',
     type: AppMsgType.Error,
+    text: 'No credentials provided',
   },
   [AppMsgCode.NoSuchUser]: {
     code: AppMsgCode.NoSuchUser,
-    message: 'No such user',
     type: AppMsgType.Error,
+    text: 'No such user',
   },
   [AppMsgCode.EmailNotConfirmed]: {
     code: AppMsgCode.EmailNotConfirmed,
-    message: 'Email not confirmed',
     type: AppMsgType.Error,
+    text: 'Email not confirmed',
   },
   [AppMsgCode.NotFullAccount]: {
     code: AppMsgCode.NotFullAccount,
-    message: 'Not a full account',
     type: AppMsgType.Error,
+    text: 'Not a full account',
   },
   [AppMsgCode.IllegalAction]: {
     code: AppMsgCode.IllegalAction,
-    message: 'Illegal action performed',
     type: AppMsgType.Error,
+    text: 'Illegal action performed',
   },
   [AppMsgCode.ActivationLinkSent]: {
     code: AppMsgCode.ActivationLinkSent,
-    message: 'Activation link sent. Please check your mailbox.',
     type: AppMsgType.Info,
+    text: 'Activation link sent. Please check your mailbox.',
   },
   [AppMsgCode.SuccessfullyUpdated]: {
     code: AppMsgCode.SuccessfullyUpdated,
-    message: 'Successfully updated',
     type: AppMsgType.Success,
+    text: 'Successfully updated',
   },
 }
