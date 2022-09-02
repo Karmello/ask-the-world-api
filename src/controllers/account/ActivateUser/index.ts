@@ -1,12 +1,13 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppMsgCode, SocketEvent } from 'atw-shared/utils/index'
+import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
+import msgs from 'utils/msgs'
 import dict from 'src/dictionary'
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivate,
     verifyCredentialsPresence,
@@ -16,12 +17,18 @@ export default (app: Application) =>
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppMsgCode.NoSuchUser)
+          if (!doc)
+            return res.status(404).send({
+              msg: msgs.NO_SUCH_USER,
+            })
 
           if (doc.config.confirmed)
-            return res.status(403).send(AppMsgCode.EmailAlreadyConfirmed)
+            return res.status(403).send({
+              msg: msgs.EMAIL_ALREADY_CONFIRMED,
+            })
 
           doc.set({ config: { confirmed: true } })
+
           doc
             .save()
             .then(() => {
@@ -37,3 +44,4 @@ export default (app: Application) =>
         })
     }
   )
+}

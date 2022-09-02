@@ -46,4 +46,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Successfully updated',
   },
+  [AppMsgCode.EmailAlreadyConfirmed]: {
+    code: AppMsgCode.EmailAlreadyConfirmed,
+    type: AppMsgType.Info,
+    text: 'Email already confirmed',
+  },
 }
