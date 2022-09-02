@@ -1,10 +1,11 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppMsgCode, AppEnv } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AppEnv } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import dict from 'src/dictionary'
 
@@ -30,7 +31,9 @@ export default (app: Application) => {
 
             if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
-              return res.status(200).send()
+              return res.status(200).send({
+                msg: msgs.DEACTIVATION_LINK_SENT,
+              })
             }
 
             sendMail({
@@ -40,15 +43,27 @@ export default (app: Application) => {
             }).then(
               () => {
                 if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
-                res.status(200).send()
+                res.status(200).send({
+                  msg: msgs.DEACTIVATION_LINK_SENT,
+                })
               },
-              err => res.status(400).send(err)
+              () => {
+                res.status(400).send({
+                  msg: msgs.SOMETHING_WENT_WRONG,
+                })
+              }
             )
           } else {
-            res.status(404).send(AppMsgCode.NoSuchUser)
+            res.status(404).send({
+              msg: msgs.NO_SUCH_USER,
+            })
           }
         })
-        .catch(err => res.status(400).send(err))
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
 }

@@ -41,6 +41,11 @@ export default {
     type: AppMsgType.Info,
     text: 'Activation link sent. Please check your mailbox.',
   },
+  [AppMsgCode.DeactivationLinkSent]: {
+    code: AppMsgCode.DeactivationLinkSent,
+    type: AppMsgType.Info,
+    text: 'Deactivation link sent. Please check your mailbox.',
+  },
   [AppMsgCode.SuccessfullyUpdated]: {
     code: AppMsgCode.SuccessfullyUpdated,
     type: AppMsgType.Success,
