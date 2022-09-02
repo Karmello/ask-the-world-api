@@ -10,17 +10,15 @@ import dict from 'src/dictionary'
 
 const { APP_ENV, FE_URL } = process.env
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(
     ApiUrlPath.UserDeactivationLink,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       UserModel.findOne({ _id: req.decoded._id })
         .then((doc: IUserDoc) => {
           if (doc) {
-            //
             const token = getFreshAuthToken(doc, true)
 
             const link =
@@ -53,3 +51,4 @@ export default (app: Application) =>
         .catch(err => res.status(400).send(err))
     }
   )
+}
