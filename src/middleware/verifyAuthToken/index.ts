@@ -28,7 +28,9 @@ export default (req: Request, res: Response, next: NextFunction) => {
         ([ApiUrlPath.UserActivate, ApiUrlPath.UserDeactivate].includes(req.route.path) &&
           !decoded.isMailToken)
       ) {
-        return res.status(401).send(msgs.AUTHENTICATION_FAILED)
+        return res.status(401).send({
+          msg: msgs.AUTHENTICATION_FAILED,
+        })
       }
       req.decoded = decoded
       next()

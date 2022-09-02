@@ -16,14 +16,18 @@ export default (req: Request, res: Response, next: NextFunction) => {
       ) &&
       !req.decoded
     ) {
-      return res.status(403).send(msgs.ILLEGAL_ACTION)
+      return res.status(403).send({
+        msg: msgs.ILLEGAL_ACTION,
+      })
     }
 
     if (filter === Filter.Created) {
       try {
         new ObjectId(userId.toString())
       } catch (ex) {
-        return res.status(403).send(msgs.ILLEGAL_ACTION)
+        return res.status(403).send({
+          msg: msgs.ILLEGAL_ACTION,
+        })
       }
     }
   }

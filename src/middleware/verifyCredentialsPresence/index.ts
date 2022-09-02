@@ -16,5 +16,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     return next()
   }
 
-  res.status(401).send(msgs.NO_CREDENTIALS_PROVIDED)
+  res.status(401).send({
+    msg: msgs.NO_CREDENTIALS_PROVIDED,
+  })
 }

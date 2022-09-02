@@ -19,7 +19,10 @@ export default (app: Application) => {
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) res.status(404).send(msgs.NO_SUCH_USER)
+          if (!doc)
+            res.status(404).send({
+              msg: msgs.NO_SUCH_USER,
+            })
 
           doc.set({ username, dateOfBirth, country, sex })
 
@@ -34,11 +37,15 @@ export default (app: Application) => {
               })
             })
             .catch(err => {
-              res.status(400).send(err.errors)
+              res.status(400).send({
+                valErr: err.errors,
+              })
             })
         })
         .catch(err => {
-          res.status(400).send(err.errors)
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
         })
     }
   )

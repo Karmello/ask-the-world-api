@@ -17,9 +17,15 @@
       "path": "src"
     },
     {
+      "name": "middleware",
+      "path": "src/middleware"
+    },
+    {
+      "name": "controllers",
       "path": "src/controllers"
     },
     {
+      "name": "utils",
       "path": "src/utils"
     }
   ],
