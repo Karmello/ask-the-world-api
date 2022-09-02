@@ -1,7 +1,7 @@
 export { default as AccountStatus } from './enums/AccountStatus'
 export { default as ApiUrlPath } from './enums/ApiUrlPath'
 export { default as AppEnv } from './enums/AppEnv'
-export { default as AppError } from './enums/AppError'
+export { default as AppResCode } from './enums/AppResCode'
 export { default as BundleMode } from './enums/BundleMode'
 export { default as Filter } from './enums/Filter'
 export { default as HttpMethod } from './enums/HttpMethod'

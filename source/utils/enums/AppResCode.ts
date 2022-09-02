@@ -1,4 +1,4 @@
-enum AppError {
+enum AppResCode {
   NoCredentialsProvided = 'NO_CREDENTIALS_PROVIDED',
   AuthenticationFailed = 'AUTHENTICATION_FAILED',
   EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
@@ -11,6 +11,7 @@ enum AppError {
   AlreadyFollowing = 'ALREADY_FOLLOWING',
   CouldNotConfirmPayment = 'COULD_NOT_CONFIRM_PAYMENT',
   PaymentAlreadyMade = 'PAYMENT_ALREADY_MADE',
+  ActivationLinkSent = 'ACTIVATION_LINK_SENT',
 }
 
-export default AppError
+export default AppResCode
