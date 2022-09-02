@@ -16,6 +16,7 @@ enum AppMsgCode {
   SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
   EmailSuccessfullyConfirmed = 'EMAIL_SUCCESSFULLY_CONFIRMED',
   AccountSuccessfullyRemoved = 'ACCOUNT_SUCCESSFULLY_REMOVED',
+  CouldNotGetData = 'COULD_NOT_GET_DATA',
 }
 
 export default AppMsgCode

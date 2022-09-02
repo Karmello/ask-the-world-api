@@ -71,4 +71,9 @@ export default {
     type: AppMsgType.Warning,
     text: 'Account successfully removed',
   },
+  [AppMsgCode.CouldNotGetData]: {
+    code: AppMsgCode.CouldNotGetData,
+    type: AppMsgType.Error,
+    text: 'Could not get data',
+  },
 }
