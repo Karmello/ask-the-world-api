@@ -3,15 +3,14 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, AppError } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
+import errors from 'utils/msgs/errors'
 
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.get(
     ApiUrlPath.User,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       const _id = req.query._id
 
       Promise.all([
@@ -20,7 +19,6 @@ export default (app: Application) =>
         UserModel.findOne({ _id }),
       ])
         .then(results => {
-          //
           const count = {
             questions: results[0],
             answers: results[1],
@@ -31,9 +29,12 @@ export default (app: Application) =>
           if (user) {
             res.status(200).send({ count, user })
           } else {
-            res.status(404).send(AppError.NoSuchUser)
+            res.status(404).send(errors.NO_SUCH_USER)
           }
         })
-        .catch(() => res.status(404).send(AppError.NoSuchUser))
+        .catch(() => {
+          res.status(404).send(errors.NO_SUCH_USER)
+        })
     }
   )
+}

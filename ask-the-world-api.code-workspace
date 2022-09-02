@@ -15,6 +15,9 @@
     {
       "name": "src",
       "path": "src"
+    },
+    {
+      "path": "src/controllers"
     }
   ],
   "settings": {}

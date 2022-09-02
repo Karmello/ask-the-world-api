@@ -12,13 +12,15 @@ export default (app: Application) =>
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       UserModel.findOne({ _id: req.decoded._id })
         .select('-password')
         .exec()
         .then((doc: IUserDoc) => {
           if (!doc) return res.status(404).send(AppError.NoSuchUser)
-          if (doc.config.confirmed) return res.status(403).send(AppError.EmailAlreadyConfirmed)
+
+          if (doc.config.confirmed)
+            return res.status(403).send(AppError.EmailAlreadyConfirmed)
+
           doc.set({ config: { confirmed: true } })
           doc
             .save()
@@ -26,8 +28,12 @@ export default (app: Application) =>
               req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
               res.status(200).send(dict.emailConfirmedMsg)
             })
-            .catch(err => res.status(400).send(err.errors))
+            .catch(err => {
+              res.status(400).send(err.errors)
+            })
         })
-        .catch(err => res.status(400).send(err.errors))
+        .catch(err => {
+          res.status(400).send(err.errors)
+        })
     }
   )

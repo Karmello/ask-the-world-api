@@ -25,7 +25,7 @@ export default (app: Application) => {
               AnswerModel.deleteMany({ answererId: userId }),
             ])
               .then(() => {
-                req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
+                req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.Logout)
                 res.status(200).send(dict.accountDeactivatedMsg)
               })
               .catch(err => {

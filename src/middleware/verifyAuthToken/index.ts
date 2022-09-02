@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
 import { X_AUTH_TOKEN, AppError, ApiUrlPath, Filter } from 'atw-shared/utils/index'
-import errors from 'utils/errors'
+import errors from 'utils/msgs/errors'
 
 export default (req: Request, res: Response, next: NextFunction) => {
   const allowWithNoToken = [

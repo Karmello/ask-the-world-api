@@ -7,20 +7,19 @@ import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
+import errors from 'utils/msgs/errors'
 
 const { APP_ENV, FE_URL } = process.env
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivationLink,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       UserModel.findOne({ _id: req.decoded._id })
         .then((doc: IUserDoc) => {
           if (doc) {
-            //
             const token = getFreshAuthToken(doc, true)
 
             const link =
@@ -44,12 +43,17 @@ export default (app: Application) =>
                 if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
                 res.status(200).send()
               },
-              err => res.status(400).send(err)
+              err => {
+                res.status(400).send(err)
+              }
             )
           } else {
-            res.status(404).send(AppError.NoSuchUser)
+            res.status(404).send(errors.NO_SUCH_USER)
           }
         })
-        .catch(err => res.status(400).send(err))
+        .catch(err => {
+          res.status(400).send(err)
+        })
     }
   )
+}

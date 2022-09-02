@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { AppError, IUser } from 'atw-shared/utils/index'
 
-import errors from 'utils/errors'
+import errors from 'utils/msgs/errors'
 import { UserModel } from 'models/index'
 
 export default (req: Request, res: Response, next: NextFunction) => {

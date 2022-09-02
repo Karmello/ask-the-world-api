@@ -5,7 +5,7 @@ import { getFreshAuthToken } from 'helpers/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
-import errors from 'utils/errors'
+import errors from 'utils/msgs/errors'
 
 type TQuery = {
   _id?: string
