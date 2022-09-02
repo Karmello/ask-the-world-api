@@ -1,9 +1,9 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppError } from 'atw-shared/utils/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
-import errors from 'utils/msgs/errors'
+import responses from 'utils/responses'
 
 export default (app: Application) => {
   app.get(
@@ -29,11 +29,11 @@ export default (app: Application) => {
           if (user) {
             res.status(200).send({ count, user })
           } else {
-            res.status(404).send(errors.NO_SUCH_USER)
+            res.status(404).send(responses.NO_SUCH_USER)
           }
         })
         .catch(() => {
-          res.status(404).send(errors.NO_SUCH_USER)
+          res.status(404).send(responses.NO_SUCH_USER)
         })
     }
   )

@@ -5,7 +5,7 @@ import { getFreshAuthToken } from 'helpers/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
-import errors from 'utils/msgs/errors'
+import responses from 'utils/responses'
 
 type TQuery = {
   _id?: string
@@ -13,7 +13,7 @@ type TQuery = {
 }
 
 const respondeWithAuthError = (res: Response) => {
-  res.status(401).send(errors.AUTHENTICATION_FAILED)
+  res.status(401).send(responses.AUTHENTICATION_FAILED)
 }
 
 export default (app: Application) => {

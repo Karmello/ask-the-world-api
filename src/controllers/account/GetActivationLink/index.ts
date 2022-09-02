@@ -7,7 +7,7 @@ import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
-import errors from 'utils/msgs/errors'
+import responses from 'utils/responses'
 
 const { APP_ENV, FE_URL } = process.env
 
@@ -48,7 +48,7 @@ export default (app: Application) => {
               }
             )
           } else {
-            res.status(404).send(errors.NO_SUCH_USER)
+            res.status(404).send(responses.NO_SUCH_USER)
           }
         })
         .catch(err => {

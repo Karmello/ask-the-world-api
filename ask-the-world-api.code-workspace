@@ -18,6 +18,9 @@
     },
     {
       "path": "src/controllers"
+    },
+    {
+      "path": "src/utils"
     }
   ],
   "settings": {}
