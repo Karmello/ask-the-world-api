@@ -5,7 +5,6 @@ import Helper from './Helper'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (helper: Helper) => {
-  //
   AnswerModel.aggregate([
     { $match: { answererId: new ObjectId(helper.req.decoded?._id) } },
     { $sort: { answeredAt: -1 } },

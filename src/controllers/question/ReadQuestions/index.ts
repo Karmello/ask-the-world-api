@@ -21,7 +21,7 @@ type TQuery = {
   keywordsMode: Filter
 }
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(
     ApiUrlPath.Questions,
     verifyAuthToken,
@@ -68,3 +68,4 @@ export default (app: Application) =>
       }
     }
   )
+}

@@ -7,9 +7,7 @@ import Helper from './Helper'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (helper: Helper) => {
-  //
   switch (helper.sortBy) {
-    //
     case SortBy.MostPopular:
       QuestionModel.aggregate([
         {
@@ -22,7 +20,6 @@ export default (helper: Helper) => {
           },
         },
       ]).then(results1 => {
-        //
         const userQuestionIds = results1[0].questionIds
 
         AnswerModel.aggregate([
@@ -42,7 +39,6 @@ export default (helper: Helper) => {
             $sort: { answeredTimes: -1, lastAnsweredAt: -1 },
           },
         ]).then(results2 => {
-          //
           const topQuestionIds = []
           results2.forEach(item => topQuestionIds.push(item._id))
 
