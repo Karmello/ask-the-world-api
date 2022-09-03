@@ -86,4 +86,9 @@ export default {
     type: AppMsgType.Warning,
     text: 'Already followed',
   },
+  [AppMsgCode.SuccessfullyDeleted]: {
+    code: AppMsgCode.SuccessfullyDeleted,
+    type: AppMsgType.Success,
+    text: 'Successfully deleted',
+  },
 }

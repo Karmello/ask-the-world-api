@@ -33,7 +33,7 @@ export default (app: Application) => {
         .save()
         .then(savedQuestion =>
           res.status(201).send({
-            data: savedQuestion.toObject(),
+            question: savedQuestion.toObject(),
           })
         )
         .catch(() => {
