@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
 import { AnswerModel, FollowModel, QuestionModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -13,14 +14,13 @@ import {
 
 const ObjectId = mongoose.Types.ObjectId
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.post(
     ApiUrlPath.Answer,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,
     (req: Request, res: Response) => {
-      //
       const newAnswer = new AnswerModel({
         questionId: req.query.questionId,
         answererId: req.decoded._id,
@@ -35,6 +35,13 @@ export default (app: Application) =>
         .then((answer: IAnswer) => {
           QuestionModel.findOne({ _id: questionId })
             .then((question: IQuestionDoc) => {
+              if (!question) {
+                newAnswer.remove()
+                res.status(400).send({
+                  msg: msgs.SOMETHING_WENT_WRONG,
+                })
+              }
+
               FollowModel.findOne({ questionId, followerId: requestorId })
                 .then((follow: IFollowDoc) => {
                   AnswerModel.find({ questionId })
@@ -44,7 +51,9 @@ export default (app: Application) =>
                         all: {},
                         requestor: answer.selectedIndexes,
                       }
+
                       question.answers.forEach((v, i) => (voting.all[i] = 0))
+
                       answers.forEach((a: IAnswer) => {
                         a.selectedIndexes.forEach(v => voting.all[v]++)
                       })
@@ -60,12 +69,32 @@ export default (app: Application) =>
                         ],
                       })
                     })
-                    .catch(err => res.status(400).send(err))
+                    .catch(() => {
+                      newAnswer.remove()
+                      res.status(400).send({
+                        msg: msgs.SOMETHING_WENT_WRONG,
+                      })
+                    })
                 })
-                .catch(err => res.status(400).send(err))
+                .catch(() => {
+                  newAnswer.remove()
+                  res.status(400).send({
+                    msg: msgs.SOMETHING_WENT_WRONG,
+                  })
+                })
             })
-            .catch(err => res.status(400).send(err))
+            .catch(() => {
+              newAnswer.remove()
+              res.status(400).send({
+                msg: msgs.SOMETHING_WENT_WRONG,
+              })
+            })
         })
-        .catch(err => res.status(400).send(err))
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}

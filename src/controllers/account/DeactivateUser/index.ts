@@ -1,11 +1,11 @@
 import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import { ApiUrlPath, AppResCode, SocketEvent } from 'atw-shared/utils/index'
+import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
-import dict from 'src/dictionary'
+import msgs from 'utils/msgs'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -26,17 +26,17 @@ export default (app: Application) => {
             ])
               .then(() => {
                 req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.Logout)
-                res.status(200).send(dict.accountDeactivatedMsg)
+                res.status(200).send(msgs.ACCOUNT_SUCCESSFULLY_REMOVED.text)
               })
-              .catch(err => {
-                res.status(400).send(err)
+              .catch(() => {
+                res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
               })
           } else {
-            res.status(404).send(AppResCode.NoSuchUser)
+            res.status(404).send(msgs.NO_SUCH_USER.text)
           }
         })
-        .catch(err => {
-          res.status(400).send(err)
+        .catch(() => {
+          res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
         })
     }
   )

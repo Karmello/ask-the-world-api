@@ -1,20 +1,22 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppResCode, IAnswer } from 'atw-shared/utils/index'
+import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
 import { verifyAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
+import msgs from 'utils/msgs'
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.get(ApiUrlPath.Question, verifyAuthToken, (req: Request, res: Response) => {
-    //
     const requestorId = req.decoded?._id
     const questionId = req.query._id as string
 
     QuestionModel.findOne({ _id: questionId })
       .then((question: IQuestionDoc) => {
-        //
-        if (!question) return res.status(400).send(AppResCode.NoSuchQuestion)
+        if (!question)
+          return res.status(400).send({
+            msg: msgs.NO_SUCH_QUESTION,
+          })
 
         if (!requestorId) {
           return res.status(200).send({
@@ -36,6 +38,7 @@ export default (app: Application) =>
           .then(results => {
             const requestorAnswer = results[0]
             const requestorFollow = results[1]
+
             if (!requestorAnswer) {
               return res.status(200).send({
                 count: 1,
@@ -55,7 +58,9 @@ export default (app: Application) =>
                     all: {},
                     requestor: requestorAnswer.selectedIndexes,
                   }
+
                   question.answers.forEach((v, i) => (voting.all[i] = 0))
+
                   answers.forEach((answer: IAnswer) => {
                     answer.selectedIndexes.forEach(v => voting.all[v]++)
                   })
@@ -71,10 +76,23 @@ export default (app: Application) =>
                     ],
                   })
                 })
-                .catch(err => res.status(400).send(err))
+                .catch(() => {
+                  res.status(400).send({
+                    msg: msgs.SOMETHING_WENT_WRONG,
+                  })
+                })
             }
           })
-          .catch(err => res.status(400).send(err))
+          .catch(() => {
+            res.status(400).send({
+              msg: msgs.SOMETHING_WENT_WRONG,
+            })
+          })
       })
-      .catch(() => res.status(400).send(AppResCode.NoSuchQuestion))
+      .catch(() => {
+        res.status(400).send({
+          msg: msgs.SOMETHING_WENT_WRONG,
+        })
+      })
   })
+}

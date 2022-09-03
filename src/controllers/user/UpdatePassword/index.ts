@@ -1,48 +1,64 @@
 import { Application, Request, Response } from 'express'
 
 import validationDict from 'atw-shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN, AppResCode } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
+import msgs from 'utils/msgs'
 
-const respondWithIncorrectPassword = (res: Response) =>
-  res.status(400).send({
-    currentPassword: {
-      message: validationDict.incorrectPassword,
-    },
-  })
-
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.put(
     ApiUrlPath.UserPassword,
     verifyCredentialsPresence,
     verifyAuthToken,
     (req: Request, res: Response) => {
-      //
       const { currentPassword, newPassword } = req.body
 
       UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(AppResCode.NoSuchUser)
+          if (!doc)
+            return res.status(404).send({
+              msg: msgs.NO_SUCH_USER,
+            })
+
           doc.comparePasswords(currentPassword, (err, isMatch) => {
             if (err || !isMatch) {
-              respondWithIncorrectPassword(res)
+              res.status(400).send({
+                valErr: {
+                  currentPassword: {
+                    message: validationDict.incorrectPassword,
+                  },
+                },
+              })
             } else {
               doc.set({ password: newPassword })
               doc
                 .save()
-                .then(_doc => {
-                  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(_doc))
-                  res.status(200).send(_doc)
+                .then(savedDoc => {
+                  res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(savedDoc))
+                  res.status(200).send({
+                    data: {
+                      user: savedDoc,
+                    },
+                    msg: msgs.SUCCESSFULLY_UPDATED,
+                  })
                 })
-                .catch(_err => res.status(400).send(_err.errors))
+                .catch(err => {
+                  res.status(400).send({
+                    valErr: err,
+                  })
+                })
             }
           })
         })
-        .catch(err => res.status(400).send(err.errors))
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}

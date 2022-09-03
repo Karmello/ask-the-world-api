@@ -2,13 +2,20 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { CountryModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 export default (app: Application) => {
   app.get(ApiUrlPath.Countries, (req: Request, res: Response) => {
     CountryModel.find()
       .then(docs => {
-        res.status(200).send(docs)
+        res.status(200).send({
+          countries: docs,
+        })
       })
-      .catch(err => res.status(400).send(err))
+      .catch(() => {
+        res.status(400).send({
+          msg: msgs.COULD_NOT_GET_DATA,
+        })
+      })
   })
 }

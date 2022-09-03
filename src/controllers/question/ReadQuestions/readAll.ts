@@ -3,7 +3,6 @@ import { QuestionModel } from 'models/index'
 import Helper from './Helper'
 
 export default (helper: Helper) => {
-  //
   QuestionModel.aggregate([
     { $match: { ...helper.match } },
     {

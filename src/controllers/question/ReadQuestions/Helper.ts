@@ -1,10 +1,16 @@
 import { Request, Response } from 'express'
 import get from 'lodash/get'
 
-import { Filter, READ_QUESTIONS_MAX, READ_TOP_QUESTIONS_MAX, SortBy } from 'atw-shared/utils/index'
+import {
+  Filter,
+  READ_QUESTIONS_MAX,
+  READ_TOP_QUESTIONS_MAX,
+  SortBy,
+} from 'atw-shared/utils/index'
+
+import msgs from 'utils/msgs'
 
 class Helper {
-  //
   readonly req: Request
   readonly res: Response
 
@@ -26,7 +32,6 @@ class Helper {
     keywords: string,
     keywordsMode: Filter
   ) {
-    //
     this.req = req
     this.res = res
     this.userId = userId
@@ -57,7 +62,11 @@ class Helper {
       data: get(results[0], 'docs', []),
     })
 
-  public endWithError = err => this.res.status(400).send(err)
+  public endWithError = () => {
+    this.res.status(400).send({
+      msg: msgs.COULD_NOT_GET_DATA,
+    })
+  }
 }
 
 export default Helper

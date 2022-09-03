@@ -1,28 +1,30 @@
 import { Application, Request, Response } from 'express'
 import get from 'lodash/get'
 
-import { ApiUrlPath, X_AUTH_TOKEN, AppResCode, SocketEvent } from 'atw-shared/utils/index'
+import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
-import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
+import msgs from 'utils/msgs'
 
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.post(ApiUrlPath.UserPayment, (req: Request, res: Response) => {
-    //
     if (get(req, 'body.type', '') !== 'charge.succeeded') {
-      return res.status(403).send(AppResCode.IllegalAction)
+      return res.status(403).send(msgs.ILLEGAL_ACTION.text)
     }
 
     UserModel.findOne({ email: get(req, 'body.data.object.billing_details.email', '') })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
-        //
-        if (!doc) return res.status(404).send(AppResCode.NoSuchUser)
-        if (!doc.config.confirmed)
-          return res.status(403).send(AppResCode.EmailNotConfirmed)
-        if (doc.config.payment) return res.status(400).send(AppResCode.PaymentAlreadyMade)
+        if (!doc) return res.status(404).send(msgs.NO_SUCH_USER.text)
+
+        if (!doc.config.confirmed) {
+          return res.status(403).send(msgs.EMAIL_NOT_CONFIRMED.text)
+        }
+
+        if (doc.config.payment) {
+          return res.status(400).send(msgs.PAYMENT_ALREADY_MADE.text)
+        }
 
         doc.set({
           config: {
@@ -35,10 +37,14 @@ export default (app: Application) =>
           .save()
           .then(updatedDoc => {
             req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.FullAccountUpdate, updatedDoc)
-            res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(updatedDoc))
-            res.status(200).send(updatedDoc)
+            res.status(200).send()
           })
-          .catch(err => res.status(400).send(err.errors))
+          .catch(() => {
+            res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+          })
       })
-      .catch(err => res.status(400).send(err.errors))
+      .catch(() => {
+        res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+      })
   })
+}

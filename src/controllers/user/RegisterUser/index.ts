@@ -10,12 +10,16 @@ export default (app: Application) => {
 
     newUser
       .save()
-      .then(doc => {
-        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
-        res.status(201).send(doc)
+      .then(savedUser => {
+        res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(savedUser))
+        res.status(201).send({
+          user: savedUser,
+        })
       })
       .catch(err => {
-        res.status(400).send(err.errors)
+        res.status(400).send({
+          valErr: err.errors,
+        })
       })
   })
 }

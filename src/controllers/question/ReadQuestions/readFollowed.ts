@@ -5,7 +5,6 @@ import Helper from './Helper'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (helper: Helper) => {
-  //
   FollowModel.aggregate([
     { $match: { followerId: new ObjectId(helper.req.decoded?._id) } },
     { $sort: { followedAt: -1 } },

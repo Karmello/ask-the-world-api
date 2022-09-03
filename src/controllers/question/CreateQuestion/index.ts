@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -10,8 +11,7 @@ import {
   verifyPaymentStatus,
 } from 'middleware/index'
 
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.post(
     ApiUrlPath.Question,
     verifyCredentialsPresence,
@@ -19,7 +19,6 @@ export default (app: Application) =>
     verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
-      //
       const creatorId = req.decoded._id
       const { text, answers, options } = req.body
 
@@ -32,7 +31,17 @@ export default (app: Application) =>
 
       newQuestion
         .save()
-        .then(doc => res.status(201).send(doc.toObject()))
-        .catch(err => res.status(400).send(err))
+        .then(savedQuestion =>
+          res.status(201).send({
+            question: savedQuestion.toObject(),
+            msg: msgs.SUCCESSFULLY_CREATED,
+          })
+        )
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}

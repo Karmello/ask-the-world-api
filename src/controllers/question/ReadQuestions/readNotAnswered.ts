@@ -7,7 +7,6 @@ import Helper from './Helper'
 const ObjectId = mongoose.Types.ObjectId
 
 export default (helper: Helper) => {
-  //
   AnswerModel.aggregate([
     { $match: { answererId: new ObjectId(helper.req.decoded?._id) } },
     {
@@ -23,7 +22,11 @@ export default (helper: Helper) => {
       {
         $facet: {
           meta: [{ $count: 'count' }],
-          docs: [{ $sort: { createdAt: -1 } }, { $skip: helper.skip }, { $limit: helper.limit }],
+          docs: [
+            { $sort: { createdAt: -1 } },
+            { $skip: helper.skip },
+            { $limit: helper.limit },
+          ],
         },
       },
     ]).then(helper.endWithSuccess, helper.endWithError)

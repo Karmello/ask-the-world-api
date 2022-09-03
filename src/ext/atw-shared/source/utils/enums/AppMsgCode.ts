@@ -1,4 +1,4 @@
-enum AppResCode {
+enum AppMsgCode {
   NoCredentialsProvided = 'NO_CREDENTIALS_PROVIDED',
   AuthenticationFailed = 'AUTHENTICATION_FAILED',
   EmailNotConfirmed = 'EMAIL_NOT_CONFIRMED',
@@ -12,6 +12,14 @@ enum AppResCode {
   CouldNotConfirmPayment = 'COULD_NOT_CONFIRM_PAYMENT',
   PaymentAlreadyMade = 'PAYMENT_ALREADY_MADE',
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
+  DeactivationLinkSent = 'DEACTIVATION_LINK_SENT',
+  SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
+  SuccessfullyDeleted = 'SUCCESSFULLY_DELETED',
+  SuccessfullyCreated = 'SUCCESSFULLY_CREATED',
+  EmailSuccessfullyConfirmed = 'EMAIL_SUCCESSFULLY_CONFIRMED',
+  AccountSuccessfullyRemoved = 'ACCOUNT_SUCCESSFULLY_REMOVED',
+  CouldNotGetData = 'COULD_NOT_GET_DATA',
+  SuccessfullyReported = 'SUCCESSFULLY_REPORTED',
 }
 
-export default AppResCode
+export default AppMsgCode

@@ -5,15 +5,11 @@ import { getFreshAuthToken } from 'helpers/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
-import responses from 'utils/responses'
+import msgs from 'utils/msgs'
 
 type TQuery = {
   _id?: string
   username?: string
-}
-
-const respondeWithAuthError = (res: Response) => {
-  res.status(401).send(responses.AUTHENTICATION_FAILED)
 }
 
 export default (app: Application) => {
@@ -38,26 +34,38 @@ export default (app: Application) => {
             if (doc) {
               doc.comparePasswords(password, (err, isMatch) => {
                 if (err || !isMatch) {
-                  respondeWithAuthError(res)
+                  res.status(401).send({
+                    msg: msgs.AUTHENTICATION_FAILED,
+                  })
                 } else {
                   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
-                  res.status(200).send(doc)
+                  res.status(200).send({
+                    user: doc,
+                  })
                 }
               })
             } else {
-              respondeWithAuthError(res)
+              res.status(401).send({
+                msg: msgs.AUTHENTICATION_FAILED,
+              })
             }
           } else {
             if (doc) {
               res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
-              res.status(200).send(doc)
+              res.status(200).send({
+                user: doc,
+              })
             } else {
-              respondeWithAuthError(res)
+              res.status(401).send({
+                msg: msgs.AUTHENTICATION_FAILED,
+              })
             }
           }
         })
         .catch(() => {
-          respondeWithAuthError(res)
+          res.status(401).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
         })
     }
   )
