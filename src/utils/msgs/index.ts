@@ -81,4 +81,9 @@ export default {
     type: AppMsgType.Error,
     text: 'Could not get data',
   },
+  [AppMsgCode.AlreadyFollowing]: {
+    code: AppMsgCode.AlreadyFollowing,
+    type: AppMsgType.Warning,
+    text: 'Already followed',
+  },
 }

@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppMsgCode } from 'atw-shared/utils/index'
 import { FollowModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -10,7 +11,7 @@ import {
   verifyPaymentStatus,
 } from 'middleware/index'
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.post(
     ApiUrlPath.Follow,
     verifyCredentialsPresence,
@@ -18,11 +19,13 @@ export default (app: Application) =>
     verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
-      //
       FollowModel.findOne({ questionId: req.query._id, followerId: req.decoded._id })
         .then(doc => {
-          // already following
-          if (doc) return res.status(400).send(AppMsgCode.AlreadyFollowing)
+          if (doc) {
+            return res.status(400).send({
+              msg: msgs.ALREADY_FOLLOWING,
+            })
+          }
 
           const follow = new FollowModel({
             questionId: req.query._id,
@@ -31,9 +34,22 @@ export default (app: Application) =>
 
           follow
             .save()
-            .then(_doc => res.status(200).send(_doc))
-            .catch(err => res.status(400).send(err))
+            .then(() => {
+              res.status(200).send({
+                msg: msgs.SUCCESSFULLY_UPDATED,
+              })
+            })
+            .catch(() => {
+              res.status(400).send({
+                msg: msgs.SOMETHING_WENT_WRONG,
+              })
+            })
         })
-        .catch(err => res.status(400).send(err))
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}
