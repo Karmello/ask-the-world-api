@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import validationDict from 'atw-shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN, AppMsgCode } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -54,7 +54,7 @@ export default (app: Application) => {
             }
           })
         })
-        .catch(err => {
+        .catch(() => {
           res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })

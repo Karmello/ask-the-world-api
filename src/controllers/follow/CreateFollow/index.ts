@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, AppMsgCode } from 'atw-shared/utils/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
 import { FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
 

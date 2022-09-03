@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import { ApiUrlPath, AppMsgCode, SocketEvent } from 'atw-shared/utils/index'
+import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
 import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
@@ -35,7 +35,7 @@ export default (app: Application) => {
             res.status(404).send(msgs.NO_SUCH_USER.text)
           }
         })
-        .catch(err => {
+        .catch(() => {
           res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
         })
     }

@@ -42,7 +42,7 @@ export default (app: Application) => {
               })
             })
         })
-        .catch(err => {
+        .catch(() => {
           res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })
