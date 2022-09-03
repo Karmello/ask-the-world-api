@@ -11,8 +11,7 @@ import {
   verifyPaymentStatus,
 } from 'middleware/index'
 
-export default (app: Application) =>
-  //
+export default (app: Application) => {
   app.post(
     ApiUrlPath.Question,
     verifyCredentialsPresence,
@@ -32,7 +31,16 @@ export default (app: Application) =>
 
       newQuestion
         .save()
-        .then(doc => res.status(201).send(doc.toObject()))
-        .catch(err => res.status(400).send(err))
+        .then(savedQuestion =>
+          res.status(201).send({
+            data: savedQuestion.toObject(),
+          })
+        )
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}

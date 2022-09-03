@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, AppMsgCode } from 'atw-shared/utils/index'
 import { QuestionModel, AnswerModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -10,7 +11,7 @@ import {
   verifyPaymentStatus,
 } from 'middleware/index'
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.delete(
     ApiUrlPath.Question,
     verifyCredentialsPresence,
@@ -18,7 +19,6 @@ export default (app: Application) =>
     verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
-      //
       QuestionModel.deleteOne({ _id: req.query._id })
         .then(({ deletedCount }) => {
           if (deletedCount > 0) {
@@ -26,12 +26,16 @@ export default (app: Application) =>
               .then(() => res.status(204).send())
               .catch(() => res.status(400).send(AppMsgCode.SomethingWentWrong))
           } else {
-            res.status(400).send(AppMsgCode.SomethingWentWrong)
+            res.status(400).send({
+              msg: msgs.SOMETHING_WENT_WRONG,
+            })
           }
         })
-        .catch(err => {
-          console.log(err)
-          res.status(400).send(AppMsgCode.SomethingWentWrong)
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
         })
     }
   )
+}
