@@ -21,6 +21,11 @@ export default {
     type: AppMsgType.Warning,
     text: 'No such user',
   },
+  [AppMsgCode.NoSuchQuestion]: {
+    code: AppMsgCode.NoSuchQuestion,
+    type: AppMsgType.Warning,
+    text: 'No such question',
+  },
   [AppMsgCode.EmailNotConfirmed]: {
     code: AppMsgCode.EmailNotConfirmed,
     type: AppMsgType.Warning,
