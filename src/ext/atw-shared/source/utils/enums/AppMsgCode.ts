@@ -14,6 +14,7 @@ enum AppMsgCode {
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
   DeactivationLinkSent = 'DEACTIVATION_LINK_SENT',
   SuccessfullyUpdated = 'SUCCESSFULLY_UPDATED',
+  SuccessfullyDeleted = 'SUCCESSFULLY_DELETED',
   EmailSuccessfullyConfirmed = 'EMAIL_SUCCESSFULLY_CONFIRMED',
   AccountSuccessfullyRemoved = 'ACCOUNT_SUCCESSFULLY_REMOVED',
   CouldNotGetData = 'COULD_NOT_GET_DATA',
