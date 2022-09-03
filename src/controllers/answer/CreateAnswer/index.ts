@@ -8,9 +8,11 @@ import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
-  verifyAuthToken,
+  readAuthToken,
   verifyEmailConfirmation,
 } from 'middleware/index'
+
+import checkRequest from './checkRequest'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -18,7 +20,8 @@ export default (app: Application) => {
   app.post(
     ApiUrlPath.Answer,
     verifyCredentialsPresence,
-    verifyAuthToken,
+    readAuthToken,
+    checkRequest,
     verifyEmailConfirmation,
     (req: Request, res: Response) => {
       const newAnswer = new AnswerModel({

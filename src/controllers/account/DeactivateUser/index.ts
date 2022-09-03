@@ -3,9 +3,11 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
-import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
+import { verifyCredentialsPresence, readAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
+
+import checkRequest from './checkRequest'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -13,7 +15,8 @@ export default (app: Application) => {
   app.get(
     ApiUrlPath.UserDeactivate,
     verifyCredentialsPresence,
-    verifyAuthToken,
+    readAuthToken,
+    checkRequest,
     (req: Request, res: Response) => {
       const userId = new ObjectId(req.decoded._id)
 

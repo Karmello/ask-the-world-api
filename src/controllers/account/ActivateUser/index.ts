@@ -2,15 +2,18 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
-import { verifyCredentialsPresence, verifyAuthToken } from 'middleware/index'
+import { verifyCredentialsPresence, readAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
+
+import checkRequest from './checkRequest'
 
 export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivate,
     verifyCredentialsPresence,
-    verifyAuthToken,
+    readAuthToken,
+    checkRequest,
     (req: Request, res: Response) => {
       UserModel.findOne({ _id: req.decoded._id })
         .select('-password')

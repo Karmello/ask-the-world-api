@@ -2,12 +2,12 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc } from 'utils/index'
-import { verifyAuthToken } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
-  app.get(ApiUrlPath.Question, verifyAuthToken, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.Question, readAuthToken, (req: Request, res: Response) => {
     const requestorId = req.decoded?._id
     const questionId = req.query._id as string
 

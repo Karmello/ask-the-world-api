@@ -1,7 +1,10 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, Filter, SortBy } from 'atw-shared/utils/index'
-import { verifyAuthToken, verifyRequest } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
+
+import checkRequest from './checkRequest'
+import Helper from './Helper'
 
 import readAll from './readAll'
 import readCreated from './readCreated'
@@ -9,8 +12,6 @@ import readFollowed from './readFollowed'
 import readAnswered from './readAnswered'
 import readNotAnswered from './readNotAnswered'
 import readTop from './readTop'
-
-import Helper from './Helper'
 
 type TQuery = {
   userId: string
@@ -24,8 +25,8 @@ type TQuery = {
 export default (app: Application) => {
   app.get(
     ApiUrlPath.Questions,
-    verifyAuthToken,
-    verifyRequest,
+    readAuthToken,
+    checkRequest,
     (req: Request, res: Response) => {
       const { userId, filter, sortBy, pageNo, keywords, keywordsMode } =
         req.query as TQuery
@@ -46,6 +47,10 @@ export default (app: Application) => {
           readAll(helper)
           break
 
+        case Filter.Top:
+          readTop(helper)
+          break
+
         case Filter.NotAnswered:
           readNotAnswered(helper)
           break
@@ -60,10 +65,6 @@ export default (app: Application) => {
 
         case Filter.Followed:
           readFollowed(helper)
-          break
-
-        case Filter.Top:
-          readTop(helper)
           break
       }
     }

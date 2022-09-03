@@ -6,16 +6,19 @@ import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
-  verifyAuthToken,
+  readAuthToken,
   verifyEmailConfirmation,
   verifyPaymentStatus,
 } from 'middleware/index'
+
+import checkRequest from './checkRequest'
 
 export default (app: Application) => {
   app.post(
     ApiUrlPath.Report,
     verifyCredentialsPresence,
-    verifyAuthToken,
+    readAuthToken,
+    checkRequest,
     verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
