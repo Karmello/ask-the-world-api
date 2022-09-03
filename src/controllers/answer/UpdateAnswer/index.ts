@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
 import { AnswerModel, QuestionModel, FollowModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -13,14 +14,13 @@ import {
 
 const ObjectId = mongoose.Types.ObjectId
 
-export default (app: Application) =>
+export default (app: Application) => {
   app.put(
     ApiUrlPath.Answer,
     verifyCredentialsPresence,
     verifyAuthToken,
     verifyEmailConfirmation,
     (req: Request, res: Response) => {
-      //
       AnswerModel.findOneAndUpdate(
         {
           answererId: req.decoded._id,
@@ -33,7 +33,6 @@ export default (app: Application) =>
         { new: true }
       )
         .then(answer => {
-          //
           const requestorId = new ObjectId(req.decoded._id as string)
           const questionId = new ObjectId(req.query.questionId as string)
 
@@ -48,7 +47,9 @@ export default (app: Application) =>
                         all: {},
                         requestor: answer.selectedIndexes,
                       }
+
                       question.answers.forEach((v, i) => (voting.all[i] = 0))
+
                       answers.forEach((_answer: IAnswer) => {
                         _answer.selectedIndexes.forEach(v => voting.all[v]++)
                       })
@@ -64,12 +65,29 @@ export default (app: Application) =>
                         ],
                       })
                     })
-                    .catch(err => res.status(400).send(err))
+                    .catch(() => {
+                      res.status(400).send({
+                        msg: msgs.SOMETHING_WENT_WRONG,
+                      })
+                    })
                 })
-                .catch(err => res.status(400).send(err))
+                .catch(() => {
+                  res.status(400).send({
+                    msg: msgs.SOMETHING_WENT_WRONG,
+                  })
+                })
             })
-            .catch(err => res.status(400).send(err))
+            .catch(() => {
+              res.status(400).send({
+                msg: msgs.SOMETHING_WENT_WRONG,
+              })
+            })
         })
-        .catch(err => res.status(400).send(err))
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
   )
+}

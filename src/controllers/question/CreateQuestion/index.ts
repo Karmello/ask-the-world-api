@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
+import msgs from 'utils/msgs'
 
 import {
   verifyCredentialsPresence,
@@ -19,7 +20,6 @@ export default (app: Application) =>
     verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
-      //
       const creatorId = req.decoded._id
       const { text, answers, options } = req.body
 
