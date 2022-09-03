@@ -32,9 +32,10 @@ export default (app: Application) => {
         .then(doc => {
           res.status(200).send({
             report: doc,
+            msg: msgs.SUCCESSFULLY_REPORTED,
           })
         })
-        .catch(err => {
+        .catch(() => {
           res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })

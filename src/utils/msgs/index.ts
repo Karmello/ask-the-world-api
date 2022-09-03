@@ -96,4 +96,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Successfully created',
   },
+  [AppMsgCode.SuccessfullyReported]: {
+    code: AppMsgCode.SuccessfullyReported,
+    type: AppMsgType.Success,
+    text: 'Successfully reported',
+  },
 }
