@@ -4,11 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 
-import {
-  readAuthToken,
-  verifyEmailConfirmation,
-  verifyPaymentStatus,
-} from 'middleware/index'
+import { readAuthToken, verifyPaymentStatus } from 'middleware/index'
 
 import checkRequest from './checkRequest'
 
@@ -17,7 +13,6 @@ export default (app: Application) => {
     ApiUrlPath.Question,
     readAuthToken,
     checkRequest,
-    verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
       const creatorId = req.decoded._id

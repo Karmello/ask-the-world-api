@@ -4,11 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
 
-import {
-  readAuthToken,
-  verifyEmailConfirmation,
-  verifyPaymentStatus,
-} from 'middleware/index'
+import { readAuthToken, verifyPaymentStatus } from 'middleware/index'
 
 import checkRequest from './checkRequest'
 
@@ -17,7 +13,6 @@ export default (app: Application) => {
     ApiUrlPath.Follow,
     readAuthToken,
     checkRequest,
-    verifyEmailConfirmation,
     verifyPaymentStatus,
     (req: Request, res: Response) => {
       FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })

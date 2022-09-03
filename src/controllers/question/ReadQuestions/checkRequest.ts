@@ -45,7 +45,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
 
   const isContentNotAllowed =
-    !req.decoded && ![Filter.Top, Filter.All].includes(filter as Filter)
+    !req.decoded?.confirmed && ![Filter.Top, Filter.All].includes(filter as Filter)
 
   if (isContentNotAllowed) {
     return sendNegativeResponse(res)

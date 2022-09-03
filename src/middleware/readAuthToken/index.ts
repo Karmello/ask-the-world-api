@@ -4,7 +4,11 @@ import jwt from 'jsonwebtoken'
 import { X_AUTH_TOKEN, ApiUrlPath } from 'atw-shared/utils/index'
 import msgs from 'utils/msgs'
 
-type TDecoded = { _id: string; isMailToken?: boolean }
+type TDecoded = {
+  _id: string
+  confirmed: boolean
+  isMailToken?: boolean
+}
 
 export default (req: Request, res: Response, next: NextFunction) => {
   const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
