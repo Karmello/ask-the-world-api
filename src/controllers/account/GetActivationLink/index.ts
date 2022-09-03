@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN, AppEnv } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
-import { verifyCredentialsPresence, readAuthToken } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
@@ -16,7 +16,6 @@ const { APP_ENV, FE_URL } = process.env
 export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivationLink,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {

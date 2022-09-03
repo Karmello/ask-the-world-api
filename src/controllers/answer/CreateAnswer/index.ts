@@ -5,12 +5,7 @@ import { ApiUrlPath, IAnswer } from 'atw-shared/utils/index'
 import { IQuestionDoc, IFollowDoc } from 'utils/index'
 import { AnswerModel, FollowModel, QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
-
-import {
-  verifyCredentialsPresence,
-  readAuthToken,
-  verifyEmailConfirmation,
-} from 'middleware/index'
+import { readAuthToken, verifyEmailConfirmation } from 'middleware/index'
 
 import checkRequest from './checkRequest'
 
@@ -19,7 +14,6 @@ const ObjectId = mongoose.Types.ObjectId
 export default (app: Application) => {
   app.post(
     ApiUrlPath.Answer,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     verifyEmailConfirmation,

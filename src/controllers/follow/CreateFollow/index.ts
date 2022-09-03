@@ -5,7 +5,6 @@ import { FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
 
 import {
-  verifyCredentialsPresence,
   readAuthToken,
   verifyEmailConfirmation,
   verifyPaymentStatus,
@@ -16,7 +15,6 @@ import checkRequest from './checkRequest'
 export default (app: Application) => {
   app.post(
     ApiUrlPath.Follow,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     verifyEmailConfirmation,

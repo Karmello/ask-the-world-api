@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
-import { verifyCredentialsPresence, readAuthToken } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
 
@@ -14,7 +14,6 @@ const ObjectId = mongoose.Types.ObjectId
 export default (app: Application) => {
   app.get(
     ApiUrlPath.UserDeactivate,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {

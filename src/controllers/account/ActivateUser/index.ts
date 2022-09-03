@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
-import { verifyCredentialsPresence, readAuthToken } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
 
@@ -11,7 +11,6 @@ import checkRequest from './checkRequest'
 export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivate,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {

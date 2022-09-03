@@ -5,7 +5,6 @@ import { QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
 
 import {
-  verifyCredentialsPresence,
   readAuthToken,
   verifyEmailConfirmation,
   verifyPaymentStatus,
@@ -16,7 +15,6 @@ import checkRequest from './checkRequest'
 export default (app: Application) => {
   app.delete(
     ApiUrlPath.Question,
-    verifyCredentialsPresence,
     readAuthToken,
     checkRequest,
     verifyEmailConfirmation,
