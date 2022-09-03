@@ -34,6 +34,7 @@ export default (app: Application) => {
         .then(savedQuestion =>
           res.status(201).send({
             question: savedQuestion.toObject(),
+            msg: msgs.SUCCESSFULLY_CREATED,
           })
         )
         .catch(() => {

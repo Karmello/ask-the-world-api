@@ -91,4 +91,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Successfully deleted',
   },
+  [AppMsgCode.SuccessfullyCreated]: {
+    code: AppMsgCode.SuccessfullyCreated,
+    type: AppMsgType.Success,
+    text: 'Successfully created',
+  },
 }
