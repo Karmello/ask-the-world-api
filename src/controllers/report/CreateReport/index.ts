@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { ReportModel } from 'models/index'
 import msgs from 'utils/msgs'
-import { readAuthToken, verifyPaymentStatus } from 'middleware/index'
+import { readAuthToken } from 'middleware/index'
 
 import checkRequest from './checkRequest'
 
@@ -12,7 +12,6 @@ export default (app: Application) => {
     ApiUrlPath.Report,
     readAuthToken,
     checkRequest,
-    verifyPaymentStatus,
     (req: Request, res: Response) => {
       const { questionId, reportReason } = req.query
 

@@ -7,6 +7,7 @@ import msgs from 'utils/msgs'
 type TDecoded = {
   _id: string
   confirmed: boolean
+  payment: boolean
   isMailToken?: boolean
 }
 

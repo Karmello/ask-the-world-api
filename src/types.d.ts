@@ -5,6 +5,7 @@ declare module 'express' {
     decoded: {
       _id: string
       confirmed: boolean
+      payment: boolean
       isMailToken?: boolean
     }
   }
