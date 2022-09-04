@@ -1,12 +1,18 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, AccountStatus } from 'atw-shared/utils/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 export default (app: Application) => {
   app.post(ApiUrlPath.User, (req: Request, res: Response) => {
     const newUser = new UserModel({ ...req.body })
+
+    if (process.env.FULL_ACCOUNT_PAYMENT_REQUIRED === 'no') {
+      newUser.config.payment = {
+        type: AccountStatus.FREE,
+      }
+    }
 
     newUser
       .save()

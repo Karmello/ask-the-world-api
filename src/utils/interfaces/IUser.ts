@@ -5,5 +5,8 @@ import { IUser } from 'atw-shared/utils/index'
 export interface IUserDoc extends IUser, Document {
   _id: string
   hashPassword: (next: NextFunction) => void
-  comparePasswords: (current: string, cb: (err?: Error, isMatch?: boolean) => void) => void
+  comparePasswords: (
+    current: string,
+    cb: (err?: Error, isMatch?: boolean) => void
+  ) => void
 }
