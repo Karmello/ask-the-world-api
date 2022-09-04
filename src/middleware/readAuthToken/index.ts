@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { X_AUTH_TOKEN, ApiUrlPath } from 'atw-shared/utils/index'
+import { X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import msgs from 'utils/msgs'
 
 type TDecoded = {
