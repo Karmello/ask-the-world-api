@@ -13,7 +13,7 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      QuestionModel.deleteOne({ _id: req.query._id })
+      QuestionModel.deleteOne({ _id: req.query._id, creatorId: req.decoded._id })
         .then(({ deletedCount }) => {
           if (deletedCount > 0) {
             AnswerModel.deleteMany({ questionId: req.query._id })
