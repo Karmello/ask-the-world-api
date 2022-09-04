@@ -11,7 +11,7 @@ export default (helper: Helper) => {
     case SortBy.MostPopular:
       QuestionModel.aggregate([
         {
-          $match: { creatorId: new ObjectId(helper.userId) },
+          $match: { creatorId: new ObjectId(helper.userId), ...helper.match },
         },
         {
           $group: {
