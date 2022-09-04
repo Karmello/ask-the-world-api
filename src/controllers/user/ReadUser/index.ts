@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath } from 'atw-shared/utils/index'
+import { ApiUrlPath, IUser } from 'atw-shared/utils/index'
 import { readAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
@@ -22,12 +22,29 @@ export default (app: Application) => {
           answers: results[1],
         }
 
-        const user = results[2]
+        const user = results[2].toJSON() as IUser
 
         if (user) {
-          res.status(200).send({
-            data: { count, user },
-          })
+          if (user._id.toString() === req.decoded._id.toString()) {
+            res.status(200).send({
+              data: { count, user },
+            })
+          } else {
+            res.status(200).send({
+              data: {
+                count,
+                user: {
+                  ...user,
+                  config: {
+                    ...user.config,
+                    payment: {
+                      type: user.config.payment.type,
+                    },
+                  },
+                },
+              },
+            })
+          }
         } else {
           res.status(404).send({
             msg: msgs.NO_SUCH_USER,
