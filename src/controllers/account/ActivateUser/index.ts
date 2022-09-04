@@ -24,7 +24,7 @@ export default (app: Application) => {
             return res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
           }
 
-          doc.set({ config: { confirmed: true } })
+          doc.set({ config: { ...doc.config, confirmed: true } })
 
           doc
             .save()
