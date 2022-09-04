@@ -1,6 +1,8 @@
+import AccountStatus from '../enums/AccountStatus'
+
 interface IPayment {
-  type: string
-  data: {
+  type: string | AccountStatus
+  data?: {
     object: {
       receipt_url: string
       billing_details: {
