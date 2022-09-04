@@ -15,7 +15,7 @@ export default (helper: Helper) => {
       const ids = []
       results.forEach(({ questionId }) => ids.push(questionId))
       QuestionModel.aggregate([
-        { $match: { _id: { $in: ids, ...helper.match } } },
+        { $match: { _id: { $in: ids }, ...helper.match } },
         { $addFields: { __order: { $indexOfArray: [ids, '$_id'] } } },
         { $sort: { __order: 1 } },
         { $unset: '__order' },

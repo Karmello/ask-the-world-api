@@ -26,7 +26,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     !req.query.sortBy ||
     ![SortBy.DateCreated, SortBy.MostPopular].includes(req.query.sortBy as SortBy)
   ) {
-    req.query.sortBy = SortBy.DateCreated
+    req.query.sortBy = null
   }
 
   if (!req.query.pageNo) {
