@@ -1,22 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
 
-import { Filter } from 'atw-shared/utils/index'
-import msgs from 'utils/msgs'
+import { Filter, SortBy } from 'atw-shared/utils/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
-const sendNegativeResponse = (res: Response) => {
-  res.status(403).send({
-    msg: msgs.ILLEGAL_ACTION,
-  })
-}
-
 export default (req: Request, res: Response, next: NextFunction) => {
-  const { filter, userId } = req.query
-
-  const isFilterValueBad =
-    !filter ||
+  if (
+    !req.query.filter ||
     ![
       Filter.All,
       Filter.Top,
@@ -24,31 +15,32 @@ export default (req: Request, res: Response, next: NextFunction) => {
       Filter.Answered,
       Filter.Created,
       Filter.Followed,
-    ].includes(filter as Filter)
-
-  if (isFilterValueBad) {
-    return sendNegativeResponse(res)
+    ].includes(req.query.filter as Filter) ||
+    (!req.decoded?.confirmed &&
+      ![Filter.Top, Filter.All].includes(req.query.filter as Filter))
+  ) {
+    req.query.filter = Filter.All
   }
 
-  const isMissingRequiredUserId = filter === Filter.Created && !userId
-
-  if (isMissingRequiredUserId) {
-    return sendNegativeResponse(res)
+  if (
+    !req.query.sortBy ||
+    ![SortBy.DateCreated, SortBy.MostPopular].includes(req.query.sortBy as SortBy)
+  ) {
+    req.query.sortBy = SortBy.DateCreated
   }
 
-  if (filter === Filter.Created) {
+  if (!req.query.pageNo) {
+    req.query.pageNo = '1'
+  }
+
+  if (!req.query.userId) {
+    req.query.userId = null
+  } else {
     try {
-      new ObjectId(userId.toString())
+      new ObjectId(String(req.query.userId))
     } catch (ex) {
-      return sendNegativeResponse(res)
+      req.query.userId = null
     }
-  }
-
-  const isContentNotAllowed =
-    !req.decoded?.confirmed && ![Filter.Top, Filter.All].includes(filter as Filter)
-
-  if (isContentNotAllowed) {
-    return sendNegativeResponse(res)
   }
 
   next()

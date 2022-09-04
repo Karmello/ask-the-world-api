@@ -25,7 +25,6 @@ const answerSchema = new Schema(
       {
         type: Number,
         required: true,
-        default: [],
       },
     ],
   },
