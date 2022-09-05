@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
 
-import { Filter, SortBy } from 'atw-shared/utils/index'
+import { Filter, Sort } from 'atw-shared/utils/index'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -23,10 +23,10 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
 
   if (
-    !req.query.sortBy ||
-    ![SortBy.DateCreated, SortBy.MostPopular].includes(req.query.sortBy as SortBy)
+    !req.query.sort ||
+    ![Sort.DateCreated, Sort.MostPopular].includes(req.query.sort as Sort)
   ) {
-    req.query.sortBy = null
+    req.query.sort = null
   }
 
   if (!req.query.pageNo) {

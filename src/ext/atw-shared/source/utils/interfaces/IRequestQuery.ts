@@ -1,13 +1,12 @@
 import Filter from './../enums/Filter'
-import SortBy from './../enums/SortBy'
+import Sort from './../enums/Sort'
 
 interface IRequestQuery {
-  userId?: string
-  filter: Filter
-  sortBy: SortBy
   pageNo: number
-  keywords?: string
-  keywordsMode?: string
+  filter: Filter
+  sort: Sort
+  userId?: string
+  search?: string
 }
 
 export default IRequestQuery

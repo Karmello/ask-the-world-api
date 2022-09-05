@@ -7,25 +7,17 @@ import {
   Filter,
   READ_QUESTIONS_MAX,
   READ_TOP_QUESTIONS_MAX,
-  SortBy,
+  Sort,
+  IRequestQuery,
 } from 'atw-shared/utils/index'
 
 import { readAuthToken } from 'middleware/index'
-import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
+import { QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 
 import checkRequest from './checkRequest'
 
 const ObjectId = mongoose.Types.ObjectId
-
-type TQuery = {
-  userId: string
-  filter: Filter
-  sortBy: SortBy
-  pageNo: string
-  keywords: string
-  keywordsMode: Filter
-}
 
 export default (app: Application) => {
   app.get(
@@ -33,36 +25,19 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      const { userId, filter, sortBy, pageNo, keywords, keywordsMode } =
-        req.query as TQuery
+      const { userId, filter, sort, pageNo, search } =
+        req.query as unknown as IRequestQuery
 
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
 
       let $match = {}
 
-      if (keywords) {
-        if (keywordsMode === Filter.All) {
-          $match = {
-            $text: {
-              $search: keywords,
-            },
-          }
-        } else if (keywordsMode === Filter.Any) {
-          $match = {
-            $or: [
-              {
-                text: {
-                  $in: keywords.split(' ').map(word => new RegExp(word, 'i')),
-                },
-              },
-              {
-                answers: {
-                  $in: keywords.split(' ').map(word => new RegExp(word, 'i')),
-                },
-              },
-            ],
-          }
+      if (search) {
+        $match = {
+          $text: {
+            $search: search,
+          },
         }
       }
 
