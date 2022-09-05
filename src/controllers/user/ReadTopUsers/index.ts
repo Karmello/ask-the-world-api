@@ -18,12 +18,12 @@ export default (app: Application) => {
         },
       },
       { $addFields: { votesCount: { $size: '$votes' } } },
-      { $sort: { votesCount: -1 } },
+      { $sort: { votesCount: -1, 'config.registeredAt': -1 } },
       { $project: { votes: 0, votesCount: 0 } },
       {
         $facet: {
           meta: [{ $count: 'count' }],
-          docs: [{ $limit: 25 }],
+          docs: [{ $limit: 10 }],
         },
       },
     ]).then(

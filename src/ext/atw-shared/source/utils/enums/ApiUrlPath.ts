@@ -9,7 +9,7 @@ enum ApiUrlPath {
   UserPassword = '/user/password',
   UserPayment = '/user/payment',
   // users
-  UsersTop = 'users/top',
+  UsersTop = '/users/top',
   // question
   Question = '/question',
   Questions = '/questions',
