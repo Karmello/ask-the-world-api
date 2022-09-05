@@ -155,11 +155,12 @@ export default (app: Application) => {
               },
             },
           },
+          { $sort: { 'follows.followedAt': -1 } },
           { $project: { follows: 0 } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
-              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+              docs: [{ $skip }, { $limit }],
             },
           },
         ])
