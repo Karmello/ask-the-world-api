@@ -44,37 +44,32 @@ export default (app: Application) => {
       if (keywords) {
         if (keywordsMode === Filter.All) {
           $match = {
-            text: {
-              $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
+            $text: {
+              $search: keywords,
             },
           }
         } else if (keywordsMode === Filter.Any) {
           $match = {
-            text: {
-              $regex: keywords.split(' ').join('|'),
-              $options: 'i',
-            },
+            $or: [
+              {
+                text: {
+                  $in: keywords.split(' ').map(word => new RegExp(word, 'i')),
+                },
+              },
+              {
+                answers: {
+                  $in: keywords.split(' ').map(word => new RegExp(word, 'i')),
+                },
+              },
+            ],
           }
         }
       }
 
-      const onSuccess = results => {
-        console.log(results)
-        res.status(200).send({
-          count: get(results[0], 'meta[0].count', 0),
-          data: get(results[0], 'docs', []),
-        })
-      }
-
-      const onError = err => {
-        console.log(err)
-        res.status(400).send({
-          msg: msgs.COULD_NOT_GET_DATA,
-        })
-      }
+      let aggregate
 
       if (filter === Filter.All) {
-        QuestionModel.aggregate([
+        aggregate = QuestionModel.aggregate([
           { $match },
           {
             $facet: {
@@ -82,10 +77,10 @@ export default (app: Application) => {
               docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
-        ]).then(onSuccess, onError)
+        ])
       } else if (filter === Filter.Top) {
         const $limit = READ_TOP_QUESTIONS_MAX
-        QuestionModel.aggregate([
+        aggregate = QuestionModel.aggregate([
           {
             $lookup: {
               from: 'answers',
@@ -103,7 +98,7 @@ export default (app: Application) => {
               docs: [{ $skip }, { $limit }],
             },
           },
-        ]).then(onSuccess, onError)
+        ])
       } else if (filter === Filter.NotAnswered || filter === Filter.Answered) {
         let votes = {}
 
@@ -119,7 +114,7 @@ export default (app: Application) => {
           }
         }
 
-        QuestionModel.aggregate([
+        aggregate = QuestionModel.aggregate([
           {
             $lookup: {
               from: 'answers',
@@ -136,19 +131,19 @@ export default (app: Application) => {
               docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
-        ]).then(onSuccess, onError)
+        ])
       } else if (filter === Filter.Created) {
-        QuestionModel.aggregate([
-          { $match: { creatorId: new ObjectId(req.decoded?._id) } },
+        aggregate = QuestionModel.aggregate([
+          { $match: { creatorId: new ObjectId(userId || req.decoded?._id) } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
               docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
-        ]).then(onSuccess, onError)
+        ])
       } else if (filter === Filter.Followed) {
-        QuestionModel.aggregate([
+        aggregate = QuestionModel.aggregate([
           {
             $lookup: {
               from: 'follows',
@@ -171,8 +166,23 @@ export default (app: Application) => {
               docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
-        ]).then(onSuccess, onError)
+        ])
       }
+
+      aggregate.then(
+        results => {
+          res.status(200).send({
+            count: get(results[0], 'meta[0].count', 0),
+            data: get(results[0], 'docs', []),
+          })
+        },
+        err => {
+          console.log(err)
+          res.status(400).send({
+            msg: msgs.COULD_NOT_GET_DATA,
+          })
+        }
+      )
     }
   )
 }
