@@ -90,6 +90,7 @@ export default (app: Application) => {
         }
 
         aggregate = QuestionModel.aggregate([
+          { $match },
           {
             $lookup: {
               from: 'answers',
@@ -109,7 +110,7 @@ export default (app: Application) => {
         ])
       } else if (filter === Filter.Created) {
         aggregate = QuestionModel.aggregate([
-          { $match: { creatorId: new ObjectId(userId || req.decoded?._id) } },
+          { $match: { creatorId: new ObjectId(userId || req.decoded?._id), ...$match } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
@@ -119,6 +120,7 @@ export default (app: Application) => {
         ])
       } else if (filter === Filter.Followed) {
         aggregate = QuestionModel.aggregate([
+          { $match },
           {
             $lookup: {
               from: 'follows',
