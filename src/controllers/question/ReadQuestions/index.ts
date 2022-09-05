@@ -7,7 +7,6 @@ import {
   Filter,
   READ_QUESTIONS_MAX,
   READ_TOP_QUESTIONS_MAX,
-  Sort,
   IRequestQuery,
 } from 'atw-shared/utils/index'
 
@@ -25,8 +24,7 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      const { userId, filter, sort, pageNo, search } =
-        req.query as unknown as IRequestQuery
+      const { userId, filter, pageNo, search } = req.query as unknown as IRequestQuery
 
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
@@ -74,21 +72,7 @@ export default (app: Application) => {
             },
           },
         ])
-      } else if (filter === Filter.NotAnswered || filter === Filter.Answered) {
-        let votes = {}
-
-        if (filter === Filter.NotAnswered) {
-          votes = {
-            $not: {
-              $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
-            },
-          }
-        } else if (filter === Filter.Answered) {
-          votes = {
-            $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
-          }
-        }
-
+      } else if (filter === Filter.NotAnswered) {
         aggregate = QuestionModel.aggregate([
           { $match },
           {
@@ -99,12 +83,47 @@ export default (app: Application) => {
               as: 'votes',
             },
           },
-          { $match: { votes } },
+          {
+            $match: {
+              votes: {
+                $not: {
+                  $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
+                },
+              },
+            },
+          },
           { $project: { votes: 0 } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
               docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+            },
+          },
+        ])
+      } else if (filter === Filter.Answered) {
+        aggregate = QuestionModel.aggregate([
+          { $match },
+          {
+            $lookup: {
+              from: 'answers',
+              localField: '_id',
+              foreignField: 'questionId',
+              as: 'votes',
+            },
+          },
+          {
+            $match: {
+              votes: {
+                $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
+              },
+            },
+          },
+          { $sort: { 'votes.answeredAt': -1 } },
+          { $project: { votes: 0 } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $skip }, { $limit }],
             },
           },
         ])
