@@ -39,29 +39,35 @@ export default (app: Application) => {
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
 
-      const match = {} as { text: {} }
+      let $match = {}
 
       if (keywords) {
         if (keywordsMode === Filter.All) {
-          match.text = {
-            $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
+          $match = {
+            text: {
+              $all: keywords.split(' ').map(word => new RegExp(word, 'i')),
+            },
           }
         } else if (keywordsMode === Filter.Any) {
-          match.text = {
-            $regex: keywords.split(' ').join('|'),
-            $options: 'i',
+          $match = {
+            text: {
+              $regex: keywords.split(' ').join('|'),
+              $options: 'i',
+            },
           }
         }
       }
 
       const onSuccess = results => {
+        console.log(results)
         res.status(200).send({
           count: get(results[0], 'meta[0].count', 0),
           data: get(results[0], 'docs', []),
         })
       }
 
-      const onError = () => {
+      const onError = err => {
+        console.log(err)
         res.status(400).send({
           msg: msgs.COULD_NOT_GET_DATA,
         })
@@ -69,7 +75,7 @@ export default (app: Application) => {
 
       if (filter === Filter.All) {
         QuestionModel.aggregate([
-          { $match: { ...match } },
+          { $match },
           {
             $facet: {
               meta: [{ $count: 'count' }],
@@ -79,201 +85,93 @@ export default (app: Application) => {
         ]).then(onSuccess, onError)
       } else if (filter === Filter.Top) {
         const $limit = READ_TOP_QUESTIONS_MAX
-        AnswerModel.aggregate([
+        QuestionModel.aggregate([
           {
-            $group: {
-              _id: '$questionId',
-              lastAnsweredAt: { $max: '$answeredAt' },
-              answeredTimes: { $sum: 1 },
+            $lookup: {
+              from: 'answers',
+              localField: '_id',
+              foreignField: 'questionId',
+              as: 'votes',
             },
           },
+          { $addFields: { votesCount: { $size: '$votes' } } },
+          { $sort: { votesCount: -1, createdAt: -1 } },
+          { $project: { votes: 0, votesCount: 0 } },
           {
-            $sort: {
-              answeredTimes: -1,
-              lastAnsweredAt: -1,
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $skip }, { $limit }],
             },
           },
-          {
-            $limit,
-          },
-        ]).then(results => {
-          const questionIds = []
-          results.forEach(item => questionIds.push(item._id))
+        ]).then(onSuccess, onError)
+      } else if (filter === Filter.NotAnswered || filter === Filter.Answered) {
+        let votes = {}
 
-          QuestionModel.aggregate([
-            {
-              $match: {
-                _id: {
-                  $in: questionIds,
-                },
-              },
+        if (filter === Filter.NotAnswered) {
+          votes = {
+            $not: {
+              $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
             },
-            {
-              $addFields: {
-                __order: {
-                  $indexOfArray: [questionIds, '$_id'],
-                },
-              },
-            },
-            {
-              $sort: {
-                __order: 1,
-              },
-            },
-            { $unset: '__order' },
-            {
-              $facet: {
-                meta: [{ $count: 'count' }],
-                docs: [{ $match: {} }],
-              },
-            },
-          ]).then(onSuccess, onError)
-        }, onError)
-      } else if (filter === Filter.NotAnswered) {
-        AnswerModel.aggregate([
-          { $match: { answererId: new ObjectId(req.decoded?._id) } },
-          {
-            $group: {
-              _id: null,
-              questionIds: { $addToSet: '$questionId' },
-            },
-          },
-        ]).then(results => {
-          const questionIds = get(results[0], 'questionIds', [])
-          QuestionModel.aggregate([
-            { $match: { _id: { $nin: questionIds }, ...match } },
-            {
-              $facet: {
-                meta: [{ $count: 'count' }],
-                docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
-              },
-            },
-          ]).then(onSuccess, onError)
-        }, onError)
-      } else if (filter === Filter.Answered) {
-        AnswerModel.aggregate([
-          { $match: { answererId: new ObjectId(req.decoded?._id) } },
-          { $sort: { answeredAt: -1 } },
-        ]).then(results => {
-          if (results.length === 0) {
-            onSuccess(results)
-          } else {
-            const ids = []
-            results.forEach(({ questionId }) => ids.push(questionId))
-            QuestionModel.aggregate([
-              { $match: { _id: { $in: ids }, ...match } },
-              { $addFields: { __order: { $indexOfArray: [ids, '$_id'] } } },
-              { $sort: { __order: 1 } },
-              { $unset: '__order' },
-              {
-                $facet: {
-                  meta: [{ $count: 'count' }],
-                  docs: [{ $skip }, { $limit }],
-                },
-              },
-            ]).then(onSuccess, onError)
           }
-        }, onError)
-      } else if (filter === Filter.Created) {
-        if (sortBy === SortBy.MostPopular) {
-          QuestionModel.aggregate([
-            {
-              $match: { creatorId: new ObjectId(userId), ...match },
-            },
-            {
-              $group: {
-                _id: null,
-                questionIds: { $addToSet: '$_id' },
-              },
-            },
-          ]).then(results1 => {
-            const userQuestionIds = results1[0].questionIds
-
-            AnswerModel.aggregate([
-              {
-                $match: {
-                  questionId: { $in: userQuestionIds },
-                },
-              },
-              {
-                $group: {
-                  _id: '$questionId',
-                  lastAnsweredAt: { $max: '$answeredAt' },
-                  answeredTimes: { $sum: 1 },
-                },
-              },
-              {
-                $sort: { answeredTimes: -1, lastAnsweredAt: -1 },
-              },
-            ]).then(results2 => {
-              const topQuestionIds = []
-              results2.forEach(item => topQuestionIds.push(item._id))
-
-              QuestionModel.aggregate([
-                {
-                  $match: {
-                    _id: { $in: topQuestionIds },
-                  },
-                },
-                {
-                  $addFields: {
-                    __order: {
-                      $indexOfArray: [topQuestionIds, '$_id'],
-                    },
-                  },
-                },
-                { $sort: { __order: 1 } },
-                { $unset: '__order' },
-                {
-                  $facet: {
-                    meta: [{ $count: 'count' }],
-                    docs: [{ $match: {} }, { $skip }, { $limit }],
-                  },
-                },
-              ]).then(onSuccess, onError)
-            })
-          })
-        } else {
-          QuestionModel.aggregate([
-            { $match: { creatorId: new ObjectId(userId), ...match } },
-            {
-              $facet: {
-                meta: [{ $count: 'count' }],
-                docs: [
-                  {
-                    $sort: { createdAt: -1 },
-                  },
-                  { $skip },
-                  { $limit },
-                ],
-              },
-            },
-          ]).then(onSuccess, onError)
+        } else if (filter === Filter.Answered) {
+          votes = {
+            $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
+          }
         }
+
+        QuestionModel.aggregate([
+          {
+            $lookup: {
+              from: 'answers',
+              localField: '_id',
+              foreignField: 'questionId',
+              as: 'votes',
+            },
+          },
+          { $match: { votes } },
+          { $project: { votes: 0 } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+            },
+          },
+        ]).then(onSuccess, onError)
+      } else if (filter === Filter.Created) {
+        QuestionModel.aggregate([
+          { $match: { creatorId: new ObjectId(req.decoded?._id) } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+            },
+          },
+        ]).then(onSuccess, onError)
       } else if (filter === Filter.Followed) {
-        FollowModel.aggregate([
-          { $match: { followerId: new ObjectId(req.decoded?._id) } },
-          { $sort: { followedAt: -1 } },
-        ]).then(results => {
-          if (results.length === 0) {
-            onSuccess(results)
-          } else {
-            const ids = []
-            results.forEach(({ questionId }) => ids.push(questionId))
-            QuestionModel.aggregate([
-              { $match: { _id: { $in: ids }, ...match } },
-              { $addFields: { __order: { $indexOfArray: [ids, '$_id'] } } },
-              { $sort: { __order: 1 } },
-              { $unset: '__order' },
-              {
-                $facet: {
-                  meta: [{ $count: 'count' }],
-                  docs: [{ $skip }, { $limit }],
-                },
+        QuestionModel.aggregate([
+          {
+            $lookup: {
+              from: 'follows',
+              localField: '_id',
+              foreignField: 'questionId',
+              as: 'follows',
+            },
+          },
+          {
+            $match: {
+              follows: {
+                $elemMatch: { followerId: new ObjectId(req.decoded?._id) },
               },
-            ]).then(onSuccess, onError)
-          }
-        }, onError)
+            },
+          },
+          { $project: { follows: 0 } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+            },
+          },
+        ]).then(onSuccess, onError)
       }
     }
   )
