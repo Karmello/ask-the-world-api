@@ -30,20 +30,32 @@ export default (app: Application) => {
               data: { count, user },
             })
           } else {
-            res.status(200).send({
-              data: {
-                count,
-                user: {
-                  ...user,
-                  config: {
-                    ...user.config,
-                    payment: {
-                      type: user.config.payment.type,
+            if (user.config.confirmed) {
+              if (user.config.payment) {
+                res.status(200).send({
+                  data: {
+                    count,
+                    user: {
+                      ...user,
+                      config: {
+                        ...user.config,
+                        payment: {
+                          type: user.config.payment.type,
+                        },
+                      },
                     },
                   },
-                },
-              },
-            })
+                })
+              } else {
+                res.status(200).send({
+                  data: { count, user },
+                })
+              }
+            } else {
+              res.status(404).send({
+                msg: msgs.NO_SUCH_USER,
+              })
+            }
           }
         } else {
           res.status(404).send({

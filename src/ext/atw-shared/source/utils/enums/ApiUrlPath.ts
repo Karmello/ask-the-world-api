@@ -8,6 +8,8 @@ enum ApiUrlPath {
   UserAuthenticate = '/user/authenticate',
   UserPassword = '/user/password',
   UserPayment = '/user/payment',
+  // users
+  UsersTop = '/users/top',
   // question
   Question = '/question',
   Questions = '/questions',

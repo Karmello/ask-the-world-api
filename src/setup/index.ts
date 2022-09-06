@@ -16,7 +16,6 @@ import {
 const { NODE_ENV, APP_ENV } = process.env
 
 export default (app: Application, logs: { [key: string]: unknown }[]) => {
-  //
   if (NODE_ENV !== AppEnv.Test) app.use(morgan('dev'))
 
   app.use(bodyParser.urlencoded({ extended: true }))

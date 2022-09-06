@@ -4,6 +4,7 @@ import { AppEnv } from 'atw-shared/utils/index'
 import {
   AuthenticateUser,
   RegisterUser,
+  ReadTopUsers,
   ReadUser,
   UpdateUser,
   UpdatePassword,
@@ -23,6 +24,7 @@ import {
   ReadQuestion,
   ReadQuestions,
 } from './question/index'
+
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
@@ -39,6 +41,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
   GetActivationLink(app)
   GetDeactivationLink(app)
   MakePayment(app)
+  ReadTopUsers(app)
   ReadUser(app)
   RegisterUser(app)
   UpdatePassword(app)
