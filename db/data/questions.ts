@@ -17,7 +17,7 @@ import { msInDay } from './_constants'
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(5000, () => {
+  times(100, () => {
     const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
 
     const user = users[getRandNum(0, users.length - 1)]
