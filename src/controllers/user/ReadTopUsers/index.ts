@@ -17,6 +17,11 @@ export default (app: Application) => {
           as: 'votes',
         },
       },
+      {
+        $match: {
+          'config.confirmed': true,
+        },
+      },
       { $addFields: { votesCount: { $size: '$votes' } } },
       { $sort: { votesCount: -1, 'config.registeredAt': -1 } },
       { $project: { votes: 0, votesCount: 0 } },
