@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 
-import { QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH } from 'atw-shared/utils/index'
+import {
+  QUESTION_INPUT_MIN_LENGTH,
+  QUESTION_INPUT_MAX_LENGTH,
+} from 'atw-shared/utils/index'
 import { ModelName, IQuestionDoc } from 'utils/index'
 
 import {
@@ -56,6 +59,8 @@ const questionSchema = new Schema(
     versionKey: false,
   }
 )
+
+questionSchema.index({ answers: 'text', text: 'text' })
 
 questionSchema.path('answers').validate(checkAnswers)
 

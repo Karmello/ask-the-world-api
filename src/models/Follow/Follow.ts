@@ -27,4 +27,6 @@ const followSchema = new Schema(
   }
 )
 
+followSchema.index({ questionId: 1, followerId: 1 }, { unique: true })
+
 export default model<IFollowDoc>(ModelName.Follow, followSchema)

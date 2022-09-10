@@ -28,4 +28,6 @@ const reportSchema = new Schema(
   }
 )
 
+reportSchema.index({ questionId: 1, reporterId: 1, reason: 1 }, { unique: true })
+
 export default model<IReportDoc>(ModelName.Report, reportSchema)
