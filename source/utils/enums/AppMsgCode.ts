@@ -20,6 +20,7 @@ enum AppMsgCode {
   AccountSuccessfullyRemoved = 'ACCOUNT_SUCCESSFULLY_REMOVED',
   CouldNotGetData = 'COULD_NOT_GET_DATA',
   SuccessfullyReported = 'SUCCESSFULLY_REPORTED',
+  AlreadyReported = 'ALREADY_REPORTED',
 }
 
 export default AppMsgCode
