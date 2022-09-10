@@ -29,10 +29,16 @@ export default (app: Application) => {
             msg: msgs.SUCCESSFULLY_REPORTED,
           })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          if (err.code === 11000) {
+            res.status(400).send({
+              msg: msgs.ALREADY_REPORTED,
+            })
+          } else {
+            res.status(400).send({
+              msg: msgs.SOMETHING_WENT_WRONG,
+            })
+          }
         })
     }
   )

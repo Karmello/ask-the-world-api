@@ -101,4 +101,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Successfully reported',
   },
+  [AppMsgCode.AlreadyReported]: {
+    code: AppMsgCode.AlreadyReported,
+    type: AppMsgType.Warning,
+    text: 'Already reported',
+  },
 }
