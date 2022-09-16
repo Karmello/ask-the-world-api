@@ -12,7 +12,7 @@ export default {
       },
     } = this as IQuestion
 
-    if (max > MAX_NUM_OF_ANSWERS || max <= min || max > answers.length) {
+    if (!min || max > MAX_NUM_OF_ANSWERS || max <= min || max > answers.length) {
       return false
     }
 

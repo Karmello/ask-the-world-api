@@ -16,6 +16,14 @@ export default (app: Application) => {
       const creatorId = req.decoded._id
       const { text, answers, numOfVotes } = req.body as IQuestion
 
+      if (numOfVotes.exact !== undefined) {
+        delete req.body.numOfVotes.range
+      }
+
+      if (numOfVotes.range !== undefined) {
+        delete req.body.numOfVotes.exact
+      }
+
       const newQuestion = new QuestionModel({
         creatorId,
         text,
