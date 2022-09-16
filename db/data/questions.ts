@@ -41,13 +41,20 @@ const getQuestionMocks = (users: IUser[]) => {
           })
           return arr
         })(),
-        options: (() => {
-          const multipleChoice = faker.random.boolean()
-          let maxSelectable = 1
-          if (multipleChoice) maxSelectable = getRandNum(2, numOfAnswers)
-          return {
-            multipleChoice,
-            maxSelectable,
+        numOfVotes: (() => {
+          const exactNumOfVotes = faker.random.boolean()
+          if (exactNumOfVotes) {
+            return {
+              exact: getRandNum(1, numOfAnswers - 1),
+            }
+          } else {
+            const min = getRandNum(1, numOfAnswers - 1)
+            return {
+              range: {
+                min,
+                max: getRandNum(min + 1, numOfAnswers),
+              },
+            }
           }
         })(),
       }

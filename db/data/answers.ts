@@ -10,7 +10,11 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]
 
   times(questions.length, (i: number) => {
-    const { _id, answers, options } = questions[i]
+    const {
+      _id,
+      answers,
+      numOfVotes: { exact, range },
+    } = questions[i]
     const userIndexes = getRandNums(0, users.length - 1, getRandNum(1, users.length))
 
     times(userIndexes.length, (i: number) => {
@@ -27,14 +31,10 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
           ).getTime(),
           selectedIndexes: (() => {
             let arr
-            if (!options.multipleChoice) {
+            if (exact) {
               arr = [getRandNum(0, answers.length - 1)]
-            } else {
-              arr = getRandNums(
-                0,
-                answers.length - 1,
-                getRandNum(1, options.maxSelectable)
-              )
+            } else if (range) {
+              arr = getRandNums(0, answers.length - 1, getRandNum(range.min, range.max))
             }
             return arr
           })(),
