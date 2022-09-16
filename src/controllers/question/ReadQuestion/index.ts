@@ -45,8 +45,10 @@ export default (app: Application) => {
                 data: [
                   {
                     ...question.toObject(),
-                    voting: {},
-                    isFollowedByRequestor: Boolean(requestorFollow),
+                    meta: {
+                      voting: {},
+                      isFollowedByRequestor: Boolean(requestorFollow),
+                    },
                   },
                 ],
               })
@@ -70,8 +72,10 @@ export default (app: Application) => {
                     data: [
                       {
                         ...question.toObject(),
-                        voting,
-                        isFollowedByRequestor: Boolean(requestorFollow),
+                        meta: {
+                          voting,
+                          isFollowedByRequestor: Boolean(requestorFollow),
+                        },
                       },
                     ],
                   })
