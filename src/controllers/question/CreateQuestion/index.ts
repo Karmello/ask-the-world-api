@@ -2,8 +2,8 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, IQuestion } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
-import msgs from 'utils/msgs'
 import { readAuthToken } from 'middleware/index'
+import msgs from 'utils/msgs'
 
 import checkRequest from './checkRequest'
 

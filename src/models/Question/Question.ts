@@ -10,7 +10,9 @@ import { ModelName, IQuestionDoc } from 'utils/index'
 import {
   checkMinLength,
   checkMaxLength,
-  checkMaxSelectableAnswers,
+  checkNumOfVotesExact,
+  checkNumOfVotesMin,
+  checkNumOfVotesMax,
   checkAnswers,
 } from 'validation/index'
 
@@ -43,9 +45,20 @@ const questionSchema = new Schema(
       },
     ],
     numOfVotes: {
-      exact: Number,
-      min: Number,
-      max: Number,
+      exact: {
+        type: Number,
+        validate: [checkNumOfVotesExact],
+      },
+      range: {
+        min: {
+          type: Number,
+          validate: [checkNumOfVotesMin],
+        },
+        max: {
+          type: Number,
+          validate: [checkNumOfVotesMax],
+        },
+      },
     },
     isStopped: {
       type: Boolean,

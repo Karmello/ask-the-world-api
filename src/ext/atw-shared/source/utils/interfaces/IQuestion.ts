@@ -7,9 +7,11 @@ interface IQuestion {
   text: string
   answers: string[]
   numOfVotes: {
-    exact: number
-    min: number
-    max: number
+    exact?: number
+    range?: {
+      min: number
+      max: number
+    }
   }
   isStopped: boolean
   meta: {
