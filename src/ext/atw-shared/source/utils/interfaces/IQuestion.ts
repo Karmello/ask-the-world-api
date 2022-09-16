@@ -6,9 +6,10 @@ interface IQuestion {
   createdAt: number
   text: string
   answers: string[]
-  options: {
-    multipleChoice: boolean
-    maxSelectable: number
+  numOfVotes: {
+    exact?: number
+    min?: number
+    max?: number
   }
   voting?: {
     answersCount: number
@@ -18,6 +19,7 @@ interface IQuestion {
     requestor: number[]
   }
   isFollowedByRequestor?: boolean
+  isStopped?: boolean
 }
 
 export default IQuestion

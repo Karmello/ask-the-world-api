@@ -4,6 +4,7 @@ import {
   QUESTION_INPUT_MIN_LENGTH,
   QUESTION_INPUT_MAX_LENGTH,
 } from 'atw-shared/utils/index'
+
 import { ModelName, IQuestionDoc } from 'utils/index'
 
 import {
@@ -41,18 +42,15 @@ const questionSchema = new Schema(
         required: true,
       },
     ],
-    options: {
-      multipleChoice: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
-      maxSelectable: {
-        type: Number,
-        required: true,
-        default: 1,
-        validate: [checkMaxSelectableAnswers],
-      },
+    numOfVotes: {
+      exact: Number,
+      min: Number,
+      max: Number,
+    },
+    isStopped: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {
