@@ -7,19 +7,21 @@ interface IQuestion {
   text: string
   answers: string[]
   numOfVotes: {
-    exact?: number
-    min?: number
-    max?: number
+    exact: number
+    min: number
+    max: number
   }
-  voting?: {
-    answersCount: number
-    all: {
-      [key: number]: number
+  isStopped: boolean
+  meta: {
+    voting?: {
+      answersCount: number
+      all: {
+        [key: number]: number
+      }
+      requestor: number[]
     }
-    requestor: number[]
+    isFollowedByRequestor?: boolean
   }
-  isFollowedByRequestor?: boolean
-  isStopped?: boolean
 }
 
 export default IQuestion
