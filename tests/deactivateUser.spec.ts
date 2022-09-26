@@ -47,8 +47,8 @@ describe('deactivateUser', () => {
   })
 
   it('user exists', done => {
-    UserModel.collection.findOne({ _id: userId }).then((err, doc) => {
-      expect(doc?._id).to.eql(userId)
+    UserModel.collection.find({ _id: userId }).toArray((err, docs) => {
+      expect(docs?.length).to.eql(1)
       done()
     })
   })
@@ -105,8 +105,8 @@ describe('deactivateUser', () => {
   })
 
   it('user removed', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc).to.eql(null)
+    UserModel.collection.find({ _id: userId }).toArray((err, docs) => {
+      expect(docs?.length).to.eql(0)
       done()
     })
   })
