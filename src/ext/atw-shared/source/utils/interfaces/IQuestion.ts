@@ -13,7 +13,7 @@ interface IQuestion {
       max: number
     }
   }
-  isStopped: boolean
+  isTerminated: boolean
   meta: {
     voting?: {
       answersCount: number
