@@ -48,6 +48,7 @@ describe('deactivateUser', () => {
 
   it('user exists', done => {
     UserModel.collection.findOne({ username }).then(doc => {
+      console.log(doc)
       expect(doc?._id).to.eql(userId)
       done()
     })
