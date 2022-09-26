@@ -67,7 +67,7 @@ describe('deactivateUser', () => {
     })
   })
 
-  it('should authenticate', done => {
+  xit('should authenticate', done => {
     chai
       .request(api)
       .post(ApiUrlPath.UserAuthenticate)
@@ -80,7 +80,7 @@ describe('deactivateUser', () => {
       })
   })
 
-  it('should get deactivation token', done => {
+  xit('should get deactivation token', done => {
     chai
       .request(api)
       .get(ApiUrlPath.UserDeactivationLink)
@@ -93,7 +93,7 @@ describe('deactivateUser', () => {
       })
   })
 
-  it('should deactivate', done => {
+  xit('should deactivate', done => {
     chai
       .request(api)
       .get(ApiUrlPath.UserDeactivate)
@@ -104,21 +104,21 @@ describe('deactivateUser', () => {
       })
   })
 
-  it('user removed', done => {
+  xit('user removed', done => {
     UserModel.collection.findOne({ _id: userId }).then(doc => {
       expect(doc).to.eql(null)
       done()
     })
   })
 
-  it('question removed', done => {
+  xit('question removed', done => {
     QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
       expect(docs?.length).to.eql(0)
       done()
     })
   })
 
-  it('answer removed', done => {
+  xit('answer removed', done => {
     AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
       expect(docs?.length).to.eql(0)
       done()
