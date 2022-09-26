@@ -15,7 +15,7 @@ export default (app: Application) => {
     (req: Request, res: Response) => {
       QuestionModel.findOneAndUpdate(
         {
-          _id: req.query.questionId,
+          _id: req.query._id,
           creatorId: req.decoded._id,
         },
         {

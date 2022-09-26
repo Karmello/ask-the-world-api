@@ -85,6 +85,7 @@ export default (app: Application) => {
           },
           {
             $match: {
+              isStopped: false,
               votes: {
                 $not: {
                   $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
