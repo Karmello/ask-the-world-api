@@ -10,29 +10,28 @@ const uri = process.argv[2]
 
 if (!uri) {
   console.error('Provide MONGO_URI as a command line argument.')
-
 } else {
   const clearAndSeedDb = async (client: MongoClient) => {
     const usersCollection = client.db().collection<IUser>('users')
     const questionsCollection = client.db().collection<IQuestion>('questions')
     const answersCollection = client.db().collection<IAnswer>('answers')
     const followsCollection = client.db().collection<IFollow>('follows')
-  
-    usersCollection.deleteMany({})
-    questionsCollection.deleteMany({})
-    answersCollection.deleteMany({})
-    followsCollection.deleteMany({})
-  
+
+    await usersCollection.deleteMany({})
+    await questionsCollection.deleteMany({})
+    await answersCollection.deleteMany({})
+    await followsCollection.deleteMany({})
+
     await usersCollection.insertMany(userMocks)
     const users = await usersCollection.find().toArray()
     await questionsCollection.insertMany(getQuestionMocks(users))
     const questions = await questionsCollection.find().toArray()
     await answersCollection.insertMany(getAnswerMocks(users, questions))
   }
-  
+
   const main = async () => {
     const client = new MongoClient(uri)
-  
+
     try {
       await client.connect()
       await clearAndSeedDb(client)
@@ -42,6 +41,6 @@ if (!uri) {
       await client.close()
     }
   }
-  
+
   main().catch(console.error)
 }

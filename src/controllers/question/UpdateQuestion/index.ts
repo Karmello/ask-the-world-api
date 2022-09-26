@@ -1,0 +1,37 @@
+import { Application, Request, Response } from 'express'
+
+import { ApiUrlPath } from 'atw-shared/utils/index'
+import { QuestionModel } from 'models/index'
+import msgs from 'utils/msgs'
+import { readAuthToken } from 'middleware/index'
+
+import checkRequest from './checkRequest'
+
+export default (app: Application) => {
+  app.put(
+    ApiUrlPath.Question,
+    readAuthToken,
+    checkRequest,
+    (req: Request, res: Response) => {
+      QuestionModel.findOneAndUpdate(
+        {
+          _id: req.query.questionId,
+          creatorId: req.decoded._id,
+        },
+        {
+          isStopped: true,
+        }
+      )
+        .then(() => {
+          res.status(200).send({
+            msg: msgs.SUCCESSFULLY_UPDATED,
+          })
+        })
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
+    }
+  )
+}
