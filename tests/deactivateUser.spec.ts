@@ -47,7 +47,7 @@ describe('deactivateUser', () => {
   })
 
   it('user exists', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
+    UserModel.collection.findOne({ username }).then(doc => {
       expect(doc?._id).to.eql(userId)
       done()
     })
@@ -67,7 +67,7 @@ describe('deactivateUser', () => {
     })
   })
 
-  xit('should authenticate', done => {
+  it('should authenticate', done => {
     chai
       .request(api)
       .post(ApiUrlPath.UserAuthenticate)
@@ -80,7 +80,7 @@ describe('deactivateUser', () => {
       })
   })
 
-  xit('should get deactivation token', done => {
+  it('should get deactivation token', done => {
     chai
       .request(api)
       .get(ApiUrlPath.UserDeactivationLink)
@@ -93,7 +93,7 @@ describe('deactivateUser', () => {
       })
   })
 
-  xit('should deactivate', done => {
+  it('should deactivate', done => {
     chai
       .request(api)
       .get(ApiUrlPath.UserDeactivate)
@@ -104,21 +104,21 @@ describe('deactivateUser', () => {
       })
   })
 
-  xit('user removed', done => {
+  it('user removed', done => {
     UserModel.collection.findOne({ _id: userId }).then(doc => {
       expect(doc).to.eql(null)
       done()
     })
   })
 
-  xit('question removed', done => {
+  it('question removed', done => {
     QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
       expect(docs?.length).to.eql(0)
       done()
     })
   })
 
-  xit('answer removed', done => {
+  it('answer removed', done => {
     AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
       expect(docs?.length).to.eql(0)
       done()
