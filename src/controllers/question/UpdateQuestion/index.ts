@@ -19,7 +19,7 @@ export default (app: Application) => {
           creatorId: req.decoded._id,
         },
         {
-          isStopped: true,
+          isTerminated: true,
         }
       )
         .then(() => {

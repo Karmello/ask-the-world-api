@@ -16,37 +16,35 @@ export default (app: Application) => {
     (req: Request, res: Response) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {
-          if (!question) {
+          if (
+            !question ||
+            question.isTerminated ||
+            !checkSelectedIndexes(req.body, question)
+          ) {
             res.status(400).send({
               msg: msgs.SOMETHING_WENT_WRONG,
             })
           } else {
-            if (!checkSelectedIndexes(req.body, question)) {
-              res.status(400).send({
-                msg: msgs.SOMETHING_WENT_WRONG,
+            AnswerModel.findOneAndUpdate(
+              {
+                answererId: req.decoded._id,
+                questionId: req.query.questionId,
+              },
+              {
+                answeredAt: Date.now(),
+                selectedIndexes: req.body,
+              }
+            )
+              .then(answer => {
+                res.status(200).send({
+                  answer,
+                })
               })
-            } else {
-              AnswerModel.findOneAndUpdate(
-                {
-                  answererId: req.decoded._id,
-                  questionId: req.query.questionId,
-                },
-                {
-                  answeredAt: Date.now(),
-                  selectedIndexes: req.body,
-                }
-              )
-                .then(answer => {
-                  res.status(200).send({
-                    answer,
-                  })
+              .catch(() => {
+                res.status(400).send({
+                  msg: msgs.SOMETHING_WENT_WRONG,
                 })
-                .catch(() => {
-                  res.status(400).send({
-                    msg: msgs.SOMETHING_WENT_WRONG,
-                  })
-                })
-            }
+              })
           }
         })
         .catch(() => {

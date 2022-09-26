@@ -51,6 +51,16 @@ export default (app: Application) => {
             },
           },
         ])
+      } else if (filter === Filter.Terminated) {
+        aggregate = QuestionModel.aggregate([
+          { $match: { isTerminated: true, ...$match } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+            },
+          },
+        ])
       } else if (filter === Filter.Top) {
         const $limit = READ_TOP_QUESTIONS_MAX
         aggregate = QuestionModel.aggregate([
@@ -85,7 +95,7 @@ export default (app: Application) => {
           },
           {
             $match: {
-              isStopped: false,
+              isTerminated: false,
               votes: {
                 $not: {
                   $elemMatch: { answererId: new ObjectId(req.decoded?._id) },

@@ -54,7 +54,7 @@ const getQuestionMocks = (users: IUser[]) => {
             }
           }
         })(),
-        isStopped: faker.random.boolean(),
+        isTerminated: faker.random.boolean(),
       }
 
       questionMocks.push(question as IQuestion)

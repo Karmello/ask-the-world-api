@@ -15,6 +15,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       Filter.Answered,
       Filter.Created,
       Filter.Followed,
+      Filter.Terminated,
     ].includes(req.query.filter as Filter) ||
     (!req.decoded?.confirmed &&
       ![Filter.Top, Filter.All].includes(req.query.filter as Filter))

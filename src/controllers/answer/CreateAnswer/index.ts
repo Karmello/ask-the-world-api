@@ -16,7 +16,11 @@ export default (app: Application) => {
     (req: Request, res: Response) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {
-          if (!question || !checkSelectedIndexes(req.body, question)) {
+          if (
+            !question ||
+            question.isTerminated ||
+            !checkSelectedIndexes(req.body, question)
+          ) {
             res.status(400).send({
               msg: msgs.SOMETHING_WENT_WRONG,
             })

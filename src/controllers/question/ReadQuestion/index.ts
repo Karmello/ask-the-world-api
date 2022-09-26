@@ -39,7 +39,7 @@ export default (app: Application) => {
             const requestorAnswer = results[0]
             const requestorFollow = results[1]
 
-            if (!requestorAnswer && !question.isStopped) {
+            if (!requestorAnswer && !question.isTerminated) {
               return res.status(200).send({
                 count: 1,
                 data: [
