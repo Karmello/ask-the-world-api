@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { QuestionModel } from 'models/index'
 
 describe('question text validation', () => {
-  //
   it('none => required', () => {
     const question = new QuestionModel()
     const err = question.validateSync()
@@ -35,15 +34,16 @@ describe('question text validation', () => {
 
   it('too long => checkMaxLength', () => {
     const question = new QuestionModel({
-      text:
-        'this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title',
+      text: 'this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title',
     })
     const err = question.validateSync()
     expect(err.errors.text.kind).to.eql('checkMaxLength')
   })
 
   it('valid => no error', () => {
-    const question = new QuestionModel({ text: 'Is this title of the newly created question ?' })
+    const question = new QuestionModel({
+      text: 'Is this title of the newly created question ?',
+    })
     const err = question.validateSync()
     expect(err.errors.text).to.eql(undefined)
   })

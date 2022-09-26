@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { QuestionModel } from 'models/index'
 
 describe('question answers validation', () => {
-  //
   it('none => checkAnswers', () => {
     const question = new QuestionModel()
     const err = question.validateSync()

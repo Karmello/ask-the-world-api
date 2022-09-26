@@ -31,6 +31,9 @@
     {
       "name": "controllers",
       "path": "src/controllers"
+    },
+    {
+      "path": "src/validation"
     }
   ],
   "settings": {}
