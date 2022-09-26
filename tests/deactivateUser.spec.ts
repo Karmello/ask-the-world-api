@@ -21,6 +21,11 @@ describe('deactivateUser', () => {
       dateOfBirth: '1995-02-15',
       country: 'PL',
       sex: 'M',
+      config: {
+        registeredAt: Date.now(),
+        confirmed: true,
+        payment: {},
+      },
     })
 
     QuestionModel.collection.insertOne({
@@ -28,7 +33,8 @@ describe('deactivateUser', () => {
       creatorId: userId,
       text: 'Who is going to be a new President of the United States of America ?',
       answers: ['Donald Trump', 'Joe Biden'],
-      options: { multipleChoice: false, maxSelectable: 1 },
+      numOfVotes: { exact: 1 },
+      isStopped: false,
     })
 
     AnswerModel.collection.insertOne({
