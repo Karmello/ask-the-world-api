@@ -29,13 +29,13 @@ export default (app: Application) => {
               .save()
               .then(() => {
                 res.status(200).send({
-                  msg: msgs.SUCCESSFULLY_UPDATED,
+                  msg: msgs.QUESTION_FOLLOWED,
                 })
               })
               .catch(err => {
                 if (err.code === 11000) {
                   return res.status(400).send({
-                    msg: msgs.ALREADY_FOLLOWING,
+                    msg: msgs.QUESTION_ALREADY_FOLLOWED,
                   })
                 } else {
                   res.status(400).send({

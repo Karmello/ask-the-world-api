@@ -19,12 +19,12 @@ export default (app: Application) => {
             AnswerModel.deleteMany({ questionId: req.query._id })
               .then(() => {
                 res.status(200).send({
-                  msg: msgs.SUCCESSFULLY_DELETED,
+                  msg: msgs.QUESTION_DELETED,
                 })
               })
               .catch(() => {
                 res.status(200).send({
-                  msg: msgs.SUCCESSFULLY_DELETED,
+                  msg: msgs.QUESTION_DELETED,
                 })
               })
           } else {

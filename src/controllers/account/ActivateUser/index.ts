@@ -30,7 +30,7 @@ export default (app: Application) => {
             .save()
             .then(() => {
               req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
-              res.status(200).send(msgs.EMAIL_SUCCESSFULLY_CONFIRMED.text)
+              res.status(200).send(msgs.EMAIL_CONFIRMED.text)
             })
             .catch(() => {
               res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)

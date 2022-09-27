@@ -24,7 +24,7 @@ export default (app: Application) => {
       )
         .then(() => {
           res.status(200).send({
-            msg: msgs.SUCCESSFULLY_UPDATED,
+            msg: msgs.QUESTION_TERMINATED,
           })
         })
         .catch(() => {

@@ -16,7 +16,7 @@ export default (app: Application) => {
       FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })
         .then(() => {
           res.status(200).send({
-            msg: msgs.SUCCESSFULLY_UPDATED,
+            msg: msgs.QUESTION_UNFOLLOWED,
           })
         })
         .catch(() => {
