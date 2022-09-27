@@ -126,4 +126,9 @@ export default {
     type: AppMsgType.Success,
     text: 'Question terminated',
   },
+  [AppMsgCode.QuestionGotTerminated]: {
+    code: AppMsgCode.QuestionGotTerminated,
+    type: AppMsgType.Warning,
+    text: 'Question got terminated',
+  },
 }
