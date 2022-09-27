@@ -21,6 +21,7 @@ enum AppMsgCode {
   QuestionFollowed = 'QUESTION_FOLLOWED',
   QuestionUnfollowed = 'QUESTION_UNFOLLOWED',
   QuestionTerminated = 'QUESTION_TERMINATED',
+  QuestionGotTerminated = 'QUESTION_GOT_TERMINATED',
   QuestionDeleted = 'QUESTION_DELETED',
   QuestionReported = 'QUESTION_REPORTED',
   QuestionAlreadyFollowed = 'QUESTION_ALREADY_FOLLOWED',
