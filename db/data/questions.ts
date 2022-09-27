@@ -17,7 +17,7 @@ import { msInDay } from './_constants'
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(100, () => {
+  times(500, () => {
     const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
     const user = users[getRandNum(0, users.length - 1)]
 
@@ -54,7 +54,18 @@ const getQuestionMocks = (users: IUser[]) => {
             }
           }
         })(),
-        isTerminated: faker.random.boolean(),
+        isTerminated: faker.random.arrayElement([
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+        ]),
       }
 
       questionMocks.push(question as IQuestion)
