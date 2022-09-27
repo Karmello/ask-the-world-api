@@ -16,38 +16,38 @@ export default (app: Application) => {
     (req: Request, res: Response) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {
-          if (!question) {
-            res.status(400).send({
+          if (!question || !checkSelectedIndexes(req.body, question)) {
+            return res.status(400).send({
               msg: msgs.SOMETHING_WENT_WRONG,
             })
-          } else {
-            if (!checkSelectedIndexes(req.body, question)) {
+          }
+
+          if (question.isTerminated) {
+            return res.status(400).send({
+              msg: msgs.QUESTION_GOT_TERMINATED,
+            })
+          }
+
+          AnswerModel.findOneAndUpdate(
+            {
+              answererId: req.decoded._id,
+              questionId: req.query.questionId,
+            },
+            {
+              answeredAt: Date.now(),
+              selectedIndexes: req.body,
+            }
+          )
+            .then(answer => {
+              res.status(200).send({
+                answer,
+              })
+            })
+            .catch(() => {
               res.status(400).send({
                 msg: msgs.SOMETHING_WENT_WRONG,
               })
-            } else {
-              AnswerModel.findOneAndUpdate(
-                {
-                  answererId: req.decoded._id,
-                  questionId: req.query.questionId,
-                },
-                {
-                  answeredAt: Date.now(),
-                  selectedIndexes: req.body,
-                }
-              )
-                .then(answer => {
-                  res.status(200).send({
-                    answer,
-                  })
-                })
-                .catch(() => {
-                  res.status(400).send({
-                    msg: msgs.SOMETHING_WENT_WRONG,
-                  })
-                })
-            }
-          }
+            })
         })
         .catch(() => {
           res.status(400).send({

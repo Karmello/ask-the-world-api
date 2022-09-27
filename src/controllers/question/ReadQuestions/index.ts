@@ -63,6 +63,11 @@ export default (app: Application) => {
             },
           },
           { $addFields: { votesCount: { $size: '$votes' } } },
+          {
+            $match: {
+              votesCount: { $gt: 0 },
+            },
+          },
           { $sort: { votesCount: -1, createdAt: -1 } },
           { $project: { votes: 0, votesCount: 0 } },
           {
@@ -85,6 +90,7 @@ export default (app: Application) => {
           },
           {
             $match: {
+              isTerminated: false,
               votes: {
                 $not: {
                   $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
@@ -161,6 +167,16 @@ export default (app: Application) => {
             $facet: {
               meta: [{ $count: 'count' }],
               docs: [{ $skip }, { $limit }],
+            },
+          },
+        ])
+      } else if (filter === Filter.Terminated) {
+        aggregate = QuestionModel.aggregate([
+          { $match: { isTerminated: true, ...$match } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
         ])

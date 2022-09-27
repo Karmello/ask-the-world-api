@@ -51,59 +51,84 @@ export default {
     type: AppMsgType.Info,
     text: 'Deactivation link sent. Please check your mailbox.',
   },
-  [AppMsgCode.SuccessfullyUpdated]: {
-    code: AppMsgCode.SuccessfullyUpdated,
+  [AppMsgCode.PasswordUpdated]: {
+    code: AppMsgCode.PasswordUpdated,
     type: AppMsgType.Success,
-    text: 'Successfully updated',
+    text: 'Password updated',
+  },
+  [AppMsgCode.UserDetailsUpdated]: {
+    code: AppMsgCode.UserDetailsUpdated,
+    type: AppMsgType.Success,
+    text: 'User details updated',
   },
   [AppMsgCode.EmailAlreadyConfirmed]: {
     code: AppMsgCode.EmailAlreadyConfirmed,
     type: AppMsgType.Warning,
     text: 'Email already confirmed',
   },
-  [AppMsgCode.EmailSuccessfullyConfirmed]: {
-    code: AppMsgCode.EmailSuccessfullyConfirmed,
+  [AppMsgCode.EmailConfirmed]: {
+    code: AppMsgCode.EmailConfirmed,
     type: AppMsgType.Success,
-    text: 'Email successfully confirmed',
+    text: 'Email confirmed',
   },
-  [AppMsgCode.AccountSuccessfullyRemoved]: {
-    code: AppMsgCode.AccountSuccessfullyRemoved,
+  [AppMsgCode.AccountRemoved]: {
+    code: AppMsgCode.AccountRemoved,
     type: AppMsgType.Success,
-    text: 'Account successfully removed',
+    text: 'Account removed',
   },
   [AppMsgCode.PaymentAlreadyMade]: {
     code: AppMsgCode.PaymentAlreadyMade,
     type: AppMsgType.Warning,
-    text: 'Account successfully removed',
+    text: 'Payment already made',
   },
   [AppMsgCode.CouldNotGetData]: {
     code: AppMsgCode.CouldNotGetData,
     type: AppMsgType.Error,
     text: 'Could not get data',
   },
-  [AppMsgCode.AlreadyFollowing]: {
-    code: AppMsgCode.AlreadyFollowing,
+  [AppMsgCode.QuestionAlreadyFollowed]: {
+    code: AppMsgCode.QuestionAlreadyFollowed,
     type: AppMsgType.Warning,
-    text: 'Already followed',
+    text: 'Question already followed',
   },
-  [AppMsgCode.SuccessfullyDeleted]: {
-    code: AppMsgCode.SuccessfullyDeleted,
+  [AppMsgCode.QuestionDeleted]: {
+    code: AppMsgCode.QuestionDeleted,
     type: AppMsgType.Success,
-    text: 'Successfully deleted',
+    text: 'Question deleted',
   },
-  [AppMsgCode.SuccessfullyCreated]: {
-    code: AppMsgCode.SuccessfullyCreated,
+  [AppMsgCode.QuestionCreated]: {
+    code: AppMsgCode.QuestionCreated,
     type: AppMsgType.Success,
-    text: 'Successfully created',
+    text: 'Question created',
   },
-  [AppMsgCode.SuccessfullyReported]: {
-    code: AppMsgCode.SuccessfullyReported,
+  [AppMsgCode.QuestionReported]: {
+    code: AppMsgCode.QuestionReported,
     type: AppMsgType.Success,
-    text: 'Successfully reported',
+    text: 'Question reported',
   },
-  [AppMsgCode.AlreadyReported]: {
-    code: AppMsgCode.AlreadyReported,
+  [AppMsgCode.QuestionAlreadyReported]: {
+    code: AppMsgCode.QuestionAlreadyReported,
     type: AppMsgType.Warning,
-    text: 'Already reported',
+    text: 'Question already reported',
+  },
+  [AppMsgCode.QuestionFollowed]: {
+    code: AppMsgCode.QuestionFollowed,
+    type: AppMsgType.Success,
+    text: 'Question followed',
+  },
+  [AppMsgCode.QuestionUnfollowed]: {
+    code: AppMsgCode.QuestionUnfollowed,
+    type: AppMsgType.Success,
+    text: 'Question unfollowed',
+  },
+  [AppMsgCode.QuestionTerminated]: {
+    code: AppMsgCode.QuestionTerminated,
+    type: AppMsgType.Success,
+    text: 'Question terminated',
+  },
+  [AppMsgCode.QuestionGotTerminated]: {
+    code: AppMsgCode.QuestionGotTerminated,
+    type: AppMsgType.Warning,
+    text: 'Question got terminated',
   },
 }

@@ -31,7 +31,7 @@ export default (app: Application) => {
 
             res.status(200).send({
               user: updatedDoc,
-              msg: msgs.SUCCESSFULLY_UPDATED,
+              msg: msgs.USER_DETAILS_UPDATED,
             })
           })
           .catch(err => {

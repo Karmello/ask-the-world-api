@@ -17,9 +17,8 @@ import { msInDay } from './_constants'
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(1000, () => {
+  times(350, () => {
     const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
-
     const user = users[getRandNum(0, users.length - 1)]
 
     if (user.config.payment) {
@@ -44,19 +43,29 @@ const getQuestionMocks = (users: IUser[]) => {
         numOfVotes: (() => {
           const exactNumOfVotes = faker.random.boolean()
           if (exactNumOfVotes) {
-            return {
-              exact: getRandNum(1, numOfAnswers - 1),
-            }
+            const exact = getRandNum(1, numOfAnswers - 1)
+            return { exact }
           } else {
             const min = getRandNum(1, numOfAnswers - 1)
+            const max = getRandNum(min + 1, numOfAnswers)
+
             return {
-              range: {
-                min,
-                max: getRandNum(min + 1, numOfAnswers),
-              },
+              range: { min, max },
             }
           }
         })(),
+        isTerminated: faker.random.arrayElement([
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+        ]),
       }
 
       questionMocks.push(question as IQuestion)

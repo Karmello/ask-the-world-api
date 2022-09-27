@@ -1,22 +1,30 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
-import { FollowModel } from 'models/index'
+import { QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { readAuthToken } from 'middleware/index'
 
 import checkRequest from './checkRequest'
 
 export default (app: Application) => {
-  app.delete(
-    ApiUrlPath.Follow,
+  app.put(
+    ApiUrlPath.Question,
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })
+      QuestionModel.findOneAndUpdate(
+        {
+          _id: req.query._id,
+          creatorId: req.decoded._id,
+        },
+        {
+          isTerminated: true,
+        }
+      )
         .then(() => {
           res.status(200).send({
-            msg: msgs.QUESTION_UNFOLLOWED,
+            msg: msgs.QUESTION_TERMINATED,
           })
         })
         .catch(() => {

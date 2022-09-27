@@ -28,7 +28,7 @@ export default (app: Application) => {
             ])
               .then(() => {
                 req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.Logout)
-                res.status(200).send(msgs.ACCOUNT_SUCCESSFULLY_REMOVED.text)
+                res.status(200).send(msgs.ACCOUNT_REMOVED.text)
               })
               .catch(() => {
                 res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)

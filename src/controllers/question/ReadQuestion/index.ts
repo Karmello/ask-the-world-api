@@ -39,7 +39,7 @@ export default (app: Application) => {
             const requestorAnswer = results[0]
             const requestorFollow = results[1]
 
-            if (!requestorAnswer) {
+            if (!requestorAnswer && !question.isTerminated) {
               return res.status(200).send({
                 count: 1,
                 data: [
@@ -58,7 +58,7 @@ export default (app: Application) => {
                   const voting = {
                     answersCount: answers.length,
                     all: {},
-                    requestor: requestorAnswer.selectedIndexes,
+                    requestor: requestorAnswer?.selectedIndexes || [],
                   }
 
                   question.answers.forEach((v, i) => (voting.all[i] = 0))
@@ -80,7 +80,8 @@ export default (app: Application) => {
                     ],
                   })
                 })
-                .catch(() => {
+                .catch(err => {
+                  console.log(err)
                   res.status(400).send({
                     msg: msgs.SOMETHING_WENT_WRONG,
                   })

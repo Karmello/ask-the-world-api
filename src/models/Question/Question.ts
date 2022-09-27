@@ -60,7 +60,7 @@ const questionSchema = new Schema(
         },
       },
     },
-    isStopped: {
+    isTerminated: {
       type: Boolean,
       required: true,
       default: false,

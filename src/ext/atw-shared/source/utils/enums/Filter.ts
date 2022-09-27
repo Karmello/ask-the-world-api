@@ -7,6 +7,7 @@ enum Filter {
   Followed = 'FOLLOWED',
   Top = 'TOP',
   TopUsers = 'TOP_USERS',
+  Terminated = 'TERMINATED',
 }
 
 export default Filter

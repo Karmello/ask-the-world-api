@@ -45,7 +45,7 @@ export default (app: Application) => {
                     data: {
                       user: savedDoc,
                     },
-                    msg: msgs.SUCCESSFULLY_UPDATED,
+                    msg: msgs.PASSWORD_UPDATED,
                   })
                 })
                 .catch(err => {

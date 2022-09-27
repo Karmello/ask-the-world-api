@@ -23,6 +23,7 @@ import {
   DeleteQuestion,
   ReadQuestion,
   ReadQuestions,
+  UpdateQuestion,
 } from './question/index'
 
 import { CreateAnswer, UpdateAnswer } from './answer/index'
@@ -52,6 +53,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
   DeleteQuestion(app)
   ReadQuestion(app)
   ReadQuestions(app)
+  UpdateQuestion(app)
 
   // answer
   CreateAnswer(app)

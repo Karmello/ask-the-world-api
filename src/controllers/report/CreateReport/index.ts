@@ -26,13 +26,13 @@ export default (app: Application) => {
         .then(doc => {
           res.status(200).send({
             report: doc,
-            msg: msgs.SUCCESSFULLY_REPORTED,
+            msg: msgs.QUESTION_REPORTED,
           })
         })
         .catch(err => {
           if (err.code === 11000) {
             res.status(400).send({
-              msg: msgs.ALREADY_REPORTED,
+              msg: msgs.QUESTION_ALREADY_REPORTED,
             })
           } else {
             res.status(400).send({
