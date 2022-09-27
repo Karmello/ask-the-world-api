@@ -51,16 +51,6 @@ export default (app: Application) => {
             },
           },
         ])
-      } else if (filter === Filter.Terminated) {
-        aggregate = QuestionModel.aggregate([
-          { $match: { isTerminated: true, ...$match } },
-          {
-            $facet: {
-              meta: [{ $count: 'count' }],
-              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
-            },
-          },
-        ])
       } else if (filter === Filter.Top) {
         const $limit = READ_TOP_QUESTIONS_MAX
         aggregate = QuestionModel.aggregate([
@@ -73,6 +63,11 @@ export default (app: Application) => {
             },
           },
           { $addFields: { votesCount: { $size: '$votes' } } },
+          {
+            $match: {
+              votesCount: { $gt: 0 },
+            },
+          },
           { $sort: { votesCount: -1, createdAt: -1 } },
           { $project: { votes: 0, votesCount: 0 } },
           {
@@ -172,6 +167,16 @@ export default (app: Application) => {
             $facet: {
               meta: [{ $count: 'count' }],
               docs: [{ $skip }, { $limit }],
+            },
+          },
+        ])
+      } else if (filter === Filter.Terminated) {
+        aggregate = QuestionModel.aggregate([
+          { $match: { isTerminated: true, ...$match } },
+          {
+            $facet: {
+              meta: [{ $count: 'count' }],
+              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
             },
           },
         ])

@@ -23,6 +23,11 @@ export default (app: Application) => {
         },
       },
       { $addFields: { votesCount: { $size: '$votes' } } },
+      {
+        $match: {
+          votesCount: { $gt: 0 },
+        },
+      },
       { $sort: { votesCount: -1, 'config.registeredAt': -1 } },
       { $project: { votes: 0, votesCount: 0 } },
       {
