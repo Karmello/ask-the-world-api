@@ -13,7 +13,7 @@ enum ApiUrlPath {
   // question
   Question = '/question',
   Questions = '/questions',
-  QuestionRandom = '/question/random',
+  QuestionsRandom = '/questions/random',
   // answer
   Answer = '/answer',
   // follow
