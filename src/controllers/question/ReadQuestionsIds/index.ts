@@ -41,7 +41,7 @@ export default (app: Application) => {
       },
     ]).then(
       results => {
-        const ids = results[0].ids
+        const ids = results[0]?.ids || []
         const randomIndexes = getRandNums(
           0,
           ids.length - 1,
