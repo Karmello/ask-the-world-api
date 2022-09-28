@@ -23,6 +23,7 @@ import {
   DeleteQuestion,
   ReadQuestion,
   ReadQuestions,
+  ReadQuestionsIds,
   UpdateQuestion,
 } from './question/index'
 
@@ -53,6 +54,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
   DeleteQuestion(app)
   ReadQuestion(app)
   ReadQuestions(app)
+  ReadQuestionsIds(app)
   UpdateQuestion(app)
 
   // answer
