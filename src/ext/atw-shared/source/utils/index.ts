@@ -14,6 +14,7 @@ export { default as Sort } from './enums/Sort'
 
 export { default as IUser } from './interfaces/IUser'
 export { default as IQuestion } from './interfaces/IQuestion'
+export { default as IQuestionCategory } from './interfaces/IQuestionCategory'
 export { default as IAnswer } from './interfaces/IAnswer'
 export { default as IFollow } from './interfaces/IFollow'
 export { default as IPayment } from './interfaces/IPayment'

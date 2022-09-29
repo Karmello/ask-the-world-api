@@ -24,18 +24,23 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      const { userId, filter, pageNo, search } = req.query as unknown as IRequestQuery
+      const { userId, filter, pageNo, categories, search } =
+        req.query as unknown as IRequestQuery
 
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
 
-      let $match = {}
+      const $match = {} as any
+
+      if (categories) {
+        $match.categories = {
+          $in: categories.split('_'),
+        }
+      }
 
       if (search) {
-        $match = {
-          $text: {
-            $search: search,
-          },
+        $match.$text = {
+          $search: search,
         }
       }
 

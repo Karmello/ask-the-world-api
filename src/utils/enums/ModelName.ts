@@ -1,6 +1,7 @@
 enum ModelName {
   User = 'User',
   Question = 'Question',
+  QuestionCategory = 'QuestionCategory',
   Answer = 'Answer',
   Follow = 'Follow',
   Report = 'Report',

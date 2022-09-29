@@ -4,6 +4,7 @@ interface IQuestion {
   _id: ObjectId | string
   creatorId: ObjectId | string
   createdAt: number
+  categories: string[]
   text: string
   answers: string[]
   numOfVotes: {

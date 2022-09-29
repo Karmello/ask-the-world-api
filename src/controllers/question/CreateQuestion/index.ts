@@ -14,7 +14,7 @@ export default (app: Application) => {
     checkRequest,
     (req: Request, res: Response) => {
       const creatorId = req.decoded._id
-      const { text, answers, numOfVotes } = req.body as IQuestion
+      const { categories, text, answers, numOfVotes } = req.body as IQuestion
 
       if (numOfVotes.exact !== undefined) {
         delete req.body.numOfVotes.range
@@ -26,6 +26,7 @@ export default (app: Application) => {
 
       const newQuestion = new QuestionModel({
         creatorId,
+        categories,
         text,
         answers,
         numOfVotes,

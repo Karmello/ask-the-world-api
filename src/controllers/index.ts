@@ -22,6 +22,7 @@ import {
   CreateQuestion,
   DeleteQuestion,
   ReadQuestion,
+  ReadQuestionCategories,
   ReadQuestions,
   ReadQuestionsIds,
   UpdateQuestion,
@@ -53,6 +54,7 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
   CreateQuestion(app)
   DeleteQuestion(app)
   ReadQuestion(app)
+  ReadQuestionCategories(app)
   ReadQuestions(app)
   ReadQuestionsIds(app)
   UpdateQuestion(app)

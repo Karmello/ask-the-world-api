@@ -14,6 +14,7 @@ import {
   checkNumOfVotesMin,
   checkNumOfVotesMax,
   checkAnswers,
+  checkQuestionCategories,
 } from 'validation/index'
 
 const { model, Schema } = mongoose
@@ -30,6 +31,13 @@ const questionSchema = new Schema(
       required: true,
       default: Date.now,
     },
+    categories: [
+      {
+        ref: ModelName.QuestionCategory,
+        type: String,
+        required: true,
+      },
+    ],
     text: {
       type: String,
       required: true,
@@ -73,6 +81,7 @@ const questionSchema = new Schema(
 
 questionSchema.index({ answers: 'text', text: 'text' })
 
+questionSchema.path('categories').validate(checkQuestionCategories)
 questionSchema.path('answers').validate(checkAnswers)
 
 export default model<IQuestionDoc>(ModelName.Question, questionSchema)
