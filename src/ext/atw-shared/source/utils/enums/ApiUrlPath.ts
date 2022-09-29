@@ -12,6 +12,7 @@ enum ApiUrlPath {
   UsersTop = '/users/top',
   // question
   Question = '/question',
+  QuestionCategories = '/question/categories',
   Questions = '/questions',
   QuestionsRandom = '/questions/random',
   // answer
