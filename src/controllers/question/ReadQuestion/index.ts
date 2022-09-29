@@ -81,7 +81,6 @@ export default (app: Application) => {
                   })
                 })
                 .catch(err => {
-                  console.log(err)
                   res.status(400).send({
                     msg: msgs.SOMETHING_WENT_WRONG,
                   })

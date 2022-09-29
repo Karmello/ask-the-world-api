@@ -34,7 +34,7 @@ const questionSchema = new Schema(
     categories: [
       {
         ref: ModelName.QuestionCategory,
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
       },
     ],
