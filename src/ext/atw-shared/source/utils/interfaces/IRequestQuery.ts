@@ -6,6 +6,7 @@ interface IRequestQuery {
   filter: Filter
   sort: Sort
   userId?: string
+  categories?: string
   search?: string
 }
 

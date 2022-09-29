@@ -27,18 +27,20 @@ export default (app: Application) => {
       const { userId, filter, pageNo, categories, search } =
         req.query as unknown as IRequestQuery
 
-      console.log(categories)
-
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
 
-      let $match = {}
+      const $match = {} as any
+
+      if (categories) {
+        $match.categories = {
+          $in: categories.split('_'),
+        }
+      }
 
       if (search) {
-        $match = {
-          $text: {
-            $search: search,
-          },
+        $match.$text = {
+          $search: search,
         }
       }
 
