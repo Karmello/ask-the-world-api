@@ -24,7 +24,10 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      const { userId, filter, pageNo, search } = req.query as unknown as IRequestQuery
+      const { userId, filter, pageNo, categories, search } =
+        req.query as unknown as IRequestQuery
+
+      console.log(categories)
 
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
