@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-import { ModelName, ICountryDoc } from 'utils/index'
+import { ModelName, IQuestionCategoryDoc } from 'utils/index'
 
 const { model, Schema } = mongoose
 
-const countrySchema = new Schema(
+const questionCategorySchema = new Schema(
   {
     _id: {
       type: String,
@@ -20,4 +20,7 @@ const countrySchema = new Schema(
   }
 )
 
-export default model<ICountryDoc>(ModelName.Country, countrySchema)
+export default model<IQuestionCategoryDoc>(
+  ModelName.QuestionCategory,
+  questionCategorySchema
+)
