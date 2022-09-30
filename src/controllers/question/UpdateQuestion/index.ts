@@ -22,10 +22,16 @@ export default (app: Application) => {
           isTerminated: true,
         }
       )
-        .then(() => {
-          res.status(200).send({
-            msg: msgs.QUESTION_TERMINATED,
-          })
+        .then(doc => {
+          if (!doc) {
+            res.status(400).send({
+              msg: msgs.SOMETHING_WENT_WRONG,
+            })
+          } else {
+            res.status(200).send({
+              msg: msgs.QUESTION_TERMINATED,
+            })
+          }
         })
         .catch(() => {
           res.status(400).send({
