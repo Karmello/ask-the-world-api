@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
-import { ReportReason } from 'atw-shared/utils/index'
 import { ModelName, IReportDoc } from 'utils/index'
+import { checkReportReasons } from 'validation/index'
 
 const { model, Schema } = mongoose
 
@@ -20,7 +20,6 @@ const reportSchema = new Schema(
     reasons: [
       {
         type: String,
-        enum: Object.values(ReportReason),
         required: true,
       },
     ],
@@ -30,6 +29,7 @@ const reportSchema = new Schema(
   }
 )
 
-reportSchema.index({ questionId: 1, reporterId: 1, reason: 1 }, { unique: true })
+reportSchema.index({ questionId: 1, reporterId: 1 }, { unique: true })
+reportSchema.path('reasons').validate(checkReportReasons)
 
 export default model<IReportDoc>(ModelName.Report, reportSchema)

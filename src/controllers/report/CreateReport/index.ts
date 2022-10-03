@@ -13,32 +13,34 @@ export default (app: Application) => {
     readAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
-      const { questionId, reportReason } = req.query
+      const { questionId, reportReasons } = req.query
 
-      const report = new ReportModel({
-        questionId,
-        reporterId: req.decoded._id,
-        reason: reportReason,
-      })
-
-      report
-        .save()
+      ReportModel.findOneAndUpdate(
+        {
+          questionId,
+          reporterId: req.decoded._id,
+        },
+        {
+          questionId,
+          reporterId: req.decoded._id,
+          reasons: (reportReasons as string).split('-'),
+        },
+        {
+          upsert: true,
+          new: true,
+          runValidators: true,
+        }
+      )
         .then(doc => {
           res.status(200).send({
             report: doc,
             msg: msgs.QUESTION_REPORTED,
           })
         })
-        .catch(err => {
-          if (err.code === 11000) {
-            res.status(400).send({
-              msg: msgs.QUESTION_ALREADY_REPORTED,
-            })
-          } else {
-            res.status(400).send({
-              msg: msgs.SOMETHING_WENT_WRONG,
-            })
-          }
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
         })
     }
   )

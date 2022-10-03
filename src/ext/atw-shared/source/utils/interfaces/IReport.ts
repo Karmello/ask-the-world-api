@@ -6,7 +6,7 @@ interface IReport {
   _id: ObjectId | string
   questionId: ObjectId | string
   reporterId: ObjectId | string
-  reason: ReportReason
+  reasons: ReportReason[]
 }
 
 export default IReport
