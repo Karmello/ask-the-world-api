@@ -17,11 +17,13 @@ const reportSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    reason: {
-      type: String,
-      enum: Object.values(ReportReason),
-      required: true,
-    },
+    reasons: [
+      {
+        type: String,
+        enum: Object.values(ReportReason),
+        required: true,
+      },
+    ],
   },
   {
     versionKey: false,
