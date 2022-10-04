@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
+import Honeybadger from '@honeybadger-io/js'
 
 import { X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import msgs from 'utils/msgs'
@@ -20,6 +21,14 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.decoded = decoded
         next()
       } else {
+        Honeybadger.notify(
+          JSON.stringify({
+            requestId: req.id,
+            token,
+            err,
+          }),
+          err.name
+        )
         res.status(401).send({
           msg: msgs.AUTHENTICATION_FAILED,
         })

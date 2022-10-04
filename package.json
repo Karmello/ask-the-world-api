@@ -16,6 +16,7 @@
     "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash"
   },
   "dependencies": {
+    "@honeybadger-io/js": "^4.3.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -30,7 +31,8 @@
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.5.0",
-    "socket.io": "^4.3.1"
+    "socket.io": "^4.3.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

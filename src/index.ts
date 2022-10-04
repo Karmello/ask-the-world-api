@@ -22,6 +22,7 @@ const {
   MONGO_URI,
   FE_URL,
   FULL_ACCOUNT_PAYMENT_REQUIRED,
+  HONEYBADGER_API_KEY,
 } = process.env
 
 const app = express()
@@ -43,6 +44,7 @@ mongoose.connect(MONGO_URI, {}).then(
           MONGO_URI,
           FE_URL,
           FULL_ACCOUNT_PAYMENT_REQUIRED,
+          HONEYBADGER_API_KEY,
         },
         '\n'
       )

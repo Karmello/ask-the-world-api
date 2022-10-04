@@ -5,6 +5,8 @@ import helmet from 'helmet'
 import isEmpty from 'lodash/isEmpty'
 import keys from 'lodash/keys'
 import { format } from 'date-fns'
+import Honeybadger from '@honeybadger-io/js'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   ApiUrlPath,
@@ -13,10 +15,15 @@ import {
   X_AUTH_TOKEN,
 } from 'atw-shared/utils/index'
 
-const { NODE_ENV, APP_ENV } = process.env
+const { NODE_ENV, APP_ENV, HONEYBADGER_API_KEY } = process.env
 
 export default (app: Application, logs: { [key: string]: unknown }[]) => {
   if (NODE_ENV !== AppEnv.Test) app.use(morgan('dev'))
+
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    req.id = uuidv4()
+    next()
+  })
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
@@ -69,6 +76,13 @@ export default (app: Application, logs: { [key: string]: unknown }[]) => {
         return _send.call(res, JSON.stringify(data))
       }
       next()
+    })
+  }
+
+  if (APP_ENV === AppEnv.Local) {
+    Honeybadger.configure({
+      apiKey: HONEYBADGER_API_KEY,
+      environment: APP_ENV,
     })
   }
 }
