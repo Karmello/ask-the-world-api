@@ -21,14 +21,16 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.decoded = decoded
         next()
       } else {
-        Honeybadger.notify(
-          JSON.stringify({
+        Honeybadger.notify({
+          name: err.name,
+          message: JSON.stringify({
             requestId: req.id,
+            method: req.method,
+            path: req.path,
             token,
             err,
           }),
-          err.name
-        )
+        })
         res.status(401).send({
           msg: msgs.AUTHENTICATION_FAILED,
         })
