@@ -28,7 +28,8 @@ describe('\nAPI integration testing\n', () => {
       FollowModel.collection.deleteMany({})
       ReportModel.collection.deleteMany({})
 
-      require('./deactivateUser.spec')
+      require('./checkAuthToken.spec')
+      // require('./deactivateUser.spec')
       done()
     }, 3000)
   })

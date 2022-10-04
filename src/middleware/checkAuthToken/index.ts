@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import Honeybadger from '@honeybadger-io/js'
 
-import { ApiUrlPath, HttpMethod } from 'atw-shared/utils'
+import { ApiUrlPath, HttpMethod, AppEnv } from 'atw-shared/utils'
 import msgs from 'utils/msgs'
+
+const { APP_ENV } = process.env
 
 const routesConfig = [
   {
@@ -78,15 +80,18 @@ export default (req: Request, res: Response, next: NextFunction) => {
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
-    Honeybadger.notify({
-      name: msgs.ILLEGAL_ACTION.code,
-      message: JSON.stringify({
-        requestId: req.id,
-        method: req.method,
-        path: req.path,
-        decoded: req.decoded || null,
-      }),
-    })
+    if (APP_ENV !== AppEnv.Test) {
+      Honeybadger.notify({
+        name: msgs.ILLEGAL_ACTION.code,
+        message: JSON.stringify({
+          requestId: req.id,
+          method: req.method,
+          path: req.path,
+          decoded: req.decoded || null,
+        }),
+      })
+    }
+
     res.status(403).send({
       msg: msgs.ILLEGAL_ACTION,
     })
