@@ -10,7 +10,7 @@ import {
   IRequestQuery,
 } from 'atw-shared/utils/index'
 
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 
@@ -22,6 +22,7 @@ export default (app: Application) => {
   app.get(
     ApiUrlPath.Questions,
     readAuthToken,
+    checkAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
       const { userId, filter, pageNo, categories, search } =

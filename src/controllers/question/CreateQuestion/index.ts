@@ -2,16 +2,14 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, IQuestion } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import msgs from 'utils/msgs'
-
-import checkRequest from './checkRequest'
 
 export default (app: Application) => {
   app.post(
     ApiUrlPath.Question,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       const creatorId = req.decoded._id
       const { categories, text, answers, numOfVotes } = req.body as IQuestion

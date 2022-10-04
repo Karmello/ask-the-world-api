@@ -2,14 +2,12 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN, AppEnv } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
 import msgs from 'utils/msgs'
-
-import checkRequest from './checkRequest'
 
 const { APP_ENV, FE_URL } = process.env
 
@@ -17,7 +15,7 @@ export default (app: Application) => {
   app.get(
     ApiUrlPath.UserActivationLink,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       UserModel.findOne({ _id: req.decoded._id })
         .then((doc: IUserDoc) => {

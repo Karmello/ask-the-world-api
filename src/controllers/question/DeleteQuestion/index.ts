@@ -3,15 +3,13 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
-import { readAuthToken } from 'middleware/index'
-
-import checkRequest from './checkRequest'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 
 export default (app: Application) => {
   app.delete(
     ApiUrlPath.Question,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       QuestionModel.deleteOne({ _id: req.query._id, creatorId: req.decoded._id })
         .then(({ deletedCount }) => {

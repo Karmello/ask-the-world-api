@@ -2,19 +2,17 @@ import { Application, Request, Response } from 'express'
 
 import validationDict from 'atw-shared/validation/dictionary'
 import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 import msgs from 'utils/msgs'
 
-import checkRequest from './checkRequest'
-
 export default (app: Application) => {
   app.put(
     ApiUrlPath.UserPassword,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       const { currentPassword, newPassword } = req.body
 
