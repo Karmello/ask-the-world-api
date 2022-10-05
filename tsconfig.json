@@ -24,6 +24,6 @@
       "helpers/*": ["src/helpers/*"]
     }
   },
-  "include": ["src/**/*", "db/**/*"],
+  "include": ["src/**/*", "db/**/*", "tests/**/*"],
   "exclude": ["src/ext"]
 }
