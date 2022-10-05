@@ -1,10 +1,11 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
-import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
+import { SOCKET_FIELD_NAME } from 'utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
+import { notifyHoneybadger } from 'helpers/index'
 
 export default (app: Application) => {
   app.get(
@@ -12,29 +13,34 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
-      UserModel.findOne({ _id: req.decoded._id })
-        .select('-password')
-        .exec()
-        .then((doc: IUserDoc) => {
-          if (!doc) return res.status(404).send(msgs.NO_SUCH_USER.text)
-
-          if (doc.config.confirmed) {
-            return res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
+      UserModel.findOneAndUpdate(
+        {
+          _id: req.decoded._id,
+        },
+        {
+          'config.confirmed': true,
+        },
+        {
+          runValidators: true,
+        }
+      )
+        .then(doc => {
+          if (!doc) {
+            res.status(404).send(msgs.NO_SUCH_USER.text)
+          } else if (doc.config.confirmed) {
+            res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
+          } else {
+            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
+            res.status(200).send(msgs.EMAIL_CONFIRMED.text)
           }
-
-          doc.set({ config: { ...doc.config, confirmed: true } })
-
-          doc
-            .save()
-            .then(() => {
-              req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
-              res.status(200).send(msgs.EMAIL_CONFIRMED.text)
-            })
-            .catch(() => {
-              res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
-            })
         })
-        .catch(() => {
+        .catch(err => {
+          notifyHoneybadger(req, {
+            name: err.name,
+            message: {
+              err,
+            },
+          })
           res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
         })
     }

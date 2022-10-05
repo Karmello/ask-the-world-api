@@ -26,10 +26,9 @@ const {
 } = process.env
 
 const app = express()
-const logs = [] as { [key: string]: unknown }[]
 
-setup(app, logs)
-registerControllers(app, logs)
+setup(app)
+registerControllers(app)
 
 mongoose.connect(MONGO_URI, {}).then(
   () => {

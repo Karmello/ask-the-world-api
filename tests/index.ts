@@ -21,7 +21,6 @@ export const api = _api
 describe('\nAPI integration testing\n', () => {
   it('Server ready', done => {
     setTimeout(() => {
-      //
       UserModel.collection.deleteMany({})
       QuestionModel.collection.deleteMany({})
       AnswerModel.collection.deleteMany({})
@@ -29,7 +28,8 @@ describe('\nAPI integration testing\n', () => {
       ReportModel.collection.deleteMany({})
 
       require('./checkAuthToken.spec')
-      // require('./deactivateUser.spec')
+      require('./activateUser.spec')
+      require('./deactivateUser.spec')
       done()
     }, 3000)
   })

@@ -1,5 +1,4 @@
 import { Application } from 'express'
-import { AppEnv } from 'atw-shared/utils/index'
 
 import {
   AuthenticateUser,
@@ -31,12 +30,9 @@ import {
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
-import { ReadStats, ReadCountries } from './other/index'
-import { GetLogs, ReadInfo } from './utils/index'
+import { ReadStats, ReadCountries, ReadInfo } from './other/index'
 
-const { APP_ENV } = process.env
-
-const registerControllers = (app: Application, logs: { [key: string]: unknown }[]) => {
+const registerControllers = (app: Application) => {
   // user
   ActivateUser(app)
   AuthenticateUser(app)
@@ -72,11 +68,8 @@ const registerControllers = (app: Application, logs: { [key: string]: unknown }[
 
   // other
   ReadStats(app)
-  ReadCountries(app)
-
-  // utils
   ReadInfo(app)
-  if (APP_ENV === AppEnv.Local) GetLogs(app, logs)
+  ReadCountries(app)
 }
 
 export default registerControllers
