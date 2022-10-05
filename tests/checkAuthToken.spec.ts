@@ -7,7 +7,7 @@ import { api, chai, expect } from './'
 
 describe('checkAuthToken middleware', () => {
   describe('no token', () => {
-    it('should block request', done => {
+    it('should block GET/UserActivate ', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserActivate)
@@ -17,7 +17,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block GET/UserDeactivate', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserDeactivate)
@@ -27,7 +27,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block GET/UserActivationLink', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserActivationLink)
@@ -37,7 +37,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block GET/UserDeactivationLink', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserDeactivationLink)
@@ -47,7 +47,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Answer', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Answer)
@@ -57,7 +57,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/Answer', done => {
       chai
         .request(api)
         .put(ApiUrlPath.Answer)
@@ -67,7 +67,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Follow', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Follow)
@@ -77,7 +77,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Follow', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Follow)
@@ -87,7 +87,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Question', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Question)
@@ -97,7 +97,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/Question', done => {
       chai
         .request(api)
         .put(ApiUrlPath.Question)
@@ -107,7 +107,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Question', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Question)
@@ -117,7 +117,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Report', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Report)
@@ -127,7 +127,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block GET/User', done => {
       chai
         .request(api)
         .get(ApiUrlPath.User)
@@ -137,7 +137,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/User', done => {
       chai
         .request(api)
         .put(ApiUrlPath.User)
@@ -147,7 +147,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/UserPassword', done => {
       chai
         .request(api)
         .put(ApiUrlPath.UserPassword)
@@ -166,7 +166,7 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block request', done => {
+    it('should block GET/UserActivate', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserActivate)
@@ -177,7 +177,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block GET/UserDeactivate', done => {
       chai
         .request(api)
         .get(ApiUrlPath.UserDeactivate)
@@ -197,7 +197,7 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block request', done => {
+    it('should block POST/Answer', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Answer)
@@ -208,7 +208,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/Answer', done => {
       chai
         .request(api)
         .put(ApiUrlPath.Answer)
@@ -219,7 +219,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Follow', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Follow)
@@ -230,7 +230,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Follow', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Follow)
@@ -241,7 +241,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Question', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Question)
@@ -252,7 +252,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/Question', done => {
       chai
         .request(api)
         .put(ApiUrlPath.Question)
@@ -263,7 +263,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Question', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Question)
@@ -274,7 +274,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Report', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Report)
@@ -294,7 +294,7 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block request', done => {
+    it('should block POST/Follow', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Follow)
@@ -305,7 +305,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Follow', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Follow)
@@ -316,7 +316,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Question', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Question)
@@ -327,7 +327,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block PUT/Question', done => {
       chai
         .request(api)
         .put(ApiUrlPath.Question)
@@ -338,7 +338,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block DELETE/Question', done => {
       chai
         .request(api)
         .delete(ApiUrlPath.Question)
@@ -349,7 +349,7 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block request', done => {
+    it('should block POST/Report', done => {
       chai
         .request(api)
         .post(ApiUrlPath.Report)
