@@ -2,7 +2,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "chmod +x ./ci/run_tests.sh"
+        "test": "./ci/run_tests.sh"
       }
     }
   }
