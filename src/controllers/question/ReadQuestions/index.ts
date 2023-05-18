@@ -30,7 +30,7 @@ export default (app: Application) => {
       const $skip = (Number(pageNo) - 1) * READ_QUESTIONS_MAX
       const $limit = READ_QUESTIONS_MAX
 
-      const $match = {} as any
+      const $match = {} as Record<string, unknown>
 
       if (categories) {
         $match.categories = {
