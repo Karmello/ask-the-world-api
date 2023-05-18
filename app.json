@@ -2,7 +2,11 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "yarn prettier && yarn lint && yarn typecheck && yarn test && yarn test-int"
+        "prettier": "yarn prettier",
+        "lint": "yarn lint",
+        "typecheck": "yarn typecheck",
+        "test": "yarn test",
+        "test-int": "yarn test-int"
       }
     }
   }
