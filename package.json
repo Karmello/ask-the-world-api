@@ -16,7 +16,7 @@
     "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash"
   },
   "dependencies": {
-    "@honeybadger-io/js": "^4.3.1",
+    "@honeybadger-io/js": "^5.4.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
