@@ -71,6 +71,7 @@
     "webpack-cli": "^4.10.0"
   },
   "resolutions": {
-    "engine.io": ">=6.4.2"
+    "engine.io": ">=6.4.2",
+    "got": ">=11.8.5"
   }
 }
