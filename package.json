@@ -48,7 +48,7 @@
     "@types/mocha": "^8.0.4",
     "@types/mongoose-unique-validator": "^1.0.6",
     "@types/morgan": "^1.9.1",
-    "@types/node": "^18.0.1",
+    "@types/node": "^20.2.1",
     "@types/nodemailer": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.30.5",
