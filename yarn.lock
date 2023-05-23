@@ -1434,10 +1434,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.1.tgz#de559d4b33be9a808fd43372ccee822c70f39704"
   integrity sha512-DqJociPbZP1lbZ5SQPk4oag6W7AyaGMO6gSfRwq3PWl4PXTwJpRQJhDq4W0kzrg3w6tJ1SwlvGZ5uKFHY13LIg==
 
-"@types/nodemailer@^6.4.0":
-  version "6.4.4"
-  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.4.tgz#c265f7e7a51df587597b3a49a023acaf0c741f4b"
-  integrity sha512-Ksw4t7iliXeYGvIQcSIgWQ5BLuC/mljIEbjf615svhZL10PE9t+ei8O9gDaD3FPCasUJn9KTLwz2JFJyiiyuqw==
+"@types/nodemailer@^6.4.8":
+  version "6.4.8"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.8.tgz#f06c661e9b201fc2acc3a00a0fded42ba7eaca9d"
+  integrity sha512-oVsJSCkqViCn8/pEu2hfjwVO+Gb3e+eTWjg3PcjeFKRItfKpKwHphQqbYmPQrlMk+op7pNNWPbsJIEthpFN/OQ==
   dependencies:
     "@types/node" "*"
 
@@ -3866,10 +3866,10 @@ node-releases@^2.0.5:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.5.tgz#280ed5bc3eba0d96ce44897d8aee478bfb3d9666"
   integrity sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==
 
-nodemailer@^6.5.0:
-  version "6.7.6"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.6.tgz#d3de8f644eaa0dad784d1be1375c596de492f3fc"
-  integrity sha512-/6KF/umU7r7X21Y648/yiRLrgkfz0dmpyuo4BfgYWIpnT/jCbkPTvegMfxCsDAu+O810p2L1BGXieMTPp3nJVA==
+nodemailer@^6.9.2:
+  version "6.9.2"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.2.tgz#b79051811edd52c2436ad1c6aed2dc45b9c9cf1f"
+  integrity sha512-4+TYaa/e1nIxQfyw/WzNPYTEZ5OvHIDEnmjs4LPmIfccPQN+2CYKmGHjWixn/chzD3bmUTu5FMfpltizMxqzdg==
 
 nodemon@^2.0.18:
   version "2.0.18"
