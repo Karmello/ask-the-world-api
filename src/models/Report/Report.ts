@@ -30,6 +30,13 @@ const reportSchema = new Schema(
 )
 
 reportSchema.index({ questionId: 1, reporterId: 1 }, { unique: true })
-reportSchema.path('reasons').validate(checkReportReasons)
+
+reportSchema
+  .path('reasons')
+  .validate(
+    checkReportReasons.validator,
+    checkReportReasons.message,
+    checkReportReasons.type
+  )
 
 export default model<IReportDoc>(ModelName.Report, reportSchema)

@@ -81,7 +81,16 @@ const questionSchema = new Schema(
 
 questionSchema.index({ answers: 'text', text: 'text' })
 
-questionSchema.path('categories').validate(checkQuestionCategories)
-questionSchema.path('answers').validate(checkAnswers)
+questionSchema
+  .path('categories')
+  .validate(
+    checkQuestionCategories.validator,
+    checkQuestionCategories.message,
+    checkQuestionCategories.type
+  )
+
+questionSchema
+  .path('answers')
+  .validate(checkAnswers.validator, checkAnswers.message, checkAnswers.type)
 
 export default model<IQuestionDoc>(ModelName.Question, questionSchema)
