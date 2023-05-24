@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import times from 'lodash/times'
 
 import {
@@ -32,10 +32,10 @@ const getQuestionMocks = (users: IUser[]) => {
       const question = {
         creatorId: user._id,
         createdAt: new Date(
-          faker.date.between(
-            new Date(Date.now() - 15 * msInDay),
-            new Date(Date.now() - 5 * msInDay)
-          )
+          faker.date.between({
+            from: new Date(Date.now() - 15 * msInDay),
+            to: new Date(Date.now() - 5 * msInDay),
+          })
         ).getTime(),
         categories: (() => {
           const arr = []
@@ -55,7 +55,7 @@ const getQuestionMocks = (users: IUser[]) => {
           return arr
         })(),
         numOfVotes: (() => {
-          const exactNumOfVotes = faker.random.boolean()
+          const exactNumOfVotes = faker.datatype.boolean()
           if (exactNumOfVotes) {
             const exact = getRandNum(1, numOfAnswers - 1)
             return { exact }
@@ -68,7 +68,7 @@ const getQuestionMocks = (users: IUser[]) => {
             }
           }
         })(),
-        isTerminated: faker.random.arrayElement([
+        isTerminated: faker.helpers.arrayElement([
           false,
           false,
           false,
