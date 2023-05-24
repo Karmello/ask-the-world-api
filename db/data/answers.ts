@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import times from 'lodash/times'
 
 import { IUser, IQuestion, IAnswer } from './../../src/ext/atw-shared/source/utils'
@@ -25,13 +25,13 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
           questionId: _id,
           answererId: answerer._id,
           answeredAt: new Date(
-            faker.date.between(
-              new Date(Date.now() - 4 * msInDay),
-              new Date(Date.now() - 1 * msInDay)
-            )
+            faker.date.between({
+              from: new Date(Date.now() - 4 * msInDay),
+              to: new Date(Date.now() - 1 * msInDay),
+            })
           ).getTime(),
           selectedIndexes: (() => {
-            let arr = getRandNums(
+            const arr = getRandNums(
               0,
               answers.length - 1,
               range ? getRandNum(range.min, range.max) : exact

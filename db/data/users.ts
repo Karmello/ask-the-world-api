@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 import { getRandNum } from './../../src/ext/atw-shared/source/helpers/index'
 import { IUser, Sex } from './../../src/ext/atw-shared/source/utils'
@@ -162,7 +162,12 @@ const defaultUsers = (() => {
       country: countries[getRandNum(0, countries.length - 1)].value,
       sex: ['M', 'F'][getRandNum(0, 1)] as Sex,
       config: {
-        registeredAt: new Date(faker.date.between('2010-01-01', '2020-01-01')).getTime(),
+        registeredAt: new Date(
+          faker.date.between({
+            from: '2010-01-01',
+            to: '2020-01-01',
+          })
+        ).getTime(),
         confirmed: true,
         payment,
       },
