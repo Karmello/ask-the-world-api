@@ -6,10 +6,13 @@ import { SOCKET_FIELD_NAME } from 'utils/index'
 import { readAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
+import { deleteFromAws } from 'helpers/index'
 
 import checkRequest from './checkRequest'
 
 const ObjectId = mongoose.Types.ObjectId
+
+const { AWS_BUCKET_URL } = process.env
 
 export default (app: Application) => {
   app.get(
@@ -27,6 +30,9 @@ export default (app: Application) => {
               AnswerModel.deleteMany({ answererId: userId }),
             ])
               .then(() => {
+                deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}/avatar.png`).then(() => {
+                  deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
+                })
                 req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.Logout)
                 res.status(200).send(msgs.ACCOUNT_REMOVED.text)
               })
