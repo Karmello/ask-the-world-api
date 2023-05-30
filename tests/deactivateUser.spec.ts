@@ -46,11 +46,9 @@ describe('deactivateUser', () => {
     })
   })
 
-  it('user exists', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc?._id).to.eql(userId)
-      done()
-    })
+  it('user exists', async () => {
+    const doc = await UserModel.collection.findOne({ _id: userId })
+    expect(doc?._id.toString()).to.eql(userId.toString())
   })
 
   it('question exists', async () => {
@@ -100,11 +98,9 @@ describe('deactivateUser', () => {
       })
   })
 
-  it('user removed', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc).to.eql(null)
-      done()
-    })
+  it('user removed', async () => {
+    const doc = await UserModel.collection.findOne({ _id: userId })
+    expect(doc).to.eql(null)
   })
 
   it('question removed', async () => {
