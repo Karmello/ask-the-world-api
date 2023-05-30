@@ -14,10 +14,16 @@ export default (app: Application) => {
     checkRequest,
     (req: Request, res: Response) => {
       FollowModel.deleteOne({ questionId: req.query._id, followerId: req.decoded._id })
-        .then(() => {
-          res.status(200).send({
-            msg: msgs.QUESTION_UNFOLLOWED,
-          })
+        .then(({ deletedCount }) => {
+          if (!deletedCount) {
+            res.status(400).send({
+              msg: msgs.QUESTION_ALREADY_UNFOLLOWED,
+            })
+          } else {
+            res.status(200).send({
+              msg: msgs.QUESTION_UNFOLLOWED,
+            })
+          }
         })
         .catch(() => {
           res.status(400).send({

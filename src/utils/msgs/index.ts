@@ -91,6 +91,11 @@ export default {
     type: AppMsgType.Warning,
     text: 'Question already followed',
   },
+  [AppMsgCode.QuestionAlreadyUnfollowed]: {
+    code: AppMsgCode.QuestionAlreadyUnfollowed,
+    type: AppMsgType.Warning,
+    text: 'Question already unfollowed',
+  },
   [AppMsgCode.QuestionDeleted]: {
     code: AppMsgCode.QuestionDeleted,
     type: AppMsgType.Success,
