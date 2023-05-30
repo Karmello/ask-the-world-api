@@ -53,18 +53,14 @@ describe('deactivateUser', () => {
     })
   })
 
-  it('question exists', done => {
-    QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(1)
-      done()
-    })
+  it('question exists', async () => {
+    const docs = await QuestionModel.collection.find({ creatorId: userId }).toArray()
+    expect(docs?.length).to.eql(1)
   })
 
-  it('answer exists', done => {
-    AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(1)
-      done()
-    })
+  it('answer exists', async () => {
+    const docs = await AnswerModel.collection.find({ answererId: userId }).toArray()
+    expect(docs?.length).to.eql(1)
   })
 
   it('should authenticate', done => {
@@ -111,17 +107,13 @@ describe('deactivateUser', () => {
     })
   })
 
-  it('question removed', done => {
-    QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(0)
-      done()
-    })
+  it('question removed', async () => {
+    const docs = await QuestionModel.collection.find({ creatorId: userId }).toArray()
+    expect(docs?.length).to.eql(0)
   })
 
-  it('answer removed', done => {
-    AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(0)
-      done()
-    })
+  it('answer removed', async () => {
+    const docs = await AnswerModel.collection.find({ answererId: userId }).toArray()
+    expect(docs?.length).to.eql(0)
   })
 })
