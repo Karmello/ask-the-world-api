@@ -25,6 +25,7 @@ enum AppMsgCode {
   QuestionDeleted = 'QUESTION_DELETED',
   QuestionReported = 'QUESTION_REPORTED',
   QuestionAlreadyFollowed = 'QUESTION_ALREADY_FOLLOWED',
+  QuestionAlreadyUnfollowed = 'QUESTION_ALREADY_UNFOLLOWED',
   QuestionAlreadyReported = 'QUESTION_ALREADY_REPORTED',
   // other
   SomethingWentWrong = 'SOMETHING_WENT_WRONG',
