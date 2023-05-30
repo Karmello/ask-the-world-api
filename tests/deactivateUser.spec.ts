@@ -46,25 +46,19 @@ describe('deactivateUser', () => {
     })
   })
 
-  it('user exists', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc?._id).to.eql(userId)
-      done()
-    })
+  it('user exists', async () => {
+    const doc = await UserModel.collection.findOne({ _id: userId })
+    expect(doc?._id.toString()).to.eql(userId.toString())
   })
 
-  it('question exists', done => {
-    QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(1)
-      done()
-    })
+  it('question exists', async () => {
+    const docs = await QuestionModel.collection.find({ creatorId: userId }).toArray()
+    expect(docs?.length).to.eql(1)
   })
 
-  it('answer exists', done => {
-    AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(1)
-      done()
-    })
+  it('answer exists', async () => {
+    const docs = await AnswerModel.collection.find({ answererId: userId }).toArray()
+    expect(docs?.length).to.eql(1)
   })
 
   it('should authenticate', done => {
@@ -104,24 +98,18 @@ describe('deactivateUser', () => {
       })
   })
 
-  it('user removed', done => {
-    UserModel.collection.findOne({ _id: userId }).then(doc => {
-      expect(doc).to.eql(null)
-      done()
-    })
+  it('user removed', async () => {
+    const doc = await UserModel.collection.findOne({ _id: userId })
+    expect(doc).to.eql(null)
   })
 
-  it('question removed', done => {
-    QuestionModel.collection.find({ creatorId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(0)
-      done()
-    })
+  it('question removed', async () => {
+    const docs = await QuestionModel.collection.find({ creatorId: userId }).toArray()
+    expect(docs?.length).to.eql(0)
   })
 
-  it('answer removed', done => {
-    AnswerModel.collection.find({ answererId: userId }).toArray((err, docs) => {
-      expect(docs?.length).to.eql(0)
-      done()
-    })
+  it('answer removed', async () => {
+    const docs = await AnswerModel.collection.find({ answererId: userId }).toArray()
+    expect(docs?.length).to.eql(0)
   })
 })
