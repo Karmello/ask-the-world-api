@@ -19,7 +19,9 @@ export default (app: Application) => {
           creatorId: req.decoded._id,
         },
         {
-          isTerminated: true,
+          terminatedAt: {
+            $exists: true,
+          },
         }
       )
         .then(doc => {
