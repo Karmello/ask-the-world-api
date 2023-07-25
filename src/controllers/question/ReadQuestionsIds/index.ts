@@ -25,7 +25,7 @@ export default (app: Application) => {
       },
       {
         $match: {
-          terminatedAt: null,
+          terminatedAt: { $exists: false },
           votes: {
             $not: {
               $elemMatch: { answererId: new ObjectId(req.decoded?._id) },

@@ -37,6 +37,18 @@ const getQuestionMocks = (users: IUser[]) => {
             to: new Date(Date.now() - 5 * msInDay),
           })
         ).getTime(),
+        terminatedAt: faker.helpers.arrayElement([
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Date.now(),
+        ]),
         categories: (() => {
           const arr = []
           times(categoriesIndexes.length, i => {
@@ -68,18 +80,6 @@ const getQuestionMocks = (users: IUser[]) => {
             }
           }
         })(),
-        isTerminated: faker.helpers.arrayElement([
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          true,
-        ]),
       }
 
       questionMocks.push(question as IQuestion)

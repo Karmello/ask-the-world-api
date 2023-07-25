@@ -19,9 +19,7 @@ export default (app: Application) => {
           creatorId: req.decoded._id,
         },
         {
-          terminatedAt: {
-            $exists: true,
-          },
+          terminatedAt: Date.now(),
         }
       )
         .then(doc => {
