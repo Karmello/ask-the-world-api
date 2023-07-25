@@ -3,12 +3,10 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { SOCKET_FIELD_NAME } from 'utils/index'
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { deleteFromAws } from 'helpers/index'
-
-import checkRequest from './checkRequest'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -18,7 +16,7 @@ export default (app: Application) => {
   app.get(
     ApiUrlPath.UserDeactivate,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       const userId = new ObjectId(req.decoded._id)
 

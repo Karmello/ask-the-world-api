@@ -1,8 +1,8 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
-import { getFreshAuthToken } from 'helpers/index'
-import { readAuthToken } from 'middleware/index'
+import { getFreshAuthToken, notifyHoneybadger } from 'helpers/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 import msgs from 'utils/msgs'
@@ -18,6 +18,7 @@ export default (app: Application) => {
   app.post(
     ApiUrlPath.UserAuthenticate,
     readAuthToken,
+    checkAuthToken,
     checkRequest,
     (req: Request, res: Response) => {
       const query = {} as TQuery
@@ -64,8 +65,14 @@ export default (app: Application) => {
             }
           }
         })
-        .catch(() => {
-          res.status(401).send({
+        .catch(err => {
+          notifyHoneybadger(req, {
+            name: err.name,
+            message: {
+              err,
+            },
+          })
+          res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })
         })

@@ -2,17 +2,15 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { AnswerModel, QuestionModel } from 'models/index'
-import { readAuthToken } from 'middleware/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { checkSelectedIndexes } from 'validation/index'
 import msgs from 'utils/msgs'
-
-import checkRequest from './checkRequest'
 
 export default (app: Application) => {
   app.put(
     ApiUrlPath.Answer,
     readAuthToken,
-    checkRequest,
+    checkAuthToken,
     (req: Request, res: Response) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {

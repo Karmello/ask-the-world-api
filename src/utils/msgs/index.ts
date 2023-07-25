@@ -136,4 +136,11 @@ export default {
     type: AppMsgType.Warning,
     text: 'Question got terminated',
   },
-}
+} as Record<
+  AppMsgCode,
+  {
+    code: AppMsgCode
+    type: AppMsgType
+    text: string
+  }
+>
