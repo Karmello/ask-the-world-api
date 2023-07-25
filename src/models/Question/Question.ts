@@ -33,7 +33,6 @@ const questionSchema = new Schema(
     },
     terminatedAt: {
       type: Number,
-      default: null,
     },
     categories: [
       {
