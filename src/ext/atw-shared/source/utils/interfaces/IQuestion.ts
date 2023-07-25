@@ -4,7 +4,7 @@ interface IQuestion {
   _id: ObjectId | string
   creatorId: ObjectId | string
   createdAt: number
-  terminatedAt: number
+  terminatedAt?: number
   categories: string[]
   text: string
   answers: string[]
