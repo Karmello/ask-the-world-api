@@ -68,18 +68,23 @@ const getQuestionMocks = (users: IUser[]) => {
             }
           }
         })(),
-        isTerminated: faker.helpers.arrayElement([
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          true,
-        ]),
+      } as IQuestion
+
+      const terminatedAt = faker.helpers.arrayElement([
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Date.now(),
+      ])
+
+      if (terminatedAt) {
+        question.terminatedAt = terminatedAt
       }
 
       questionMocks.push(question as IQuestion)

@@ -4,6 +4,7 @@ interface IQuestion {
   _id: ObjectId | string
   creatorId: ObjectId | string
   createdAt: number
+  terminatedAt?: number
   categories: string[]
   text: string
   answers: string[]
@@ -14,7 +15,6 @@ interface IQuestion {
       max: number
     }
   }
-  isTerminated: boolean
   meta: {
     voting?: {
       answersCount: number

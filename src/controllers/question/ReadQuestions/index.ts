@@ -95,7 +95,7 @@ export default (app: Application) => {
           },
           {
             $match: {
-              isTerminated: false,
+              terminatedAt: { $exists: false },
               votes: {
                 $not: {
                   $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
@@ -177,7 +177,7 @@ export default (app: Application) => {
         ])
       } else if (filter === Filter.Terminated) {
         aggregate = QuestionModel.aggregate([
-          { $match: { isTerminated: true, ...$match } },
+          { $match: { terminatedAt: { $exists: true }, ...$match } },
           {
             $facet: {
               meta: [{ $count: 'count' }],

@@ -31,6 +31,10 @@ const questionSchema = new Schema(
       required: true,
       default: Date.now,
     },
+    terminatedAt: {
+      type: Number,
+      default: null,
+    },
     categories: [
       {
         ref: ModelName.QuestionCategory,
@@ -67,11 +71,6 @@ const questionSchema = new Schema(
           validate: [checkNumOfVotesMax],
         },
       },
-    },
-    isTerminated: {
-      type: Boolean,
-      required: true,
-      default: false,
     },
   },
   {

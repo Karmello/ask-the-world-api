@@ -22,7 +22,7 @@ export default (app: Application) => {
             })
           }
 
-          if (question.isTerminated) {
+          if (question.terminatedAt) {
             return res.status(400).send({
               msg: msgs.QUESTION_GOT_TERMINATED,
             })

@@ -19,7 +19,7 @@ export default (app: Application) => {
           creatorId: req.decoded._id,
         },
         {
-          isTerminated: true,
+          terminatedAt: Date.now(),
         }
       )
         .then(doc => {
