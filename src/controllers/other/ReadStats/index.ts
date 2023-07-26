@@ -7,7 +7,7 @@ import msgs from 'utils/msgs'
 export default (app: Application) => {
   app.get(ApiUrlPath.Stats, (req: Request, res: Response) => {
     Promise.all([
-      UserModel.countDocuments(),
+      UserModel.countDocuments({ 'config.confirmed': true }),
       QuestionModel.countDocuments(),
       AnswerModel.countDocuments(),
     ]).then(
