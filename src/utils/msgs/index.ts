@@ -4,7 +4,7 @@ export default {
   [AppMsgCode.SomethingWentWrong]: {
     code: AppMsgCode.SomethingWentWrong,
     type: AppMsgType.Error,
-    text: 'Something went wrong. Please refresh or try later.',
+    text: 'Something went wrong. Please refresh or try again later.',
   },
   [AppMsgCode.AuthenticationFailed]: {
     code: AppMsgCode.AuthenticationFailed,
@@ -44,12 +44,12 @@ export default {
   [AppMsgCode.ActivationLinkSent]: {
     code: AppMsgCode.ActivationLinkSent,
     type: AppMsgType.Info,
-    text: 'Activation link sent. Please check your mailbox.',
+    text: 'Your activation link has been sent to you. Please check your mailbox.',
   },
   [AppMsgCode.DeactivationLinkSent]: {
     code: AppMsgCode.DeactivationLinkSent,
     type: AppMsgType.Info,
-    text: 'Deactivation link sent. Please check your mailbox.',
+    text: 'Your deactivation link has been sent to you. Please check your mailbox.',
   },
   [AppMsgCode.PasswordUpdated]: {
     code: AppMsgCode.PasswordUpdated,
@@ -89,52 +89,52 @@ export default {
   [AppMsgCode.QuestionAlreadyFollowed]: {
     code: AppMsgCode.QuestionAlreadyFollowed,
     type: AppMsgType.Warning,
-    text: 'Question already followed',
+    text: 'Survey already followed',
   },
   [AppMsgCode.QuestionAlreadyUnfollowed]: {
     code: AppMsgCode.QuestionAlreadyUnfollowed,
     type: AppMsgType.Warning,
-    text: 'Question already unfollowed',
+    text: 'Survey already unfollowed',
   },
   [AppMsgCode.QuestionDeleted]: {
     code: AppMsgCode.QuestionDeleted,
     type: AppMsgType.Success,
-    text: 'Question deleted',
+    text: 'Survey deleted',
   },
   [AppMsgCode.QuestionCreated]: {
     code: AppMsgCode.QuestionCreated,
     type: AppMsgType.Success,
-    text: 'Question created',
+    text: 'Survey created',
   },
   [AppMsgCode.QuestionReported]: {
     code: AppMsgCode.QuestionReported,
     type: AppMsgType.Success,
-    text: 'Question reported',
+    text: 'Survey reported',
   },
   [AppMsgCode.QuestionAlreadyReported]: {
     code: AppMsgCode.QuestionAlreadyReported,
     type: AppMsgType.Warning,
-    text: 'Question already reported',
+    text: 'Survey already reported',
   },
   [AppMsgCode.QuestionFollowed]: {
     code: AppMsgCode.QuestionFollowed,
     type: AppMsgType.Success,
-    text: 'Question followed',
+    text: 'Survey followed',
   },
   [AppMsgCode.QuestionUnfollowed]: {
     code: AppMsgCode.QuestionUnfollowed,
     type: AppMsgType.Success,
-    text: 'Question unfollowed',
+    text: 'Survey unfollowed',
   },
   [AppMsgCode.QuestionTerminated]: {
     code: AppMsgCode.QuestionTerminated,
     type: AppMsgType.Success,
-    text: 'Question terminated',
+    text: 'Survey terminated',
   },
   [AppMsgCode.QuestionGotTerminated]: {
     code: AppMsgCode.QuestionGotTerminated,
     type: AppMsgType.Warning,
-    text: 'Question got terminated',
+    text: 'Survey got terminated',
   },
 } as Record<
   AppMsgCode,
