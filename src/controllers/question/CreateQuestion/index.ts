@@ -14,6 +14,12 @@ export default (app: Application) => {
       const creatorId = req.decoded._id
       const { categories, text, answers, numOfVotes } = req.body as IQuestion
 
+      if (!numOfVotes.exact && !numOfVotes.range) {
+        return res.status(400).send({
+          msg: msgs.SOMETHING_WENT_WRONG,
+        })
+      }
+
       if (numOfVotes.exact !== undefined) {
         delete req.body.numOfVotes.range
       }
