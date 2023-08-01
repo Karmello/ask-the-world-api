@@ -1,6 +1,7 @@
 export { default as hasCredentialAllCharsValid } from './hasCredentialAllCharsValid'
 export { default as isDateFormatValid } from './isDateFormatValid'
-export { default as isDateLessOrEqualMax } from './isDateLessOrEqualMax'
+export { default as isDateGreaterOrEqualMin } from './isDateGreaterOrEqualMin'
+export { default as isDateLowerOrEqualMax } from './isDateLowerOrEqualMax'
 export { default as isEmailValid } from './isEmailValid'
 export { default as isNumberWithinBoundaries } from './isNumberWithinBoundaries'
 export { default as isStringTooLong } from './isStringTooLong'
