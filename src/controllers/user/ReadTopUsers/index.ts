@@ -15,10 +15,18 @@ export default (app: Application) => {
       UserModel.aggregate([
         {
           $lookup: {
+            from: 'questions',
+            localField: '_id',
+            foreignField: 'creatorId',
+            as: 'questionsCount',
+          },
+        },
+        {
+          $lookup: {
             from: 'answers',
             localField: '_id',
             foreignField: 'answererId',
-            as: 'votes',
+            as: 'questionSubmissionsCount',
           },
         },
         {
@@ -26,14 +34,23 @@ export default (app: Application) => {
             'config.confirmed': true,
           },
         },
-        { $addFields: { votesCount: { $size: '$votes' } } },
         {
-          $match: {
-            votesCount: { $gt: 0 },
+          $addFields: {
+            score: {
+              $add: [
+                { $size: '$questionsCount' },
+                { $size: '$questionSubmissionsCount' },
+              ],
+            },
           },
         },
-        { $sort: { votesCount: -1, 'config.registeredAt': -1 } },
-        { $project: { votes: 0, votesCount: 0 } },
+        {
+          $match: {
+            score: { $gt: 0 },
+          },
+        },
+        { $sort: { score: -1, 'config.registeredAt': -1 } },
+        { $project: { questionsCount: 0, questionSubmissionsCount: 0, score: 0 } },
         {
           $facet: {
             meta: [{ $count: 'count' }],
