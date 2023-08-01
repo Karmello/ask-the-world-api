@@ -58,7 +58,10 @@ const userSchema = new Schema(
     dateOfBirth: {
       type: String,
       required: true,
-      validate: [checkDateFormat, checkDateOfBirth(format(new Date(), DATE_FORMAT))],
+      validate: [
+        checkDateFormat,
+        checkDateOfBirth('1900-01-01', format(new Date(), DATE_FORMAT)),
+      ],
     },
     country: {
       ref: ModelName.Country,
