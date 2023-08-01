@@ -2,7 +2,7 @@ import mongoose, { Error } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 import { NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
-import { addYears, format } from 'date-fns'
+import { format } from 'date-fns'
 
 import {
   EMAIL_MAX_LENGTH,
@@ -22,7 +22,7 @@ import {
   checkSex,
 } from 'validation/index'
 
-import { USER_MIN_AGE, DATE_FORMAT, IUser } from 'atw-shared/utils/index'
+import { DATE_FORMAT, IUser } from 'atw-shared/utils/index'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
 import dict from 'atw-shared/validation/dictionary'
 
@@ -58,10 +58,7 @@ const userSchema = new Schema(
     dateOfBirth: {
       type: String,
       required: true,
-      validate: [
-        checkDateFormat,
-        checkDateOfBirth(format(addYears(new Date(), -USER_MIN_AGE), DATE_FORMAT)),
-      ],
+      validate: [checkDateFormat, checkDateOfBirth(format(new Date(), DATE_FORMAT))],
     },
     country: {
       ref: ModelName.Country,

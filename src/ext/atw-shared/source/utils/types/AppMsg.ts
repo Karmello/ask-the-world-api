@@ -2,7 +2,7 @@ import AppMsgCode from '../enums/AppMsgCode'
 import AppMsgType from '../enums/AppMsgType'
 
 type AppMsg = {
-  code: AppMsgCode
+  code?: AppMsgCode
   type: AppMsgType
   text: string
 }
