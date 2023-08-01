@@ -10,6 +10,7 @@ import {
   USERNAME_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_MAX_LENGTH,
+  USER_MIN_DATE_OF_BIRTH,
 } from 'atw-shared/utils/index'
 
 import {
@@ -60,7 +61,7 @@ const userSchema = new Schema(
       required: true,
       validate: [
         checkDateFormat,
-        checkDateOfBirth('1900-01-01', format(new Date(), DATE_FORMAT)),
+        checkDateOfBirth(USER_MIN_DATE_OF_BIRTH, format(new Date(), DATE_FORMAT)),
       ],
     },
     country: {
