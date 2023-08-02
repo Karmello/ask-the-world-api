@@ -69,12 +69,12 @@ export default {
   [AppMsgCode.EmailConfirmed]: {
     code: AppMsgCode.EmailConfirmed,
     type: AppMsgType.Success,
-    text: 'Email confirmed',
+    text: 'Your email address has been confirmed. You can close this window.',
   },
   [AppMsgCode.AccountRemoved]: {
     code: AppMsgCode.AccountRemoved,
     type: AppMsgType.Success,
-    text: 'Account removed',
+    text: 'You account has been removed. You can close this window.',
   },
   [AppMsgCode.PaymentAlreadyMade]: {
     code: AppMsgCode.PaymentAlreadyMade,
