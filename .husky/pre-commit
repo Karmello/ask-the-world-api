@@ -4,3 +4,4 @@
 yarn prettier
 yarn lint
 yarn typecheck
+yarn test
