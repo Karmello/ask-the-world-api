@@ -13,7 +13,8 @@
     "test-int": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register tests/index.ts --timeout 25000 --exit",
     "db-seed": "ts-node ./db/seed.ts",
     "db-clear": "ts-node ./db/clear.ts",
-    "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash"
+    "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@honeybadger-io/js": "^6.3.0",
@@ -68,7 +69,8 @@
     "tslint": "^6.1.3",
     "typescript": "^5.1.3",
     "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.1"
+    "webpack-cli": "^5.1.1",
+    "husky": "^8.0.0"
   },
   "resolutions": {
     "engine.io": ">=6.4.2",
