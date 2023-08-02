@@ -46,7 +46,7 @@ describe('user dateOfBirth validation', () => {
   })
 
   it('too young => checkDateOfBirth', () => {
-    const user = new UserModel({ dateOfBirth: '2015-02-10' })
+    const user = new UserModel({ dateOfBirth: '1899-12-31' })
     const err = user.validateSync()
     expect(err.errors.dateOfBirth.kind).to.eql('checkDateOfBirth')
   })
