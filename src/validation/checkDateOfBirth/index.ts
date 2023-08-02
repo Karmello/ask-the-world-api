@@ -7,6 +7,9 @@ import {
 export default (minDate: string, maxDate: string) => ({
   type: 'checkDateOfBirth',
   message: dict.incorrectMsg,
-  validator: (value: string) =>
-    isDateGreaterOrEqualMin(value, minDate) && isDateLowerOrEqualMax(value, maxDate),
+  validator: (value: string) => {
+    return (
+      isDateGreaterOrEqualMin(value, minDate) && isDateLowerOrEqualMax(value, maxDate)
+    )
+  },
 })
