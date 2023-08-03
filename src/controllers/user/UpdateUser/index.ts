@@ -24,7 +24,7 @@ export default (app: Application) => {
               msg: msgs.NO_SUCH_USER,
             })
 
-          doc.set({ username, dateOfBirth, country, sex })
+          doc.set({ username: username.toLowerCase(), dateOfBirth, country, sex })
 
           doc
             .save()
