@@ -1,6 +1,9 @@
 interface IQuestionCategory {
   _id: string
-  name: string
+  name: {
+    en: string
+    pl: string
+  }
 }
 
 export default IQuestionCategory
