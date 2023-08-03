@@ -11,8 +11,14 @@ const questionCategorySchema = new Schema(
       required: true,
     },
     name: {
-      type: String,
-      required: true,
+      en: {
+        type: String,
+        required: true,
+      },
+      pl: {
+        type: String,
+        required: true,
+      },
     },
   },
   {
