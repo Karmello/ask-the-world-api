@@ -13,7 +13,7 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
-      const { username, dateOfBirth, country, sex } = req.body
+      const { email, username, dateOfBirth, country, sex } = req.body
 
       UserModel.findOne({ _id: req.decoded._id })
         .select('-password')
@@ -24,7 +24,19 @@ export default (app: Application) => {
               msg: msgs.NO_SUCH_USER,
             })
 
-          doc.set({ username: username.toLowerCase(), dateOfBirth, country, sex })
+          const newValues = {
+            email: email.toLowerCase(),
+            username: username.toLowerCase(),
+            dateOfBirth,
+            country,
+            sex,
+          }
+
+          if (doc.email !== newValues.email) {
+            newValues['config.confirmed'] = false
+          }
+
+          doc.set(newValues)
 
           doc
             .save()

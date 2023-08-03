@@ -8,6 +8,7 @@ export default (app: Application) => {
   app.post(ApiUrlPath.User, (req: Request, res: Response) => {
     const newUser = new UserModel({
       ...req.body,
+      email: req.body.email.toLowerCase(),
       username: req.body.username.toLowerCase(),
     })
 
