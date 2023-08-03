@@ -6,7 +6,10 @@ import { UserModel } from 'models/index'
 
 export default (app: Application) => {
   app.post(ApiUrlPath.User, (req: Request, res: Response) => {
-    const newUser = new UserModel({ ...req.body })
+    const newUser = new UserModel({
+      ...req.body,
+      username: req.body.username.toLowerCase(),
+    })
 
     if (process.env.FULL_ACCOUNT_PAYMENT_REQUIRED === 'no') {
       newUser.config.payment = {

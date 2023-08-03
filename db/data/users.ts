@@ -13,7 +13,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c'),
     email: 'michael.jordan@gmail.com',
-    username: 'MichaelJordan',
+    username: 'michaeljordan',
     password,
     dateOfBirth: '1963-02-17',
     country: 'US',
@@ -27,7 +27,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5f5fa30b3007ef1388d93483'),
     email: 'sasha_grey@gmail.com',
-    username: 'SashaGrey',
+    username: 'sashagrey',
     password,
     dateOfBirth: '1988-03-14',
     country: 'US',
@@ -40,7 +40,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5eeb989252c1dc555c2d676e'),
     email: 'sophie.dee@gmail.com',
-    username: 'SophieDee',
+    username: 'sophiedee',
     password,
     dateOfBirth: '1984-01-17',
     country: 'GB',
@@ -53,7 +53,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5eeb97db52c1dc555c2d676d'),
     email: 'donald.trump@gmail.com',
-    username: 'Donald_Trump',
+    username: 'donald_trump',
     password,
     dateOfBirth: '1946-06-14',
     country: 'US',
@@ -67,7 +67,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5eeb992452c1dc555c2d676f'),
     email: 'christian.bale@gmail.com',
-    username: 'Christian_Bale',
+    username: 'christian_bale',
     password,
     dateOfBirth: '1974-01-30',
     country: 'GB',
@@ -81,7 +81,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5eeb997a52c1dc555c2d6770'),
     email: 'pamela.anderson@gmail.com',
-    username: 'PamAnderson',
+    username: 'pamanderson',
     password,
     dateOfBirth: '1967-07-01',
     country: 'CA',
@@ -95,7 +95,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5f1323de496a686a844eb086'),
     email: 'batman@gotham.com',
-    username: 'Batman',
+    username: 'batman',
     password,
     dateOfBirth: '1963-02-19',
     country: 'US',
@@ -109,7 +109,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5f5fa221fd74bf1121704a85'),
     email: 'marshall@eminem.com',
-    username: 'Eminem',
+    username: 'eminem',
     password,
     dateOfBirth: '1972-10-17',
     country: 'US',
@@ -123,7 +123,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5f5fa29b49a6a31058a6f57f'),
     email: 'benny_hill@gmail.uk',
-    username: 'BennyHill',
+    username: 'bennyhill',
     password,
     dateOfBirth: '1924-01-24',
     country: 'GB',
@@ -137,7 +137,7 @@ const basicUsers = [
   {
     _id: new mongoose.Types.ObjectId('5f5fa3e93e9cb7f1c82739da'),
     email: 'picasso@gmail.com',
-    username: 'Picasso',
+    username: 'picasso',
     password,
     dateOfBirth: '1881-10-24',
     country: 'ES',

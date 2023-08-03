@@ -29,7 +29,7 @@ export default (app: Application) => {
       } = req
 
       if (decoded) query._id = decoded._id
-      if (username) query.username = username
+      if (username) query.username = username.toLowerCase()
 
       UserModel.findOne(query)
         .then((doc: IUserDoc) => {
