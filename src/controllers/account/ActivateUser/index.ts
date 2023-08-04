@@ -29,7 +29,10 @@ export default (app: Application) => {
           } else if (doc.config.confirmed) {
             res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
           } else {
-            req.app.get('io').emit(SocketEvent.AppReload)
+            req.app
+              .get('io')
+              .sockets.in('user:' + doc._id.toString())
+              .emit(SocketEvent.AppReload)
             res.status(200).send(msgs.EMAIL_CONFIRMED.text)
           }
         })

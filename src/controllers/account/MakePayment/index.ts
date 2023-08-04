@@ -36,7 +36,10 @@ export default (app: Application) => {
         doc
           .save()
           .then(() => {
-            req.app.get('io').emit(SocketEvent.AppReload)
+            req.app
+              .get('io')
+              .sockets.in('user:' + doc._id.toString())
+              .emit(SocketEvent.AppReload)
             res.status(200).send()
           })
           .catch(() => {

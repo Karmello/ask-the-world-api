@@ -30,7 +30,10 @@ export default (app: Application) => {
                 deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}/avatar.png`).then(() => {
                   deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
                 })
-                req.app.get('io').emit(SocketEvent.Logout)
+                req.app
+                  .get('io')
+                  .sockets.in('user:' + userId.toString())
+                  .emit(SocketEvent.Logout)
                 res.status(200).send(msgs.ACCOUNT_REMOVED.text)
               })
               .catch(() => {
