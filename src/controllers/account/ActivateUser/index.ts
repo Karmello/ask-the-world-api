@@ -1,7 +1,6 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
-import { SOCKET_FIELD_NAME } from 'utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
@@ -30,7 +29,7 @@ export default (app: Application) => {
           } else if (doc.config.confirmed) {
             res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
           } else {
-            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
+            req.app.get('io').emit(SocketEvent.AppReload)
             res.status(200).send(msgs.EMAIL_CONFIRMED.text)
           }
         })

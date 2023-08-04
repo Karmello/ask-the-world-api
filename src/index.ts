@@ -10,7 +10,6 @@ import mongoose from 'mongoose'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
-import { SOCKET_FIELD_NAME } from 'utils/index'
 import registerControllers from 'controllers/index'
 import setup from './setup/index'
 
@@ -59,7 +58,13 @@ mongoose.connect(MONGO_URI, {}).then(
         },
       })
 
-      app.set(SOCKET_FIELD_NAME, io)
+      io.sockets.on('connection', socket => {
+        socket.on('room', room => {
+          socket.join(room)
+        })
+      })
+
+      app.set('io', io)
 
       server.on('close', () => {
         io.close()

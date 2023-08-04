@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express'
 import get from 'lodash/get'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
-import { IUserDoc, SOCKET_FIELD_NAME } from 'utils/index'
+import { IUserDoc } from 'utils/index'
 import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
 
@@ -36,7 +36,7 @@ export default (app: Application) => {
         doc
           .save()
           .then(() => {
-            req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.AppReload)
+            req.app.get('io').emit(SocketEvent.AppReload)
             res.status(200).send()
           })
           .catch(() => {

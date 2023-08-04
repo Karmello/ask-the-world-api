@@ -2,7 +2,6 @@ import { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
-import { SOCKET_FIELD_NAME } from 'utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
 import msgs from 'utils/msgs'
@@ -31,7 +30,7 @@ export default (app: Application) => {
                 deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}/avatar.png`).then(() => {
                   deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
                 })
-                req.app.get(SOCKET_FIELD_NAME).emit(SocketEvent.Logout)
+                req.app.get('io').emit(SocketEvent.Logout)
                 res.status(200).send(msgs.ACCOUNT_REMOVED.text)
               })
               .catch(() => {
