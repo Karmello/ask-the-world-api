@@ -40,7 +40,10 @@ export default (app: Application) => {
               req.app
                 .get('io')
                 .sockets.in('question:' + question._id.toString())
-                .emit('reanswer', { selectedIndexes: answer.selectedIndexes })
+                .emit('reanswer', {
+                  oldSelectedIndexes: answer.selectedIndexes,
+                  newSelectedIndexes: req.body,
+                })
               res.status(200).send({
                 answer,
               })
