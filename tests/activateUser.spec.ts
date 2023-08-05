@@ -5,6 +5,7 @@ import msgs from '../src/utils/msgs'
 import { api, chai, expect } from './'
 import { getFreshAuthToken } from '../src/helpers/index'
 import { UserModel } from '../src/models'
+import dict from '../src/dictionary'
 
 const _id = new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c')
 
@@ -18,7 +19,7 @@ describe('activateUser', () => {
       .set(X_AUTH_TOKEN, mailToken)
       .end((err, res) => {
         expect(res.status).to.eql(404)
-        expect(res.text).to.eql(msgs.NO_SUCH_USER)
+        expect(res.text).to.eql(dict.EN.noSuchUser)
         done()
       })
   })
@@ -33,7 +34,7 @@ describe('activateUser', () => {
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(403)
-          expect(res.text).to.eql(msgs.EMAIL_ALREADY_CONFIRMED)
+          expect(res.text).to.eql(dict.EN.emailAlreadyConfirmed)
           UserModel.collection.deleteMany({})
           done()
         })
@@ -50,7 +51,7 @@ describe('activateUser', () => {
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(200)
-          expect(res.text).to.eql(msgs.EMAIL_CONFIRMED)
+          expect(res.text).to.eql(dict.EN.emailConfirmed)
           UserModel.collection.deleteMany({})
           done()
         })

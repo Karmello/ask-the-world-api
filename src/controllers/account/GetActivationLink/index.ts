@@ -29,7 +29,8 @@ export default (app: Application) => {
               '/api' +
               ApiUrlPath.UserActivate +
               `?${X_AUTH_TOKEN}=` +
-              token
+              token +
+              `&lang=${lang}`
 
             if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)

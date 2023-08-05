@@ -4,8 +4,8 @@ import mongoose from 'mongoose'
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
-import msgs from 'utils/msgs'
 import { deleteFromAws } from 'helpers/index'
+import dict from 'src/dictionary'
 
 const ObjectId = mongoose.Types.ObjectId
 
@@ -17,6 +17,8 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
+      const lang = req.query.lang?.toString() || 'EN'
+
       const userId = new ObjectId(req.decoded._id)
 
       UserModel.deleteOne({ _id: userId })
@@ -34,17 +36,17 @@ export default (app: Application) => {
                   .get('io')
                   .sockets.in('user:' + userId.toString())
                   .emit(SocketEvent.Logout)
-                res.status(200).send(msgs.ACCOUNT_REMOVED)
+                res.status(200).send(dict[lang].accountDeactivatedMsg)
               })
               .catch(() => {
-                res.status(400).send(msgs.SOMETHING_WENT_WRONG)
+                res.status(400).send(dict[lang].somethingWentWrong)
               })
           } else {
-            res.status(404).send(msgs.NO_SUCH_USER)
+            res.status(404).send(dict[lang].noSuchUser)
           }
         })
         .catch(() => {
-          res.status(400).send(msgs.SOMETHING_WENT_WRONG)
+          res.status(400).send(dict[lang].somethingWentWrong)
         })
     }
   )

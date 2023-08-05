@@ -17,7 +17,6 @@ export default (app: Application) => {
     checkAuthToken,
     (req: Request, res: Response) => {
       const lang = req.get('language')
-      console.log(lang)
 
       UserModel.findOne({ _id: req.decoded._id })
         .then((doc: IUserDoc) => {
@@ -29,7 +28,8 @@ export default (app: Application) => {
               '/api' +
               ApiUrlPath.UserDeactivate +
               `?${X_AUTH_TOKEN}=` +
-              token
+              token +
+              `&lang=${lang}`
 
             if (APP_ENV === AppEnv.Test) {
               res.setHeader(X_AUTH_TOKEN, token)
