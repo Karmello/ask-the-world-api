@@ -37,6 +37,10 @@ export default (app: Application) => {
             }
           )
             .then(answer => {
+              req.app
+                .get('io')
+                .sockets.in('question:' + question._id.toString())
+                .emit('reanswer', { selectedIndexes: answer.selectedIndexes })
               res.status(200).send({
                 answer,
               })

@@ -35,9 +35,11 @@ export default (app: Application) => {
           newAnswer
             .save()
             .then((answer: IAnswer) => {
-              res.status(200).send({
-                answer,
-              })
+              req.app
+                .get('io')
+                .sockets.in('question:' + question._id.toString())
+                .emit('answer', { selectedIndexes: answer.selectedIndexes })
+              res.status(200).send({ answer })
             })
             .catch(() => {
               res.status(400).send({
