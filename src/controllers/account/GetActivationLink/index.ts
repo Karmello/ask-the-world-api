@@ -17,6 +17,8 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
+      const lang = req.get('language')
+
       UserModel.findOne({ _id: req.decoded._id })
         .then((doc: IUserDoc) => {
           if (doc) {
@@ -38,7 +40,7 @@ export default (app: Application) => {
 
             sendMail({
               to: doc.email,
-              subject: dict.accountActivationLink,
+              subject: dict[lang].accountActivationLink,
               link,
             }).then(
               () => {

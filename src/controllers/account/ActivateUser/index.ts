@@ -25,15 +25,15 @@ export default (app: Application) => {
       )
         .then(doc => {
           if (!doc) {
-            res.status(404).send(msgs.NO_SUCH_USER.text)
+            res.status(404).send(msgs.NO_SUCH_USER)
           } else if (doc.config.confirmed) {
-            res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED.text)
+            res.status(403).send(msgs.EMAIL_ALREADY_CONFIRMED)
           } else {
             req.app
               .get('io')
               .sockets.in('user:' + doc._id.toString())
               .emit(SocketEvent.AppReload)
-            res.status(200).send(msgs.EMAIL_CONFIRMED.text)
+            res.status(200).send(msgs.EMAIL_CONFIRMED)
           }
         })
         .catch(err => {
@@ -43,7 +43,7 @@ export default (app: Application) => {
               err,
             },
           })
-          res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+          res.status(400).send(msgs.SOMETHING_WENT_WRONG)
         })
     }
   )

@@ -18,7 +18,7 @@ describe('activateUser', () => {
       .set(X_AUTH_TOKEN, mailToken)
       .end((err, res) => {
         expect(res.status).to.eql(404)
-        expect(res.text).to.eql(msgs.NO_SUCH_USER.text)
+        expect(res.text).to.eql(msgs.NO_SUCH_USER)
         done()
       })
   })
@@ -33,7 +33,7 @@ describe('activateUser', () => {
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(403)
-          expect(res.text).to.eql(msgs.EMAIL_ALREADY_CONFIRMED.text)
+          expect(res.text).to.eql(msgs.EMAIL_ALREADY_CONFIRMED)
           UserModel.collection.deleteMany({})
           done()
         })
@@ -50,7 +50,7 @@ describe('activateUser', () => {
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(200)
-          expect(res.text).to.eql(msgs.EMAIL_CONFIRMED.text)
+          expect(res.text).to.eql(msgs.EMAIL_CONFIRMED)
           UserModel.collection.deleteMany({})
           done()
         })

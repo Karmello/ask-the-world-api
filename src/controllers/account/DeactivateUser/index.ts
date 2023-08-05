@@ -34,17 +34,17 @@ export default (app: Application) => {
                   .get('io')
                   .sockets.in('user:' + userId.toString())
                   .emit(SocketEvent.Logout)
-                res.status(200).send(msgs.ACCOUNT_REMOVED.text)
+                res.status(200).send(msgs.ACCOUNT_REMOVED)
               })
               .catch(() => {
-                res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+                res.status(400).send(msgs.SOMETHING_WENT_WRONG)
               })
           } else {
-            res.status(404).send(msgs.NO_SUCH_USER.text)
+            res.status(404).send(msgs.NO_SUCH_USER)
           }
         })
         .catch(() => {
-          res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+          res.status(400).send(msgs.SOMETHING_WENT_WRONG)
         })
     }
   )

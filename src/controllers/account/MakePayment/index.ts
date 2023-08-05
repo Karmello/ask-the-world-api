@@ -9,21 +9,21 @@ import msgs from 'utils/msgs'
 export default (app: Application) => {
   app.post(ApiUrlPath.UserPayment, (req: Request, res: Response) => {
     if (get(req, 'body.type', '') !== 'charge.succeeded') {
-      return res.status(403).send(msgs.ILLEGAL_ACTION.text)
+      return res.status(403).send(msgs.ILLEGAL_ACTION)
     }
 
     UserModel.findOne({ email: get(req, 'body.data.object.billing_details.email', '') })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
-        if (!doc) return res.status(404).send(msgs.NO_SUCH_USER.text)
+        if (!doc) return res.status(404).send(msgs.NO_SUCH_USER)
 
         if (!doc.config.confirmed) {
-          return res.status(403).send(msgs.EMAIL_NOT_CONFIRMED.text)
+          return res.status(403).send(msgs.EMAIL_NOT_CONFIRMED)
         }
 
         if (doc.config.payment) {
-          return res.status(400).send(msgs.PAYMENT_ALREADY_MADE.text)
+          return res.status(400).send(msgs.PAYMENT_ALREADY_MADE)
         }
 
         doc.set({
@@ -43,11 +43,11 @@ export default (app: Application) => {
             res.status(200).send()
           })
           .catch(() => {
-            res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+            res.status(400).send(msgs.SOMETHING_WENT_WRONG)
           })
       })
       .catch(() => {
-        res.status(400).send(msgs.SOMETHING_WENT_WRONG.text)
+        res.status(400).send(msgs.SOMETHING_WENT_WRONG)
       })
   })
 }
