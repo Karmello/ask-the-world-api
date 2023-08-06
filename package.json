@@ -11,8 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
     "test-int": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register tests/index.ts --timeout 25000 --exit",
-    "db-seed": "ts-node ./db/seed.ts",
-    "db-clear": "ts-node ./db/clear.ts",
+    "db-run": "ts-node ./db/run.ts",
     "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash",
     "prepare": "husky install"
   },
