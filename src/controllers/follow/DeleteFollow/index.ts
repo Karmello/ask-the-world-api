@@ -15,7 +15,7 @@ export default (app: Application) => {
         .then(({ deletedCount }) => {
           if (!deletedCount) {
             res.status(400).send({
-              msg: msgs.QUESTION_ALREADY_UNFOLLOWED,
+              msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
             })
           } else {
             res.status(200).send({
@@ -25,7 +25,7 @@ export default (app: Application) => {
         })
         .catch(() => {
           res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
+            msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
           })
         })
     }
