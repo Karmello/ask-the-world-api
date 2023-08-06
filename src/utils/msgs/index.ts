@@ -81,6 +81,10 @@ export default {
     code: AppMsgCode.QuestionDeleted,
     type: AppMsgType.Success,
   },
+  [AppMsgCode.QuestionMustHaveBeenDeleted]: {
+    code: AppMsgCode.QuestionMustHaveBeenDeleted,
+    type: AppMsgType.Warning,
+  },
   [AppMsgCode.QuestionCreated]: {
     code: AppMsgCode.QuestionCreated,
     type: AppMsgType.Success,

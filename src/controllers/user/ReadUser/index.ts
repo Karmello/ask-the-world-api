@@ -67,7 +67,7 @@ export default (app: Application) => {
         })
         .catch(() => {
           res.status(404).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
+            msg: msgs.NO_SUCH_USER,
           })
         })
     }

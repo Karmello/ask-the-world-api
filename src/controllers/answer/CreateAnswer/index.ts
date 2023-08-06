@@ -14,7 +14,13 @@ export default (app: Application) => {
     (req: Request, res: Response) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {
-          if (!question || !checkSelectedIndexes(req.body, question)) {
+          if (!question) {
+            return res.status(400).send({
+              msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
+            })
+          }
+
+          if (!checkSelectedIndexes(req.body, question)) {
             return res.status(400).send({
               msg: msgs.SOMETHING_WENT_WRONG,
             })
@@ -49,7 +55,7 @@ export default (app: Application) => {
         })
         .catch(() => {
           res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
+            msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
           })
         })
     }
