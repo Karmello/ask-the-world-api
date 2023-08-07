@@ -2,15 +2,15 @@ import { IQuestion } from 'atw-shared/utils/index'
 import dict from 'atw-shared/validation/dictionary'
 
 export default {
-  type: 'checkNumOfVotesExact',
+  type: 'checkSelectableOptionsExact',
   message: dict.invalidMsg,
   validator() {
     const {
-      answers,
-      numOfVotes: { exact },
+      options,
+      selectableOptions: { exact },
     } = this as IQuestion
 
-    if (exact < 1 || exact > answers.length - 1) {
+    if (exact < 1 || exact > options.length - 1) {
       return false
     }
 

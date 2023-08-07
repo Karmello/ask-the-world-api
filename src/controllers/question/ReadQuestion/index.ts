@@ -49,26 +49,22 @@ export default (app: Application) => {
                   data: [
                     {
                       ...question.toObject(),
-                      meta: {
-                        voting: {},
-                        isFollowedByRequestor: Boolean(requestorFollow),
-                      },
+                      isRequestorFollowing: Boolean(requestorFollow),
                     },
                   ],
                 })
               } else {
                 AnswerModel.find({ questionId })
                   .then((answers: IAnswer[]) => {
-                    const voting = {
-                      answersCount: answers.length,
+                    const answeredStats = {
                       all: {},
-                      requestor: requestorAnswer?.selectedIndexes || [],
+                      byRequestor: requestorAnswer?.selectedIndexes || [],
                     }
 
-                    question.answers.forEach((v, i) => (voting.all[i] = 0))
+                    question.options.forEach((v, i) => (answeredStats.all[i] = 0))
 
                     answers.forEach((answer: IAnswer) => {
-                      answer.selectedIndexes.forEach(v => voting.all[v]++)
+                      answer.selectedIndexes.forEach(v => answeredStats.all[v]++)
                     })
 
                     res.status(200).send({
@@ -76,10 +72,9 @@ export default (app: Application) => {
                       data: [
                         {
                           ...question.toObject(),
-                          meta: {
-                            voting,
-                            isFollowedByRequestor: Boolean(requestorFollow),
-                          },
+                          isRequestorFollowing: Boolean(requestorFollow),
+                          submittedTimes: answers.length,
+                          answeredStats,
                         },
                       ],
                     })

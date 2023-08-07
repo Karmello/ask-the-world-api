@@ -2,8 +2,8 @@ import { IQuestion } from 'atw-shared/utils'
 
 export default (selectedIndexes: number[], question: IQuestion): boolean => {
   const {
-    answers,
-    numOfVotes: { exact, range },
+    options,
+    selectableOptions: { exact, range },
   } = question
 
   if (!selectedIndexes?.length) {
@@ -26,7 +26,7 @@ export default (selectedIndexes: number[], question: IQuestion): boolean => {
 
   if (
     selectedIndexes.some(n => {
-      return n < 0 || n > answers.length - 1
+      return n < 0 || n > options.length - 1
     })
   ) {
     return false

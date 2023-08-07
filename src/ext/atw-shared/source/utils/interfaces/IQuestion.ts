@@ -7,23 +7,21 @@ interface IQuestion {
   terminatedAt?: number
   categories: string[]
   text: string
-  answers: string[]
-  numOfVotes: {
+  options: string[]
+  selectableOptions: {
     exact?: number
     range?: {
       min: number
       max: number
     }
   }
-  meta: {
-    voting?: {
-      answersCount: number
-      all: {
-        [key: number]: number
-      }
-      requestor: number[]
+  isRequestorFollowing?: boolean
+  submittedTimes?: number
+  answeredStats?: {
+    all: {
+      [key: number]: number
     }
-    isFollowedByRequestor?: boolean
+    byRequestor: number[]
   }
 }
 

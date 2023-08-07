@@ -2,7 +2,7 @@ import dict from 'atw-shared/validation/dictionary'
 import { MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS } from 'atw-shared/utils/index'
 
 export default {
-  type: 'checkAnswers',
+  type: 'checkOptions',
   message: dict.incorrectMsg,
   validator: (value: string[]) => {
     return (

@@ -10,10 +10,10 @@ import { ModelName, IQuestionDoc } from 'utils/index'
 import {
   checkMinLength,
   checkMaxLength,
-  checkNumOfVotesExact,
-  checkNumOfVotesMin,
-  checkNumOfVotesMax,
-  checkAnswers,
+  checkSelectableOptionsExact,
+  checkSelectableOptionsMin,
+  checkSelectableOptionsMax,
+  checkOptions,
   checkQuestionCategories,
 } from 'validation/index'
 
@@ -49,25 +49,25 @@ const questionSchema = new Schema(
         checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
       ],
     },
-    answers: [
+    options: [
       {
         type: String,
         required: true,
       },
     ],
-    numOfVotes: {
+    selectableOptions: {
       exact: {
         type: Number,
-        validate: [checkNumOfVotesExact],
+        validate: [checkSelectableOptionsExact],
       },
       range: {
         min: {
           type: Number,
-          validate: [checkNumOfVotesMin],
+          validate: [checkSelectableOptionsMin],
         },
         max: {
           type: Number,
-          validate: [checkNumOfVotesMax],
+          validate: [checkSelectableOptionsMax],
         },
       },
     },
@@ -77,7 +77,7 @@ const questionSchema = new Schema(
   }
 )
 
-questionSchema.index({ answers: 'text', text: 'text' })
+questionSchema.index({ options: 'text', text: 'text' })
 
 questionSchema
   .path('categories')
@@ -88,7 +88,7 @@ questionSchema
   )
 
 questionSchema
-  .path('answers')
-  .validate(checkAnswers.validator, checkAnswers.message, checkAnswers.type)
+  .path('options')
+  .validate(checkOptions.validator, checkOptions.message, checkOptions.type)
 
 export default model<IQuestionDoc>(ModelName.Question, questionSchema)

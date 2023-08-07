@@ -12,19 +12,19 @@ export default (app: Application) => {
     checkAuthToken,
     (req: Request, res: Response) => {
       const creatorId = req.decoded._id
-      const { categories, text, answers, numOfVotes } = req.body as IQuestion
+      const { categories, text, options, selectableOptions } = req.body as IQuestion
 
-      if (!numOfVotes.exact && !numOfVotes.range) {
+      if (!selectableOptions.exact && !selectableOptions.range) {
         return res.status(400).send({
           msg: msgs.SOMETHING_WENT_WRONG,
         })
       }
 
-      if (numOfVotes.exact !== undefined) {
+      if (selectableOptions.exact !== undefined) {
         delete req.body.numOfVotes.range
       }
 
-      if (numOfVotes.range !== undefined) {
+      if (selectableOptions.range !== undefined) {
         delete req.body.numOfVotes.exact
       }
 
@@ -32,8 +32,8 @@ export default (app: Application) => {
         creatorId,
         categories,
         text,
-        answers,
-        numOfVotes,
+        options,
+        selectableOptions,
       })
 
       newQuestion

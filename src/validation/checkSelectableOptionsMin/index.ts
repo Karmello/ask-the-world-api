@@ -2,17 +2,17 @@ import { IQuestion } from 'atw-shared/utils/index'
 import dict from 'atw-shared/validation/dictionary'
 
 export default {
-  type: 'checkNumOfVotesMin',
+  type: 'checkSelectableOptionsMin',
   message: dict.invalidMsg,
   validator() {
     const {
-      answers,
-      numOfVotes: {
+      options,
+      selectableOptions: {
         range: { min, max },
       },
     } = this as IQuestion
 
-    if (!max || min < 1 || min >= max || min >= answers.length) {
+    if (!max || min < 1 || min >= max || min >= options.length) {
       return false
     }
 

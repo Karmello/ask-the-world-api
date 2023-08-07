@@ -1,52 +1,52 @@
 import { expect } from 'chai'
 import { QuestionModel } from 'models/index'
 
-describe('question answers validation', () => {
-  it('none => checkAnswers', () => {
+describe('question options validation', () => {
+  it('none => checkOptions', () => {
     const question = new QuestionModel()
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('undefined => checkAnswers', () => {
-    const question = new QuestionModel({ answers: undefined })
+  it('undefined => checkOptions', () => {
+    const question = new QuestionModel({ options: undefined })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('null => checkAnswers', () => {
-    const question = new QuestionModel({ answers: null })
+  it('null => checkOptions', () => {
+    const question = new QuestionModel({ options: null })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('empty string => checkAnswers', () => {
-    const question = new QuestionModel({ answers: '' })
+  it('empty string => checkOptions', () => {
+    const question = new QuestionModel({ options: '' })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('string => checkAnswers', () => {
-    const question = new QuestionModel({ answers: 'string' })
+  it('string => checkOptions', () => {
+    const question = new QuestionModel({ options: 'string' })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('empty array => checkAnswers', () => {
-    const question = new QuestionModel({ answers: [] })
+  it('empty array => checkOptions', () => {
+    const question = new QuestionModel({ options: [] })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('wrong size array => checkAnswers', () => {
-    const question = new QuestionModel({ answers: ['answer1'] })
+  it('wrong size array => checkOptions', () => {
+    const question = new QuestionModel({ options: ['answer1'] })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('wrong size array => checkAnswers', () => {
+  it('wrong size array => checkOptions', () => {
     const question = new QuestionModel({
-      answers: [
+      options: [
         'answer1',
         'answer2',
         'answer3',
@@ -61,24 +61,24 @@ describe('question answers validation', () => {
       ],
     })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
-  it('empty answer => checkAnswers', () => {
-    const question = new QuestionModel({ answers: ['answer1', 'answer2', ''] })
+  it('empty answer => checkOptions', () => {
+    const question = new QuestionModel({ options: ['answer1', 'answer2', ''] })
     const err = question.validateSync()
-    expect(err.errors.answers.kind).to.eql('checkAnswers')
-  })
-
-  it('valid => no error', () => {
-    const question = new QuestionModel({ answers: ['1', '2', '3', '4'] })
-    const err = question.validateSync()
-    expect(err.errors.answers).to.eql(undefined)
+    expect(err.errors.options.kind).to.eql('checkOptions')
   })
 
   it('valid => no error', () => {
-    const question = new QuestionModel({ answers: ['answer1', 'answer2', 'answer3'] })
+    const question = new QuestionModel({ options: ['1', '2', '3', '4'] })
     const err = question.validateSync()
-    expect(err.errors.answers).to.eql(undefined)
+    expect(err.errors.options).to.eql(undefined)
+  })
+
+  it('valid => no error', () => {
+    const question = new QuestionModel({ options: ['answer1', 'answer2', 'answer3'] })
+    const err = question.validateSync()
+    expect(err.errors.options).to.eql(undefined)
   })
 })

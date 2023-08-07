@@ -48,14 +48,14 @@ const getQuestionMocks = (users: IUser[]) => {
       text: faker.lorem
         .sentence(30)
         .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
-      answers: (() => {
+      options: (() => {
         const arr = [] as {}[]
         times(numOfAnswers, () => {
           arr.push(faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH))
         })
         return arr
       })(),
-      numOfVotes: (() => {
+      selectableOptions: (() => {
         const exactNumOfVotes = faker.datatype.boolean()
         if (exactNumOfVotes) {
           const exact = getRandNum(1, numOfAnswers - 1)
