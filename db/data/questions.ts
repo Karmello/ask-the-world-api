@@ -52,7 +52,7 @@ const getQuestionMocks = (users: IUser[]) => {
         .sentence(30)
         .substring(0, getRandNum(QUESTION_INPUT_MIN_LENGTH, QUESTION_INPUT_MAX_LENGTH)),
       options: (() => {
-        const arr = [] as {}[]
+        const arr = []
         times(numOfAnswers, () => {
           arr.push(faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH))
         })
