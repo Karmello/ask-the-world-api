@@ -65,17 +65,17 @@ export default (app: Application) => {
               from: 'answers',
               localField: '_id',
               foreignField: 'questionId',
-              as: 'votes',
+              as: 'answers',
             },
           },
-          { $addFields: { votesCount: { $size: '$votes' } } },
+          { $addFields: { submittedTimes: { $size: '$answers' } } },
           {
             $match: {
-              votesCount: { $gt: 0 },
+              submittedTimes: { $gt: 0 },
             },
           },
-          { $sort: { votesCount: -1, createdAt: -1 } },
-          { $project: { votes: 0, votesCount: 0 } },
+          { $sort: { submittedTimes: -1, createdAt: -1 } },
+          { $project: { answers: 0 } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
@@ -120,18 +120,26 @@ export default (app: Application) => {
               from: 'answers',
               localField: '_id',
               foreignField: 'questionId',
-              as: 'votes',
+              as: 'answers',
             },
           },
+          { $unwind: '$answers' },
+          { $match: { 'answers.answererId': new ObjectId(req.decoded?._id) } },
           {
-            $match: {
-              votes: {
-                $elemMatch: { answererId: new ObjectId(req.decoded?._id) },
-              },
+            $group: {
+              _id: '$_id',
+              creatorId: { $first: '$creatorId' },
+              createdAt: { $first: '$createdAt' },
+              terminatedAt: { $first: '$terminatedAt' },
+              categories: { $first: '$categories' },
+              text: { $first: '$text' },
+              options: { $first: '$options' },
+              selectableOptions: { $first: '$selectableOptions' },
+              answeredAt: { $first: '$answers.answeredAt' },
             },
           },
-          { $sort: { 'votes.answeredAt': -1 } },
-          { $project: { votes: 0 } },
+          { $sort: { 'answers.answeredAt': -1 } },
+          { $project: { answers: 0 } },
           {
             $facet: {
               meta: [{ $count: 'count' }],
@@ -182,7 +190,7 @@ export default (app: Application) => {
           {
             $facet: {
               meta: [{ $count: 'count' }],
-              docs: [{ $sort: { createdAt: -1 } }, { $skip }, { $limit }],
+              docs: [{ $sort: { terminatedAt: -1 } }, { $skip }, { $limit }],
             },
           },
         ])

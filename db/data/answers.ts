@@ -18,7 +18,7 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
       selectableOptions: { exact, range },
     } = questions[i]
 
-    const userIndexes = getRandNums(0, users.length - 1, 5)
+    const userIndexes = getRandNums(0, users.length - 1, getRandNum(0, users.length - 1))
 
     times(userIndexes.length, (i: number) => {
       const answerer = users[userIndexes[i]]
