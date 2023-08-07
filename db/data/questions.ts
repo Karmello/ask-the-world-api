@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker'
 import times from 'lodash/times'
 
 import {
-  MIN_NUM_OF_ANSWERS,
-  MAX_NUM_OF_ANSWERS,
+  MIN_NUM_OF_QUESTION_OPTIONS,
+  MAX_NUM_OF_QUESTION_OPTIONS,
   QUESTION_INPUT_MIN_LENGTH,
   QUESTION_INPUT_MAX_LENGTH,
   QUESTION_MAX_NUM_OF_CATEGORIES,
@@ -28,7 +28,10 @@ const getQuestionMocks = (users: IUser[]) => {
       getRandNum(1, QUESTION_MAX_NUM_OF_CATEGORIES)
     )
 
-    const numOfAnswers = getRandNum(MIN_NUM_OF_ANSWERS, MAX_NUM_OF_ANSWERS)
+    const numOfAnswers = getRandNum(
+      MIN_NUM_OF_QUESTION_OPTIONS,
+      MAX_NUM_OF_QUESTION_OPTIONS
+    )
 
     const question = {
       creatorId: user._id,

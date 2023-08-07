@@ -1,7 +1,7 @@
 export const READ_QUESTIONS_MAX = 50
 export const READ_TOP_QUESTIONS_MAX = 50
-export const MIN_NUM_OF_ANSWERS = 2
-export const MAX_NUM_OF_ANSWERS = 10
+export const MIN_NUM_OF_QUESTION_OPTIONS = 2
+export const MAX_NUM_OF_QUESTION_OPTIONS = 10
 export const QUESTION_INPUT_MIN_LENGTH = 15
 export const QUESTION_INPUT_MAX_LENGTH = 100
 export const ANSWER_INPUT_MAX_LENGTH = 100

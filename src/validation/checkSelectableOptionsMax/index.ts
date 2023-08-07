@@ -1,4 +1,4 @@
-import { IQuestion, MAX_NUM_OF_ANSWERS } from 'atw-shared/utils/index'
+import { IQuestion, MAX_NUM_OF_QUESTION_OPTIONS } from 'atw-shared/utils/index'
 import dict from 'atw-shared/validation/dictionary'
 
 export default {
@@ -12,7 +12,7 @@ export default {
       },
     } = this as IQuestion
 
-    if (!min || max > MAX_NUM_OF_ANSWERS || max <= min || max > options.length) {
+    if (!min || max > MAX_NUM_OF_QUESTION_OPTIONS || max <= min || max > options.length) {
       return false
     }
 
