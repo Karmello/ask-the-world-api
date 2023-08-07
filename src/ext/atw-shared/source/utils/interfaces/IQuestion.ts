@@ -16,6 +16,7 @@ interface IQuestion {
     }
   }
   isRequestorFollowing?: boolean
+  requestorAnsweredAt?: number
   submittedTimes?: number
   answeredStats?: {
     all: {

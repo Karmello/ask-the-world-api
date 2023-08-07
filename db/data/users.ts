@@ -150,7 +150,7 @@ const basicUsers = [
   },
 ]
 
-const NUM_OF_DEFAULT_USERS = 0
+const NUM_OF_DEFAULT_USERS = 100
 
 const defaultUsers = (() => {
   const arr = [] as IUser[]

@@ -9,7 +9,7 @@ import { msInDay } from './_constants'
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]
 
-  const questionIndexes = getRandNums(0, questions.length - 1, 50)
+  const questionIndexes = getRandNums(0, questions.length - 1, 1200)
 
   times(questionIndexes.length, (i: number) => {
     const {
@@ -27,8 +27,8 @@ const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
         answererId: answerer._id,
         answeredAt: new Date(
           faker.date.between({
-            from: new Date(Date.now() - 4 * msInDay),
-            to: new Date(Date.now() - 1 * msInDay),
+            from: new Date(Date.now() - 995 * msInDay),
+            to: new Date(Date.now() - 5 * msInDay),
           })
         ).getTime(),
         selectedIndexes: (() => {

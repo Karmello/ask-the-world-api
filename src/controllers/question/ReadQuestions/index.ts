@@ -135,11 +135,11 @@ export default (app: Application) => {
               text: { $first: '$text' },
               options: { $first: '$options' },
               selectableOptions: { $first: '$selectableOptions' },
-              answeredAt: { $first: '$answers.answeredAt' },
+              requestorAnsweredAt: { $first: '$answers.answeredAt' },
             },
           },
-          { $sort: { 'answers.answeredAt': -1 } },
           { $project: { answers: 0 } },
+          { $sort: { requestorAnsweredAt: -1 } },
           {
             $facet: {
               meta: [{ $count: 'count' }],

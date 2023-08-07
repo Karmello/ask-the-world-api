@@ -19,7 +19,7 @@ import questionCategories from './question-categories'
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(100, () => {
+  times(1500, () => {
     const user = users[getRandNum(0, users.length - 1)]
 
     const categoriesIndexes = getRandNums(
@@ -37,8 +37,8 @@ const getQuestionMocks = (users: IUser[]) => {
       creatorId: user._id,
       createdAt: new Date(
         faker.date.between({
-          from: new Date(Date.now() - 15 * msInDay),
-          to: new Date(Date.now() - 5 * msInDay),
+          from: new Date(Date.now() - 1000 * msInDay),
+          to: new Date(Date.now() - 10 * msInDay),
         })
       ).getTime(),
       categories: (() => {
@@ -74,6 +74,13 @@ const getQuestionMocks = (users: IUser[]) => {
       })(),
     } as IQuestion
 
+    const terminatedAtDate = new Date(
+      faker.date.between({
+        from: new Date(question.createdAt + 1 * msInDay),
+        to: new Date(question.createdAt + 8 * msInDay),
+      })
+    )
+
     const terminatedAt = faker.helpers.arrayElement([
       null,
       null,
@@ -84,7 +91,7 @@ const getQuestionMocks = (users: IUser[]) => {
       null,
       null,
       null,
-      Date.now(),
+      terminatedAtDate.getTime(),
     ])
 
     if (terminatedAt) {
