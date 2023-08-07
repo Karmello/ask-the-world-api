@@ -21,11 +21,11 @@ export default (app: Application) => {
       }
 
       if (selectableOptions.exact !== undefined) {
-        delete req.body.numOfVotes.range
+        delete req.body.selectableOptions.range
       }
 
       if (selectableOptions.range !== undefined) {
-        delete req.body.numOfVotes.exact
+        delete req.body.selectableOptions.exact
       }
 
       const newQuestion = new QuestionModel({
