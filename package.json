@@ -11,9 +11,10 @@
     "typecheck": "tsc --noEmit",
     "test": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts --timeout 10000 --exit",
     "test-int": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register tests/index.ts --timeout 25000 --exit",
-    "db-run": "ts-node ./db/run.ts",
     "pull-shared": "git subtree pull --prefix src/ext/atw-shared https://$PAT@github.com/Karmello/ask-the-world-shared.git main --squash",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "db": "ts-node ./db/run.ts",
+    "prod-to-staging": "mongodump --uri=$MONGO_URI_PROD"
   },
   "dependencies": {
     "@honeybadger-io/js": "^6.3.0",
