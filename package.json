@@ -17,7 +17,7 @@
     "prod-to-staging": "mongodump --uri=$MONGO_URI_PROD"
   },
   "dependencies": {
-    "@honeybadger-io/js": "^6.3.0",
+    "@honeybadger-io/js": "^6.4.0",
     "aws4": "^1.12.0",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
