@@ -23,9 +23,8 @@ import {
   checkSex,
 } from 'validation/index'
 
-import { DATE_FORMAT, IUser } from 'atw-shared/utils/index'
+import { DATE_FORMAT, IUser, ValidationErrorCode } from 'atw-shared/utils/index'
 import { IUserDoc, ModelName, SALT_ROUNDS } from 'utils/index'
-import dict from 'atw-shared/validation/dictionary'
 
 const { model, Schema } = mongoose
 
@@ -93,7 +92,7 @@ const userSchema = new Schema(
   }
 )
 
-userSchema.plugin(uniqueValidator, { message: dict.alreadyTakenMsg })
+userSchema.plugin(uniqueValidator, { message: ValidationErrorCode.AlreadyTaken })
 
 userSchema.methods = {
   toJSON() {

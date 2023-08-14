@@ -1,7 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import validationDict from 'atw-shared/validation/dictionary'
-import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import { ApiUrlPath, X_AUTH_TOKEN, ValidationErrorCode } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -29,7 +28,7 @@ export default (app: Application) => {
               res.status(400).send({
                 valErr: {
                   currentPassword: {
-                    message: validationDict.incorrectPassword,
+                    message: ValidationErrorCode.IncorrectPassword,
                   },
                 },
               })

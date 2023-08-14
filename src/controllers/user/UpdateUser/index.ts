@@ -20,7 +20,7 @@ export default (app: Application) => {
         .exec()
         .then((doc: IUserDoc) => {
           if (!doc)
-            res.status(404).send({
+            return res.status(404).send({
               msg: msgs.NO_SUCH_USER,
             })
 

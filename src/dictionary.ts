@@ -10,6 +10,7 @@ const dict = {
     emailConfirmed: 'Your email address has been confirmed. You can close this window.',
     emailAlreadyConfirmed: 'Email already confirmed.',
     somethingWentWrong: 'Something went wrong.',
+    passwordRecovered: 'Your password has been reset.',
   },
   [Lang.PL]: {
     accountActivationLink: 'Link aktywacyjny',
@@ -20,6 +21,7 @@ const dict = {
     emailConfirmed: 'Twój email został potwierdzony. Możesz zamknąć to okno.',
     emailAlreadyConfirmed: 'Twój email został już wcześniej potwierdzony.',
     somethingWentWrong: 'Nie udało się wykonać żądania.',
+    passwordRecovered: 'Twoje hasło zostało zresetowane.',
   },
 }
 
