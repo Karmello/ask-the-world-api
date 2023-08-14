@@ -6,6 +6,7 @@ import {
   AppEnv,
   ValidationErrorCode,
 } from 'atw-shared/utils/index'
+
 import { IUserDoc } from 'utils/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -34,12 +35,12 @@ export default (app: Application) => {
         }
 
         if (doc) {
-          const token = getFreshAuthToken(doc, true)
+          const token = getFreshAuthToken(doc, false, true)
 
           const link =
             (FE_URL || `${req.protocol}${req.hostname}`) +
             '/api' +
-            ApiUrlPath.UserActivate +
+            ApiUrlPath.UserRecover +
             `?${X_AUTH_TOKEN}=` +
             token +
             `&lang=${lang}`
@@ -47,19 +48,19 @@ export default (app: Application) => {
           if (APP_ENV === AppEnv.Test) {
             res.setHeader(X_AUTH_TOKEN, token)
             return res.status(200).send({
-              msg: msgs.ACTIVATION_LINK_SENT,
+              msg: msgs.RECOVERY_LINK_SENT,
             })
           }
 
           sendMail({
             to: doc.email,
-            subject: dict[lang].accountActivationLink,
+            subject: dict[lang].passwordRecoveryLink,
             link,
           }).then(
             () => {
               if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
               res.status(200).send({
-                msg: msgs.ACTIVATION_LINK_SENT,
+                msg: msgs.RECOVERY_LINK_SENT,
               })
             },
             () => {

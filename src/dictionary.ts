@@ -4,6 +4,7 @@ const dict = {
   [Lang.EN]: {
     accountActivationLink: 'Account activation link',
     accountDeactivationLink: 'Account deactivation link',
+    passwordRecoveryLink: 'Password recovery link',
     accountDeactivatedMsg:
       'Your account has been completely deactivated. You can close this window.',
     noSuchUser: 'No such user.',
@@ -15,6 +16,7 @@ const dict = {
   [Lang.PL]: {
     accountActivationLink: 'Link aktywacyjny',
     accountDeactivationLink: 'Link deaktywacyjny',
+    passwordRecoveryLink: 'Link do zresetowania hasła',
     accountDeactivatedMsg:
       'Twoje konto zostało właśnie całkowicie usunięte. Możesz zamknąć to okno.',
     noSuchUser: 'Nie ma takiego użytkownika.',

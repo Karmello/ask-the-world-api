@@ -41,6 +41,10 @@ export default {
     code: AppMsgCode.DeactivationLinkSent,
     type: AppMsgType.Info,
   },
+  [AppMsgCode.RecoveryLinkSent]: {
+    code: AppMsgCode.RecoveryLinkSent,
+    type: AppMsgType.Info,
+  },
   [AppMsgCode.PasswordUpdated]: {
     code: AppMsgCode.PasswordUpdated,
     type: AppMsgType.Success,

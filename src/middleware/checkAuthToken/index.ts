@@ -30,6 +30,15 @@ const routesConfig = [
     auth: true,
   },
   {
+    path: ApiUrlPath.UserRecoveryLink,
+    methods: [HttpMethod.Post],
+  },
+  {
+    path: ApiUrlPath.UserRecover,
+    methods: [HttpMethod.Get],
+    recoverMailToken: true,
+  },
+  {
     path: ApiUrlPath.Answer,
     methods: [HttpMethod.Post, HttpMethod.Put],
     auth: true,
@@ -77,6 +86,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     route &&
     ((route.auth && !req.decoded) ||
       (route.activateMailToken && !req.decoded.isActivateMailToken) ||
+      (route.recoverMailToken && !req.decoded.isRecoverMailToken) ||
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
