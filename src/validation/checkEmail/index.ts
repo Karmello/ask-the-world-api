@@ -1,8 +1,8 @@
-import dict from 'shared/validation/dictionary'
-import { isValidEmail } from 'shared/validation/index'
+import { ValidationErrorCode } from 'atw-shared/utils'
+import { isEmailValid } from 'atw-shared/validation/index'
 
 export default {
   type: 'checkEmail',
-  message: dict.invalidMsg,
-  validator: (value: string) => isValidEmail(value),
+  message: ValidationErrorCode.Invalid,
+  validator: (value: string) => isEmailValid(value),
 }

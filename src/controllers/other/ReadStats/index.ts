@@ -1,35 +1,30 @@
 import { Application, Request, Response } from 'express'
-import get from 'lodash/get'
 
-import { userAuthMiddleware } from 'middleware/index'
-import { ApiUrlPath } from 'shared/utils/index'
-import { UserModel, QuestionModel } from 'models/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
+import { UserModel, QuestionModel, AnswerModel } from 'models/index'
+import msgs from 'utils/msgs'
 
-export default (app: Application) =>
-  app.get(ApiUrlPath.ReadStats, userAuthMiddleware, (req: Request, res: Response) => {
-    //
+export default (app: Application) => {
+  app.get(ApiUrlPath.Stats, (req: Request, res: Response) => {
     Promise.all([
-      UserModel.countDocuments(),
+      UserModel.countDocuments({ 'config.confirmed': true }),
       QuestionModel.countDocuments(),
-      QuestionModel.aggregate([
-        {
-          $group: {
-            _id: null,
-            answers: {
-              $sum: '$answeredTimes',
-            },
-          },
-        },
-      ]),
+      AnswerModel.countDocuments(),
     ]).then(
-      results =>
+      results => {
         res.status(200).send({
           count: {
             users: results[0],
             questions: results[1],
-            answers: get(results, '[2][0].answers', 0),
+            answers: results[2],
           },
-        }),
-      err => res.status(400).send(err)
+        })
+      },
+      () => {
+        res.status(400).send({
+          msgs: msgs.SOMETHING_WENT_WRONG,
+        })
+      }
     )
   })
+}

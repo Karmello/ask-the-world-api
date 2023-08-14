@@ -1,8 +1,8 @@
-import dict from 'shared/validation/dictionary'
-import { isStringNotTooLong } from 'shared/validation/index'
+import { ValidationErrorCode } from 'atw-shared/utils'
+import { isStringTooLong } from 'atw-shared/validation/index'
 
 export default (max: number) => ({
   type: 'checkMaxLength',
-  message: dict.getMaxLengthMsg(max),
-  validator: (value: string) => isStringNotTooLong(value, max),
+  message: ValidationErrorCode.MaxLength,
+  validator: (value: string) => !isStringTooLong(value, max),
 })

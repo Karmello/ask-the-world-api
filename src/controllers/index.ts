@@ -1,35 +1,77 @@
 import { Application } from 'express'
-import swaggerUi from 'swagger-ui-express'
 
-import { Env } from 'shared/utils/index'
-import { ReadStats } from './other/index'
-import { AuthenticateUser, RegisterUser, ReadUser, UpdateUser, UpdatePassword } from './user/index'
-import { CreateQuestion, ReadQuestions, UpdateQuestion, DeleteQuestion } from './question/index'
+import {
+  AuthenticateUser,
+  RegisterUser,
+  ReadTopUsers,
+  ReadUser,
+  UpdateUser,
+  UpdatePassword,
+  RecoverPassword,
+} from './user/index'
 
-import swaggerDocument from './../swagger.json'
+import {
+  ActivateUser,
+  DeactivateUser,
+  GetActivationLink,
+  GetDeactivationLink,
+  MakePayment,
+} from './account/index'
 
-const { APP_ENV } = process.env
+import {
+  CreateQuestion,
+  DeleteQuestion,
+  ReadQuestion,
+  ReadQuestionCategories,
+  ReadQuestions,
+  ReadQuestionsIds,
+  UpdateQuestion,
+} from './question/index'
+
+import { CreateAnswer, UpdateAnswer } from './answer/index'
+import { CreateFollow, DeleteFollow } from './follow/index'
+import { CreateReport } from './report/index'
+import { ReadStats, ReadCountries, ReadInfo } from './other/index'
 
 const registerControllers = (app: Application) => {
-  //
-  ReadStats(app)
-
+  // user
+  ActivateUser(app)
   AuthenticateUser(app)
-  RegisterUser(app)
+  DeactivateUser(app)
+  GetActivationLink(app)
+  GetDeactivationLink(app)
+  MakePayment(app)
+  ReadTopUsers(app)
   ReadUser(app)
-  UpdateUser(app)
+  RegisterUser(app)
   UpdatePassword(app)
+  RecoverPassword(app)
+  UpdateUser(app)
 
+  // question
   CreateQuestion(app)
-  ReadQuestions(app)
-  UpdateQuestion(app)
   DeleteQuestion(app)
+  ReadQuestion(app)
+  ReadQuestionCategories(app)
+  ReadQuestions(app)
+  ReadQuestionsIds(app)
+  UpdateQuestion(app)
 
-  app.get('/status', (req, res) => res.status(200).send('OK'))
+  // answer
+  CreateAnswer(app)
+  UpdateAnswer(app)
 
-  if (APP_ENV !== Env.Prod) {
-    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-  }
+  // follow
+  CreateFollow(app)
+  DeleteFollow(app)
+
+  // report
+  CreateReport(app)
+
+  // other
+  ReadStats(app)
+  ReadInfo(app)
+  ReadCountries(app)
 }
 
 export default registerControllers

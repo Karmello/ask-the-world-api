@@ -1,8 +1,6 @@
-import { Document, Model } from 'mongoose'
-import { IQuestion } from 'shared/utils/index'
+import { Document } from 'mongoose'
+import { IQuestion } from 'atw-shared/utils/index'
 
-export interface IQuestionDoc extends IQuestion, Document {}
-
-export interface IQuestionModel extends Model<IQuestionDoc> {
-  transformBeforeSend(data: IQuestion[] | IQuestion, userId?: string): IQuestion[]
+export interface IQuestionDoc extends IQuestion, Document {
+  _id: string
 }

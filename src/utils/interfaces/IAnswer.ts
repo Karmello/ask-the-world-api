@@ -1,6 +1,6 @@
-import { Document, Model } from 'mongoose'
-import { IAnswer } from 'shared/utils/index'
+import { Document } from 'mongoose'
+import { IAnswer } from 'atw-shared/utils/index'
 
-export interface IAnswerDoc extends IAnswer, Document {}
-
-export interface IAnswerModel extends Model<IAnswerDoc> {}
+export interface IAnswerDoc extends IAnswer, Document {
+  _id: string
+}

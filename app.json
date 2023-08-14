@@ -1,0 +1,9 @@
+{
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "./ci/run_tests.sh"
+      }
+    }
+  }
+}

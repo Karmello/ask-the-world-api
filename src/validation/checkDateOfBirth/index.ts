@@ -1,8 +1,16 @@
-import dict from 'shared/validation/dictionary'
-import { isDateSameOrBefore } from 'shared/validation/index'
+import { ValidationErrorCode } from 'atw-shared/utils'
 
-export default (maxDate: string) => ({
+import {
+  isDateLowerOrEqualMax,
+  isDateGreaterOrEqualMin,
+} from 'atw-shared/validation/index'
+
+export default (minDate: string, maxDate: string) => ({
   type: 'checkDateOfBirth',
-  message: dict.incorrectMsg,
-  validator: (value: string) => isDateSameOrBefore(value, maxDate),
+  message: ValidationErrorCode.Incorrect,
+  validator: (value: string) => {
+    return (
+      isDateGreaterOrEqualMin(value, minDate) && isDateLowerOrEqualMax(value, maxDate)
+    )
+  },
 })

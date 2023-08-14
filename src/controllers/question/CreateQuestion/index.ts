@@ -1,30 +1,54 @@
 import { Application, Request, Response } from 'express'
-import moment from 'moment/moment'
 
-import { userAuthMiddleware } from 'middleware/index'
-import { ApiUrlPath, IAnswer } from 'shared/utils/index'
+import { ApiUrlPath, IQuestion } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
+import msgs from 'utils/msgs'
 
-export default (app: Application) =>
-  //
-  app.post(ApiUrlPath.CreateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
-    //
-    try {
+export default (app: Application) => {
+  app.post(
+    ApiUrlPath.Question,
+    readAuthToken,
+    checkAuthToken,
+    (req: Request, res: Response) => {
+      const creatorId = req.decoded._id
+      const { categories, text, options, selectableOptions } = req.body as IQuestion
+
+      if (!selectableOptions.exact && !selectableOptions.range) {
+        return res.status(400).send({
+          msg: msgs.SOMETHING_WENT_WRONG,
+        })
+      }
+
+      if (selectableOptions.exact !== undefined) {
+        delete req.body.selectableOptions.range
+      }
+
+      if (selectableOptions.range !== undefined) {
+        delete req.body.selectableOptions.exact
+      }
+
       const newQuestion = new QuestionModel({
-        userId: req.decoded._id,
-        timestamp: moment().unix() * 1000,
-        text: req.body.text,
-        answers: req.body.answers.map(({ text }: IAnswer) => ({ text, votes: [] as any })),
-        options: req.body.options,
+        creatorId,
+        categories,
+        text,
+        options,
+        selectableOptions,
       })
 
       newQuestion
         .save()
-        .then(doc =>
-          res.status(201).send(QuestionModel.transformBeforeSend(doc.toObject(), req.decoded._id))
+        .then(savedQuestion =>
+          res.status(201).send({
+            question: savedQuestion.toObject(),
+            msg: msgs.QUESTION_CREATED,
+          })
         )
-        .catch(err => res.status(400).send(err))
-    } catch (ex) {
-      res.status(400).send(ex.message)
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
     }
-  })
+  )
+}

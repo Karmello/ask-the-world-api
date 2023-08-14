@@ -1,1 +1,2 @@
-export { default as userAuthMiddleware } from './userAuthentication/index'
+export { default as readAuthToken } from './readAuthToken/index'
+export { default as checkAuthToken } from './checkAuthToken/index'

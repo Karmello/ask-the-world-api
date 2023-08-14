@@ -1,8 +1,8 @@
-import dict from 'shared/validation/dictionary'
-import { isStringNotTooShort } from 'shared/validation/index'
+import { ValidationErrorCode } from 'atw-shared/utils'
+import { isStringTooShort } from 'atw-shared/validation/index'
 
 export default (min: number) => ({
   type: 'checkMinLength',
-  message: dict.getMinLengthMsg(min),
-  validator: (value: string) => isStringNotTooShort(value, min),
+  message: ValidationErrorCode.MinLength,
+  validator: (value: string) => !isStringTooShort(value, min),
 })

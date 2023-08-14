@@ -1,42 +1,41 @@
 import { Application, Request, Response } from 'express'
-import isArray from 'lodash/isArray'
-import isEmpty from 'lodash/isEmpty'
 
-import { userAuthMiddleware } from 'middleware/index'
-import { ApiUrlPath } from 'shared/utils/index'
-import { IQuestionDoc } from 'utils/index'
+import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
+import msgs from 'utils/msgs'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
 
-export default (app: Application) =>
-  app.put(ApiUrlPath.UpdateQuestion, userAuthMiddleware, (req: Request, res: Response) => {
-    //
-    const { questionId } = req.query
-
-    QuestionModel.findOne({ _id: questionId }, (err, doc: IQuestionDoc) => {
-      //
-      if (err) return res.status(400).send(err)
-      if (!doc) return res.status(404).send()
-
-      try {
-        if (isArray(req.body) && !isEmpty(req.body)) {
-          if (doc.answers.some(a => a.votes.includes(req.decoded._id))) {
-            return res.status(403).send()
-          }
-          req.body.forEach((i: number) => doc.answers[i].votes.push(req.decoded._id))
-        } else {
-          return res.status(400).send()
+export default (app: Application) => {
+  app.put(
+    ApiUrlPath.Question,
+    readAuthToken,
+    checkAuthToken,
+    (req: Request, res: Response) => {
+      QuestionModel.findOneAndUpdate(
+        {
+          _id: req.query._id,
+          creatorId: req.decoded._id,
+        },
+        {
+          terminatedAt: Date.now(),
         }
-
-        doc
-          .save()
-          .then(_doc =>
-            res
-              .status(200)
-              .send(QuestionModel.transformBeforeSend(_doc.toObject(), req.decoded._id))
-          )
-          .catch(_err => res.status(400).send(_err))
-      } catch (ex) {
-        return res.status(400).send(ex.message)
-      }
-    })
-  })
+      )
+        .then(doc => {
+          if (!doc) {
+            res.status(400).send({
+              msg: msgs.SOMETHING_WENT_WRONG,
+            })
+          } else {
+            res.status(200).send({
+              msg: msgs.QUESTION_TERMINATED,
+            })
+          }
+        })
+        .catch(() => {
+          res.status(400).send({
+            msg: msgs.SOMETHING_WENT_WRONG,
+          })
+        })
+    }
+  )
+}
