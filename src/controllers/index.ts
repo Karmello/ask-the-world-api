@@ -7,7 +7,6 @@ import {
   ReadUser,
   UpdateUser,
   UpdatePassword,
-  RecoverPassword,
 } from './user/index'
 
 import {
@@ -45,7 +44,6 @@ const registerControllers = (app: Application) => {
   ReadUser(app)
   RegisterUser(app)
   UpdatePassword(app)
-  RecoverPassword(app)
   UpdateUser(app)
 
   // question
