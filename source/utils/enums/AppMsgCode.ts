@@ -2,6 +2,7 @@ enum AppMsgCode {
   // account
   ActivationLinkSent = 'ACTIVATION_LINK_SENT',
   DeactivationLinkSent = 'DEACTIVATION_LINK_SENT',
+  RecoveryLinkSent = 'RECOVERY_LINK_SENT',
   EmailConfirmed = 'EMAIL_CONFIRMED',
   AccountRemoved = 'ACCOUNT_REMOVED',
   EmailAlreadyConfirmed = 'EMAIL_ALREADY_CONFIRMED',
