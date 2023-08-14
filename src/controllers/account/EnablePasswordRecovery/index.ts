@@ -23,8 +23,8 @@ export default (app: Application) => {
           req.app
             .get('io')
             .sockets.in('email:' + doc.email)
-            .emit(SocketEvent.AppReload)
-          res.status(200).send(dict[lang].emailConfirmed)
+            .emit(SocketEvent.EnablePasswordRecoveryField)
+          res.status(200).send(dict[lang].enterNewPassword)
         })
         .catch(err => {
           notifyHoneybadger(req, {

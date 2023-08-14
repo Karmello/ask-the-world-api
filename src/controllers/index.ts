@@ -15,6 +15,7 @@ import {
   GetActivationLink,
   GetDeactivationLink,
   GetRecoveryLink,
+  RecoverPassword,
   MakePayment,
 } from './account/index'
 
@@ -41,6 +42,7 @@ const registerControllers = (app: Application) => {
   GetActivationLink(app)
   GetDeactivationLink(app)
   GetRecoveryLink(app)
+  RecoverPassword(app)
   MakePayment(app)
   ReadTopUsers(app)
   ReadUser(app)

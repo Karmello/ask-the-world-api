@@ -12,6 +12,8 @@ const dict = {
     emailAlreadyConfirmed: 'Email already confirmed.',
     somethingWentWrong: 'Something went wrong.',
     passwordRecovered: 'Your password has been reset.',
+    enterNewPassword:
+      'You can now close this window, go back to the app and enter your new password.',
   },
   [Lang.PL]: {
     accountActivationLink: 'Link aktywacyjny',
@@ -24,6 +26,8 @@ const dict = {
     emailAlreadyConfirmed: 'Twój email został już wcześniej potwierdzony.',
     somethingWentWrong: 'Nie udało się wykonać żądania.',
     passwordRecovered: 'Twoje hasło zostało zresetowane.',
+    enterNewPassword:
+      'Możesz zamknąć to okno, wrócić do aplikacji i wprowadzić swoje nowe hasło.',
   },
 }
 
