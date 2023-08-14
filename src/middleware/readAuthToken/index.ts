@@ -9,7 +9,8 @@ type TDecoded = {
   _id: string
   confirmed: boolean
   payment: boolean
-  isMailToken?: boolean
+  isActivateMailToken?: boolean
+  isRecoverMailToken?: boolean
 }
 
 export default (req: Request, res: Response, next: NextFunction) => {

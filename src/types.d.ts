@@ -7,7 +7,8 @@ declare module 'express' {
       _id: string
       confirmed: boolean
       payment: boolean
-      isMailToken?: boolean
+      isActivateMailToken?: boolean
+      isRecoverMailToken?: boolean
     }
   }
 }

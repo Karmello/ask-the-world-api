@@ -11,13 +11,13 @@ const routesConfig = [
     path: ApiUrlPath.UserActivate,
     methods: [HttpMethod.Get],
     auth: true,
-    mailToken: true,
+    activateMailToken: true,
   },
   {
     path: ApiUrlPath.UserDeactivate,
     methods: [HttpMethod.Get],
     auth: true,
-    mailToken: true,
+    activateMailToken: true,
   },
   {
     path: ApiUrlPath.UserActivationLink,
@@ -76,7 +76,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   if (
     route &&
     ((route.auth && !req.decoded) ||
-      (route.mailToken && !req.decoded.isMailToken) ||
+      (route.activateMailToken && !req.decoded.isActivateMailToken) ||
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
