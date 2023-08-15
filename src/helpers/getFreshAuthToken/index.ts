@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
 
-import { X_AUTH_TOKEN_EXPIRES_IN, IUser } from 'atw-shared/utils/index'
+import {
+  X_AUTH_TOKEN_EXPIRES_IN,
+  X_AUTH_TOKEN_SHORT_EXPIRES_IN,
+  IUser,
+} from 'atw-shared/utils/index'
 
 export default (
   user: IUser,
@@ -17,7 +21,10 @@ export default (
     },
     process.env.AUTH_SECRET,
     {
-      expiresIn: X_AUTH_TOKEN_EXPIRES_IN,
+      expiresIn:
+        isActivateMailToken || isRecoverMailToken
+          ? X_AUTH_TOKEN_SHORT_EXPIRES_IN
+          : X_AUTH_TOKEN_EXPIRES_IN,
     }
   )
 
