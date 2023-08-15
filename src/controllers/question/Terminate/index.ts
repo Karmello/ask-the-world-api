@@ -7,7 +7,7 @@ import { readAuthToken, checkAuthToken } from 'middleware/index'
 
 export default (app: Application) => {
   app.put(
-    ApiUrlPath.UpdateQuestion,
+    ApiUrlPath.TerminateQuestion,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {

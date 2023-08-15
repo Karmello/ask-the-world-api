@@ -22,9 +22,12 @@ enum ApiUrlPath {
   DeleteQuestion = '/question/delete',
   GetQuestion = '/question',
   GetQuestionCategories = '/question/categories',
+  TerminateQuestion = '/question/terminate',
+
+  // questions
   GetQuestions = '/questions',
   GetRandomQuestions = '/questions/random',
-  UpdateQuestion = '/question/update',
+  GetTopQuestions = '/questions/top',
 
   // answer
   CreateAnswer = '/answer/create',
