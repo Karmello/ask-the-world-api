@@ -1,8 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const { APP_LANG = 'EN' } = process.env
-
 module.exports = {
   name: 'bundle',
   target: 'node',
@@ -39,7 +37,6 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.BUILD_TIMESTAMP': JSON.stringify(Date.now()),
-      'process.env.APP_LANG': JSON.stringify(APP_LANG),
     }),
   ],
   externals: {
@@ -49,6 +46,6 @@ module.exports = {
     aws4: 'aws4',
     snappy: 'snappy',
     kerberos: 'kerberos',
-    'bson-ext': 'bson-ext'
+    'bson-ext': 'bson-ext',
   },
 }

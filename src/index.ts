@@ -16,7 +16,6 @@ import setup from './setup/index'
 const {
   NODE_ENV,
   APP_ENV,
-  APP_LANG,
   PORT,
   MONGO_URI,
   MONGO_INITDB_ROOT_USERNAME,
@@ -45,7 +44,6 @@ mongoose
           {
             NODE_ENV,
             APP_ENV,
-            APP_LANG,
             MONGO_URI,
             FE_URL,
             FULL_ACCOUNT_PAYMENT_REQUIRED,
