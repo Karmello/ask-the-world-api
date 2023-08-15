@@ -32,13 +32,13 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: true,
+      required: [true, ValidationErrorCode.Required],
       unique: true,
       validate: [checkEmail, checkMaxLength(EMAIL_MAX_LENGTH)],
     },
     username: {
       type: String,
-      required: true,
+      required: [true, ValidationErrorCode.Required],
       unique: true,
       validate: [
         checkCredentialChars(),
@@ -48,7 +48,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, ValidationErrorCode.Required],
       validate: [
         checkCredentialChars(true),
         checkMinLength(PASSWORD_MIN_LENGTH),
@@ -57,7 +57,7 @@ const userSchema = new Schema(
     },
     dateOfBirth: {
       type: String,
-      required: true,
+      required: [true, ValidationErrorCode.Required],
       validate: [
         checkDateFormat,
         checkDateOfBirth(USER_MIN_DATE_OF_BIRTH, format(new Date(), DATE_FORMAT)),
