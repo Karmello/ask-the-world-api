@@ -7,16 +7,18 @@ type Options = {
 }
 
 const notifyHoneybadger = (req: Request, options: Options): void => {
-  Honeybadger.notify({
-    name: options.name,
-    message: JSON.stringify({
-      requestId: req.id,
-      method: req.method,
-      path: req.path,
-      decoded: req.decoded || null,
-      ...(options.message || {}),
-    }),
-  })
+  if (process.env.NODE_ENV !== 'test') {
+    Honeybadger.notify({
+      name: options.name,
+      message: JSON.stringify({
+        requestId: req.id,
+        method: req.method,
+        path: req.path,
+        decoded: req.decoded || null,
+        ...(options.message || {}),
+      }),
+    })
+  }
 }
 
 export default notifyHoneybadger

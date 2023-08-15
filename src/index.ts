@@ -40,6 +40,7 @@ mongoose
           {
             NODE_ENV,
             MONGO_URI,
+            MONGO_URI_TEST,
             FE_URL,
             FULL_ACCOUNT_PAYMENT_REQUIRED,
             HONEYBADGER_API_KEY,

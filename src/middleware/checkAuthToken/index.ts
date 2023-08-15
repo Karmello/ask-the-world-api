@@ -107,11 +107,9 @@ export default (req: Request, res: Response, next: NextFunction) => {
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
-    if (process.env.NODE_ENV === 'production') {
-      notifyHoneybadger(req, {
-        name: msgs.ILLEGAL_ACTION.code,
-      })
-    }
+    notifyHoneybadger(req, {
+      name: msgs.ILLEGAL_ACTION.code,
+    })
 
     res.status(403).send({
       msg: msgs.ILLEGAL_ACTION,
