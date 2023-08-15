@@ -27,7 +27,6 @@ enum ApiUrlPath {
   // questions
   GetQuestions = '/questions',
   GetRandomQuestions = '/questions/random',
-  GetTopQuestions = '/questions/top',
 
   // answer
   CreateAnswer = '/answer/create',

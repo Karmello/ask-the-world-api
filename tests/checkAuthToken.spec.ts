@@ -97,10 +97,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block UpdateQuestion', done => {
+    it('should block TerminateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.UpdateQuestion)
+        .put(ApiUrlPath.TerminateQuestion)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
@@ -252,10 +252,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block UpdateQuestion', done => {
+    it('should block TerminateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.UpdateQuestion)
+        .put(ApiUrlPath.TerminateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -327,10 +327,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block UpdateQuestion', done => {
+    it('should block TerminateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.UpdateQuestion)
+        .put(ApiUrlPath.TerminateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
