@@ -40,7 +40,7 @@ export default (app: Application) => {
           const link =
             (FE_URL || `${req.protocol}${req.hostname}`) +
             '/api' +
-            ApiUrlPath.UserRecover +
+            ApiUrlPath.UserEnableRecovery +
             `?${X_AUTH_TOKEN}=` +
             token +
             `&lang=${lang}`

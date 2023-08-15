@@ -7,7 +7,8 @@ enum ApiUrlPath {
   UserDeactivate = '/user/deactivate',
   UserAuthenticate = '/user/authenticate',
   UserRecoveryLink = '/user/recovery-link',
-  UserRecover = '/user/recover',
+  UserEnableRecovery = '/user/enable-recovery',
+  UserRecoverPassword = '/user/password/recover',
   UserPassword = '/user/password',
   UserPayment = '/user/payment',
   // users

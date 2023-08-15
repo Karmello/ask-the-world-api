@@ -7,6 +7,7 @@ import {
   ReadUser,
   UpdateUser,
   UpdatePassword,
+  RecoverPassword,
 } from './user/index'
 
 import {
@@ -15,7 +16,7 @@ import {
   GetActivationLink,
   GetDeactivationLink,
   GetRecoveryLink,
-  RecoverPassword,
+  EnablePasswordRecovery,
   MakePayment,
 } from './account/index'
 
@@ -35,15 +36,18 @@ import { CreateReport } from './report/index'
 import { ReadStats, ReadCountries, ReadInfo } from './other/index'
 
 const registerControllers = (app: Application) => {
-  // user
+  // account
   ActivateUser(app)
-  AuthenticateUser(app)
   DeactivateUser(app)
+  EnablePasswordRecovery(app)
   GetActivationLink(app)
   GetDeactivationLink(app)
   GetRecoveryLink(app)
-  RecoverPassword(app)
   MakePayment(app)
+
+  // user
+  AuthenticateUser(app)
+  RecoverPassword(app)
   ReadTopUsers(app)
   ReadUser(app)
   RegisterUser(app)

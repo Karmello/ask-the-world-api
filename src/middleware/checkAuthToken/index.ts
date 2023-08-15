@@ -34,8 +34,15 @@ const routesConfig = [
     methods: [HttpMethod.Post],
   },
   {
-    path: ApiUrlPath.UserRecover,
+    path: ApiUrlPath.UserEnableRecovery,
     methods: [HttpMethod.Get],
+    auth: true,
+    recoverMailToken: true,
+  },
+  {
+    path: ApiUrlPath.UserRecoverPassword,
+    methods: [HttpMethod.Put],
+    auth: true,
     recoverMailToken: true,
   },
   {
