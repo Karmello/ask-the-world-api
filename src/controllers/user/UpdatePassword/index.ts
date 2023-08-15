@@ -9,7 +9,7 @@ import msgs from 'utils/msgs'
 
 export default (app: Application) => {
   app.put(
-    ApiUrlPath.UserPassword,
+    ApiUrlPath.UpdatePassword,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {

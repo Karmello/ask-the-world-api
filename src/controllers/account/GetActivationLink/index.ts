@@ -13,7 +13,7 @@ const { APP_ENV, FE_URL } = process.env
 
 export default (app: Application) => {
   app.get(
-    ApiUrlPath.UserActivationLink,
+    ApiUrlPath.GetActivationLink,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ export default (app: Application) => {
             const link =
               (FE_URL || `${req.protocol}${req.hostname}`) +
               '/api' +
-              ApiUrlPath.UserActivate +
+              ApiUrlPath.ActivateAccount +
               `?${X_AUTH_TOKEN}=` +
               token +
               `&lang=${lang}`

@@ -17,7 +17,7 @@ import msgs from 'utils/msgs'
 const { APP_ENV, FE_URL } = process.env
 
 export default (app: Application) => {
-  app.post(ApiUrlPath.UserRecoveryLink, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.GetRecoveryLink, (req: Request, res: Response) => {
     const lang = req.get('language')
 
     const { email } = req.body
@@ -40,7 +40,7 @@ export default (app: Application) => {
           const link =
             (FE_URL || `${req.protocol}${req.hostname}`) +
             '/api' +
-            ApiUrlPath.UserEnableRecovery +
+            ApiUrlPath.EnablePasswordRecovery +
             `?${X_AUTH_TOKEN}=` +
             token +
             `&lang=${lang}`

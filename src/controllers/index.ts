@@ -1,44 +1,44 @@
 import { Application } from 'express'
 
 import {
-  AuthenticateUser,
-  RegisterUser,
-  ReadTopUsers,
-  ReadUser,
-  UpdateUser,
-  UpdatePassword,
-  RecoverPassword,
-} from './user/index'
-
-import {
-  ActivateUser,
-  DeactivateUser,
+  ActivateAccount,
+  DeactivateAccount,
+  EnablePasswordRecovery,
   GetActivationLink,
   GetDeactivationLink,
   GetRecoveryLink,
-  EnablePasswordRecovery,
   MakePayment,
 } from './account/index'
 
 import {
+  AuthenticateUser,
+  GetUser,
+  GetTopUsers,
+  RecoverPassword,
+  RegisterUser,
+  UpdateUser,
+  UpdatePassword,
+} from './user/index'
+
+import {
   CreateQuestion,
   DeleteQuestion,
-  ReadQuestion,
-  ReadQuestionCategories,
-  ReadQuestions,
-  ReadQuestionsIds,
+  GetQuestion,
+  GetQuestionCategories,
   UpdateQuestion,
 } from './question/index'
+
+import { GetQuestions, GetRandomQuestions } from './questions/index'
 
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
-import { ReadStats, ReadCountries, ReadInfo } from './other/index'
+import { GetCountries, GetInfo, GetStats } from './other/index'
 
 const registerControllers = (app: Application) => {
   // account
-  ActivateUser(app)
-  DeactivateUser(app)
+  ActivateAccount(app)
+  DeactivateAccount(app)
   EnablePasswordRecovery(app)
   GetActivationLink(app)
   GetDeactivationLink(app)
@@ -47,21 +47,23 @@ const registerControllers = (app: Application) => {
 
   // user
   AuthenticateUser(app)
+  GetUser(app)
+  GetTopUsers(app)
   RecoverPassword(app)
-  ReadTopUsers(app)
-  ReadUser(app)
   RegisterUser(app)
-  UpdatePassword(app)
   UpdateUser(app)
+  UpdatePassword(app)
 
   // question
   CreateQuestion(app)
   DeleteQuestion(app)
-  ReadQuestion(app)
-  ReadQuestionCategories(app)
-  ReadQuestions(app)
-  ReadQuestionsIds(app)
+  GetQuestion(app)
+  GetQuestionCategories(app)
   UpdateQuestion(app)
+
+  // questions
+  GetQuestions(app)
+  GetRandomQuestions(app)
 
   // answer
   CreateAnswer(app)
@@ -75,9 +77,9 @@ const registerControllers = (app: Application) => {
   CreateReport(app)
 
   // other
-  ReadStats(app)
-  ReadInfo(app)
-  ReadCountries(app)
+  GetCountries(app)
+  GetInfo(app)
+  GetStats(app)
 }
 
 export default registerControllers

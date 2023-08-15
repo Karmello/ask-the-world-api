@@ -7,150 +7,150 @@ import { api, chai, expect } from './'
 
 describe('checkAuthToken middleware', () => {
   describe('no token', () => {
-    it('should block GET/UserActivate ', done => {
+    it('should block ActivateAccount ', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserActivate)
+        .get(ApiUrlPath.ActivateAccount)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block GET/UserDeactivate', done => {
+    it('should block DeactivateAccount', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserDeactivate)
+        .get(ApiUrlPath.DeactivateAccount)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block GET/UserActivationLink', done => {
+    it('should block GetActivationLink', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserActivationLink)
+        .get(ApiUrlPath.GetActivationLink)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block GET/UserDeactivationLink', done => {
+    it('should block GetDeactivationLink', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserDeactivationLink)
+        .get(ApiUrlPath.GetDeactivationLink)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block POST/Answer', done => {
+    it('should block CreateAnswer', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Answer)
+        .post(ApiUrlPath.CreateAnswer)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block PUT/Answer', done => {
+    it('should block UpdateAnswer', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.Answer)
+        .put(ApiUrlPath.UpdateAnswer)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block POST/Follow', done => {
+    it('should block CreateFollow', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Follow)
+        .post(ApiUrlPath.CreateFollow)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block DELETE/Follow', done => {
+    it('should block DeleteFollow', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Follow)
+        .delete(ApiUrlPath.DeleteFollow)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block POST/Question', done => {
+    it('should block CreateQuestion', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Question)
+        .post(ApiUrlPath.CreateQuestion)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block PUT/Question', done => {
+    it('should block UpdateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.Question)
+        .put(ApiUrlPath.UpdateQuestion)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block DELETE/Question', done => {
+    it('should block DeleteQuestion', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Question)
+        .delete(ApiUrlPath.DeleteQuestion)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block POST/Report', done => {
+    it('should block CreateReport', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Report)
+        .post(ApiUrlPath.CreateReport)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block GET/User', done => {
+    it('should block GetUser', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.User)
+        .get(ApiUrlPath.GetUser)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block PUT/User', done => {
+    it('should block UpdateUser', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.User)
+        .put(ApiUrlPath.UpdateUser)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
           done()
         })
     })
-    it('should block PUT/UserPassword', done => {
+    it('should block UpdatePassword', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.UserPassword)
+        .put(ApiUrlPath.UpdatePassword)
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.body).to.eql({ msg: msgs.ILLEGAL_ACTION })
@@ -166,10 +166,10 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block GET/UserActivate', done => {
+    it('should block ActivateAccount', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserActivate)
+        .get(ApiUrlPath.ActivateAccount)
         .set(X_AUTH_TOKEN, notMailToken)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -177,10 +177,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block GET/UserDeactivate', done => {
+    it('should block DeactivateAccount', done => {
       chai
         .request(api)
-        .get(ApiUrlPath.UserDeactivate)
+        .get(ApiUrlPath.DeactivateAccount)
         .set(X_AUTH_TOKEN, notMailToken)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -197,10 +197,10 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block POST/Answer', done => {
+    it('should block CreateAnswer', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Answer)
+        .post(ApiUrlPath.CreateAnswer)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -208,10 +208,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block PUT/Answer', done => {
+    it('should block UpdateAnswer', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.Answer)
+        .put(ApiUrlPath.UpdateAnswer)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -219,10 +219,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block POST/Follow', done => {
+    it('should block CreateFollow', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Follow)
+        .post(ApiUrlPath.CreateFollow)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -230,10 +230,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block DELETE/Follow', done => {
+    it('should block DeleteFollow', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Follow)
+        .delete(ApiUrlPath.DeleteFollow)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -241,10 +241,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block POST/Question', done => {
+    it('should block CreateQuestion', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Question)
+        .post(ApiUrlPath.CreateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -252,10 +252,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block PUT/Question', done => {
+    it('should block UpdateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.Question)
+        .put(ApiUrlPath.UpdateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -263,10 +263,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block DELETE/Question', done => {
+    it('should block DeleteQuestion', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Question)
+        .delete(ApiUrlPath.DeleteQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -274,10 +274,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block POST/Report', done => {
+    it('should block CreateReport', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Report)
+        .post(ApiUrlPath.CreateReport)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -294,10 +294,10 @@ describe('checkAuthToken middleware', () => {
       },
     } as unknown as IUser)
 
-    it('should block POST/Follow', done => {
+    it('should block CreateFollow', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Follow)
+        .post(ApiUrlPath.CreateFollow)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -305,10 +305,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block DELETE/Follow', done => {
+    it('should block DeleteFollow', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Follow)
+        .delete(ApiUrlPath.DeleteFollow)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -316,10 +316,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block POST/Question', done => {
+    it('should block CreateQuestion', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Question)
+        .post(ApiUrlPath.CreateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -327,10 +327,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block PUT/Question', done => {
+    it('should block UpdateQuestion', done => {
       chai
         .request(api)
-        .put(ApiUrlPath.Question)
+        .put(ApiUrlPath.UpdateQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -338,10 +338,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block DELETE/Question', done => {
+    it('should block DeleteQuestion', done => {
       chai
         .request(api)
-        .delete(ApiUrlPath.Question)
+        .delete(ApiUrlPath.DeleteQuestion)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -349,10 +349,10 @@ describe('checkAuthToken middleware', () => {
           done()
         })
     })
-    it('should block POST/Report', done => {
+    it('should block CreateReport', done => {
       chai
         .request(api)
-        .post(ApiUrlPath.Report)
+        .post(ApiUrlPath.CreateReport)
         .set(X_AUTH_TOKEN, token)
         .end((err, res) => {
           expect(res.status).to.eql(403)

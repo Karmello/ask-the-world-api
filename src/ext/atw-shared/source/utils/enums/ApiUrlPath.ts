@@ -1,35 +1,46 @@
 enum ApiUrlPath {
+  // account
+  ActivateAccount = '/account/activate',
+  DeactivateAccount = '/account/deactivate',
+  EnablePasswordRecovery = '/account/password-recovery',
+  GetActivationLink = '/account/activation-link',
+  GetDeactivationLink = '/account/deactivation-link',
+  GetRecoveryLink = '/account/recovery-link',
+  MakePayment = '/account/payment',
+
   // user
-  User = '/user',
-  UserActivationLink = '/user/activation-link',
-  UserDeactivationLink = '/user/deactivation-link',
-  UserActivate = '/user/activate',
-  UserDeactivate = '/user/deactivate',
-  UserAuthenticate = '/user/authenticate',
-  UserRecoveryLink = '/user/recovery-link',
-  UserEnableRecovery = '/user/enable-recovery',
-  UserRecoverPassword = '/user/password/recover',
-  UserPassword = '/user/password',
-  UserPayment = '/user/payment',
-  // users
-  UsersTop = '/users/top',
+  AuthenticateUser = '/user/authenticate',
+  GetTopUsers = '/users/top',
+  GetUser = '/user',
+  RecoverPassword = '/user/password/recover',
+  RegisterUser = '/user/register',
+  UpdatePassword = '/user/password/update',
+  UpdateUser = '/user/update',
+
   // question
-  Question = '/question',
-  QuestionCategories = '/question/categories',
-  Questions = '/questions',
-  QuestionsRandom = '/questions/random',
+  CreateQuestion = '/question/create',
+  DeleteQuestion = '/question/delete',
+  GetQuestion = '/question',
+  GetQuestionCategories = '/question/categories',
+  GetQuestions = '/questions',
+  GetRandomQuestions = '/questions/random',
+  UpdateQuestion = '/question/update',
+
   // answer
-  Answer = '/answer',
+  CreateAnswer = '/answer/create',
+  UpdateAnswer = '/answer/update',
+
   // follow
-  Follow = '/follow',
+  CreateFollow = '/follow/create',
+  DeleteFollow = '/follow/delete',
+
   // report
-  Report = '/report',
+  CreateReport = '/report/create',
+
   // other
-  Stats = '/stats',
-  Countries = '/countries',
-  // utils
-  Info = '/',
-  Logs = '/logs',
+  GetCountries = '/countries',
+  GetInfo = '/',
+  GetStats = '/stats',
 }
 
 export default ApiUrlPath

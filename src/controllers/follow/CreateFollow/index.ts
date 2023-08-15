@@ -7,7 +7,7 @@ import { readAuthToken, checkAuthToken } from 'middleware/index'
 
 export default (app: Application) => {
   app.post(
-    ApiUrlPath.Follow,
+    ApiUrlPath.CreateFollow,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {

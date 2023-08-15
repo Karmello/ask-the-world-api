@@ -1,5 +1,5 @@
-export { default as ActivateUser } from './ActivateUser/index'
-export { default as DeactivateUser } from './DeactivateUser/index'
+export { default as ActivateAccount } from './Activate/index'
+export { default as DeactivateAccount } from './Deactivate/index'
 export { default as EnablePasswordRecovery } from './EnablePasswordRecovery/index'
 export { default as GetActivationLink } from './GetActivationLink/index'
 export { default as GetDeactivationLink } from './GetDeactivationLink/index'

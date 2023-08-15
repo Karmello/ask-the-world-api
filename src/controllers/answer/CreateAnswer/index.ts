@@ -8,7 +8,7 @@ import { checkSelectedIndexes } from 'validation/index'
 
 export default (app: Application) => {
   app.post(
-    ApiUrlPath.Answer,
+    ApiUrlPath.CreateAnswer,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {

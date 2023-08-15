@@ -7,7 +7,7 @@ import { readAuthToken, checkAuthToken } from 'middleware/index'
 
 export default (app: Application) => {
   app.post(
-    ApiUrlPath.Report,
+    ApiUrlPath.CreateReport,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {

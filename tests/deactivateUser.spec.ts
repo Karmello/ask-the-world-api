@@ -64,7 +64,7 @@ describe('deactivateUser', () => {
   it('should authenticate', done => {
     chai
       .request(api)
-      .post(ApiUrlPath.UserAuthenticate)
+      .post(ApiUrlPath.AuthenticateUser)
       .send({ username, password: 'cocacola100' })
       .end((err, res) => {
         authToken = res.header[X_AUTH_TOKEN]
@@ -77,7 +77,7 @@ describe('deactivateUser', () => {
   it('should get deactivation token', done => {
     chai
       .request(api)
-      .get(ApiUrlPath.UserDeactivationLink)
+      .get(ApiUrlPath.GetDeactivationLink)
       .set(X_AUTH_TOKEN, authToken)
       .end((err, res) => {
         mailToken = res.header[X_AUTH_TOKEN]
@@ -90,7 +90,7 @@ describe('deactivateUser', () => {
   it('should deactivate', done => {
     chai
       .request(api)
-      .get(ApiUrlPath.UserDeactivate)
+      .get(ApiUrlPath.DeactivateAccount)
       .set(X_AUTH_TOKEN, mailToken)
       .end(err => {
         expect(err).to.eql(null)

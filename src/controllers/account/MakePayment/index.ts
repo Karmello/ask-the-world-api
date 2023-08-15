@@ -7,7 +7,7 @@ import { UserModel } from 'models/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
-  app.post(ApiUrlPath.UserPayment, (req: Request, res: Response) => {
+  app.post(ApiUrlPath.MakePayment, (req: Request, res: Response) => {
     if (get(req, 'body.type', '') !== 'charge.succeeded') {
       return res.status(403).send(msgs.ILLEGAL_ACTION)
     }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { ApiUrlPath, HttpMethod, AppEnv } from 'atw-shared/utils'
+import { ApiUrlPath, AppEnv } from 'atw-shared/utils'
 import msgs from 'utils/msgs'
 import { notifyHoneybadger } from 'helpers/index'
 
@@ -8,86 +8,98 @@ const { APP_ENV } = process.env
 
 const routesConfig = [
   {
-    path: ApiUrlPath.UserActivate,
-    methods: [HttpMethod.Get],
+    path: ApiUrlPath.ActivateAccount,
     auth: true,
     activateMailToken: true,
   },
   {
-    path: ApiUrlPath.UserDeactivate,
-    methods: [HttpMethod.Get],
+    path: ApiUrlPath.DeactivateAccount,
     auth: true,
     activateMailToken: true,
   },
   {
-    path: ApiUrlPath.UserActivationLink,
-    methods: [HttpMethod.Get],
+    path: ApiUrlPath.GetActivationLink,
     auth: true,
   },
   {
-    path: ApiUrlPath.UserDeactivationLink,
-    methods: [HttpMethod.Get],
+    path: ApiUrlPath.GetDeactivationLink,
     auth: true,
   },
   {
-    path: ApiUrlPath.UserRecoveryLink,
-    methods: [HttpMethod.Post],
+    path: ApiUrlPath.GetRecoveryLink,
   },
   {
-    path: ApiUrlPath.UserEnableRecovery,
-    methods: [HttpMethod.Get],
+    path: ApiUrlPath.EnablePasswordRecovery,
     auth: true,
     recoverMailToken: true,
   },
   {
-    path: ApiUrlPath.UserRecoverPassword,
-    methods: [HttpMethod.Put],
+    path: ApiUrlPath.RecoverPassword,
     auth: true,
     recoverMailToken: true,
   },
   {
-    path: ApiUrlPath.Answer,
-    methods: [HttpMethod.Post, HttpMethod.Put],
+    path: ApiUrlPath.CreateAnswer,
     auth: true,
     confirmed: true,
   },
   {
-    path: ApiUrlPath.Follow,
-    methods: [HttpMethod.Post, HttpMethod.Delete],
+    path: ApiUrlPath.UpdateAnswer,
     auth: true,
     confirmed: true,
-    paid: true,
   },
   {
-    path: ApiUrlPath.Question,
-    methods: [HttpMethod.Post, HttpMethod.Put, HttpMethod.Delete],
+    path: ApiUrlPath.CreateFollow,
     auth: true,
     confirmed: true,
     paid: true,
   },
   {
-    path: ApiUrlPath.Report,
-    methods: [HttpMethod.Post],
+    path: ApiUrlPath.DeleteFollow,
     auth: true,
     confirmed: true,
     paid: true,
   },
   {
-    path: ApiUrlPath.User,
-    methods: [HttpMethod.Get, HttpMethod.Put],
+    path: ApiUrlPath.CreateQuestion,
+    auth: true,
+    confirmed: true,
+    paid: true,
+  },
+  {
+    path: ApiUrlPath.UpdateQuestion,
+    auth: true,
+    confirmed: true,
+    paid: true,
+  },
+  {
+    path: ApiUrlPath.DeleteQuestion,
+    auth: true,
+    confirmed: true,
+    paid: true,
+  },
+  {
+    path: ApiUrlPath.CreateReport,
+    auth: true,
+    confirmed: true,
+    paid: true,
+  },
+  {
+    path: ApiUrlPath.GetUser,
     auth: true,
   },
   {
-    path: ApiUrlPath.UserPassword,
-    methods: [HttpMethod.Put],
+    path: ApiUrlPath.UpdateUser,
+    auth: true,
+  },
+  {
+    path: ApiUrlPath.UpdatePassword,
     auth: true,
   },
 ]
 
 export default (req: Request, res: Response, next: NextFunction) => {
-  const route = routesConfig.find(
-    r => r.path === req.path && r.methods.includes(req.method.toLowerCase() as HttpMethod)
-  )
+  const route = routesConfig.find(r => r.path === req.path)
 
   if (
     route &&

@@ -14,7 +14,7 @@ describe('activateUser', () => {
     const mailToken = getFreshAuthToken(user as never, true)
     chai
       .request(api)
-      .get(ApiUrlPath.UserActivate)
+      .get(ApiUrlPath.ActivateAccount)
       .set(X_AUTH_TOKEN, mailToken)
       .end((err, res) => {
         expect(res.status).to.eql(404)
@@ -29,7 +29,7 @@ describe('activateUser', () => {
       const mailToken = getFreshAuthToken(user as never, true)
       chai
         .request(api)
-        .get(ApiUrlPath.UserActivate)
+        .get(ApiUrlPath.ActivateAccount)
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(403)
@@ -46,7 +46,7 @@ describe('activateUser', () => {
       const mailToken = getFreshAuthToken(user as never, true)
       chai
         .request(api)
-        .get(ApiUrlPath.UserActivate)
+        .get(ApiUrlPath.ActivateAccount)
         .set(X_AUTH_TOKEN, mailToken)
         .end((err, res) => {
           expect(res.status).to.eql(200)

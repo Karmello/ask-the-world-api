@@ -12,7 +12,7 @@ const { APP_ENV, FE_URL } = process.env
 
 export default (app: Application) => {
   app.get(
-    ApiUrlPath.UserDeactivationLink,
+    ApiUrlPath.GetDeactivationLink,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
@@ -26,7 +26,7 @@ export default (app: Application) => {
             const link =
               (FE_URL || `${req.protocol}${req.hostname}`) +
               '/api' +
-              ApiUrlPath.UserDeactivate +
+              ApiUrlPath.DeactivateAccount +
               `?${X_AUTH_TOKEN}=` +
               token +
               `&lang=${lang}`

@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import { ApiUrlPath, SocketEvent, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { notifyHoneybadger } from 'helpers/index'
@@ -8,25 +8,35 @@ import dict from 'src/dictionary'
 
 export default (app: Application) => {
   app.get(
-    ApiUrlPath.EnablePasswordRecovery,
+    ApiUrlPath.ActivateAccount,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
       const lang = req.query.lang?.toString() || 'EN'
 
-      UserModel.findOne({ _id: req.decoded._id })
+      UserModel.findOneAndUpdate(
+        {
+          _id: req.decoded._id,
+        },
+        {
+          'config.confirmed': true,
+        },
+        {
+          runValidators: true,
+        }
+      )
         .then(doc => {
           if (!doc) {
-            return res.status(404).send(dict[lang].noSuchUser)
+            res.status(404).send(dict[lang].noSuchUser)
+          } else if (doc.config.confirmed) {
+            res.status(403).send(dict[lang].emailAlreadyConfirmed)
+          } else {
+            req.app
+              .get('io')
+              .sockets.in('user:' + doc._id.toString())
+              .emit(SocketEvent.AppReload)
+            res.status(200).send(dict[lang].emailConfirmed)
           }
-
-          const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
-
-          req.app
-            .get('io')
-            .sockets.in('email:' + doc.email)
-            .emit(SocketEvent.EnablePasswordRecoveryField, { token })
-          res.status(200).send(dict[lang].enterNewPassword)
         })
         .catch(err => {
           notifyHoneybadger(req, {
