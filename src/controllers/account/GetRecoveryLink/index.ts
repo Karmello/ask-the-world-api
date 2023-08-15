@@ -1,12 +1,6 @@
 import { Application, Request, Response } from 'express'
 
-import {
-  ApiUrlPath,
-  X_AUTH_TOKEN,
-  AppEnv,
-  ValidationErrorCode,
-} from 'atw-shared/utils/index'
-
+import { ApiUrlPath, X_AUTH_TOKEN, ValidationErrorCode } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { sendMail, getFreshAuthToken } from 'helpers/index'
 import { UserModel } from 'models/index'
@@ -14,7 +8,7 @@ import { UserModel } from 'models/index'
 import dict from 'src/dictionary'
 import msgs from 'utils/msgs'
 
-const { APP_ENV, FE_URL } = process.env
+const { NODE_ENV, FE_URL } = process.env
 
 export default (app: Application) => {
   app.post(ApiUrlPath.GetRecoveryLink, (req: Request, res: Response) => {
@@ -45,7 +39,7 @@ export default (app: Application) => {
             token +
             `&lang=${lang}`
 
-          if (APP_ENV === AppEnv.Test) {
+          if (NODE_ENV === 'test') {
             res.setHeader(X_AUTH_TOKEN, token)
             return res.status(200).send({
               msg: msgs.RECOVERY_LINK_SENT,
@@ -58,7 +52,7 @@ export default (app: Application) => {
             link,
           }).then(
             () => {
-              if (APP_ENV === AppEnv.Local) res.setHeader(X_AUTH_TOKEN, token)
+              if (NODE_ENV === 'development') res.setHeader(X_AUTH_TOKEN, token)
               res.status(200).send({
                 msg: msgs.RECOVERY_LINK_SENT,
               })

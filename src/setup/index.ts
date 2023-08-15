@@ -5,12 +5,12 @@ import helmet from 'helmet'
 import Honeybadger from '@honeybadger-io/js'
 import { v4 as uuidv4 } from 'uuid'
 
-import { AppEnv, X_AUTH_TOKEN } from 'atw-shared/utils/index'
+import { X_AUTH_TOKEN } from 'atw-shared/utils/index'
 
-const { NODE_ENV, APP_ENV, HONEYBADGER_API_KEY } = process.env
+const { NODE_ENV, HONEYBADGER_API_KEY } = process.env
 
 export default (app: Application) => {
-  if (NODE_ENV !== AppEnv.Test) app.use(morgan('dev'))
+  if (NODE_ENV !== 'test') app.use(morgan('dev'))
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
@@ -35,10 +35,8 @@ export default (app: Application) => {
     next()
   })
 
-  if (APP_ENV === AppEnv.Local) {
-    Honeybadger.configure({
-      apiKey: HONEYBADGER_API_KEY,
-      environment: APP_ENV,
-    })
-  }
+  Honeybadger.configure({
+    apiKey: HONEYBADGER_API_KEY,
+    environment: 'production',
+  })
 }

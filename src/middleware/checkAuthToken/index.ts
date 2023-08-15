@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { ApiUrlPath, AppEnv } from 'atw-shared/utils'
+import { ApiUrlPath } from 'atw-shared/utils'
 import msgs from 'utils/msgs'
 import { notifyHoneybadger } from 'helpers/index'
-
-const { APP_ENV } = process.env
 
 const routesConfig = [
   {
@@ -109,7 +107,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
-    if (APP_ENV !== AppEnv.Test) {
+    if (process.env.NODE_ENV === 'production') {
       notifyHoneybadger(req, {
         name: msgs.ILLEGAL_ACTION.code,
       })

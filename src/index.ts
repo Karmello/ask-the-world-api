@@ -1,10 +1,3 @@
-import { config as dotenvConfig } from 'dotenv'
-import { AppEnv } from 'atw-shared/utils/index'
-
-dotenvConfig({
-  path: process.env.NODE_ENV === AppEnv.Test ? 'env/.env.test' : 'env/.env',
-})
-
 import express, { Errback } from 'express'
 import mongoose from 'mongoose'
 import { createServer } from 'http'
@@ -15,9 +8,10 @@ import setup from './setup/index'
 
 const {
   NODE_ENV,
-  APP_ENV,
-  PORT,
+  API_PORT,
+  API_PORT_TEST,
   MONGO_URI,
+  MONGO_URI_TEST,
   MONGO_INITDB_ROOT_USERNAME,
   MONGO_INITDB_ROOT_PASSWORD,
   FE_URL,
@@ -25,13 +19,15 @@ const {
   HONEYBADGER_API_KEY,
 } = process.env
 
+const PORT = NODE_ENV === 'test' ? API_PORT_TEST : API_PORT || process.env.PORT
+
 const app = express()
 
 setup(app)
 registerControllers(app)
 
 mongoose
-  .connect(MONGO_URI, {
+  .connect(process.env.NODE_ENV === 'test' ? MONGO_URI_TEST : MONGO_URI, {
     user: MONGO_INITDB_ROOT_USERNAME,
     pass: MONGO_INITDB_ROOT_PASSWORD,
   })
@@ -43,7 +39,6 @@ mongoose
           `API listening on port ${PORT}`,
           {
             NODE_ENV,
-            APP_ENV,
             MONGO_URI,
             FE_URL,
             FULL_ACCOUNT_PAYMENT_REQUIRED,
