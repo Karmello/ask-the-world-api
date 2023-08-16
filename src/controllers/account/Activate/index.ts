@@ -31,10 +31,12 @@ export default (app: Application) => {
           } else if (doc.config.confirmed) {
             res.status(403).send(dict[lang].emailAlreadyConfirmed)
           } else {
-            req.app
-              .get('io')
-              .sockets.in('user:' + doc._id.toString())
-              .emit(SocketEvent.AppReload)
+            if (process.env.NODE_ENV !== 'test') {
+              req.app
+                .get('io')
+                .sockets.in('user:' + doc._id.toString())
+                .emit(SocketEvent.AppReload)
+            }
             res.status(200).send(dict[lang].emailConfirmed)
           }
         })
