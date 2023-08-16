@@ -3,8 +3,9 @@ import aws4 from 'aws4'
 import axios from 'axios'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
-import { readAuthToken, checkAuthToken } from 'middleware/index'
 import msgs from 'utils/msgs'
+import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { base64ToBuffer } from 'helpers/index'
 
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_URL } = process.env
 
@@ -16,9 +17,8 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
-      const { _id, data } = req.body
-
-      const url = `${AWS_BUCKET_URL}/users/${_id}/avatar.png`
+      const data = base64ToBuffer(req.body.data)
+      const url = `${AWS_BUCKET_URL}/users/${req.body._id}/avatar.png`
       const { hostname, pathname } = new URL(url)
 
       const signedRequest = aws4.sign(
