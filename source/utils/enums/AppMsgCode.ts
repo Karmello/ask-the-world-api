@@ -17,6 +17,7 @@ enum AppMsgCode {
   UserDetailsUpdated = 'USER_DETAILS_UPDATED',
   PasswordUpdated = 'PASSWORD_UPDATED',
   PasswordRecovered = 'PASSWORD_RECOVERED',
+  AvatarUpdated = 'AVATAR_UPDATED',
   // question
   NoSuchQuestion = 'NO_SUCH_QUESTION',
   QuestionCreated = 'QUESTION_CREATED',
