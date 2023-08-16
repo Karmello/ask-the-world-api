@@ -16,6 +16,7 @@ enum ApiUrlPath {
   RegisterUser = '/user/register',
   UpdatePassword = '/user/password/update',
   UpdateUser = '/user/update',
+  UpdateAvatar = 'user/avatar/update',
 
   // question
   CreateQuestion = '/question/create',
