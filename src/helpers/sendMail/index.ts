@@ -8,7 +8,6 @@ type TOptions = {
 
 export default (options: TOptions) =>
   new Promise((resolve, reject) => {
-    //
     const { EMAIL_USER, EMAIL_PASS } = process.env
 
     const transporter = nodemailer.createTransport({

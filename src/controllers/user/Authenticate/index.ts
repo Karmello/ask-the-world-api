@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
-import { getFreshAuthToken, notifyHoneybadger } from 'helpers/index'
+import { getFreshAuthToken, notifyHoneybadger, sendResponse } from 'helpers/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
@@ -48,7 +48,7 @@ export default (app: Application) => {
                 }
               })
             } else {
-              res.status(401).send({
+              sendResponse(req, res, 401, {
                 msg: msgs.AUTHENTICATION_FAILED,
               })
             }

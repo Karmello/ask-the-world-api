@@ -37,8 +37,7 @@ export default (app: Application) => {
             msg: msgs.AVATAR_UPDATED,
           })
         })
-        .catch(err => {
-          console.log(err)
+        .catch(() => {
           res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })
