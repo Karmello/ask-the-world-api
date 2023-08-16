@@ -4,7 +4,7 @@ import AppMsgType from '../enums/AppMsgType'
 type AppMsg = {
   code?: AppMsgCode
   type: AppMsgType
-  text: string
+  text?: string
 }
 
 export default AppMsg
