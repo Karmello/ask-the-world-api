@@ -43,13 +43,15 @@ export default (app: Application) => {
             }
           )
             .then(answer => {
-              req.app
-                .get('io')
-                .sockets.in('question:' + question._id.toString())
-                .emit('reanswer', {
-                  oldSelectedIndexes: answer.selectedIndexes,
-                  newSelectedIndexes: req.body,
-                })
+              if (process.env.NODE_ENV !== 'test') {
+                req.app
+                  .get('io')
+                  .sockets.in('question:' + question._id.toString())
+                  .emit('reanswer', {
+                    oldSelectedIndexes: answer.selectedIndexes,
+                    newSelectedIndexes: req.body,
+                  })
+              }
               res.status(200).send({
                 answer,
               })

@@ -36,10 +36,12 @@ export default (app: Application) => {
         doc
           .save()
           .then(() => {
-            req.app
-              .get('io')
-              .sockets.in('user:' + doc._id.toString())
-              .emit(SocketEvent.AppReload)
+            if (process.env.NODE_ENV !== 'test') {
+              req.app
+                .get('io')
+                .sockets.in('user:' + doc._id.toString())
+                .emit(SocketEvent.AppReload)
+            }
             res.status(200).send()
           })
           .catch(() => {

@@ -45,10 +45,12 @@ export default (app: Application) => {
                       deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
                     }
                   )
-                  req.app
-                    .get('io')
-                    .sockets.in('user:' + userId.toString())
-                    .emit(SocketEvent.Logout)
+                  if (process.env.NODE_ENV !== 'test') {
+                    req.app
+                      .get('io')
+                      .sockets.in('user:' + userId.toString())
+                      .emit(SocketEvent.Logout)
+                  }
                   res.status(200).send(dict[lang].accountDeactivatedMsg)
                 })
               })

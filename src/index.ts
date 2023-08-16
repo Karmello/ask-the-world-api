@@ -51,7 +51,7 @@ mongoose
 
       const server = createServer(app)
 
-      if (FE_URL) {
+      if (process.env.NODE_ENV !== 'test') {
         const io = new Server(server, {
           cors: {
             origin: FE_URL,
