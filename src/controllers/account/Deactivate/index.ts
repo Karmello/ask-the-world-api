@@ -51,14 +51,14 @@ export default (app: Application) => {
                 })
 
                 Promise.all(promises).then(async () => {
-                  const command = new DeleteObjectCommand({
-                    Bucket: AWS_BUCKET_NAME,
-                    Key: `users/${userId}/avatar.png`,
-                  })
-
-                  await client.send(command)
-
                   if (process.env.NODE_ENV !== 'test') {
+                    const command = new DeleteObjectCommand({
+                      Bucket: AWS_BUCKET_NAME,
+                      Key: `users/${userId}/avatar.png`,
+                    })
+
+                    await client.send(command)
+
                     req.app
                       .get('io')
                       .sockets.in('user:' + userId.toString())
