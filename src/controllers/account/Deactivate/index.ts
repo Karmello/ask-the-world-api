@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 
 import { ApiUrlPath, IQuestion, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import dict from 'src/dictionary'
+
 import {
   UserModel,
   QuestionModel,
@@ -10,12 +12,10 @@ import {
   FollowModel,
   ReportModel,
 } from 'models/index'
-import { deleteFromAws } from 'helpers/index'
-import dict from 'src/dictionary'
 
 const ObjectId = mongoose.Types.ObjectId
 
-const { AWS_BUCKET_URL } = process.env
+// const { AWS_BUCKET_URL } = process.env
 
 export default (app: Application) => {
   app.get(
@@ -40,11 +40,11 @@ export default (app: Application) => {
                   promises.push(ReportModel.deleteMany({ questionId: question._id }))
                 })
                 Promise.all(promises).then(() => {
-                  deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}/avatar.png`).then(
-                    () => {
-                      deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
-                    }
-                  )
+                  // deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}/avatar.png`).then(
+                  //   () => {
+                  //     deleteFromAws(`${AWS_BUCKET_URL}/users/${userId}`)
+                  //   }
+                  // )
                   if (process.env.NODE_ENV !== 'test') {
                     req.app
                       .get('io')
