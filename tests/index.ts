@@ -1,7 +1,7 @@
 import _chai, { should, expect as _expect } from 'chai'
 import chaiHttp from 'chai-http'
 
-import _api from './../src/index'
+import expressApp from './../src/index'
 
 import {
   UserModel,
@@ -14,23 +14,27 @@ import {
 _chai.use(should)
 _chai.use(chaiHttp)
 
-export const chai = _chai
-export const expect = _expect
-export const api = _api
-
-describe('\nAPI integration testing\n', () => {
+describe('API integration tests', () => {
   it('Server ready', done => {
-    setTimeout(() => {
-      UserModel.collection.deleteMany({})
-      QuestionModel.collection.deleteMany({})
-      AnswerModel.collection.deleteMany({})
-      FollowModel.collection.deleteMany({})
-      ReportModel.collection.deleteMany({})
-
-      require('./checkAuthToken.spec')
-      require('./activateUser.spec')
-      require('./deactivateUser.spec')
-      done()
-    }, 3000)
+    Promise.all([
+      UserModel.collection.deleteMany({}),
+      QuestionModel.collection.deleteMany({}),
+      AnswerModel.collection.deleteMany({}),
+      FollowModel.collection.deleteMany({}),
+      ReportModel.collection.deleteMany({}),
+    ])
+      .then(() => {
+        require('./checkAuthToken.spec')
+        require('./activateUser.spec')
+        require('./deactivateUser.spec')
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+      })
   })
 })
+
+export const chai = _chai
+export const expect = _expect
+export const api = expressApp
