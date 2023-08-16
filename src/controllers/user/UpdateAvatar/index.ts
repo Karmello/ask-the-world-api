@@ -9,6 +9,7 @@ import { base64ToBuffer } from 'helpers/index'
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_NAME } = process.env
 
 const client = new S3Client({
+  region: 'eu-central-1',
   credentials: {
     accessKeyId: AWS_ACCESS_KEY_ID,
     secretAccessKey: AWS_SECRET_ACCESS_KEY,
@@ -25,7 +26,7 @@ export default (app: Application) => {
 
       const command = new PutObjectCommand({
         Bucket: AWS_BUCKET_NAME,
-        Key: `/users/${req.body._id}/avatar.png`,
+        Key: `users/${req.body._id}/avatar.png`,
         Body: data,
       })
 
@@ -36,7 +37,8 @@ export default (app: Application) => {
             msg: msgs.AVATAR_UPDATED,
           })
         })
-        .catch(() => {
+        .catch(err => {
+          console.log(err)
           res.status(400).send({
             msg: msgs.SOMETHING_WENT_WRONG,
           })
