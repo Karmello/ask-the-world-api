@@ -42,3 +42,4 @@ jobs:
           EMAIL_PASS: ${{secrets.EMAIL_PASS}}
           MONGO_URI_TEST: ${{secrets.MONGO_URI_TEST}}
           API_PORT_TEST: ${{vars.API_PORT_TEST}}
+          FE_URL: ${{vars.FE_URL}}
