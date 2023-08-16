@@ -16,7 +16,9 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
-      const url = `${AWS_BUCKET_URL}/users/${req.decoded._id}/avatar.png`
+      const { _id, data } = req.body
+
+      const url = `${AWS_BUCKET_URL}/users/${_id}/avatar.png`
       const { hostname, pathname } = new URL(url)
 
       const signedRequest = aws4.sign(
@@ -29,7 +31,7 @@ export default (app: Application) => {
             'Content-Type': 'image/png',
             'x-amz-content-sha256': 'UNSIGNED-PAYLOAD',
           },
-          data: req.body.data,
+          data,
         },
         {
           accessKeyId: AWS_ACCESS_KEY_ID,
@@ -41,8 +43,10 @@ export default (app: Application) => {
       delete signedRequest.headers['Content-Length']
 
       axiosInstance(signedRequest)
-        .then(data => {
-          res.status(200).send({ data })
+        .then(() => {
+          res.status(200).send({
+            msg: msgs.AVATAR_UPDATED,
+          })
         })
         .catch(() => {
           res.status(400).send({

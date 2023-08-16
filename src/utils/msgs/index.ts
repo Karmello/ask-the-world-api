@@ -53,6 +53,10 @@ export default {
     code: AppMsgCode.PasswordRecovered,
     type: AppMsgType.Info,
   },
+  [AppMsgCode.AvatarUpdated]: {
+    code: AppMsgCode.AvatarUpdated,
+    type: AppMsgType.Success,
+  },
   [AppMsgCode.UserDetailsUpdated]: {
     code: AppMsgCode.UserDetailsUpdated,
     type: AppMsgType.Success,
