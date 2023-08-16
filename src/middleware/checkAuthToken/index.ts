@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils'
 import msgs from 'utils/msgs'
-import { notifyHoneybadger } from 'helpers/index'
+import { sendBadResponse } from 'helpers/index'
 
 const routesConfig = [
   {
@@ -112,13 +112,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
       (route.confirmed && !req.decoded.confirmed) ||
       (route.paid && !req.decoded.payment))
   ) {
-    notifyHoneybadger(req, {
-      name: msgs.ILLEGAL_ACTION.code,
-    })
-
-    res.status(403).send({
-      msg: msgs.ILLEGAL_ACTION,
-    })
+    sendBadResponse(req, res, 403, { msg: msgs.ILLEGAL_ACTION })
   } else {
     next()
   }

@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
@@ -20,10 +21,8 @@ export default (app: Application) => {
           },
         })
       },
-      () => {
-        res.status(400).send({
-          msgs: msgs.SOMETHING_WENT_WRONG,
-        })
+      err => {
+        sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
       }
     )
   })

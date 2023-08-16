@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { AnswerModel, QuestionModel } from 'models/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { checkSelectedIndexes } from 'validation/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
@@ -15,21 +16,17 @@ export default (app: Application) => {
       QuestionModel.findOne({ _id: req.query.questionId })
         .then(question => {
           if (!question) {
-            return res.status(400).send({
+            return sendBadResponse(req, res, 400, {
               msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
             })
           }
 
           if (!checkSelectedIndexes(req.body, question)) {
-            return res.status(400).send({
-              msg: msgs.SOMETHING_WENT_WRONG,
-            })
+            return sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
           }
 
           if (question.terminatedAt) {
-            return res.status(400).send({
-              msg: msgs.QUESTION_GOT_TERMINATED,
-            })
+            return sendBadResponse(req, res, 400, { msg: msgs.QUESTION_GOT_TERMINATED })
           }
 
           AnswerModel.findOneAndUpdate(
@@ -52,20 +49,20 @@ export default (app: Application) => {
                     newSelectedIndexes: req.body,
                   })
               }
-              res.status(200).send({
-                answer,
-              })
+              res.status(200).send({ answer })
             })
-            .catch(() => {
-              res.status(400).send({
-                msg: msgs.SOMETHING_WENT_WRONG,
-              })
+            .catch(err => {
+              sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
             })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
-          })
+        .catch(err => {
+          sendBadResponse(
+            req,
+            res,
+            400,
+            { msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED },
+            err
+          )
         })
     }
   )

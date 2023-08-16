@@ -14,35 +14,45 @@ describe('deactivateUser', () => {
 
   before(done => {
     Promise.all([
-      UserModel.collection.insertOne({
-        _id: userId,
-        email: 'username1@email.com',
-        username,
-        password: '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2',
-        dateOfBirth: '1995-02-15',
-        country: 'PL',
-        sex: 'M',
-        config: {
-          registeredAt: Date.now(),
-          confirmed: true,
-          payment: {},
-        },
-      }),
-      QuestionModel.collection.insertOne({
-        _id: questionId,
-        creatorId: userId,
-        text: 'Who is going to be a new President of the United States of America ?',
-        answers: ['Donald Trump', 'Joe Biden'],
-        numOfVotes: { exact: 1 },
-        isTerminated: false,
-      }),
-      AnswerModel.collection.insertOne({
-        questionId,
-        answererId: userId,
-        selectedIndexes: [0],
-      }),
+      UserModel.deleteMany({}),
+      QuestionModel.deleteMany({}),
+      AnswerModel.deleteMany({}),
     ]).then(() => {
-      done()
+      Promise.all([
+        UserModel.collection.insertOne({
+          _id: userId,
+          email: 'username1@email.com',
+          username,
+          password: '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2',
+          dateOfBirth: '1995-02-15',
+          country: 'PL',
+          sex: 'M',
+          config: {
+            registeredAt: Date.now(),
+            confirmed: true,
+            payment: {},
+          },
+        }),
+        QuestionModel.collection.insertOne({
+          _id: questionId,
+          creatorId: userId,
+          text: 'Who is going to be a new President of the United States of America ?',
+          answers: ['Donald Trump', 'Joe Biden'],
+          numOfVotes: { exact: 1 },
+          isTerminated: false,
+        }),
+        AnswerModel.collection.insertOne({
+          questionId,
+          answererId: userId,
+          selectedIndexes: [0],
+        }),
+      ])
+        .then(() => {
+          done()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     })
   })
 

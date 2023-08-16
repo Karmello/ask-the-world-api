@@ -34,7 +34,6 @@ describe('activateUser', () => {
         .end((err, res) => {
           expect(res.status).to.eql(403)
           expect(res.text).to.eql(dict.EN.emailAlreadyConfirmed)
-          UserModel.collection.deleteMany({})
           done()
         })
     })
@@ -42,18 +41,19 @@ describe('activateUser', () => {
 
   it('should responde with EMAIL_CONFIRMED', done => {
     const user = { _id, config: { confirmed: false } }
-    UserModel.collection.insertOne(user).then(() => {
-      const mailToken = getFreshAuthToken(user as never, true)
-      chai
-        .request(api)
-        .get(ApiUrlPath.ActivateAccount)
-        .set(X_AUTH_TOKEN, mailToken)
-        .end((err, res) => {
-          expect(res.status).to.eql(200)
-          expect(res.text).to.eql(dict.EN.emailConfirmed)
-          UserModel.collection.deleteMany({})
-          done()
-        })
+    UserModel.collection.deleteMany({}).then(() => {
+      UserModel.collection.insertOne(user).then(() => {
+        const mailToken = getFreshAuthToken(user as never, true)
+        chai
+          .request(api)
+          .get(ApiUrlPath.ActivateAccount)
+          .set(X_AUTH_TOKEN, mailToken)
+          .end((err, res) => {
+            expect(res.status).to.eql(200)
+            expect(res.text).to.eql(dict.EN.emailConfirmed)
+            done()
+          })
+      })
     })
   })
 })

@@ -4,26 +4,29 @@ import get from 'lodash/get'
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
 import { UserModel } from 'models/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
   app.post(ApiUrlPath.MakePayment, (req: Request, res: Response) => {
     if (get(req, 'body.type', '') !== 'charge.succeeded') {
-      return res.status(403).send(msgs.ILLEGAL_ACTION)
+      return sendBadResponse(req, res, 403, msgs.ILLEGAL_ACTION.code)
     }
 
     UserModel.findOne({ email: get(req, 'body.data.object.billing_details.email', '') })
       .select('-password')
       .exec()
       .then((doc: IUserDoc) => {
-        if (!doc) return res.status(404).send(msgs.NO_SUCH_USER)
+        if (!doc) {
+          return sendBadResponse(req, res, 404, msgs.NO_SUCH_USER.code)
+        }
 
         if (!doc.config.confirmed) {
-          return res.status(403).send(msgs.EMAIL_NOT_CONFIRMED)
+          return sendBadResponse(req, res, 403, msgs.EMAIL_NOT_CONFIRMED.code)
         }
 
         if (doc.config.payment) {
-          return res.status(400).send(msgs.PAYMENT_ALREADY_MADE)
+          return sendBadResponse(req, res, 400, msgs.PAYMENT_ALREADY_MADE.code)
         }
 
         doc.set({
@@ -44,12 +47,12 @@ export default (app: Application) => {
             }
             res.status(200).send()
           })
-          .catch(() => {
-            res.status(400).send(msgs.SOMETHING_WENT_WRONG)
+          .catch(err => {
+            sendBadResponse(req, res, 400, msgs.SOMETHING_WENT_WRONG.code, err)
           })
       })
-      .catch(() => {
-        res.status(400).send(msgs.SOMETHING_WENT_WRONG)
+      .catch(err => {
+        sendBadResponse(req, res, 400, msgs.SOMETHING_WENT_WRONG.code, err)
       })
   })
 }

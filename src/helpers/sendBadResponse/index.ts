@@ -4,10 +4,12 @@ import Honeybadger from '@honeybadger-io/js'
 import { AppMsg } from 'atw-shared/utils'
 import msgs from 'utils/msgs'
 
-type ResBody = {
-  msg?: AppMsg
-  valErr?: unknown
-}
+type ResBody =
+  | {
+      msg?: AppMsg
+      valErr?: unknown
+    }
+  | string
 
 type Message = {
   err?: unknown
@@ -52,7 +54,10 @@ const sendBadResponse = (
     }
 
     Honeybadger.notify({
-      name: resBody.msg?.code || msgs.SOMETHING_WENT_WRONG.code,
+      name:
+        typeof resBody === 'string' || !resBody.msg
+          ? msgs.SOMETHING_WENT_WRONG.code
+          : resBody.msg?.code,
       message: JSON.stringify(message),
     })
   }

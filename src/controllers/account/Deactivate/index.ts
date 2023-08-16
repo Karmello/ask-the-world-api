@@ -4,6 +4,7 @@ import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3'
 
 import { ApiUrlPath, IQuestion, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 import dict from 'src/dictionary'
 
 import {
@@ -68,15 +69,15 @@ export default (app: Application) => {
                   res.status(200).send(dict[lang].accountDeactivatedMsg)
                 })
               })
-              .catch(() => {
-                res.status(400).send(dict[lang].somethingWentWrong)
+              .catch(err => {
+                sendBadResponse(req, res, 400, dict[lang].somethingWentWrong, err)
               })
           } else {
-            res.status(404).send(dict[lang].noSuchUser)
+            sendBadResponse(req, res, 404, dict[lang].noSuchUser)
           }
         })
-        .catch(() => {
-          res.status(400).send(dict[lang].somethingWentWrong)
+        .catch(err => {
+          sendBadResponse(req, res, 400, dict[lang].somethingWentWrong, err)
         })
     }
   )

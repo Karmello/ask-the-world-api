@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 import { X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import msgs from 'utils/msgs'
-import { notifyHoneybadger } from 'helpers/index'
+import { sendBadResponse } from 'helpers/index'
 
 type TDecoded = {
   _id: string
@@ -22,16 +22,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.decoded = decoded
         next()
       } else {
-        notifyHoneybadger(req, {
-          name: err.name,
-          message: {
-            token,
-            err,
-          },
-        })
-        res.status(401).send({
-          msg: msgs.AUTHENTICATION_FAILED,
-        })
+        sendBadResponse(req, res, 401, { msg: msgs.AUTHENTICATION_FAILED }, err)
       }
     })
   } else {

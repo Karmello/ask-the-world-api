@@ -6,6 +6,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { getRandNums } from 'atw-shared/helpers/index'
 import { QuestionModel } from 'models/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 const ObjectId = mongoose.Types.ObjectId
@@ -43,8 +44,8 @@ export default (app: Application) => {
         {
           $project: { ids: true, _id: false },
         },
-      ]).then(
-        results => {
+      ])
+        .then(results => {
           const ids = results[0]?.ids || []
           const randomIndexes = getRandNums(
             0,
@@ -56,13 +57,10 @@ export default (app: Application) => {
             data.push(ids[randomIndexes[i]])
           })
           res.status(200).send({ data })
-        },
-        () => {
-          res.status(400).send({
-            msg: msgs.COULD_NOT_GET_DATA,
-          })
-        }
-      )
+        })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.COULD_NOT_GET_DATA }, err)
+        })
     }
   )
 }

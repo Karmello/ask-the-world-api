@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN, ValidationErrorCode } from 'atw-shared/utils/index'
 import { IUserDoc } from 'utils/index'
-import { sendMail, getFreshAuthToken } from 'helpers/index'
+import { sendMail, getFreshAuthToken, sendBadResponse } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 import dict from 'src/dictionary'
@@ -19,7 +19,7 @@ export default (app: Application) => {
     UserModel.findOne({ email })
       .then((doc: IUserDoc) => {
         if (!doc) {
-          return res.status(400).send({
+          return sendBadResponse(req, res, 400, {
             valErr: {
               email: {
                 message: ValidationErrorCode.NoSuchEmail,
@@ -57,18 +57,14 @@ export default (app: Application) => {
                 msg: msgs.RECOVERY_LINK_SENT,
               })
             },
-            () => {
-              res.status(400).send({
-                msg: msgs.SOMETHING_WENT_WRONG,
-              })
+            err => {
+              sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
             }
           )
         }
       })
-      .catch(() => {
-        res.status(400).send({
-          msg: msgs.SOMETHING_WENT_WRONG,
-        })
+      .catch(err => {
+        sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
       })
   })
 }

@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel, FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.post(
@@ -14,15 +15,13 @@ export default (app: Application) => {
       QuestionModel.findOne({ _id: req.query._id })
         .then(doc => {
           if (!doc) {
-            return res.status(400).send({
+            return sendBadResponse(req, res, 400, {
               msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
             })
           }
 
           if (doc.creatorId.toString() === req.decoded._id) {
-            res.status(400).send({
-              msg: msgs.SOMETHING_WENT_WRONG,
-            })
+            sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
           } else {
             const follow = new FollowModel({
               questionId: req.query._id,
@@ -38,21 +37,27 @@ export default (app: Application) => {
               })
               .catch(err => {
                 if (err.code === 11000) {
-                  return res.status(400).send({
-                    msg: msgs.QUESTION_ALREADY_FOLLOWED,
-                  })
+                  sendBadResponse(
+                    req,
+                    res,
+                    400,
+                    { msg: msgs.QUESTION_ALREADY_FOLLOWED },
+                    err
+                  )
                 } else {
-                  res.status(400).send({
-                    msg: msgs.SOMETHING_WENT_WRONG,
-                  })
+                  sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
                 }
               })
           }
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
-          })
+        .catch(err => {
+          sendBadResponse(
+            req,
+            res,
+            400,
+            { msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED },
+            err
+          )
         })
     }
   )

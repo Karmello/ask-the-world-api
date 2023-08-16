@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { ReportModel, QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.post(
@@ -16,7 +17,7 @@ export default (app: Application) => {
       QuestionModel.findOne({ _id: questionId })
         .then(doc => {
           if (!doc) {
-            return res.status(400).send({
+            return sendBadResponse(req, res, 400, {
               msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
             })
           }
@@ -38,22 +39,29 @@ export default (app: Application) => {
             }
           )
             .then(doc => {
-              console.log(doc)
               res.status(200).send({
                 report: doc,
                 msg: msgs.QUESTION_REPORTED,
               })
             })
-            .catch(() => {
-              res.status(400).send({
-                msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
-              })
+            .catch(err => {
+              sendBadResponse(
+                req,
+                res,
+                400,
+                { msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED },
+                err
+              )
             })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
-          })
+        .catch(err => {
+          sendBadResponse(
+            req,
+            res,
+            400,
+            { msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED },
+            err
+          )
         })
     }
   )

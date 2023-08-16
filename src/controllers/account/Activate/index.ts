@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { notifyHoneybadger } from 'helpers/index'
+import { sendBadResponse } from 'helpers/index'
 import dict from 'src/dictionary'
 
 export default (app: Application) => {
@@ -15,21 +15,15 @@ export default (app: Application) => {
       const lang = req.query.lang?.toString() || 'EN'
 
       UserModel.findOneAndUpdate(
-        {
-          _id: req.decoded._id,
-        },
-        {
-          'config.confirmed': true,
-        },
-        {
-          runValidators: true,
-        }
+        { _id: req.decoded._id },
+        { 'config.confirmed': true },
+        { runValidators: true }
       )
         .then(doc => {
           if (!doc) {
-            res.status(404).send(dict[lang].noSuchUser)
+            sendBadResponse(req, res, 404, dict[lang].noSuchUser)
           } else if (doc.config.confirmed) {
-            res.status(403).send(dict[lang].emailAlreadyConfirmed)
+            sendBadResponse(req, res, 403, dict[lang].emailAlreadyConfirmed)
           } else {
             if (process.env.NODE_ENV !== 'test') {
               req.app
@@ -41,13 +35,7 @@ export default (app: Application) => {
           }
         })
         .catch(err => {
-          notifyHoneybadger(req, {
-            name: err.name,
-            message: {
-              err,
-            },
-          })
-          res.status(400).send(dict[lang].somethingWentWrong)
+          sendBadResponse(req, res, 400, dict[lang].somethingWentWrong, err)
         })
     }
   )

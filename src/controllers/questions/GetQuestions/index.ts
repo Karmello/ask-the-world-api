@@ -12,6 +12,7 @@ import {
 
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { QuestionModel } from 'models/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 import checkRequest from './checkRequest'
@@ -196,20 +197,16 @@ export default (app: Application) => {
         ])
       }
 
-      aggregate.then(
-        results => {
+      aggregate
+        .then(results => {
           res.status(200).send({
             count: get(results[0], 'meta[0].count', 0),
             data: get(results[0], 'docs', []),
           })
-        },
-        err => {
-          console.log(err)
-          res.status(400).send({
-            msg: msgs.COULD_NOT_GET_DATA,
-          })
-        }
-      )
+        })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.COULD_NOT_GET_DATA }, err)
+        })
     }
   )
 }

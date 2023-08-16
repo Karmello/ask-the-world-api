@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, SocketEvent, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { notifyHoneybadger } from 'helpers/index'
+import { sendBadResponse } from 'helpers/index'
 import dict from 'src/dictionary'
 
 export default (app: Application) => {
@@ -17,7 +17,7 @@ export default (app: Application) => {
       UserModel.findOne({ _id: req.decoded._id })
         .then(doc => {
           if (!doc) {
-            return res.status(404).send(dict[lang].noSuchUser)
+            return sendBadResponse(req, res, 404, dict[lang].noSuchUser)
           }
 
           const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
@@ -29,13 +29,7 @@ export default (app: Application) => {
           res.status(200).send(dict[lang].enterNewPassword)
         })
         .catch(err => {
-          notifyHoneybadger(req, {
-            name: err.name,
-            message: {
-              err,
-            },
-          })
-          res.status(400).send(dict[lang].somethingWentWrong)
+          sendBadResponse(req, res, 400, dict[lang].somethingWentWrong, err)
         })
     }
   )
