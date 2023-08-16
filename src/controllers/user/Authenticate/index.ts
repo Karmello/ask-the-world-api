@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN } from 'atw-shared/utils/index'
-import { getFreshAuthToken, notifyHoneybadger, sendResponse } from 'helpers/index'
+import { getFreshAuthToken, sendBadResponse } from 'helpers/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
@@ -37,9 +37,7 @@ export default (app: Application) => {
             if (doc) {
               doc.comparePasswords(password, (err, isMatch) => {
                 if (err || !isMatch) {
-                  res.status(401).send({
-                    msg: msgs.AUTHENTICATION_FAILED,
-                  })
+                  sendBadResponse(req, res, 401, { msg: msgs.AUTHENTICATION_FAILED }, err)
                 } else {
                   res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(doc))
                   res.status(200).send({
@@ -48,7 +46,7 @@ export default (app: Application) => {
                 }
               })
             } else {
-              sendResponse(req, res, 401, {
+              sendBadResponse(req, res, 401, {
                 msg: msgs.AUTHENTICATION_FAILED,
               })
             }
@@ -59,22 +57,14 @@ export default (app: Application) => {
                 user: doc,
               })
             } else {
-              res.status(401).send({
+              sendBadResponse(req, res, 401, {
                 msg: msgs.AUTHENTICATION_FAILED,
               })
             }
           }
         })
         .catch(err => {
-          notifyHoneybadger(req, {
-            name: err.name,
-            message: {
-              err,
-            },
-          })
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+          sendBadResponse(req, res, 400, { msg: msgs.AUTHENTICATION_FAILED }, err)
         })
     }
   )

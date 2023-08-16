@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.put(
@@ -22,19 +23,15 @@ export default (app: Application) => {
       )
         .then(doc => {
           if (!doc) {
-            res.status(400).send({
-              msg: msgs.SOMETHING_WENT_WRONG,
-            })
+            sendBadResponse(req, res, 400, { msg: msgs.NO_SUCH_QUESTION })
           } else {
             res.status(200).send({
               msg: msgs.QUESTION_TERMINATED,
             })
           }
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

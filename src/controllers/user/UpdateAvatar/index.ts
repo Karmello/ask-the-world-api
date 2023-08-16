@@ -4,7 +4,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { ApiUrlPath } from 'atw-shared/utils/index'
 import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
-import { base64ToBuffer } from 'helpers/index'
+import { base64ToBuffer, sendBadResponse } from 'helpers/index'
 
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_NAME } = process.env
 
@@ -33,14 +33,10 @@ export default (app: Application) => {
       client
         .send(command)
         .then(() => {
-          res.status(200).send({
-            msg: msgs.AVATAR_UPDATED,
-          })
+          res.status(200).send({ msg: msgs.AVATAR_UPDATED })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

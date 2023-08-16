@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN, ValidationErrorCode } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
-import { getFreshAuthToken } from 'helpers/index'
+import { getFreshAuthToken, sendBadResponse } from 'helpers/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 import msgs from 'utils/msgs'
@@ -18,20 +18,25 @@ export default (app: Application) => {
       UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc)
-            return res.status(404).send({
-              msg: msgs.NO_SUCH_USER,
-            })
+          if (!doc) {
+            return sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
+          }
 
           doc.comparePasswords(currentPassword, (err, isMatch) => {
             if (err || !isMatch) {
-              res.status(400).send({
-                valErr: {
-                  currentPassword: {
-                    message: ValidationErrorCode.IncorrectPassword,
+              sendBadResponse(
+                req,
+                res,
+                400,
+                {
+                  valErr: {
+                    currentPassword: {
+                      message: ValidationErrorCode.IncorrectPassword,
+                    },
                   },
                 },
-              })
+                err
+              )
             } else {
               doc.set({ password: newPassword })
               doc
@@ -46,17 +51,13 @@ export default (app: Application) => {
                   })
                 })
                 .catch(err => {
-                  res.status(400).send({
-                    valErr: err,
-                  })
+                  sendBadResponse(req, res, 400, { valErr: err })
                 })
             }
           })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

@@ -5,6 +5,7 @@ import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
 import { IUserDoc } from 'utils/index'
 import msgs from 'utils/msgs'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.put(
@@ -17,10 +18,9 @@ export default (app: Application) => {
       UserModel.findOne({ _id: req.decoded._id })
         .exec()
         .then((doc: IUserDoc) => {
-          if (!doc)
-            return res.status(404).send({
-              msg: msgs.NO_SUCH_USER,
-            })
+          if (!doc) {
+            return sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
+          }
 
           doc.set({ password: newPassword })
           doc
@@ -31,15 +31,11 @@ export default (app: Application) => {
               })
             })
             .catch(err => {
-              res.status(400).send({
-                valErr: err,
-              })
+              sendBadResponse(req, res, 400, { valErr: err })
             })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

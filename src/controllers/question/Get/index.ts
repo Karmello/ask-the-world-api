@@ -5,6 +5,7 @@ import { IQuestionDoc } from 'utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { QuestionModel, AnswerModel, FollowModel } from 'models/index'
 import msgs from 'utils/msgs'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.get(
@@ -17,10 +18,11 @@ export default (app: Application) => {
 
       QuestionModel.findOne({ _id: questionId })
         .then((question: IQuestionDoc) => {
-          if (!question)
-            return res.status(400).send({
+          if (!question) {
+            return sendBadResponse(req, res, 400, {
               msg: msgs.QUESTION_MUST_HAVE_BEEN_DELETED,
             })
+          }
 
           if (!requestorId) {
             return res.status(200).send({
@@ -79,23 +81,23 @@ export default (app: Application) => {
                       ],
                     })
                   })
-                  .catch(() => {
-                    res.status(400).send({
-                      msg: msgs.SOMETHING_WENT_WRONG,
-                    })
+                  .catch(err => {
+                    sendBadResponse(
+                      req,
+                      res,
+                      400,
+                      { msg: msgs.SOMETHING_WENT_WRONG },
+                      err
+                    )
                   })
               }
             })
-            .catch(() => {
-              res.status(400).send({
-                msg: msgs.SOMETHING_WENT_WRONG,
-              })
+            .catch(err => {
+              sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
             })
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.NO_SUCH_QUESTION,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.NO_SUCH_QUESTION }, err)
         })
     }
   )

@@ -4,6 +4,7 @@ import { ApiUrlPath } from 'atw-shared/utils/index'
 import { QuestionModel, AnswerModel, FollowModel, ReportModel } from 'models/index'
 import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.delete(
@@ -24,21 +25,15 @@ export default (app: Application) => {
                   msg: msgs.QUESTION_DELETED,
                 })
               })
-              .catch(() => {
-                res.status(400).send({
-                  msg: msgs.SOMETHING_WENT_WRONG,
-                })
+              .catch(err => {
+                sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
               })
           } else {
-            res.status(400).send({
-              msg: msgs.SOMETHING_WENT_WRONG,
-            })
+            sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
           }
         })
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

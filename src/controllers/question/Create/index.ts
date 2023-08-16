@@ -3,6 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, IQuestion } from 'atw-shared/utils/index'
 import { QuestionModel } from 'models/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
@@ -15,9 +16,7 @@ export default (app: Application) => {
       const { categories, text, options, selectableOptions } = req.body as IQuestion
 
       if (!selectableOptions.exact && !selectableOptions.range) {
-        return res.status(400).send({
-          msg: msgs.SOMETHING_WENT_WRONG,
-        })
+        return sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
       }
 
       if (selectableOptions.exact !== undefined) {
@@ -44,10 +43,8 @@ export default (app: Application) => {
             msg: msgs.QUESTION_CREATED,
           })
         )
-        .catch(() => {
-          res.status(400).send({
-            msg: msgs.SOMETHING_WENT_WRONG,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG }, err)
         })
     }
   )

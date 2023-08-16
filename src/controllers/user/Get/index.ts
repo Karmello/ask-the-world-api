@@ -3,6 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, IUser } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel, QuestionModel, AnswerModel } from 'models/index'
+import { sendBadResponse } from 'helpers/index'
 import msgs from 'utils/msgs'
 
 export default (app: Application) => {
@@ -54,21 +55,15 @@ export default (app: Application) => {
                   })
                 }
               } else {
-                res.status(404).send({
-                  msg: msgs.NO_SUCH_USER,
-                })
+                sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
               }
             }
           } else {
-            res.status(404).send({
-              msg: msgs.NO_SUCH_USER,
-            })
+            sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
           }
         })
-        .catch(() => {
-          res.status(404).send({
-            msg: msgs.NO_SUCH_USER,
-          })
+        .catch(err => {
+          sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER }, err)
         })
     }
   )

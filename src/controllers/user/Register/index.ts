@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express'
 
 import { ApiUrlPath, X_AUTH_TOKEN, AccountStatus } from 'atw-shared/utils/index'
-import { getFreshAuthToken } from 'helpers/index'
+import { getFreshAuthToken, sendBadResponse } from 'helpers/index'
 import { UserModel } from 'models/index'
 
 export default (app: Application) => {
@@ -22,14 +22,10 @@ export default (app: Application) => {
       .save()
       .then(savedUser => {
         res.setHeader(X_AUTH_TOKEN, getFreshAuthToken(savedUser))
-        res.status(201).send({
-          user: savedUser,
-        })
+        res.status(201).send({ user: savedUser })
       })
       .catch(err => {
-        res.status(400).send({
-          valErr: err.errors,
-        })
+        sendBadResponse(req, res, 400, { valErr: err })
       })
   })
 }

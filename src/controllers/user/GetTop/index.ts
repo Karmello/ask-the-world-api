@@ -2,9 +2,10 @@ import { Application, Request, Response } from 'express'
 import get from 'lodash/get'
 
 import { ApiUrlPath } from 'atw-shared/utils/index'
+import msgs from 'utils/msgs'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import msgs from 'utils/msgs'
+import { sendBadResponse } from 'helpers/index'
 
 export default (app: Application) => {
   app.get(
@@ -57,19 +58,16 @@ export default (app: Application) => {
             docs: [{ $limit: 10 }],
           },
         },
-      ]).then(
-        results => {
+      ])
+        .then(results => {
           res.status(200).send({
             count: get(results[0], 'meta[0].count', 0),
             data: get(results[0], 'docs', []),
           })
-        },
-        () => {
-          res.status(400).send({
-            msg: msgs.COULD_NOT_GET_DATA,
-          })
-        }
-      )
+        })
+        .catch(err => {
+          sendBadResponse(req, res, 400, { msg: msgs.COULD_NOT_GET_DATA }, err)
+        })
     }
   )
 }

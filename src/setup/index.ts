@@ -38,7 +38,7 @@ export default (app: Application) => {
   if (NODE_ENV !== 'test') {
     Honeybadger.configure({
       apiKey: HONEYBADGER_API_KEY,
-      environment: 'production',
+      environment: NODE_ENV,
     })
   }
 }
