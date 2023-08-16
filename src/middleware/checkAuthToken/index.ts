@@ -94,6 +94,11 @@ const routesConfig = [
     path: ApiUrlPath.UpdatePassword,
     auth: true,
   },
+  {
+    path: ApiUrlPath.UpdateAvatar,
+    auth: true,
+    confirmed: true,
+  },
 ]
 
 export default (req: Request, res: Response, next: NextFunction) => {

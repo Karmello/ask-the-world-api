@@ -11,8 +11,8 @@ const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_URL } = process.env
 const axiosInstance = axios.create({ timeout: 25000 })
 
 export default (app: Application) => {
-  app.get(
-    ApiUrlPath.CreateFollow,
+  app.post(
+    ApiUrlPath.UpdateAvatar,
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
@@ -21,11 +21,15 @@ export default (app: Application) => {
 
       const signedRequest = aws4.sign(
         {
-          method: 'GET',
+          method: 'PUT',
           host: hostname,
           path: pathname,
           url,
-          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'image/png',
+            'x-amz-content-sha256': 'UNSIGNED-PAYLOAD',
+          },
+          data: req.body.data,
         },
         {
           accessKeyId: AWS_ACCESS_KEY_ID,

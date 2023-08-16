@@ -17,6 +17,7 @@ import {
   RecoverPassword,
   RegisterUser,
   UpdateUser,
+  UpdateUserAvatar,
   UpdatePassword,
 } from './user/index'
 
@@ -32,7 +33,6 @@ import { GetQuestions, GetRandomQuestions } from './questions/index'
 import { CreateAnswer, UpdateAnswer } from './answer/index'
 import { CreateFollow, DeleteFollow } from './follow/index'
 import { CreateReport } from './report/index'
-import { GetAvatar } from './aws/index'
 import { GetCountries, GetInfo, GetStats } from './other/index'
 
 const registerControllers = (app: Application) => {
@@ -52,6 +52,7 @@ const registerControllers = (app: Application) => {
   RecoverPassword(app)
   RegisterUser(app)
   UpdateUser(app)
+  UpdateUserAvatar(app)
   UpdatePassword(app)
 
   // question
@@ -75,9 +76,6 @@ const registerControllers = (app: Application) => {
 
   // report
   CreateReport(app)
-
-  // AWS
-  GetAvatar(app)
 
   // other
   GetCountries(app)
