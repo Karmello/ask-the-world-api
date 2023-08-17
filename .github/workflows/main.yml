@@ -20,6 +20,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Clone shared repo
+        run: yarn clone-shared
+        env:
+          PAT: ${{ secrets.PAT }}
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 

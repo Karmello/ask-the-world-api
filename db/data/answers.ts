@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
 import times from 'lodash/times'
 
-import { IUser, IQuestion, IAnswer } from './../../src/ext/atw-shared/source/utils'
-import { getRandNum, getRandNums } from './../../src/ext/atw-shared/source/helpers'
+import { IUser, IQuestion, IAnswer } from 'atw-shared/utils'
+import { getRandNum, getRandNums } from 'atw-shared/helpers'
 
 import { msInDay } from './_constants'
 

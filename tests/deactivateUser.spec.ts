@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 import { api, chai, expect } from './'
-import { X_AUTH_TOKEN, ApiUrlPath } from './../src/ext/atw-shared/source/utils/index'
+import { X_AUTH_TOKEN, ApiUrlPath } from 'atw-shared/utils'
 import { UserModel, QuestionModel, AnswerModel } from './../src/models/index'
 
 const userId = new mongoose.Types.ObjectId('5eeb976152c1dc555c2d676c')

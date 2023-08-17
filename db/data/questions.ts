@@ -10,9 +10,9 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
   IUser,
   IQuestion,
-} from './../../src/ext/atw-shared/source/utils/index'
+} from 'atw-shared/utils'
 
-import { getRandNum, getRandNums } from './../../src/ext/atw-shared/source/helpers'
+import { getRandNum, getRandNums } from 'atw-shared/helpers'
 import { msInDay } from './_constants'
 import questionCategories from './question-categories'
 

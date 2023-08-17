@@ -8,7 +8,7 @@ import {
   IReport,
   ICountry,
   IQuestionCategory,
-} from './../src/ext/atw-shared/source/utils'
+} from 'atw-shared/utils'
 
 import countriesData from './data/countries'
 import questionCategoriesData from './data/question-categories'
