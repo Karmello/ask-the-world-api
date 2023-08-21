@@ -14,6 +14,7 @@ import {
   AuthenticateUser,
   GetUser,
   GetTopUsers,
+  GetActivity,
   RecoverPassword,
   RegisterUser,
   UpdateUser,
@@ -49,6 +50,7 @@ const registerControllers = (app: Application) => {
   AuthenticateUser(app)
   GetUser(app)
   GetTopUsers(app)
+  GetActivity(app)
   RecoverPassword(app)
   RegisterUser(app)
   UpdateUser(app)

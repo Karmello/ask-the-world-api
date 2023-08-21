@@ -87,6 +87,10 @@ const routesConfig = [
     auth: true,
   },
   {
+    path: ApiUrlPath.GetUserActivity,
+    auth: true,
+  },
+  {
     path: ApiUrlPath.UpdateUser,
     auth: true,
   },

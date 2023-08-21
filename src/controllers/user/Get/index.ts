@@ -27,39 +27,15 @@ export default (app: Application) => {
 
           const user = results[2].toJSON() as IUser
 
-          if (user) {
-            if (user._id.toString() === req.decoded._id.toString()) {
-              res.status(200).send({
-                data: { count, user },
-              })
-            } else {
-              if (user.config.confirmed) {
-                if (user.config.payment) {
-                  res.status(200).send({
-                    data: {
-                      count,
-                      user: {
-                        ...user,
-                        config: {
-                          ...user.config,
-                          payment: {
-                            type: user.config.payment.type,
-                          },
-                        },
-                      },
-                    },
-                  })
-                } else {
-                  res.status(200).send({
-                    data: { count, user },
-                  })
-                }
-              } else {
-                sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
-              }
-            }
-          } else {
+          if (
+            !user ||
+            (user._id.toString() !== req.decoded._id.toString() && !user.config.confirmed)
+          ) {
             sendBadResponse(req, res, 404, { msg: msgs.NO_SUCH_USER })
+          } else {
+            res.status(200).send({
+              data: { count, user },
+            })
           }
         })
         .catch(err => {

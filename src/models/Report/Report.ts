@@ -17,6 +17,11 @@ const reportSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    reportedAt: {
+      type: Number,
+      required: true,
+      default: Date.now,
+    },
     reasons: [
       {
         type: String,
