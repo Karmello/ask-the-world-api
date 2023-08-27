@@ -11,7 +11,7 @@ import msgs from 'utils/msgs'
 
 const ObjectId = mongoose.Types.ObjectId
 
-const MAX_INDEXES_TO_RETURN = 100
+const MAX_INDEXES_TO_RETURN = 10
 
 export default (app: Application) => {
   app.get(

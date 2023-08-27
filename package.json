@@ -14,7 +14,7 @@
     "test-int": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register tests/index.ts --timeout 25000 --exit",
     "clone-shared": "git clone https://$PAT@github.com/Karmello/ask-the-world-shared.git src/ext/ask-the-world-shared",
     "prepare": "husky install",
-    "db": "ts-node ./db/run.ts",
+    "db": "ts-node -r tsconfig-paths/register ./db/run.ts",
     "db-prod-to-staging": "mongodump --uri=$MONGO_URI_PROD && mongorestore --drop --uri=$MONGO_URI_STAGING dump/db"
   },
   "dependencies": {
