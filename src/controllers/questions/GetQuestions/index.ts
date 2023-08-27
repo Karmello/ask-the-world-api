@@ -76,11 +76,11 @@ export default (app: Application) => {
             },
           },
           { $sort: { submittedTimes: -1, createdAt: -1 } },
-          { $project: { answers: 0 } },
+          { $limit },
           {
             $facet: {
               meta: [{ $count: 'count' }],
-              docs: [{ $skip }, { $limit }],
+              docs: [{ $project: { answers: 0 } }],
             },
           },
         ])
