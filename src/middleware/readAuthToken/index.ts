@@ -22,7 +22,11 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.decoded = decoded
         next()
       } else {
-        sendBadResponse(req, res, 401, { msg: msgs.AUTHENTICATION_FAILED }, err)
+        if (err.name === 'TokenExpiredError') {
+          sendBadResponse(req, res, 401, { msg: msgs.TOKEN_EXPIRED }, err)
+        } else {
+          sendBadResponse(req, res, 401, { msg: msgs.AUTHENTICATION_FAILED }, err)
+        }
       }
     })
   } else {

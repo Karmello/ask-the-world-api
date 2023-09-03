@@ -13,6 +13,10 @@ export default {
     code: AppMsgCode.NoCredentialsProvided,
     type: AppMsgType.Warning,
   },
+  [AppMsgCode.TokenExpired]: {
+    code: AppMsgCode.TokenExpired,
+    type: AppMsgType.Warning,
+  },
   [AppMsgCode.NoSuchUser]: {
     code: AppMsgCode.NoSuchUser,
     type: AppMsgType.Warning,
