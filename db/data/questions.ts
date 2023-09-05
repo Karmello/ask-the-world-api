@@ -74,29 +74,29 @@ const getQuestionMocks = (users: IUser[]) => {
       })(),
     } as IQuestion
 
-    const terminatedAtDate = new Date(
-      faker.date.between({
-        from: new Date(question.createdAt + 1 * msInDay),
-        to: new Date(question.createdAt + 8 * msInDay),
-      })
-    )
+    // const terminatedAtDate = new Date(
+    //   faker.date.between({
+    //     from: new Date(question.createdAt + 1 * msInDay),
+    //     to: new Date(question.createdAt + 8 * msInDay),
+    //   })
+    // )
 
-    const terminatedAt = faker.helpers.arrayElement([
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      terminatedAtDate.getTime(),
-    ])
+    // const terminatedAt = faker.helpers.arrayElement([
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   terminatedAtDate.getTime(),
+    // ])
 
-    if (terminatedAt) {
-      question.terminatedAt = terminatedAt
-    }
+    // if (terminatedAt) {
+    //   question.terminatedAt = terminatedAt
+    // }
 
     questionMocks.push(question as IQuestion)
   })
