@@ -10,7 +10,9 @@ import { X_AUTH_TOKEN } from 'atw-shared/utils/index'
 const { NODE_ENV, HONEYBADGER_API_KEY } = process.env
 
 export default (app: Application) => {
-  if (NODE_ENV !== 'test') app.use(morgan('dev'))
+  if (NODE_ENV !== 'test') {
+    app.use(morgan('dev'))
+  }
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json({ limit: '50mb' }))
