@@ -64,3 +64,18 @@ flowchart LR
 ROOT[<b>Follow</b>] --> A1[<b>Create</b>] --> A2[POST /follow/create]
 ROOT --> B1[<b>Delete</b>] --> B2[DELETE /follow/delete]
 ```
+
+## Report
+
+```mermaid
+flowchart LR
+ROOT[<b>Report</b>] --> A1[<b>Create</b>] --> A2[POST /report/create]
+```
+
+## Other
+
+```mermaid
+flowchart LR
+ROOT[<b>Other</b>] --> A1[<b>GetCountries</b>] --> A2[GET /countries]
+ROOT --> B1[<b>GetStats</b>] --> B2[GET /stats]
+```
