@@ -2,6 +2,8 @@
 
 # Ask The World API
 
+## Account
+
 ```mermaid
 flowchart LR
 ROOT[<b>Account</b>] --> A1[<b>Activate</b>] --> A2[GET /account/activate]
@@ -12,6 +14,8 @@ ROOT --> E1[<b>GetDeactivationLink</b>] --> E2[GET /account/deactivation-link]
 ROOT --> F1[<b>GetRecoveryLink</b>] --> F2[POST /account/recovery-link]
 ROOT --> G1[<b>MakePayment</b>] --> G2[POST /account/payment]
 ```
+
+## User
 
 ```mermaid
 flowchart LR
