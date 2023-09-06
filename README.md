@@ -30,6 +30,14 @@ ROOT --> H1[<b>UpdateAvatar</b>] --> H2[POST /user/avatar/update]
 ROOT --> I1[<b>UpdatePassword</b>] --> I2[PUT /user/password/update]
 ```
 
+## List of questions
+
+```mermaid
+flowchart LR
+ROOT[<b>List of questions</b>] --> A1[<b>GetQuestions</b>] --> A2[GET /questions]
+ROOT --> B1[<b>GetRandomQuestions</b>] --> B2[GET /questions/random]
+```
+
 ## Question
 
 ```mermaid
