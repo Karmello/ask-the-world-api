@@ -56,3 +56,11 @@ flowchart LR
 ROOT[<b>Answer</b>] --> A1[<b>Create</b>] --> A2[POST /answer/create]
 ROOT --> B1[<b>Update</b>] --> B2[PUT /answer/update]
 ```
+
+## Follow
+
+```mermaid
+flowchart LR
+ROOT[<b>Follow</b>] --> A1[<b>Create</b>] --> A2[POST /follow/create]
+ROOT --> B1[<b>Delete</b>] --> B2[DELETE /follow/delete]
+```
