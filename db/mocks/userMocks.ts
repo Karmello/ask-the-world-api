@@ -4,8 +4,8 @@ import { faker } from '@faker-js/faker'
 import { getRandNum } from 'atw-shared/helpers'
 import { IUser, Sex } from 'atw-shared/utils'
 
-import payment from './payment'
-import countries from './countries'
+import payment from './paymentMock'
+import countries from './countryMocks'
 
 const password = '$2a$10$8kcJdl16EMupO2cmLFAsf.jVWkFaCV5W47Mip6BMfwUJjLM6/J0n2'
 
@@ -180,4 +180,6 @@ const defaultUsers = (() => {
   return arr
 })()
 
-export default [...basicUsers, ...defaultUsers] as IUser[]
+const userMocks = [...basicUsers, ...defaultUsers] as IUser[]
+
+export default userMocks

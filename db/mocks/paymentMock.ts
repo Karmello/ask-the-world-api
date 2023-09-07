@@ -1,4 +1,4 @@
-export default {
+const paymentMock = {
   id: 'evt_3LLYZUJ7XOQJLolM0vmjDN55',
   object: 'event',
   api_version: '2020-08-27',
@@ -107,3 +107,5 @@ export default {
   },
   type: 'charge.succeeded',
 }
+
+export default paymentMock

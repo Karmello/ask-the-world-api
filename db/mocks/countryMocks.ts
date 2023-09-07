@@ -1,6 +1,6 @@
 import { ICountry } from 'atw-shared/utils'
 
-export default [
+const countryMocks = [
   {
     _id: 'AF',
     name: {
@@ -1675,3 +1675,5 @@ export default [
     },
   },
 ] as ICountry[]
+
+export default countryMocks

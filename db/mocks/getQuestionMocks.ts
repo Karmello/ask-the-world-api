@@ -13,8 +13,8 @@ import {
 } from 'atw-shared/utils'
 
 import { getRandNum, getRandNums } from 'atw-shared/helpers'
-import { msInDay } from './_constants'
-import questionCategories from './question-categories'
+import { msInDay } from '../constants'
+import questionCategories from './questionCategoryMocks'
 
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]

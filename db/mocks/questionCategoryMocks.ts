@@ -1,6 +1,6 @@
 import { IQuestionCategory } from 'atw-shared/utils'
 
-export default [
+const questionCategoryMocks = [
   {
     _id: 'architecture',
     name: {
@@ -303,3 +303,5 @@ export default [
     },
   },
 ] as IQuestionCategory[]
+
+export default questionCategoryMocks
