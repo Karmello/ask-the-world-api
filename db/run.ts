@@ -1,9 +1,10 @@
 import { MongoClient } from 'mongodb'
 
-import { seedDatabase, emptyDatabase, checkData } from './scripts'
+import { SCRIPTS } from './constants'
+import { seedDatabase, emptyDatabase, checkData, notifyUsers } from './scripts'
 
 const envName = process.argv[2]
-const actionName = process.argv[3]
+const scriptName = process.argv[3]
 
 const main = async () => {
   const client = new MongoClient(process.env['MONGO_URI_' + envName.toUpperCase()])
@@ -12,18 +13,21 @@ const main = async () => {
     await client.connect()
     const db = client.db()
 
-    switch (actionName) {
-      case 'seed':
+    switch (scriptName) {
+      case SCRIPTS.SEED:
         await seedDatabase(db)
         break
 
-      case 'empty':
+      case SCRIPTS.EMPTY:
         await emptyDatabase(db)
         break
 
-      case 'check':
+      case SCRIPTS.CHECK:
         await checkData(db)
         break
+
+      case SCRIPTS.NOTIFY:
+        await notifyUsers(db)
     }
   } catch (e) {
     console.error(e)
