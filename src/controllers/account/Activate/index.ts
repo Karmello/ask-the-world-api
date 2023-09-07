@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { sendBadResponse } from 'helpers/index'
+import { getMailTemplate, sendBadResponse } from 'helpers/index'
 import dict from 'src/dictionary'
 
 export default (app: Application) => {
@@ -31,7 +31,13 @@ export default (app: Application) => {
                 .sockets.in('user:' + doc._id.toString())
                 .emit(SocketEvent.AppReload)
             }
-            res.status(200).send(dict[lang].emailConfirmed)
+
+            const body = getMailTemplate({
+              lang,
+              text: dict[lang].activation.emailConfirmed,
+            })
+
+            res.status(200).send(body)
           }
         })
         .catch(err => {

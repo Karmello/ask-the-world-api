@@ -3,7 +3,7 @@ import { Application, Request, Response } from 'express'
 import { ApiUrlPath, SocketEvent, X_AUTH_TOKEN } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
 import { UserModel } from 'models/index'
-import { sendBadResponse } from 'helpers/index'
+import { sendBadResponse, getMailTemplate } from 'helpers/index'
 import dict from 'src/dictionary'
 
 export default (app: Application) => {
@@ -22,11 +22,16 @@ export default (app: Application) => {
 
           const token = (req.headers[X_AUTH_TOKEN] || req.query[X_AUTH_TOKEN]) as string
 
+          const body = getMailTemplate({
+            lang,
+            text: dict[lang].passwordRecovery.enterNewPassword,
+          })
+
           req.app
             .get('io')
             .sockets.in('email:' + doc.email)
             .emit(SocketEvent.EnablePasswordRecoveryField, { token })
-          res.status(200).send(dict[lang].enterNewPassword)
+          res.status(200).send(body)
         })
         .catch(err => {
           sendBadResponse(req, res, 400, dict[lang].somethingWentWrong, err)

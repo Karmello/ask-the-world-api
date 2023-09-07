@@ -47,8 +47,11 @@ export default (app: Application) => {
           }
 
           sendMail({
+            lang,
             to: doc.email,
-            subject: dict[lang].passwordRecoveryLink,
+            subject: dict[lang].passwordRecovery.subject,
+            text: dict[lang].passwordRecovery.text + ' ' + doc.username.toUpperCase(),
+            btnText: dict[lang].passwordRecovery.btnText,
             link,
           }).then(
             () => {

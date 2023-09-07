@@ -50,7 +50,7 @@ describe('activateUser', () => {
           .set(X_AUTH_TOKEN, mailToken)
           .end((err, res) => {
             expect(res.status).to.eql(200)
-            expect(res.text).to.eql(dict.EN.emailConfirmed)
+            expect(res.text).to.contain(dict.EN.activation.emailConfirmed)
             done()
           })
       })

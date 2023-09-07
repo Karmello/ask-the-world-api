@@ -39,8 +39,11 @@ export default (app: Application) => {
             }
 
             sendMail({
+              lang,
               to: doc.email,
-              subject: dict[lang].accountDeactivationLink,
+              subject: dict[lang].deactivation.subject,
+              text: dict[lang].deactivation.text + ' ' + doc.username.toUpperCase(),
+              btnText: dict[lang].deactivation.btnText,
               link,
             }).then(
               () => {

@@ -4,7 +4,7 @@ import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3'
 
 import { ApiUrlPath, IQuestion, SocketEvent } from 'atw-shared/utils/index'
 import { readAuthToken, checkAuthToken } from 'middleware/index'
-import { sendBadResponse } from 'helpers/index'
+import { getMailTemplate, sendBadResponse } from 'helpers/index'
 import dict from 'src/dictionary'
 
 import {
@@ -66,7 +66,12 @@ export default (app: Application) => {
                       .emit(SocketEvent.Logout)
                   }
 
-                  res.status(200).send(dict[lang].accountDeactivatedMsg)
+                  const body = getMailTemplate({
+                    lang,
+                    text: dict[lang].deactivation.accountDeactivatedMsg,
+                  })
+
+                  res.status(200).send(body)
                 })
               })
               .catch(err => {

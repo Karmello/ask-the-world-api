@@ -40,8 +40,11 @@ export default (app: Application) => {
             }
 
             sendMail({
+              lang,
               to: doc.email,
-              subject: dict[lang].accountActivationLink,
+              subject: dict[lang].activation.subject,
+              text: dict[lang].activation.text + ' ' + doc.username.toUpperCase(),
+              btnText: dict[lang].activation.btnText,
               link,
             }).then(
               () => {
