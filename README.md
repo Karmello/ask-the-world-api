@@ -26,9 +26,9 @@
 ```mermaid
 flowchart
 ROOT[<b>Front-end</b>]
-ROOT --> A1[<b>Get account activation link</b>] --> |auth token|A2[GET /account/activation-link] --> |200|A3[Receive link via email]
-ROOT --> B1[<b>Get account deactivation link</b>] --> |auth token|B2[GET /account/deactivation-link] --> |200|B3[Receive link via email]
-ROOT --> C1[<b>Get email recovery link</b>] --> |email|C2[GET /account/recovery-link] --> |200|C3[Receive link via email]
+ROOT --> A1[<b>Get account activation link</b>] --> |auth token|A2[GET /account/activation-link] --> |200|A3[Send link via email]
+ROOT --> B1[<b>Get account deactivation link</b>] --> |auth token|B2[GET /account/deactivation-link] --> |200|B3[Send link via email]
+ROOT --> C1[<b>Get email recovery link</b>] --> |email|C2[GET /account/recovery-link] --> |200|C3[Send link via email]
 ```
 
 ## Open action link
