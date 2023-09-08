@@ -2,6 +2,11 @@
 
 # Ask The World API
 
+- [Requesting action links](#requesting-action-links)
+- [Opening action links](#opening-action-links)
+- [External services requests](#external-services-requests)
+- [User registration and authentication](#user-registration-and-authentication)
+
 ## Requesting action links
 
 ```mermaid
