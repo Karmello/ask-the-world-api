@@ -6,9 +6,9 @@
 
 ```mermaid
 flowchart LR
-ROOT[<b>Account</b>] --> A1[<b>Activate</b>] --> A2[GET /account/activate]
-ROOT --> B1[<b>Deactivate</b>] --> B2[GET /account/deactivate]
-ROOT --> C1[<b>EnablePasswordRecovery</b>] --> C2[GET /account/password-recovery]
+ROOT[<b>Account</b>] --> |activation link|A1[<b>Activate</b>] --> |GET|A2[account/activate] --> |200|A3[Html template]
+ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET|B2[account/deactivate] --> |200|B3[Html template]
+ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET|C2[account/password-recovery] --> |200|C3[Html template]
 ROOT --> D1[<b>GetActivationLink</b>] --> D2[GET /account/activation-link]
 ROOT --> E1[<b>GetDeactivationLink</b>] --> E2[GET /account/deactivation-link]
 ROOT --> F1[<b>GetRecoveryLink</b>] --> F2[POST /account/recovery-link]
