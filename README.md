@@ -6,9 +6,9 @@
 
 ```mermaid
 flowchart
-ROOT[<b>FE</b>] --> A1[<b>GetActivationLink</b>] --> |GET|A2[account/activation-link]  --> |200|A3[Mail]
-ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET|B2[account/deactivation-link] --> |200|B3[Mail]
-ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET|C2[account/recovery-link] --> |200|C3[Mail]
+ROOT[<b>FE</b>] --> A1[<b>GetActivationLink</b>] --> |GET + authToken|A2[account/activation-link]  --> |200|A3[Mail]
+ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET + authToken|B2[account/deactivation-link] --> |200|B3[Mail]
+ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET + email|C2[account/recovery-link] --> |200|C3[Mail]
 ```
 
 ## Account controllers (mail link requests)
