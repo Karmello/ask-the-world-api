@@ -1,13 +1,15 @@
 [![master](https://github.com/Karmello/ask-the-world-api/actions/workflows/main.yml/badge.svg)](https://github.com/Karmello/ask-the-world-api/actions/workflows/main.yml)
 
-# Ask The World API
+## Ask The World API
+
+### Diagrams
 
 - [Requesting action links](#requesting-action-links)
 - [Opening action links](#opening-action-links)
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
 
-## Requesting action links
+### Requesting action links
 
 ```mermaid
 flowchart
@@ -16,7 +18,7 @@ ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET + authToken|B2[account/deactiva
 ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET + email|C2[account/recovery-link] --> |200|C3[Mail]
 ```
 
-## Opening action links
+### Opening action links
 
 ```mermaid
 flowchart
@@ -25,14 +27,14 @@ ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET + mailToken|B2[accoun
 ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET + mailToken|C2[account/password-recovery] --> |200|C3[Html template]
 ```
 
-## External services requests
+### External services requests
 
 ```mermaid
 flowchart
 ROOT[<b>Stripe API</b>] --> A1[<b>MakePayment</b>] --> |POST|A2[account/payment] --> |200|A3[empty]
 ```
 
-## User registration and authentication
+### User registration and authentication
 
 ```mermaid
 flowchart
@@ -40,7 +42,7 @@ ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST|A2[user/register]
 ROOT --> B1[<b>Authenticate</b>] --> |POST|B2[user/authenticate]
 ```
 
-## Getting user(s) data
+### Getting user(s) data
 
 ```mermaid
 flowchart
@@ -49,7 +51,7 @@ ROOT --> B1[<b>GetActivity</b>] --> |GET|B2[user/activity]
 ROOT --> C1[<b>GetTop</b>] --> |GET|C2[users/top]
 ```
 
-## Updating user
+### Updating user
 
 ```mermaid
 flowchart
@@ -59,7 +61,7 @@ ROOT --> C1[<b>RecoverPassword</b>] --> |PUT|C2[user/password/recover]
 ROOT --> D1[<b>UpdateAvatar</b>] --> |POST|D2[user/avatar/update]
 ```
 
-## List of questions
+### List of questions
 
 ```mermaid
 flowchart
@@ -67,7 +69,7 @@ ROOT[<b>List of questions</b>] --> A1[<b>GetQuestions</b>] --> A2[GET /questions
 ROOT --> B1[<b>GetRandomQuestions</b>] --> B2[GET /questions/random]
 ```
 
-## Question
+### Question
 
 ```mermaid
 flowchart
@@ -78,7 +80,7 @@ ROOT --> D1[<b>GetCategories</b>] --> D2[GET /question/categories]
 ROOT --> E1[<b>Terminate</b>] --> E2[PUT /question/terminate]
 ```
 
-## Answer
+### Answer
 
 ```mermaid
 flowchart
@@ -86,7 +88,7 @@ ROOT[<b>Answer</b>] --> A1[<b>Create</b>] --> A2[POST /answer/create]
 ROOT --> B1[<b>Update</b>] --> B2[PUT /answer/update]
 ```
 
-## Follow
+### Follow
 
 ```mermaid
 flowchart
@@ -94,14 +96,14 @@ ROOT[<b>Follow</b>] --> A1[<b>Create</b>] --> A2[POST /follow/create]
 ROOT --> B1[<b>Delete</b>] --> B2[DELETE /follow/delete]
 ```
 
-## Report
+### Report
 
 ```mermaid
 flowchart
 ROOT[<b>Report</b>] --> A1[<b>Create</b>] --> A2[POST /report/create]
 ```
 
-## Other
+### Other
 
 ```mermaid
 flowchart
