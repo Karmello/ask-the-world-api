@@ -2,7 +2,7 @@
 
 # Ask The World API
 
-## Account controllers (FE requests)
+## Requesting action links
 
 ```mermaid
 flowchart
@@ -11,7 +11,7 @@ ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET + authToken|B2[account/deactiva
 ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET + email|C2[account/recovery-link] --> |200|C3[Mail]
 ```
 
-## Account controllers (mail link requests)
+## Opening action links
 
 ```mermaid
 flowchart
@@ -20,21 +20,22 @@ ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET + mailToken|B2[accoun
 ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET + mailToken|C2[account/password-recovery] --> |200|C3[Html template]
 ```
 
-## Account controllers (external service requests)
+## External services requests
 
 ```mermaid
 flowchart
 ROOT[<b>Stripe API</b>] --> A1[<b>MakePayment</b>] --> |POST|A2[account/payment] --> |200|A3[empty]
 ```
 
-## User
+## User registration and authentication
 
 ```mermaid
 flowchart
 ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST|A2[user/register]
 ROOT --> B1[<b>Authenticate</b>] --> |POST|B2[user/authenticate]
-ROOT --> C1[<b>RecoverPassword</b>] --> |PUT|C2[user/password/recover]
 ```
+
+## Getting user(s) data
 
 ```mermaid
 flowchart
@@ -43,11 +44,14 @@ ROOT --> B1[<b>GetActivity</b>] --> |GET|B2[user/activity]
 ROOT --> C1[<b>GetTop</b>] --> |GET|C2[users/top]
 ```
 
+## Updating user
+
 ```mermaid
 flowchart
 ROOT[<b>FE</b>] --> A1[<b>Update</b>] --> |PUT|A2[user/update]
 ROOT --> B1[<b>UpdatePassword</b>] --> |PUT|B2[user/password/update]
-ROOT --> C1[<b>UpdateAvatar</b>] --> |POST|C2[user/avatar/update]
+ROOT --> C1[<b>RecoverPassword</b>] --> |PUT|C2[user/password/recover]
+ROOT --> D1[<b>UpdateAvatar</b>] --> |POST|D2[user/avatar/update]
 ```
 
 ## List of questions
