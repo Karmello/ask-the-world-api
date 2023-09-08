@@ -10,6 +10,7 @@
 - [Opening action links](#opening-action-links)
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
+- [Getting user(s) data](#getting-users-data)
 
 <br/>
 
