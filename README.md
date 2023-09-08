@@ -30,22 +30,30 @@ ROOT[<b>Stripe API</b>] --> A1[<b>MakePayment</b>] --> |POST|A2[account/payment]
 ## User
 
 ```mermaid
-flowchart LR
-ROOT[<b>User</b>] --> A1[<b>Authenticate</b>] --> A2[POST /user/authenticate]
-ROOT --> B1[<b>Get</b>] --> B2[GET /user]
-ROOT --> C1[<b>GetActivity</b>] --> C2[GET /user/activity]
-ROOT --> D1[<b>GetTop</b>] --> D2[GET /users/top]
-ROOT --> E1[<b>RecoverPassword</b>] --> E2[PUT /user/password/recover]
-ROOT --> F1[<b>Register</b>] --> F2[POST /user/register]
-ROOT --> G1[<b>Update</b>] --> G2[PUT /user/update]
-ROOT --> H1[<b>UpdateAvatar</b>] --> H2[POST /user/avatar/update]
-ROOT --> I1[<b>UpdatePassword</b>] --> I2[PUT /user/password/update]
+flowchart
+ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST|A2[user/register]
+ROOT --> B1[<b>Authenticate</b>] --> |POST|B2[user/authenticate]
+ROOT --> C1[<b>RecoverPassword</b>] --> |PUT|C2[user/password/recover]
+```
+
+```mermaid
+flowchart
+ROOT[<b>FE</b>] --> A1[<b>Get</b>] --> |GET|A2[user]
+ROOT --> B1[<b>GetActivity</b>] --> |GET|B2[user/activity]
+ROOT --> C1[<b>GetTop</b>] --> |GET|C2[users/top]
+```
+
+```mermaid
+flowchart
+ROOT[<b>FE</b>] --> A1[<b>Update</b>] --> |PUT|A2[user/update]
+ROOT --> B1[<b>UpdatePassword</b>] --> |PUT|B2[user/password/update]
+ROOT --> C1[<b>UpdateAvatar</b>] --> |POST|C2[user/avatar/update]
 ```
 
 ## List of questions
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>List of questions</b>] --> A1[<b>GetQuestions</b>] --> A2[GET /questions]
 ROOT --> B1[<b>GetRandomQuestions</b>] --> B2[GET /questions/random]
 ```
@@ -53,7 +61,7 @@ ROOT --> B1[<b>GetRandomQuestions</b>] --> B2[GET /questions/random]
 ## Question
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Question</b>] --> A1[<b>Create</b>] --> A2[POST /question/create]
 ROOT --> B1[<b>Delete</b>] --> B2[DELETE /question/delete]
 ROOT --> C1[<b>Get</b>] --> C2[GET /question]
@@ -64,7 +72,7 @@ ROOT --> E1[<b>Terminate</b>] --> E2[PUT /question/terminate]
 ## Answer
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Answer</b>] --> A1[<b>Create</b>] --> A2[POST /answer/create]
 ROOT --> B1[<b>Update</b>] --> B2[PUT /answer/update]
 ```
@@ -72,7 +80,7 @@ ROOT --> B1[<b>Update</b>] --> B2[PUT /answer/update]
 ## Follow
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Follow</b>] --> A1[<b>Create</b>] --> A2[POST /follow/create]
 ROOT --> B1[<b>Delete</b>] --> B2[DELETE /follow/delete]
 ```
@@ -80,14 +88,14 @@ ROOT --> B1[<b>Delete</b>] --> B2[DELETE /follow/delete]
 ## Report
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Report</b>] --> A1[<b>Create</b>] --> A2[POST /report/create]
 ```
 
 ## Other
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Other</b>] --> A1[<b>GetCountries</b>] --> A2[GET /countries]
 ROOT --> B1[<b>GetStats</b>] --> B2[GET /stats]
 ```
