@@ -7,7 +7,7 @@
 ## Flows
 
 - [Request action link](#request-action-link)
-- [Opening action links](#opening-action-links)
+- [Open action link](#open-action-link)
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
 - [Getting user(s) data](#getting-users-data)
@@ -31,13 +31,14 @@ ROOT --> B1[<b>GetDeactivationLink</b>] --> |auth token|B2[GET /account/deactiva
 ROOT --> C1[<b>GetRecoveryLink</b>] --> |email|C2[GET /account/recovery-link] --> |200|C3[Receive email]
 ```
 
-## Opening action links
+## Open action link
 
 ```mermaid
 flowchart
-ROOT[<b>Mail</b>] --> |activation link|A1[<b>Activate</b>] --> |GET + mailToken|A2[account/activate] --> |200|A3[Html template]
-ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET + mailToken|B2[account/deactivate] --> |200|B3[Html template]
-ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET + mailToken|C2[account/password-recovery] --> |200|C3[Html template]
+ROOT[<b>Email</b>]
+ROOT --> A1[<b>Activate</b>] --> |activation link - mail token|A2[GET /account/activate] --> |200|A3[Html template with success info]
+ROOT --> B1[<b>Deactivate</b>] --> |deactivation link - mail token|B2[GET /account/deactivate] --> |200|B3[Html template with success info]
+ROOT --> C1[<b>EnablePasswordRecovery</b>] --> |recovery link - mail token|C2[GET /account/password-recovery] --> |200|C3[Html template with success info]
 ```
 
 ## External services requests
