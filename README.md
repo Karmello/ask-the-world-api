@@ -25,9 +25,10 @@
 
 ```mermaid
 flowchart
-ROOT[<b>FE</b>] --> A1[<b>GetActivationLink</b>] --> |GET + authToken|A2[account/activation-link]  --> |200|A3[Mail]
-ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET + authToken|B2[account/deactivation-link] --> |200|B3[Mail]
-ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET + email|C2[account/recovery-link] --> |200|C3[Mail]
+ROOT[<b>FE</b>]
+ROOT --> A1[<b>GetActivationLink</b>] --> |auth token|A2[GET /account/activation-link] --> |200|A3[Receive email]
+ROOT --> B1[<b>GetDeactivationLink</b>] --> |auth token|B2[GET /account/deactivation-link] --> |200|B3[Receive email]
+ROOT --> C1[<b>GetRecoveryLink</b>] --> |email|C2[GET /account/recovery-link] --> |200|C3[Receive email]
 ```
 
 ## Opening action links
@@ -50,8 +51,8 @@ ROOT[<b>Stripe API</b>] --> A1[<b>MakePayment</b>] --> |POST|A2[account/payment]
 
 ```mermaid
 flowchart
-ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST|A2[user/register]
-ROOT --> B1[<b>Authenticate</b>] --> |POST|B2[user/authenticate]
+ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST + user data|A2[user/register]
+ROOT --> B1[<b>Authenticate</b>] --> |POST + authToken or credentials|B2[user/authenticate]
 ```
 
 ## Getting user(s) data
