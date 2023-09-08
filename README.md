@@ -35,10 +35,10 @@ ROOT --> C1[<b>GetRecoveryLink</b>] --> |email|C2[GET /account/recovery-link] --
 
 ```mermaid
 flowchart
-ROOT[<b>Email</b>]
-ROOT --> A1[<b>Activate</b>] --> |activation link - mail token|A2[GET /account/activate] --> |200|A3[Html template with success info]
-ROOT --> B1[<b>Deactivate</b>] --> |deactivation link - mail token|B2[GET /account/deactivate] --> |200|B3[Html template with success info]
-ROOT --> C1[<b>EnablePasswordRecovery</b>] --> |recovery link - mail token|C2[GET /account/password-recovery] --> |200|C3[Html template with success info]
+ROOT[<b>Email link</b>]
+ROOT --> A1[<b>Activate</b>] --> |mail token|A2[GET /account/activate] --> |200|A3[Html template with success info]
+ROOT --> B1[<b>Deactivate</b>] --> |mail token|B2[GET /account/deactivate] --> |200|B3[Html template with success info]
+ROOT --> C1[<b>EnablePasswordRecovery</b>] --> |mail token|C2[GET /account/password-recovery] --> |200|C3[Html template with success info]
 ```
 
 ## External services requests
