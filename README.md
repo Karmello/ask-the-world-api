@@ -6,7 +6,7 @@
 
 ## Diagrams
 
-- [Requesting action links](#requesting-action-links)
+- [Request action link](#request-action-link)
 - [Opening action links](#opening-action-links)
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
@@ -21,7 +21,7 @@
 
 <br/>
 
-## Requesting action links
+## Request action link
 
 ```mermaid
 flowchart
