@@ -4,7 +4,7 @@
 
 <br/>
 
-## Diagrams
+## Flows
 
 - [Request action link](#request-action-link)
 - [Opening action links](#opening-action-links)
