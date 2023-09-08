@@ -2,7 +2,7 @@
 
 # Ask The World API
 
-## Account (FE requests)
+## Account controllers (FE requests)
 
 ```mermaid
 flowchart
@@ -11,7 +11,7 @@ ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET|B2[account/deactivation-link] -
 ROOT --> C1[<b>GetRecoveryLink</b>] --> |POST|C2[account/recovery-link] --> |200|C3[Mail]
 ```
 
-## Account (mail link requests)
+## Account controllers (mail link requests)
 
 ```mermaid
 flowchart
@@ -20,7 +20,7 @@ ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET|B2[account/deactivate
 ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET|C2[account/password-recovery] --> |200|C3[Html template]
 ```
 
-## Account (external services requests)
+## Account controllers (external services requests)
 
 ```mermaid
 flowchart
