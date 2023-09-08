@@ -5,7 +5,7 @@
 ## Account
 
 ```mermaid
-flowchart LR
+flowchart
 ROOT[<b>Account</b>] --> |activation link|A1[<b>Activate</b>] --> |GET|A2[account/activate] --> |200|A3[Html template]
 ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET|B2[account/deactivate] --> |200|B3[Html template]
 ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET|C2[account/password-recovery] --> |200|C3[Html template]
