@@ -20,7 +20,7 @@ ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET|B2[account/deactivate
 ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET|C2[account/password-recovery] --> |200|C3[Html template]
 ```
 
-## Account controllers (external services requests)
+## Account controllers (external service requests)
 
 ```mermaid
 flowchart
