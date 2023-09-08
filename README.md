@@ -6,12 +6,12 @@
 
 ```mermaid
 flowchart
-ROOT[<b>Account</b>] --> |activation link|A1[<b>Activate</b>] --> |GET|A2[account/activate] --> |200|A3[Html template]
-ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET|B2[account/deactivate] --> |200|B3[Html template]
-ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET|C2[account/password-recovery] --> |200|C3[Html template]
-ROOT --> D1[<b>GetActivationLink</b>] --> D2[GET /account/activation-link]
-ROOT --> E1[<b>GetDeactivationLink</b>] --> E2[GET /account/deactivation-link]
-ROOT --> F1[<b>GetRecoveryLink</b>] --> F2[POST /account/recovery-link]
+ROOT[<b>Account</b>] --> |FE|A1[<b>GetActivationLink</b>] --> |GET|A2[account/activation-link]  --> |200|A3[Mail]
+ROOT --> |activation link|B1[<b>Activate</b>] --> |GET|B2[account/activate] --> |200|B3[Html template]
+ROOT --> |FE|C1[<b>GetDeactivationLink</b>] --> |GET|C2[account/deactivation-link] --> |200|C3[Mail]
+ROOT --> |deactivation link|D1[<b>Deactivate</b>] --> |GET|D2[account/deactivate] --> |200|D3[Html template]
+ROOT --> |FE|E1[<b>GetRecoveryLink</b>] --> |POST|E2[account/recovery-link] --> |200|E3[Mail]
+ROOT --> |recovery link|F1[<b>EnablePasswordRecovery</b>] --> |GET|F2[account/password-recovery] --> |200|F3[Html template]
 ROOT --> G1[<b>MakePayment</b>] --> G2[POST /account/payment]
 ```
 
