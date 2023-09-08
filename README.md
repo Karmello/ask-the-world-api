@@ -11,6 +11,13 @@
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
 - [Getting user(s) data](#getting-users-data)
+- [Updating user](#updating-user)
+- [List of questions](#list-of-questions)
+- [Question](#question)
+- [Answer](#answer)
+- [Follow](#follow)
+- [Report](#report)
+- [Other](#other)
 
 <br/>
 
