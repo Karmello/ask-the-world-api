@@ -11,10 +11,10 @@ import msgs from 'utils/msgs'
 const { NODE_ENV, FE_URL } = process.env
 
 export default (app: Application) => {
-  app.post(ApiUrlPath.GetRecoveryLink, (req: Request, res: Response) => {
+  app.get(ApiUrlPath.GetRecoveryLink, (req: Request, res: Response) => {
     const lang = req.get('language')
 
-    const { email } = req.body
+    const { email } = req.query
 
     UserModel.findOne({ email })
       .then((doc: IUserDoc) => {
