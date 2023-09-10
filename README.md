@@ -4,10 +4,10 @@
 
 <br/>
 
-## Diagrams
+## Flows
 
-- [Requesting action links](#requesting-action-links)
-- [Opening action links](#opening-action-links)
+- [Request action link](#request-action-link)
+- [Open action link](#open-action-link)
 - [External services requests](#external-services-requests)
 - [User registration and authentication](#user-registration-and-authentication)
 - [Getting user(s) data](#getting-users-data)
@@ -21,22 +21,24 @@
 
 <br/>
 
-## Requesting action links
+## Request action link
 
 ```mermaid
 flowchart
-ROOT[<b>FE</b>] --> A1[<b>GetActivationLink</b>] --> |GET + authToken|A2[account/activation-link]  --> |200|A3[Mail]
-ROOT --> B1[<b>GetDeactivationLink</b>] --> |GET + authToken|B2[account/deactivation-link] --> |200|B3[Mail]
-ROOT --> C1[<b>GetRecoveryLink</b>] --> |GET + email|C2[account/recovery-link] --> |200|C3[Mail]
+ROOT[<b>Front-end</b>]
+ROOT --> A1[<b>Get account activation link</b>] --> |auth token|A2[GET /account/activation-link] --> |200|A3[Send link via email]
+ROOT --> B1[<b>Get account deactivation link</b>] --> |auth token|B2[GET /account/deactivation-link] --> |200|B3[Send link via email]
+ROOT --> C1[<b>Get email recovery link</b>] --> |email|C2[GET /account/recovery-link] --> |200|C3[Send link via email]
 ```
 
-## Opening action links
+## Open action link
 
 ```mermaid
 flowchart
-ROOT[<b>Mail</b>] --> |activation link|A1[<b>Activate</b>] --> |GET + mailToken|A2[account/activate] --> |200|A3[Html template]
-ROOT --> |deactivation link|B1[<b>Deactivate</b>] --> |GET + mailToken|B2[account/deactivate] --> |200|B3[Html template]
-ROOT --> |recovery link|C1[<b>EnablePasswordRecovery</b>] --> |GET + mailToken|C2[account/password-recovery] --> |200|C3[Html template]
+ROOT[<b>Email link</b>]
+ROOT --> A1[<b>Activate account</b>] --> |mail token|A2[GET /account/activate] --> |200|A3[Return success html template]
+ROOT --> B1[<b>Deactivate account</b>] --> |mail token|B2[GET /account/deactivate] --> |200|B3[Return success html template]
+ROOT --> C1[<b>Enable password recovery</b>] --> |mail token|C2[GET /account/password-recovery] --> |200|C3[Return success html template]
 ```
 
 ## External services requests
@@ -50,8 +52,8 @@ ROOT[<b>Stripe API</b>] --> A1[<b>MakePayment</b>] --> |POST|A2[account/payment]
 
 ```mermaid
 flowchart
-ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST|A2[user/register]
-ROOT --> B1[<b>Authenticate</b>] --> |POST|B2[user/authenticate]
+ROOT[<b>FE</b>] --> A1[<b>Register</b>] --> |POST + user data|A2[user/register]
+ROOT --> B1[<b>Authenticate</b>] --> |POST + authToken or credentials|B2[user/authenticate]
 ```
 
 ## Getting user(s) data
