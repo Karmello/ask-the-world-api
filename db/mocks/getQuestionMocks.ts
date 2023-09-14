@@ -72,6 +72,7 @@ const getQuestionMocks = (users: IUser[]) => {
           }
         }
       })(),
+      canBeReanswered: true,
     } as IQuestion
 
     // const terminatedAtDate = new Date(

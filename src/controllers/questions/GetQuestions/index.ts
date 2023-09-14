@@ -136,6 +136,7 @@ export default (app: Application) => {
               text: { $first: '$text' },
               options: { $first: '$options' },
               selectableOptions: { $first: '$selectableOptions' },
+              canBeReanswered: { $first: '$canBeReanswered' },
               requestorAnsweredAt: { $first: '$answers.answeredAt' },
             },
           },
