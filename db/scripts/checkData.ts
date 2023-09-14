@@ -5,35 +5,39 @@ import { getCollections } from 'db/helpers'
 const checkData = async (db: Db) => {
   const { users, questions, answers, follows, reports } = getCollections(db)
 
-  const unconfirmedUsers = (await users.find({ 'config.confirmed': false }).toArray())
-    .length
+  const unconfirmedUsers = await users.find({ 'config.confirmed': false }).toArray()
 
-  const ids = (await users.find().toArray()).map(u => u._id.toString())
-  const creatorIds = (await questions.find().toArray()).map(q => q.creatorId.toString())
-  const answererIds = (await answers.find().toArray()).map(a => a.answererId.toString())
-  const followerIds = (await follows.find().toArray()).map(f => f.followerId.toString())
-  const reporterIds = (await reports.find().toArray()).map(r => r.reporterId.toString())
+  const usersData = await users.find().toArray()
+  const questionsData = await questions.find().toArray()
+  const answersData = await answers.find().toArray()
+  const followsData = await follows.find().toArray()
+  const reportsData = await reports.find().toArray()
 
-  const noParentQuestions = creatorIds.filter(
-    creatorId => !ids.includes(creatorId)
-  ).length
-  const noParentAnswers = answererIds.filter(
-    answererId => !creatorIds.includes(answererId)
+  const noParentQuestions = questionsData.filter(
+    q => !usersData.map(u => u._id.toString()).includes(q.creatorId.toString())
   )
-  const noParentFollows = followerIds.filter(
-    followerId => !creatorIds.includes(followerId)
-  ).length
-  const noParentReports = reporterIds.filter(
-    reporterId => !creatorIds.includes(reporterId)
-  ).length
+
+  const noParentAnswers = answersData.filter(
+    a => !questionsData.map(q => q._id.toString()).includes(a.questionId.toString())
+  )
+
+  const noParentFollows = followsData.filter(
+    f => !questionsData.map(q => q._id.toString()).includes(f.questionId.toString())
+  )
+
+  const noParentReports = reportsData.filter(
+    r => !questionsData.map(q => q._id.toString()).includes(r.questionId.toString())
+  )
 
   console.log({
-    unconfirmedUsers,
+    count: {
+      unconfirmedUsers: unconfirmedUsers.length,
+      reports: reportsData.length,
+    },
     noParentQuestions,
-    noParentAnswers: noParentAnswers.length,
+    noParentAnswers,
     noParentFollows,
     noParentReports,
-    reports: reporterIds.length,
   })
 }
 
