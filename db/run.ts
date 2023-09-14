@@ -1,10 +1,18 @@
 import { MongoClient } from 'mongodb'
 
 import { SCRIPTS } from './constants'
-import { seedDatabase, emptyDatabase, checkData, notifyUsers } from './scripts'
+import {
+  seedDatabase,
+  emptyDatabase,
+  checkData,
+  notifyUsers,
+  copyDatabase,
+  editData,
+} from './scripts'
 
 const envName = process.argv[2]
 const scriptName = process.argv[3]
+const copyToEnvName = process.argv[4]
 
 const main = async () => {
   const client = new MongoClient(process.env['MONGO_URI_' + envName.toUpperCase()])
@@ -28,6 +36,15 @@ const main = async () => {
 
       case SCRIPTS.NOTIFY:
         await notifyUsers(db)
+        break
+
+      case SCRIPTS.COPYTO:
+        copyDatabase(envName, copyToEnvName)
+        break
+
+      case SCRIPTS.EDIT:
+        await editData(db)
+        break
     }
   } catch (e) {
     console.error(e)

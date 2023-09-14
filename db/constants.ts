@@ -5,4 +5,6 @@ export enum SCRIPTS {
   EMPTY = 'empty',
   CHECK = 'check',
   NOTIFY = 'notify',
+  COPYTO = 'copyto',
+  EDIT = 'edit',
 }
