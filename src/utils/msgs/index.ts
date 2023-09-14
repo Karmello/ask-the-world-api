@@ -129,6 +129,10 @@ export default {
     code: AppMsgCode.QuestionGotTerminated,
     type: AppMsgType.Warning,
   },
+  [AppMsgCode.QuestionNotReanswerable]: {
+    code: AppMsgCode.QuestionNotReanswerable,
+    type: AppMsgType.Warning,
+  },
 } as Record<
   AppMsgCode,
   {

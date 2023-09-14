@@ -21,12 +21,16 @@ export default (app: Application) => {
             })
           }
 
-          if (!checkSelectedIndexes(req.body, question)) {
-            return sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
+          if (!question.canBeReanswered) {
+            return sendBadResponse(req, res, 400, { msg: msgs.QUESTION_NOT_REANSWERABLE })
           }
 
           if (question.terminatedAt) {
             return sendBadResponse(req, res, 400, { msg: msgs.QUESTION_GOT_TERMINATED })
+          }
+
+          if (!checkSelectedIndexes(req.body, question)) {
+            return sendBadResponse(req, res, 400, { msg: msgs.SOMETHING_WENT_WRONG })
           }
 
           AnswerModel.findOneAndUpdate(

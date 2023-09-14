@@ -71,6 +71,11 @@ const questionSchema = new Schema(
         },
       },
     },
+    canBeReanswered: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
   },
   {
     versionKey: false,
