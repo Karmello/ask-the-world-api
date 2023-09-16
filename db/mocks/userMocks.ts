@@ -150,7 +150,7 @@ const basicUsers = [
   },
 ]
 
-const NUM_OF_DEFAULT_USERS = 100
+const NUM_OF_DEFAULT_USERS = 5
 
 const COUNTRY_KEYS = countries.map(c => c._id)
 

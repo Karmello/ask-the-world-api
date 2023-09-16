@@ -19,7 +19,7 @@ import questionCategories from './questionCategoryMocks'
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
-  times(1500, () => {
+  times(2000, () => {
     const user = users[getRandNum(0, users.length - 1)]
 
     const categoriesIndexes = getRandNums(

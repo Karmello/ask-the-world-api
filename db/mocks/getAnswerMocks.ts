@@ -9,7 +9,7 @@ import { msInDay } from '../constants'
 const getAnswerMocks = (users: IUser[], questions: IQuestion[]) => {
   const answerMocks = [] as IAnswer[]
 
-  const questionIndexes = getRandNums(0, questions.length - 1, 1200)
+  const questionIndexes = getRandNums(0, questions.length - 1, 1500)
 
   times(questionIndexes.length, (i: number) => {
     const {
