@@ -1,4 +1,5 @@
 import { Application, Request, Response, NextFunction } from 'express'
+import compression from 'compression'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import helmet from 'helmet'
@@ -14,6 +15,7 @@ export default (app: Application) => {
     app.use(morgan('dev'))
   }
 
+  app.use(compression())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json({ limit: '50mb' }))
   app.use(helmet.frameguard())
