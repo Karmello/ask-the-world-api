@@ -25,7 +25,7 @@ export default (app: Application) => {
         res.status(201).send({ user: savedUser })
       })
       .catch(err => {
-        sendBadResponse(req, res, 400, { valErr: err })
+        sendBadResponse(req, res, 400, { valErr: err.errors })
       })
   })
 }

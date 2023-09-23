@@ -31,7 +31,7 @@ export default (app: Application) => {
               })
             })
             .catch(err => {
-              sendBadResponse(req, res, 400, { valErr: err })
+              sendBadResponse(req, res, 400, { valErr: err.errors })
             })
         })
         .catch(err => {
