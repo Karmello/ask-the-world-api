@@ -26,12 +26,6 @@ describe('question text validation', () => {
     expect(err.errors.text.kind).to.eql('required')
   })
 
-  it('too short => checkMinLength', () => {
-    const question = new QuestionModel({ text: 'Wtf ?' })
-    const err = question.validateSync()
-    expect(err.errors.text.kind).to.eql('checkMinLength')
-  })
-
   it('too long => checkMaxLength', () => {
     const question = new QuestionModel({
       text: 'this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title, this is very long questions title',

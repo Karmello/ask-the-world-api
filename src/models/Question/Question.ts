@@ -1,14 +1,10 @@
 import mongoose from 'mongoose'
 
-import {
-  QUESTION_INPUT_MIN_LENGTH,
-  QUESTION_INPUT_MAX_LENGTH,
-} from 'atw-shared/utils/index'
+import { QUESTION_INPUT_MAX_LENGTH } from 'atw-shared/utils/index'
 
 import { ModelName, IQuestionDoc } from 'utils/index'
 
 import {
-  checkMinLength,
   checkMaxLength,
   checkSelectableOptionsExact,
   checkSelectableOptionsMin,
@@ -44,10 +40,7 @@ const questionSchema = new Schema(
     text: {
       type: String,
       required: true,
-      validate: [
-        checkMinLength(QUESTION_INPUT_MIN_LENGTH),
-        checkMaxLength(QUESTION_INPUT_MAX_LENGTH),
-      ],
+      validate: [checkMaxLength(QUESTION_INPUT_MAX_LENGTH)],
     },
     options: [
       {
