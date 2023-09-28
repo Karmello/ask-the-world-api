@@ -15,11 +15,13 @@ export default (app: Application) => {
     readAuthToken,
     checkAuthToken,
     (req: Request, res: Response) => {
+      const { _id } = req.query
+
       Promise.all([
         QuestionModel.aggregate([
           {
             $match: {
-              creatorId: new ObjectId(req.decoded._id),
+              creatorId: new ObjectId(_id.toString()),
               terminatedAt: { $exists: false },
             },
           },
@@ -34,7 +36,7 @@ export default (app: Application) => {
         QuestionModel.aggregate([
           {
             $match: {
-              creatorId: new ObjectId(req.decoded._id),
+              creatorId: new ObjectId(_id.toString()),
               terminatedAt: { $exists: true },
             },
           },
@@ -47,7 +49,7 @@ export default (app: Application) => {
           },
         ]),
         AnswerModel.aggregate([
-          { $match: { answererId: new ObjectId(req.decoded._id) } },
+          { $match: { answererId: new ObjectId(_id.toString()) } },
           {
             $lookup: {
               from: 'questions',
@@ -65,7 +67,7 @@ export default (app: Application) => {
           },
         ]),
         ReportModel.aggregate([
-          { $match: { reporterId: new ObjectId(req.decoded._id) } },
+          { $match: { reporterId: new ObjectId(_id.toString()) } },
           {
             $lookup: {
               from: 'questions',
