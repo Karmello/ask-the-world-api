@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
-import { QUESTION_INPUT_MAX_LENGTH } from 'atw-shared/utils/index'
-
+import { QUESTION_INPUT_MAX_LENGTH, QuestionType } from 'atw-shared/utils/index'
 import { ModelName, IQuestionDoc } from 'utils/index'
 
 import {
@@ -29,6 +28,11 @@ const questionSchema = new Schema(
     },
     terminatedAt: {
       type: Number,
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: QuestionType,
     },
     categories: [
       {

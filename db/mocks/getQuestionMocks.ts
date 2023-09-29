@@ -9,6 +9,7 @@ import {
   ANSWER_INPUT_MAX_LENGTH,
   IUser,
   IQuestion,
+  QuestionType,
 } from 'atw-shared/utils'
 
 import { getRandNum, getRandNums } from 'atw-shared/helpers'
@@ -40,6 +41,7 @@ const getQuestionMocks = (users: IUser[]) => {
           to: new Date(Date.now() - 10 * msInDay),
         })
       ).getTime(),
+      type: QuestionType.Ranking,
       categories: (() => {
         const arr = []
         times(categoriesIndexes.length, i => {
