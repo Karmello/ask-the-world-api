@@ -27,7 +27,7 @@ const paymentMock = {
         name: 'Kamil Noga',
         phone: null,
       },
-      calculated_statement_descriptor: 'ASK THE WORLD APP',
+      calculated_statement_descriptor: 'NUMS DONT LIE APP',
       captured: true,
       created: 1657830221,
       currency: 'pln',
