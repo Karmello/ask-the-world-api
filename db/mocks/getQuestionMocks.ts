@@ -16,11 +16,20 @@ import { getRandNum, getRandNums } from 'atw-shared/helpers'
 import { msInDay } from '../constants'
 import questionCategories from './questionCategoryMocks'
 
+const QUESTION_TYPES = [
+  QuestionType.SingleChoice,
+  QuestionType.MultiChoiceExact,
+  QuestionType.MultiChoiceRange,
+  QuestionType.Rating,
+]
+
 const getQuestionMocks = (users: IUser[]) => {
   const questionMocks = [] as IQuestion[]
 
   times(2000, () => {
     const user = users[getRandNum(0, users.length - 1)]
+
+    const type = QUESTION_TYPES[getRandNum(0, QUESTION_TYPES.length - 1)]
 
     const categoriesIndexes = getRandNums(
       0,
@@ -28,10 +37,10 @@ const getQuestionMocks = (users: IUser[]) => {
       getRandNum(1, QUESTION_MAX_NUM_OF_CATEGORIES)
     )
 
-    const numOfAnswers = getRandNum(
-      MIN_NUM_OF_QUESTION_OPTIONS,
-      MAX_NUM_OF_QUESTION_OPTIONS
-    )
+    const numOfAnswers =
+      type !== QuestionType.Rating
+        ? getRandNum(MIN_NUM_OF_QUESTION_OPTIONS, MAX_NUM_OF_QUESTION_OPTIONS)
+        : [5, 10][getRandNum(0, 1)]
 
     const question = {
       creatorId: user._id,
@@ -41,7 +50,7 @@ const getQuestionMocks = (users: IUser[]) => {
           to: new Date(Date.now() - 10 * msInDay),
         })
       ).getTime(),
-      type: QuestionType.Ranking,
+      type,
       categories: (() => {
         const arr = []
         times(categoriesIndexes.length, i => {
@@ -51,18 +60,23 @@ const getQuestionMocks = (users: IUser[]) => {
       })(),
       text: faker.lorem
         .sentence(30)
-        .substring(0, getRandNum(10, QUESTION_INPUT_MAX_LENGTH)),
+        .substring(0, getRandNum(15, QUESTION_INPUT_MAX_LENGTH / 3)),
       options: (() => {
         const arr = []
-        times(numOfAnswers, () => {
-          arr.push(faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH))
+        times(numOfAnswers, (i: number) => {
+          const option =
+            type !== QuestionType.Rating
+              ? faker.lorem.sentence(30).substring(0, ANSWER_INPUT_MAX_LENGTH)
+              : i + 1
+          arr.push(option)
         })
         return arr
       })(),
       selectableOptions: (() => {
-        const exactNumOfVotes = faker.datatype.boolean()
+        const exactNumOfVotes = type !== QuestionType.MultiChoiceRange
         if (exactNumOfVotes) {
-          const exact = getRandNum(1, numOfAnswers - 1)
+          const exact =
+            type === QuestionType.MultiChoiceExact ? getRandNum(1, numOfAnswers - 1) : 1
           return { exact }
         } else {
           const min = getRandNum(1, numOfAnswers - 1)

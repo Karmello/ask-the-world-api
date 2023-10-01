@@ -13,7 +13,7 @@ export default (app: Application) => {
     checkAuthToken,
     (req: Request, res: Response) => {
       const creatorId = req.decoded._id
-      const { categories, text, options, selectableOptions, canBeReanswered } =
+      const { type, categories, text, options, selectableOptions, canBeReanswered } =
         req.body as IQuestion
 
       if (!selectableOptions.exact && !selectableOptions.range) {
@@ -30,6 +30,7 @@ export default (app: Application) => {
 
       const newQuestion = new QuestionModel({
         creatorId,
+        type,
         categories,
         text,
         options,
