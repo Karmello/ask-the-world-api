@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.481.0",
-    "@honeybadger-io/js": "^6.7.1",
+    "@honeybadger-io/js": "^6.8.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",

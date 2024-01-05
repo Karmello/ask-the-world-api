@@ -1726,10 +1726,10 @@
     json-nd "^1.0.0"
     stacktrace-parser "^0.1.10"
 
-"@honeybadger-io/js@^6.7.1":
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.7.1.tgz#bcf098ab7943487d7c1a593eddc32c1ef823663e"
-  integrity sha512-KqBg3XvVHCZX96ER0T3pYQ+JaVEvnQpFh/6Q87afhGpJvRc1kJFXrnYYr4wUpgkgDdOAmgbYoMwq1SmfGDkreQ==
+"@honeybadger-io/js@^6.8.2":
+  version "6.8.2"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.8.2.tgz#bcfe97533d2d832224781417fc8273f8f0aa6e8e"
+  integrity sha512-MjJjtC3hsTmGkt/IIsx7V92tsonXwXWwmZE7tPim/pfLlBVAcbsJA3bG7npf5O77cDtdYTCr3QYqdURUHA9xTA==
   dependencies:
     "@honeybadger-io/core" "^6.5.1"
     "@types/aws-lambda" "^8.10.89"
